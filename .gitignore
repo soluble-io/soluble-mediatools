@@ -1,0 +1,28 @@
+composer.lock
+/vendor
+# For various tools
+.php_cs.cache
+.buildpath
+.DS_Store
+.*.sw*
+.*.un~
+.project
+.settings/
+.idea
+/nbproject
+# For PHPUnit
+/build
+/phpunit*.xml
+# For Tests
+/tests/output/*
+!/tests/output/.gitkeep
+/tests/reports/.metadata
+# For Travis
+.travis/downloads/*
+!.travis/downloads/.gitkeep
+.travis/target
+.travis/*.war
+.travis/*.log
+.travis/*.pid
+infection-log.txt
+

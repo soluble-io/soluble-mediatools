@@ -1,0 +1,81 @@
+site_name: 'soluble-mediatools'
+site_description: 'Mediatools'
+site_author: 'Sébastien Vanvelthem'
+site_url: https://docs.soluble.io/soluble-mediatools/
+
+# Repository
+repo_name: 'soluble-mediatools'
+repo_url: 'https://github.com/soluble-io/soluble-mediatools'
+
+# Copyright
+copyright: 'Copyright &copy; 2018 Sébastien Vanvelthem'
+
+docs_dir: docs
+site_dir: build/docs
+
+pages:
+    - { 'Introduction': index.md }
+    - { 'Installation': install.md }
+    - { 'Usage': [
+          { 'Transcoding': transcoding.md }
+        ]
+      }
+
+
+# Documentation and theme
+theme: 'material'
+
+# Options
+extra:
+  #logo: 'images/logo.svg'
+  logo:
+    icon: 'thumbs_up_down'
+  palette:
+    primary: 'pink'
+    accent: 'light blue'
+  font:
+    #text: 'Source Sans Pro'
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  # If extra_css defined here ->
+  # -> WARNING -  Config value: 'extra_css'.
+  #    This behavior is deprecated. In version 1.0 and later they will need to be explicitly listed in the 'extra_css' config setting.
+  #extra_css:
+  #  - 'stylesheets/extra.css'
+  #  - 'stylesheets/monokai.css'
+  # Has been modev out of 'extra' section, see extra_css below
+  social:
+    - type: 'github'
+      link: 'https://github.com/soluble-io/soluble-mediatools'
+
+extra_css:
+  - 'assets/css/extra.css'
+  - 'assets/css/monokai.css'
+
+google_analytics:
+  - 'UA-92890300-1'
+  - 'auto'
+
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite(guess_lang=false)
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc(permalink=true)
+  - pymdownx.arithmatex
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde

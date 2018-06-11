@@ -1,0 +1,16 @@
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
+parameters:
+	fileExtensions:
+		- php
+		- dist
+	excludes_analyse:
+		- */tests/server/expressive/*
+	reportUnmatchedIgnoredErrors: true
+	ignoreErrors:
+		# Those constants are in phpunit, no way phpstan will find them ;)
+		- '#Constant EXPRESSIVE_SERVER_HOST not found#'
+		- '#Constant EXPRESSIVE_SERVER_PORT not found#'
+

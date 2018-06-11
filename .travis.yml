@@ -1,0 +1,32 @@
+language: php
+sudo: required
+dist: trusty
+group: edge
+
+matrix:
+  include:
+    - php: 7.1
+      env:
+        - SEND_COVERAGE=true
+        - CHECK=true
+        - INFECTION=true
+    - php: 7.2
+    - php: nightly
+  allow_failures:
+    - php: nightly
+
+before_script:
+  # -------------------------------------------------------------------------
+  # Step 1: Regular composer install
+  - composer install --no-interaction --ignore-platform-reqs
+  - composer install -d ./tests/server/expressive --ignore-platform-reqs
+
+script:
+  - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
+  - if [[ $CHECK == true ]]; then composer check; fi
+  - if [[ $INFECTION == true ]]; then ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=80 --min-covered-msi=90 --threads=4; fi
+
+after_script:
+  - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [[ $SEND_COVERAGE == true ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
+  - if [[ $SEND_COVERAGE == true ]]; then bash <(curl -s https://codecov.io/bash); fi
