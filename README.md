@@ -8,7 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Media tools
+Media tools, toolbax for media processing, transcoding...
 
 ## Status  
 
