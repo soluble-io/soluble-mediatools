@@ -6,7 +6,6 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Exception\MissingBinaryException;
 use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
 use Soluble\MediaTools\Filter\Video\VideoFilterChain;
 use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
@@ -16,19 +15,12 @@ use Symfony\Component\Process\Process;
 
 class VideoTranscode
 {
-    /**
-     * @var FFMpegConfig
-     */
+    /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /**
-     * @var VideoProbe
-     */
+    /** @var VideoProbe */
     protected $videoProbe;
 
-    /**
-     * @throws MissingBinaryException;
-     */
     public function __construct(FFMpegConfig $ffmpegConfig, VideoProbe $videoProbe)
     {
         $this->videoProbe   = $videoProbe;
@@ -106,7 +98,7 @@ class VideoTranscode
     }
     */
 
-    public function transcode(string $videoFile, string $outputFile, VideoTranscodeParams $transcodeParams, VideoFilterInterface $videoFilter = null): void
+    public function transcode(string $videoFile, string $outputFile, VideoTranscodeParams $transcodeParams, ?VideoFilterInterface $videoFilter = null): void
     {
         $this->ensureFileExists($videoFile);
 
@@ -128,7 +120,7 @@ class VideoTranscode
                 [
                     ($threads !== null) ? sprintf('-threads %s', $threads) : '',
                     '-y', // tell to overwrite
-                    sprintf('%s', escapeshellarg($outputFile))
+                    sprintf('%s', escapeshellarg($outputFile)),
                 ]
             )
         );
@@ -158,7 +150,7 @@ class VideoTranscode
      *
      * @return VideoFilterInterface|VideoFilterChain|EmptyVideoFilter|YadifVideoFilter
      */
-    public function getDeintFilter(string $videoFile, VideoFilterTypeDenoiseInterface $denoiseFilter = null): VideoFilterInterface
+    public function getDeintFilter(string $videoFile, ?VideoFilterTypeDenoiseInterface $denoiseFilter = null): VideoFilterInterface
     {
         $guess       = $this->videoProbe->guessInterlacing($videoFile);
         $deintFilter = $guess->getDeinterlaceVideoFilter();

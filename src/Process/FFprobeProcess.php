@@ -8,9 +8,7 @@ use Soluble\MediaTools\Config\FFProbeConfig;
 
 class FFprobeProcess extends AbstractProcess
 {
-    /**
-     * @var FFProbeConfig
-     */
+    /** @var FFProbeConfig */
     protected $config;
 
     public function __construct(FFProbeConfig $config)

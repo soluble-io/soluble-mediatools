@@ -8,21 +8,16 @@ use Soluble\MediaTools\Process\FFmpegProcess;
 
 class FFMpegConfig
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $binary;
-    /**
-     * @var FFmpegProcess
-     */
+
+    /** @var FFmpegProcess */
     protected $process;
 
-    /**
-     * @var int|null
-     */
+    /** @var int|null */
     protected $threads;
 
-    public function __construct(string $binary, int $threads = null)
+    public function __construct(string $binary, ?int $threads = null)
     {
         $this->binary  = $binary;
         $this->threads = $threads;

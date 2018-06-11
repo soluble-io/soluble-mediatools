@@ -26,9 +26,6 @@ abstract class AbstractProcess
         }
     }
 
-    /**
-     * @throws MissingBinaryException;
-     */
     public function ensureBinaryExists(): void
     {
         $binary = $this->getBinary();

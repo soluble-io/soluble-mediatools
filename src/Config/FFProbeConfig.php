@@ -8,13 +8,10 @@ use Soluble\MediaTools\Process\FFprobeProcess;
 
 class FFProbeConfig
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $binary;
-    /**
-     * @var FFprobeProcess
-     */
+
+    /** @var FFprobeProcess */
     protected $process;
 
     public function __construct(string $binary)

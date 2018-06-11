@@ -71,7 +71,7 @@
         "test": "vendor/bin/phpunit",
         "test:mutation": "vendor/bin/infection --configuration=infection.local.json --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=90 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
-        "cs-fix": "vendor/bin/php-cs-fixer -v fix",
+        "cs-fix": "vendor/bin/phpcbf; vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src tests",
         "build-doc": "mkdocs build",
         "serve-doc": "mkdocs serve --dev-addr localhost:8094",

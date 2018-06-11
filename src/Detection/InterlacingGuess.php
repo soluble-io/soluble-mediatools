@@ -15,25 +15,18 @@ class InterlacingGuess
     public const MODE_INTERLACED_BFF = 'INTERLACED_BFF';
     public const MODE_INTERLACED_TFF = 'INTERLACED_TFF';
     public const MODE_PROGRESSIVE    = 'PROGRESSIVE';
-    public const MODE_UNDETERMINED   =  'UNDETERMINED';
+    public const MODE_UNDETERMINED   = 'UNDETERMINED';
 
-    /**
-     * @var float
-     */
+    /** @var float */
     protected $detection_threshold;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $total_frames;
-    /**
-     * @var int[]
-     */
+
+    /** @var int[] */
     protected $detected_frames;
 
-    /**
-     * @var float[]
-     */
+    /** @var float[] */
     protected $percent_frames;
 
     /**
@@ -70,11 +63,11 @@ class InterlacingGuess
         return $this->percent_frames;
     }
 
-    public function getBestGuess(float $threshold = null): string
+    public function getBestGuess(?float $threshold = null): string
     {
         $min_pct = $threshold !== null ? $threshold : $this->detection_threshold;
         reset($this->detected_frames);
-        $bestGuessKey =  key($this->detected_frames);
+        $bestGuessKey = key($this->detected_frames);
         if ($this->percent_frames[$bestGuessKey] >= $min_pct) {
             return $bestGuessKey;
         }
@@ -90,7 +83,7 @@ class InterlacingGuess
      *
      * @return bool
      */
-    public function isInterlacedTff(float $threshold = null): bool
+    public function isInterlacedTff(?float $threshold = null): bool
     {
         $min_pct = $threshold !== null ? $threshold : $this->detection_threshold;
 
@@ -105,7 +98,7 @@ class InterlacingGuess
      *
      * @return bool
      */
-    public function isInterlacedBff(float $threshold = null): bool
+    public function isInterlacedBff(?float $threshold = null): bool
     {
         $min_pct = $threshold !== null ? $threshold : $this->detection_threshold;
 
@@ -120,19 +113,19 @@ class InterlacingGuess
      *
      * @return bool
      */
-    public function isInterlaced(float $threshold = null): bool
+    public function isInterlaced(?float $threshold = null): bool
     {
         return $this->isInterlacedBff($threshold) || $this->isInterlacedTff($threshold);
     }
 
-    public function isProgressive(float $threshold = null): bool
+    public function isProgressive(?float $threshold = null): bool
     {
         $min_pct = $threshold !== null ? $threshold : $this->detection_threshold;
 
         return $this->percent_frames[self::MODE_PROGRESSIVE] >= $min_pct;
     }
 
-    public function isUndetermined(float $threshold = null): bool
+    public function isUndetermined(?float $threshold = null): bool
     {
         $min_pct = $threshold !== null ? $threshold : $this->detection_threshold;
 
@@ -144,7 +137,7 @@ class InterlacingGuess
      *
      * @return EmptyVideoFilter|YadifVideoFilter
      */
-    public function getDeinterlaceVideoFilter(float $threshold = null): VideoFilterInterface
+    public function getDeinterlaceVideoFilter(?float $threshold = null): VideoFilterInterface
     {
         if (!$this->isInterlaced($threshold)) {
             return new EmptyVideoFilter();

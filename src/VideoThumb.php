@@ -6,7 +6,6 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Exception\MissingBinaryException;
 use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
 use Soluble\MediaTools\Filter\Video\VideoFilterChain;
 use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
@@ -15,19 +14,12 @@ use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
 
 class VideoThumb
 {
-    /**
-     * @var FFMpegConfig
-     */
+    /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /**
-     * @var VideoProbe
-     */
+    /** @var VideoProbe */
     protected $videoProbe;
 
-    /**
-     * @throws MissingBinaryException;
-     */
     public function __construct(FFMpegConfig $ffmpegConfig, VideoProbe $videoProbe)
     {
         $this->videoProbe   = $videoProbe;
@@ -44,7 +36,7 @@ class VideoThumb
      *
      * @return VideoFilterInterface|VideoFilterChain|EmptyVideoFilter|YadifVideoFilter
      */
-    public function getDeintFilter(string $videoFile, VideoFilterTypeDenoiseInterface $denoiseFilter = null): VideoFilterInterface
+    public function getDeintFilter(string $videoFile, ?VideoFilterTypeDenoiseInterface $denoiseFilter = null): VideoFilterInterface
     {
         $guess       = $this->videoProbe->guessInterlacing($videoFile);
         $deintFilter = $guess->getDeinterlaceVideoFilter();
@@ -63,7 +55,7 @@ class VideoThumb
         return $deintFilter;
     }
 
-    public function makeThumbnails(string $videoFile, string $outputFile, float $time = 0.0, VideoFilterInterface $videoFilter = null): void
+    public function makeThumbnails(string $videoFile, string $outputFile, float $time = 0.0, ?VideoFilterInterface $videoFilter = null): void
     {
         $this->ensureFileExists($videoFile);
 
@@ -81,7 +73,7 @@ class VideoThumb
                 '-frames:v 1',
                 '-q:v 2',
                 '-y', // tell to overwrite
-                sprintf('%s', escapeshellarg($outputFile))
+                sprintf('%s', escapeshellarg($outputFile)),
             ]
         );
 

@@ -8,29 +8,19 @@ use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Detection\InterlacingGuess;
 use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Exception\MissingBinaryException;
 use Symfony\Component\Process\Process;
 
 class VideoProbe
 {
-    /**
-     * @var FFProbeConfig
-     */
+    /** @var FFProbeConfig */
     protected $ffprobeConfig;
 
-    /**
-     * @var FFMpegConfig
-     */
+    /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /**
-     * @var mixed[]
-     */
+    /** @var mixed[] */
     protected $cache = [];
 
-    /**
-     * @throws MissingBinaryException;
-     */
     public function __construct(FFProbeConfig $ffProbeConfig, FFMpegConfig $ffmpegConfig)
     {
         $this->ffprobeConfig = $ffProbeConfig;
@@ -98,18 +88,22 @@ class VideoProbe
         $total_frames   = 0;
 
         foreach ($stdErr as $line) {
-            if (mb_substr($line, 0, 12) === '[Parsed_idet') {
-                $unspaced = preg_replace('/( )+/', '', $line);
-                $matches  = [];
-                if (preg_match_all('/TFF:(\d+)BFF:(\d+)Progressive:(\d+)Undetermined:(\d+)/i', $unspaced, $matches)) {
-                    //$type = strpos(strtolower($unspaced), 'single') ? 'single' : 'multi';
-                    $interlaced_tff += $matches[1][0];
-                    $interlaced_bff += $matches[2][0];
-                    $progressive += $matches[3][0];
-                    $undetermined += $matches[4][0];
-                    $total_frames += ($matches[1][0] + $matches[2][0] + $matches[3][0] + $matches[4][0]);
-                }
+            if (mb_substr($line, 0, 12) !== '[Parsed_idet') {
+                continue;
             }
+
+            $unspaced = preg_replace('/( )+/', '', $line);
+            $matches  = [];
+            if (!preg_match_all('/TFF:(\d+)BFF:(\d+)Progressive:(\d+)Undetermined:(\d+)/i', $unspaced, $matches)) {
+                continue;
+            }
+
+            //$type = strpos(strtolower($unspaced), 'single') ? 'single' : 'multi';
+            $interlaced_tff += $matches[1][0];
+            $interlaced_bff += $matches[2][0];
+            $progressive += $matches[3][0];
+            $undetermined += $matches[4][0];
+            $total_frames += ($matches[1][0] + $matches[2][0] + $matches[3][0] + $matches[4][0]);
         }
 
         $guess                   = new InterlacingGuess($interlaced_tff, $interlaced_bff, $progressive, $undetermined);

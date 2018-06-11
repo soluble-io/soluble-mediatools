@@ -13,7 +13,7 @@ class YadifVideoFilter extends AbstractVideoFilter implements VideoFilterTypeDei
     protected $options = [
         'mode'   => self::DEFAULT_MODE,
         'parity' => self::DEFAULT_PARITY,
-        'deint'  => self::DEFAULT_DEINT
+        'deint'  => self::DEFAULT_DEINT,
     ];
 
     /**
@@ -26,7 +26,7 @@ class YadifVideoFilter extends AbstractVideoFilter implements VideoFilterTypeDei
         $this->options = [
             'mode'   => $mode,
             'parity' => $parity,
-            'deint'  => $deint
+            'deint'  => $deint,
         ];
     }
 

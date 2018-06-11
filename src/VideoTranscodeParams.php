@@ -29,11 +29,11 @@ class VideoTranscodeParams
 
     public const SUPPORTED_OPTIONS = [
         self::OPTION_OUTPUT_FORMAT => [
-            'ffmpeg_pattern' => '-f %s'
+            'ffmpeg_pattern' => '-f %s',
         ],
 
         self::OPTION_VIDEO_CODEC => [
-            'ffmpeg_pattern' => '-vcodec %s'
+            'ffmpeg_pattern' => '-vcodec %s',
         ],
         self::OPTION_VIDEO_BITRATE => [
             'ffmpeg_pattern' => '-b:v %s',
@@ -49,14 +49,14 @@ class VideoTranscodeParams
             'ffmpeg_pattern' => '-acodec %s',
         ],
         self::OPTION_AUDIO_BITRATE => [
-            'ffmpeg_pattern' => '-b:a %s'
-            ],
+            'ffmpeg_pattern' => '-b:a %s',
+        ],
         self::OPTION_PIX_FMT => [
-            'ffmpeg_pattern' => '-pix_fmt %s'
-            ],
+            'ffmpeg_pattern' => '-pix_fmt %s',
+        ],
         self::OPTION_PRESET => [
             'ffmpeg_pattern' => '-preset %s',
-            ],
+        ],
         self::OPTION_SPEED => [
             'ffmpeg_pattern' => '-speed %s',
         ],
@@ -85,9 +85,7 @@ class VideoTranscodeParams
         ],
     ];
 
-    /**
-     * @var array<string|bool>
-     */
+    /** @var array<string|bool> */
     protected $options = [];
 
     public function __construct($options = [])
@@ -96,7 +94,7 @@ class VideoTranscodeParams
         $this->options = $options;
     }
 
-    protected function checkOptions(array $options)
+    protected function checkOptions(array $options): void
     {
         foreach (array_keys($options) as $optionName) {
             if (!$this->isOptionValid($optionName)) {
@@ -131,14 +129,14 @@ class VideoTranscodeParams
     public function withVideoCodec(string $videoCodec): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_CODEC => $videoCodec
+            self::OPTION_VIDEO_CODEC => $videoCodec,
         ]));
     }
 
     public function withAudioCodec(string $audioCodec): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_AUDIO_CODEC => $audioCodec
+            self::OPTION_AUDIO_CODEC => $audioCodec,
         ]));
     }
 
@@ -153,7 +151,7 @@ class VideoTranscodeParams
     public function withTileColumns(int $tileColumns): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_TILE_COLUMNS => $tileColumns
+            self::OPTION_TILE_COLUMNS => $tileColumns,
         ]));
     }
 
@@ -168,105 +166,105 @@ class VideoTranscodeParams
     public function withKeyframeSpacing(int $keyframeSpacing): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_KEYFRAME_SPACING => $keyframeSpacing
+            self::OPTION_KEYFRAME_SPACING => $keyframeSpacing,
         ]));
     }
 
     public function withFrameParallel(int $frameParallel): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_FRAME_PARALLEL => $frameParallel
+            self::OPTION_FRAME_PARALLEL => $frameParallel,
         ]));
     }
 
     public function withCrf(int $crf): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_CRF => $crf
+            self::OPTION_CRF => $crf,
         ]));
     }
 
     public function withPixFmt(string $pixFmt): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_PIX_FMT => $pixFmt
+            self::OPTION_PIX_FMT => $pixFmt,
         ]));
     }
 
     public function withPreset(string $preset): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_PRESET => $preset
+            self::OPTION_PRESET => $preset,
         ]));
     }
 
     public function withSpeed(int $speed): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_SPEED => $speed
+            self::OPTION_SPEED => $speed,
         ]));
     }
 
     public function withThreads(int $threads): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_THREADS => $threads
+            self::OPTION_THREADS => $threads,
         ]));
     }
 
     public function withTune(string $tune): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_TUNE => $tune
+            self::OPTION_TUNE => $tune,
         ]));
     }
 
     public function withStreamable(bool $streamable): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_STREAMABLE => $streamable
+            self::OPTION_STREAMABLE => $streamable,
         ]));
     }
 
     public function withAudioBitrate(string $bitrate): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_AUDIO_BITRATE => $bitrate
+            self::OPTION_AUDIO_BITRATE => $bitrate,
         ]));
     }
 
     public function withVideoBitrate(string $bitrate): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_BITRATE => $bitrate
+            self::OPTION_VIDEO_BITRATE => $bitrate,
         ]));
     }
 
     public function withVideoMinBitrate(string $minBitrate): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_MIN_BITRATE => $minBitrate
+            self::OPTION_VIDEO_MIN_BITRATE => $minBitrate,
         ]));
     }
 
     public function withVideoMaxBitrate(string $maxBitrate): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_MAX_BITRATE => $maxBitrate
+            self::OPTION_VIDEO_MAX_BITRATE => $maxBitrate,
         ]));
     }
 
     public function withQuality(string $quality): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_QUALITY => $quality
+            self::OPTION_QUALITY => $quality,
         ]));
     }
 
     public function withOutputFormat(string $outputFormat): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_OUTPUT_FORMAT => $outputFormat
+            self::OPTION_OUTPUT_FORMAT => $outputFormat,
         ]));
     }
 

@@ -8,9 +8,7 @@ use Soluble\MediaTools\Config\FFMpegConfig;
 
 class FFmpegProcess extends AbstractProcess
 {
-    /**
-     * @var FFMpegConfig
-     */
+    /** @var FFMpegConfig */
     protected $config;
 
     public function __construct(FFMpegConfig $config)

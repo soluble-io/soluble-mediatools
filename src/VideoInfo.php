@@ -12,14 +12,10 @@ class VideoInfo
     public const STREAM_TYPE_VIDEO = 'video';
     public const STREAM_TYPE_DATA  = 'data';
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $metadata;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $file;
 
     public function __construct(string $file, array $metadata)

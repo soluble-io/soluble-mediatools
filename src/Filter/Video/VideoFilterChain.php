@@ -6,9 +6,7 @@ namespace Soluble\MediaTools\Filter\Video;
 
 class VideoFilterChain extends AbstractVideoFilter
 {
-    /**
-     * @var VideoFilterInterface[]
-     */
+    /** @var VideoFilterInterface[] */
     protected $filters = [];
 
     public function __construct()
@@ -20,7 +18,7 @@ class VideoFilterChain extends AbstractVideoFilter
         return $this->filters;
     }
 
-    public function addFilter(VideoFilterInterface $filter)
+    public function addFilter(VideoFilterInterface $filter): void
     {
         $this->filters[] = $filter;
     }
@@ -30,9 +28,11 @@ class VideoFilterChain extends AbstractVideoFilter
         $values = [];
         foreach ($this->filters as $filter) {
             $val = $filter->getFFmpegCLIValue();
-            if ($val !== '') {
-                $values[] = $val;
+            if ($val === '') {
+                continue;
             }
+
+            $values[] = $val;
         }
         if (count($values) === 0) {
             return '';
