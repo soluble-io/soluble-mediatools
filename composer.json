@@ -74,12 +74,7 @@
         "cs-fix": "vendor/bin/phpcbf; vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src tests",
         "build-doc": "mkdocs build",
-        "serve-doc": "mkdocs serve --dev-addr localhost:8094",
-        "install-expressive-testapp": "composer update -d ./tests/server/expressive",
-        "serve-expressive-testapp": "php -S localhost:7999 -t tests/server/expressive/public",
-        "check-expressive-testapp": [
-            "composer phpstan -d tests/server/expressive/"
-        ]
+        "serve-doc": "mkdocs serve --dev-addr localhost:8094"
     },
     "suggest": {
         "monolog/monolog": "PSR-3 compatible logger"

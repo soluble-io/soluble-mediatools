@@ -7,10 +7,9 @@ parameters:
 		- php
 		- dist
 	excludes_analyse:
-		- */tests/server/expressive/*
+		#- */tests/server/expressive/*
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
 		# Those constants are in phpunit, no way phpstan will find them ;)
-		- '#Constant EXPRESSIVE_SERVER_HOST not found#'
-		- '#Constant EXPRESSIVE_SERVER_PORT not found#'
+		#- '#Constant EXPRESSIVE_SERVER_HOST not found#'
 
