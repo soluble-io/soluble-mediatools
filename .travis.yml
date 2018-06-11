@@ -9,7 +9,7 @@ matrix:
       env:
         - SEND_COVERAGE=true
         - CHECK=true
-        - INFECTION=true
+        - INFECTION=false
     - php: 7.2
     - php: nightly
   allow_failures:
