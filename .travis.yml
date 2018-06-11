@@ -19,7 +19,6 @@ before_script:
   # -------------------------------------------------------------------------
   # Step 1: Regular composer install
   - composer install --no-interaction --ignore-platform-reqs
-  - composer install -d ./tests/server/expressive --ignore-platform-reqs
 
 script:
   - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
