@@ -50,7 +50,7 @@ class VideoProbe
         return VideoInfo::createFromFFProbeJson($file, $jsonOutput);
     }
 
-    public function guessInterlacing(string $file, float $threshold = 0.8, int $framesToAnalyze = 1000): InterlacingGuess
+    public function guessInterlacing(string $file, float $threshold = InterlacingGuess::INTERLACING_DETECTION_THRESHOLD, int $framesToAnalyze = 1000): InterlacingGuess
     {
         $cache_key = md5(sprintf('%s:%s:%s:%s', __METHOD__, $file, $threshold, $framesToAnalyze));
         if (isset($this->cache[$cache_key]) && $this->cache[$cache_key] instanceof InterlacingGuess) {

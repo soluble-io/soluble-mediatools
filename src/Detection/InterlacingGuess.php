@@ -10,7 +10,12 @@ use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
 
 class InterlacingGuess
 {
-    public const DETECTION_THRESHOLD = 0.8;
+    /**
+     * Default interlacing detection threshold
+     * 20% frames detected interlaced is a sufficient
+     * threshold to detect interlacing.
+     */
+    public const INTERLACING_DETECTION_THRESHOLD = 0.2;
 
     public const MODE_INTERLACED_BFF = 'INTERLACED_BFF';
     public const MODE_INTERLACED_TFF = 'INTERLACED_TFF';
@@ -37,7 +42,7 @@ class InterlacingGuess
         int $nb_frames_interlaced_bff,
         int $nb_frames_progressive,
         int $nb_frames_undetermined,
-        float $detection_threshold = self::DETECTION_THRESHOLD
+        float $detection_threshold = self::INTERLACING_DETECTION_THRESHOLD
     ) {
         $this->detection_threshold = $detection_threshold;
         $detected_frames           = [
