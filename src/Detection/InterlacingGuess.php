@@ -28,10 +28,10 @@ class InterlacingGuess
     /** @var int */
     protected $total_frames;
 
-    /** @var int[] */
+    /** @var array<string, int> */
     protected $detected_frames;
 
-    /** @var float[] */
+    /** @var array<string, float> */
     protected $percent_frames;
 
     /**
@@ -53,7 +53,7 @@ class InterlacingGuess
         ];
         arsort($detected_frames, SORT_NUMERIC);
         $this->detected_frames = $detected_frames;
-        $this->total_frames    = array_sum(array_values($this->detected_frames));
+        $this->total_frames    = (int) array_sum(array_values($this->detected_frames));
         $this->percent_frames  = [];
         foreach ($this->detected_frames as $key => $value) {
             $this->percent_frames[$key] = $value / $this->total_frames;
@@ -72,7 +72,7 @@ class InterlacingGuess
     {
         $min_pct = $threshold !== null ? $threshold : $this->detection_threshold;
         reset($this->detected_frames);
-        $bestGuessKey = key($this->detected_frames);
+        $bestGuessKey = (string) key($this->detected_frames);
         if ($this->percent_frames[$bestGuessKey] >= $min_pct) {
             return $bestGuessKey;
         }
