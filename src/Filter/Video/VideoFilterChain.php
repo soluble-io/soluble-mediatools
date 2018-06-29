@@ -13,7 +13,7 @@ class VideoFilterChain extends AbstractVideoFilter
     {
     }
 
-    public function getFilters($filter): array
+    public function getFilters(): array
     {
         return $this->filters;
     }
