@@ -85,9 +85,12 @@ class VideoTranscodeParams
         ],
     ];
 
-    /** @var array<string|bool> */
+    /** @var array<string, bool|string|int|null> */
     protected $options = [];
 
+    /**
+     * @param array<string, bool|string|int|null> $options
+     */
     public function __construct($options = [])
     {
         $this->checkOptions($options);
