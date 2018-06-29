@@ -87,23 +87,25 @@ class VideoProbe
         $undetermined   = 0;
         $total_frames   = 0;
 
-        foreach ($stdErr as $line) {
-            if (mb_substr($line, 0, 12) !== '[Parsed_idet') {
-                continue;
-            }
+        if ($stdErr !== false) {
+            foreach ($stdErr as $line) {
+                if (mb_substr($line, 0, 12) !== '[Parsed_idet') {
+                    continue;
+                }
 
-            $unspaced = preg_replace('/( )+/', '', $line);
-            $matches  = [];
-            if (!preg_match_all('/TFF:(\d+)BFF:(\d+)Progressive:(\d+)Undetermined:(\d+)/i', $unspaced, $matches)) {
-                continue;
-            }
+                $unspaced = preg_replace('/( )+/', '', $line);
+                $matches = [];
+                if (preg_match_all('/TFF:(\d+)BFF:(\d+)Progressive:(\d+)Undetermined:(\d+)/i', $unspaced, $matches) < 1) {
+                    continue;
+                }
 
-            //$type = strpos(strtolower($unspaced), 'single') ? 'single' : 'multi';
-            $interlaced_tff += $matches[1][0];
-            $interlaced_bff += $matches[2][0];
-            $progressive += $matches[3][0];
-            $undetermined += $matches[4][0];
-            $total_frames += ($matches[1][0] + $matches[2][0] + $matches[3][0] + $matches[4][0]);
+                //$type = strpos(strtolower($unspaced), 'single') ? 'single' : 'multi';
+                $interlaced_tff += (int) $matches[1][0];
+                $interlaced_bff += (int) $matches[2][0];
+                $progressive += (int) $matches[3][0];
+                $undetermined += (int) $matches[4][0];
+                $total_frames += ((int) $matches[1][0] + (int) $matches[2][0] + (int) $matches[3][0] + (int) $matches[4][0]);
+            }
         }
 
         $guess                   = new InterlacingGuess($interlaced_tff, $interlaced_bff, $progressive, $undetermined);
