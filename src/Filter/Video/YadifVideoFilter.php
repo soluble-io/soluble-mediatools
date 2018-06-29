@@ -10,9 +10,7 @@ class YadifVideoFilter extends AbstractVideoFilter implements VideoFilterTypeDei
     public const DEFAULT_PARITY = -1;
     public const DEFAULT_DEINT  = 0;
 
-    /**
-     * @var array<string, int>
-     */
+    /** @var array<string, int> */
     protected $options = [
         'mode'   => self::DEFAULT_MODE,
         'parity' => self::DEFAULT_PARITY,

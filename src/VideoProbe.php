@@ -94,7 +94,7 @@ class VideoProbe
                 }
 
                 $unspaced = preg_replace('/( )+/', '', $line);
-                $matches = [];
+                $matches  = [];
                 if (preg_match_all('/TFF:(\d+)BFF:(\d+)Progressive:(\d+)Undetermined:(\d+)/i', $unspaced, $matches) < 1) {
                     continue;
                 }
