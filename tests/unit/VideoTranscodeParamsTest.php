@@ -42,7 +42,7 @@ class VideoTranscodeParamsTest extends TestCase
             ->withAudioBitrate('128k')
             ->withAudioCodec('aac')
             ->withVideoCodec('h264')
-            ->withVideoMaxBitrate('2M')
+            ->withVideoMaxBitrate('2000000')
             ->withFrameParallel(2)
             ->withTune('film');
 
@@ -62,7 +62,7 @@ class VideoTranscodeParamsTest extends TestCase
             VideoTranscodeParams::OPTION_AUDIO_BITRATE     => '128k',
             VideoTranscodeParams::OPTION_AUDIO_CODEC       => 'aac',
             VideoTranscodeParams::OPTION_VIDEO_CODEC       => 'h264',
-            VideoTranscodeParams::OPTION_VIDEO_MAX_BITRATE => '2M',
+            VideoTranscodeParams::OPTION_VIDEO_MAX_BITRATE => '2000000',
             VideoTranscodeParams::OPTION_FRAME_PARALLEL    => 2,
             VideoTranscodeParams::OPTION_TUNE              => 'film',
         ];
@@ -75,7 +75,7 @@ class VideoTranscodeParamsTest extends TestCase
 
         $cli = '-tile-columns 10 -threads 8 -speed 2 -g 240 -crf 32 -f mp4 ' .
                '-minrate 750k -b:v 1M -quality good -movflags +faststart -pix_fmt yuv420p ' .
-               '-preset fast -b:a 128k -acodec aac -vcodec h264 -maxrate 2M ' .
+               '-preset fast -b:a 128k -acodec aac -vcodec h264 -maxrate 2000000 ' .
                 '-frame-parallel 2 -tune film';
         self::assertEquals($cli, implode(' ', $params->getFFMpegArguments()));
     }

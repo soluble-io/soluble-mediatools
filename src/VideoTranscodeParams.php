@@ -295,7 +295,7 @@ class VideoTranscodeParams
     }
 
     /**
-     * @param string $maxVitrate Bitrate with optional unit: 1000000, 1000k or 1M
+     * @param string $maxBitrate Bitrate with optional unit: 1000000, 1000k or 1M
      *
      * @throws InvalidArgumentException if bitrate value is invalid
      */
