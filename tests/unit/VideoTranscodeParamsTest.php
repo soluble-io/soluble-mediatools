@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
 use Soluble\MediaTools\VideoTranscodeParams;
 
@@ -109,5 +110,45 @@ class VideoTranscodeParamsTest extends TestCase
 
         self::assertSame($filter1, $params->getOption(VideoTranscodeParams::OPTION_VIDEO_FILTER));
         self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[VideoTranscodeParams::OPTION_VIDEO_FILTER]);
+    }
+
+    public function testInvalidBitRateThrowsInvalidArgumentException(): void
+    {
+        $params = new VideoTranscodeParams();
+
+        try {
+            $params->withVideoBitrate('901w');
+            self::fail('Invalid bitrate must throw an exception');
+        } catch (\Throwable $e) {
+            self::assertInstanceOf(InvalidArgumentException::class, $e);
+        }
+
+        try {
+            $params->withVideoBitrate('');
+            self::fail('Invalid bitrate must throw an exception');
+        } catch (\Throwable $e) {
+            self::assertInstanceOf(InvalidArgumentException::class, $e);
+        }
+
+        try {
+            $params->withAudioBitrate('12M1');
+            self::fail('Invalid bitrate must throw an exception');
+        } catch (\Throwable $e) {
+            self::assertInstanceOf(InvalidArgumentException::class, $e);
+        }
+
+        try {
+            $params->withVideoMaxBitrate('12MM');
+            self::fail('Invalid bitrate must throw an exception');
+        } catch (\Throwable $e) {
+            self::assertInstanceOf(InvalidArgumentException::class, $e);
+        }
+
+        try {
+            $params->withVideoMinBitrate('12MK');
+            self::fail('Invalid bitrate must throw an exception');
+        } catch (\Throwable $e) {
+            self::assertInstanceOf(InvalidArgumentException::class, $e);
+        }
     }
 }

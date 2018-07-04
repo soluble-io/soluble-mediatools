@@ -242,6 +242,9 @@ class VideoTranscodeParams
         ]));
     }
 
+    /**
+     * If true, add streamable options for mp4 container (-movflags +faststart).
+     */
     public function withStreamable(bool $streamable): self
     {
         return new self(array_merge($this->options, [
@@ -249,29 +252,57 @@ class VideoTranscodeParams
         ]));
     }
 
+    /**
+     * @param string $bitrate Bitrate with optional unit: 1000000, 1000k or 1M
+     *
+     * @throws InvalidArgumentException if bitrate value is invalid
+     */
     public function withAudioBitrate(string $bitrate): self
     {
+        $this->ensureValidBitRateUnit($bitrate);
+
         return new self(array_merge($this->options, [
             self::OPTION_AUDIO_BITRATE => $bitrate,
         ]));
     }
 
+    /**
+     * @param string $bitrate Bitrate or target bitrate with optional unit: 1000000, 1000k or 1M
+     *
+     * @throws InvalidArgumentException if bitrate value is invalid
+     */
     public function withVideoBitrate(string $bitrate): self
     {
+        $this->ensureValidBitRateUnit($bitrate);
+
         return new self(array_merge($this->options, [
             self::OPTION_VIDEO_BITRATE => $bitrate,
         ]));
     }
 
+    /**
+     * @param string $minBitrate Bitrate with optional unit: 1000000, 1000k or 1M
+     *
+     * @throws InvalidArgumentException if bitrate value is invalid
+     */
     public function withVideoMinBitrate(string $minBitrate): self
     {
+        $this->ensureValidBitRateUnit($minBitrate);
+
         return new self(array_merge($this->options, [
             self::OPTION_VIDEO_MIN_BITRATE => $minBitrate,
         ]));
     }
 
+    /**
+     * @param string $maxVitrate Bitrate with optional unit: 1000000, 1000k or 1M
+     *
+     * @throws InvalidArgumentException if bitrate value is invalid
+     */
     public function withVideoMaxBitrate(string $maxBitrate): self
     {
+        $this->ensureValidBitRateUnit($maxBitrate);
+
         return new self(array_merge($this->options, [
             self::OPTION_VIDEO_MAX_BITRATE => $maxBitrate,
         ]));
@@ -309,5 +340,17 @@ class VideoTranscodeParams
         }
 
         return $args;
+    }
+
+    /**
+     * Ensure that a bitrate is valid (optionnal unit: k or M ).
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function ensureValidBitRateUnit(string $bitrate): void
+    {
+        if (preg_match('/^\d+(k|M)?$/i', $bitrate) !== 1) {
+            throw new InvalidArgumentException(sprintf('"%s"', $bitrate));
+        }
     }
 }
