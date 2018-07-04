@@ -98,22 +98,13 @@ class VideoTranscodeParams
 
     /**
      * @param array<string, bool|string|int|VideoFilterInterface> $options
+     *
+     * @throws InvalidArgumentException in case of unsupported option
      */
     public function __construct($options = [])
     {
-        $this->checkOptions($options);
+        $this->ensureSupportedOptions($options);
         $this->options = $options;
-    }
-
-    protected function checkOptions(array $options): void
-    {
-        foreach (array_keys($options) as $optionName) {
-            if (!$this->isOptionValid($optionName)) {
-                throw new InvalidArgumentException(
-                    sprintf('Unsupported option "%s" given.', $optionName)
-                );
-            }
-        }
     }
 
     public function isOptionValid(string $optionName): bool
@@ -343,7 +334,7 @@ class VideoTranscodeParams
     }
 
     /**
-     * Ensure that a bitrate is valid (optionnal unit: k or M ).
+     * Ensure that a bitrate is valid (optional unit: k or M ).
      *
      * @throws InvalidArgumentException
      */
@@ -351,6 +342,22 @@ class VideoTranscodeParams
     {
         if (preg_match('/^\d+(k|M)?$/i', $bitrate) !== 1) {
             throw new InvalidArgumentException(sprintf('"%s"', $bitrate));
+        }
+    }
+
+    /**
+     * Ensure that all options are supported.
+     *
+     * @throws InvalidArgumentException in case of unsupported option
+     */
+    protected function ensureSupportedOptions(array $options): void
+    {
+        foreach (array_keys($options) as $optionName) {
+            if (!$this->isOptionValid($optionName)) {
+                throw new InvalidArgumentException(
+                    sprintf('Unsupported option "%s" given.', $optionName)
+                );
+            }
         }
     }
 }

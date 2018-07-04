@@ -24,6 +24,25 @@ class VideoTranscodeParamsTest extends TestCase
         self::assertCount(1, $newParams->getOptions());
     }
 
+    public function testHasOption(): void
+    {
+        $params = (new VideoTranscodeParams())
+                  ->withTileColumns(10);
+        self::assertTrue($params->hasOption(VideoTranscodeParams::OPTION_TILE_COLUMNS));
+        self::assertFalse($params->hasOption(VideoTranscodeParams::OPTION_FRAME_PARALLEL));
+    }
+
+    public function testWithParamsMustBeIdenticalToConstrutorInject(): void
+    {
+        $injectedParams = new VideoTranscodeParams([
+            VideoTranscodeParams::OPTION_TUNE => 'grain',
+        ]);
+
+        $withParams = (new VideoTranscodeParams())->withTune('grain');
+
+        self::assertSame($injectedParams->getOptions(), $withParams->getOptions());
+    }
+
     public function testGetOptionsMustEqualsParams(): void
     {
         $params = (new VideoTranscodeParams())
