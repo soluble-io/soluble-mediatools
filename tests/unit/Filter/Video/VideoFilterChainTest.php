@@ -26,7 +26,7 @@ class VideoFilterChainTest extends TestCase
     public function testGetFFmpegCliArguments(): void
     {
         $filter1 = new class() implements VideoFilterInterface {
-            public function getFFMpegCliArgument(): string
+            public function getFFMpegCLIArgument(): string
             {
                 return '-vf';
             }
@@ -38,7 +38,7 @@ class VideoFilterChainTest extends TestCase
         };
 
         $filter2 = new class() implements VideoFilterInterface {
-            public function getFFMpegCliArgument(): string
+            public function getFFMpegCLIArgument(): string
             {
                 return '-vf';
             }
@@ -54,8 +54,7 @@ class VideoFilterChainTest extends TestCase
         $chain->addFilter($filter2);
 
         self::assertCount(2, $chain->getFilters());
-        self::assertEquals('-vf filter_1,filter_2', $chain->getFFMpegCliArgument());
-        self::assertEquals('filter_1,filter_2', $chain->getFFMpegCliValue());
-        echo $chain->getFFmpegCLIValue();
+        self::assertEquals('-vf filter_1,filter_2', $chain->getFFMpegCLIArgument());
+        self::assertEquals('filter_1,filter_2', $chain->getFFmpegCLIValue());
     }
 }

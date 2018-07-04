@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Filter\Video;
 
 abstract class AbstractVideoFilter implements VideoFilterInterface
 {
-    public function getFFMpegCliArgument(): string
+    public function getFFMpegCLIArgument(): string
     {
         if (trim($this->getFFmpegCLIValue()) === '') {
             return '';

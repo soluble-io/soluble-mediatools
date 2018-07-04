@@ -9,7 +9,7 @@ use Soluble\MediaTools\Exception\InvalidArgumentException;
 class VideoTranscodeParams
 {
     public const OPTION_VIDEO_CODEC       = 'VIDEO_CODEC';
-    public const OPTION_VIDEO_BITRATE     = 'VIDEO_TARGET_BITRATE';
+    public const OPTION_VIDEO_BITRATE     = 'VIDEO_BITRATE';
     public const OPTION_VIDEO_MIN_BITRATE = 'VIDEO_MIN_BITRATE';
     public const OPTION_VIDEO_MAX_BITRATE = 'VIDEO_MAX_BITRATE';
     public const OPTION_AUDIO_CODEC       = 'AUDIO_CODEC';

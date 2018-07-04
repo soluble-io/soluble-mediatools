@@ -114,7 +114,7 @@ class VideoTranscode
             array_merge(
                 [
                     sprintf('-i %s', escapeshellarg($videoFile)), // input filename
-                    $videoFilter->getFFMpegCliArgument(), // add -vf yadif,nlmeans
+                    $videoFilter->getFFMpegCLIArgument(), // add -vf yadif,nlmeans
                 ],
                 $transcodeParams->getFFMpegArguments(),
                 [

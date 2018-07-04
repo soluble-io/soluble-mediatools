@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Filter\Video;
 
 interface VideoFilterInterface
 {
-    public function getFFMpegCliArgument(): string;
+    public function getFFMpegCLIArgument(): string;
 
     public function getFFmpegCLIValue(): string;
 }

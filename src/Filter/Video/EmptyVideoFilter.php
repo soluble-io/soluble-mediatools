@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Filter\Video;
 
 class EmptyVideoFilter implements VideoFilterInterface
 {
-    public function getFFMpegCliArgument(): string
+    public function getFFMpegCLIArgument(): string
     {
         return '';
     }

@@ -69,7 +69,7 @@ class VideoThumb
             [
                 ($time > 0.0) ? sprintf('-ss %s', $time) : '', // putting time in front is much more efficient
                 sprintf('-i %s', escapeshellarg($videoFile)), // input filename
-                $videoFilter->getFFMpegCliArgument(), // add -vf yadif,nlmeans
+                $videoFilter->getFFMpegCLIArgument(), // add -vf yadif,nlmeans
                 '-frames:v 1',
                 '-q:v 2',
                 '-y', // tell to overwrite
