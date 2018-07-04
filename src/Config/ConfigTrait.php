@@ -14,7 +14,7 @@ trait ConfigTrait
         $key    = 'ffmpeg.binary';
         $config = $container->get('config')['soluble-mediatools'] ?? [];
 
-        if (!isset($config[$key]) || trim($config[$key]) === '') {
+        if (!isset($config[$key]) || trim((string) $config[$key]) === '') {
             throw new InvalidConfigException(
                 sprintf(
                     'The [\'%s\'] value is missing in config [\'soluble-mediatools\']',
@@ -31,7 +31,7 @@ trait ConfigTrait
     {
         $key    = 'ffprobe.binary';
         $config = $container->get('config')['soluble-mediatools'] ?? [];
-        if (!isset($config[$key]) || trim($config[$key]) === '') {
+        if (!isset($config[$key]) || trim((string) $config[$key]) === '') {
             throw new InvalidConfigException(
                 sprintf(
                     'The [\'%s\'] value is missing in config [\'soluble-mediatools\']',

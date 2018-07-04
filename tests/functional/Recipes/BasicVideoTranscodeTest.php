@@ -23,16 +23,44 @@ class BasicVideoTranscodeTest extends TestCase
 
     public function getTestsContainer(): ContainerInterface
     {
+        if (!defined('FFMPEG_BINARY_PATH')) {
+            throw new \Exception('Missing phpunit constant FFMPEG_BINARY_PATH');
+        }
+        if (!defined('FFPROBE_BINARY_PATH')) {
+            throw new \Exception('Missing phpunit constant FFPROBE_BINARY_PATH');
+        }
+
+        $ffmpegBinary  = realpath(FFMPEG_BINARY_PATH);
+        $ffprobeBinary = realpath(FFPROBE_BINARY_PATH);
+
+        if ($ffmpegBinary === false || !file_exists($ffmpegBinary)) {
+            throw new \Exception(sprintf(
+                'FFMPEG binary does not exists: %s, realpath returned: %s',
+                FFMPEG_BINARY_PATH,
+                is_bool($ffmpegBinary) ? 'false' : $ffmpegBinary
+            ));
+        }
+
+        if ($ffprobeBinary === false || !file_exists($ffprobeBinary)) {
+            throw new \Exception(sprintf(
+                'FFPROBE binary does not exists: %s, realpath returned: %s',
+                FFPROBE_BINARY_PATH,
+                is_bool($ffprobeBinary) ? 'false' : $ffprobeBinary
+            ));
+        }
+
+        $config = [
+            'soluble-mediatools' => [
+                'ffmpeg.binary'  => realpath(FFMPEG_BINARY_PATH),
+                'ffprobe.binary' => realpath(FFPROBE_BINARY_PATH),
+            ],
+        ];
+
         return new ServiceManager(
             array_merge(
                 [
                     'services' => [
-                        'config' => [
-                            'soluble-mediatools' => [
-                                'ffmpeg.binary'  => 'ffmpeg',
-                                'ffprobe.binary' => 'ffprobe',
-                            ],
-                        ],
+                        'config' => $config,
                     ]],
                 (new ConfigProvider())->getDependencies()
             )
