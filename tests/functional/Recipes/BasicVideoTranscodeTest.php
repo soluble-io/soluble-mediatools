@@ -84,21 +84,31 @@ class BasicVideoTranscodeTest extends TestCase
             ->withVideoCodec('copy')
             ->withOutputFormat('mp4');
 
+        self::assertFileExists($inputFile);
+        self::assertFileNotExists($outputFile);
+
         $process = $videoTranscode->transcode($inputFile, $outputFile, $transcodeParams);
 
         $stdOut = $stdErr = '';
         foreach ($process as $type => $data) {
             if ($process::OUT === $type) {
                 $stdOut .= $data;
+                echo $data;
             } else { // $process::ERR === $type
                 $stdErr .= $data;
+                echo $data;
             }
         }
 
-        self::assertEquals(0, $process->getExitCode());
+        $exitCode = $process->getExitCode();
+        if ($exitCode !== 0) {
+            var_dump($process->getErrorOutput());
+        }
+
+        self::assertEquals(0, $exitCode);
         self::assertEquals('', $stdOut);
         self::assertGreaterThan(0, mb_strlen($stdErr));
-
+        self::assertFileExists($outputFile);
         unlink($outputFile);
     }
 }
