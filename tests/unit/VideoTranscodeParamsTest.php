@@ -131,6 +131,12 @@ class VideoTranscodeParamsTest extends TestCase
         self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[VideoTranscodeParams::OPTION_VIDEO_FILTER]);
     }
 
+    public function testUnsupportedParamThrowsInvalidArgumentException(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+        new VideoTranscodeParams(['UnsupportedOption' => 'cool']);
+    }
+
     public function testInvalidBitRateThrowsInvalidArgumentException(): void
     {
         $params = new VideoTranscodeParams();
