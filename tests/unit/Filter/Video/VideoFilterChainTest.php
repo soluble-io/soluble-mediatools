@@ -23,7 +23,7 @@ class VideoFilterChainTest extends TestCase
         self::assertSame($emptyFilter, $chain->getFilters()[0]);
     }
 
-    public function testGetFFmpegCliArguments(): void
+    public function testAddFiltersMustReturnCorrectCliArguments(): void
     {
         $filter1 = new class() implements VideoFilterInterface {
             public function getFFMpegCLIArgument(): string
@@ -49,12 +49,60 @@ class VideoFilterChainTest extends TestCase
             }
         };
 
+        $filter3 = new class() implements VideoFilterInterface {
+            public function getFFMpegCLIArgument(): string
+            {
+                return '-vf';
+            }
+
+            public function getFFmpegCLIValue(): string
+            {
+                return ''; // empty filter
+            }
+        };
+
+        $chain = new VideoFilterChain();
+        $chain->addFilter($filter1);
+        $chain->addFilter($filter2);
+        $chain->addFilter($filter3);
+
+        self::assertCount(3, $chain->getFilters());
+        self::assertEquals('-vf filter_1,filter_2', $chain->getFFMpegCLIArgument());
+        self::assertEquals('filter_1,filter_2', $chain->getFFmpegCLIValue());
+    }
+
+    public function testEmptyFiltersMustReturnEmptyCLIArg(): void
+    {
+        $filter1 = new class() implements VideoFilterInterface {
+            public function getFFMpegCLIArgument(): string
+            {
+                return '-vf';
+            }
+
+            public function getFFmpegCLIValue(): string
+            {
+                return ''; // empty
+            }
+        };
+
+        $filter2 = new class() implements VideoFilterInterface {
+            public function getFFMpegCLIArgument(): string
+            {
+                return '-vf';
+            }
+
+            public function getFFmpegCLIValue(): string
+            {
+                return ''; // empty
+            }
+        };
+
         $chain = new VideoFilterChain();
         $chain->addFilter($filter1);
         $chain->addFilter($filter2);
 
         self::assertCount(2, $chain->getFilters());
-        self::assertEquals('-vf filter_1,filter_2', $chain->getFFMpegCLIArgument());
-        self::assertEquals('filter_1,filter_2', $chain->getFFmpegCLIValue());
+        self::assertEquals('', $chain->getFFMpegCLIArgument());
+        self::assertEquals('', $chain->getFFmpegCLIValue());
     }
 }
