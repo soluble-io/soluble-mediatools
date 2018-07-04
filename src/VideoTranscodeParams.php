@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
 
 class VideoTranscodeParams
 {
@@ -12,6 +13,7 @@ class VideoTranscodeParams
     public const OPTION_VIDEO_BITRATE     = 'VIDEO_BITRATE';
     public const OPTION_VIDEO_MIN_BITRATE = 'VIDEO_MIN_BITRATE';
     public const OPTION_VIDEO_MAX_BITRATE = 'VIDEO_MAX_BITRATE';
+    public const OPTION_VIDEO_FILTER      = 'VIDEO_FILTER';
     public const OPTION_AUDIO_CODEC       = 'AUDIO_CODEC';
     public const OPTION_AUDIO_BITRATE     = 'AUDIO_BITRATE';
     public const OPTION_CRF               = 'CRF';
@@ -86,13 +88,16 @@ class VideoTranscodeParams
         self::OPTION_TUNE => [
             'ffmpeg_pattern' => '-tune %s',
         ],
+        self::OPTION_VIDEO_FILTER => [
+            'ffmpeg_pattern' => '-vf %s',
+        ],
     ];
 
-    /** @var array<string, bool|string|int|null> */
+    /** @var array<string, bool|string|int|VideoFilterInterface> */
     protected $options = [];
 
     /**
-     * @param array<string, bool|string|int|null> $options
+     * @param array<string, bool|string|int|VideoFilterInterface> $options
      */
     public function __construct($options = [])
     {
@@ -122,20 +127,32 @@ class VideoTranscodeParams
     }
 
     /**
-     * @param string $option
-     * @param mixed  $default if options does not exists set this one
+     * @param string                                    $option
+     * @param bool|string|int|VideoFilterInterface|null $default if options does not exists set this one
      *
-     * @return null|mixed
+     * @return bool|string|int|VideoFilterInterface|null
      */
     public function getOption(string $option, $default = null)
     {
         return $this->options[$option] ?? $default;
     }
 
+    public function hasOption(string $option): bool
+    {
+        return array_key_exists($option, $this->options);
+    }
+
     public function withVideoCodec(string $videoCodec): self
     {
         return new self(array_merge($this->options, [
             self::OPTION_VIDEO_CODEC => $videoCodec,
+        ]));
+    }
+
+    public function withVideoFilter(VideoFilterInterface $videoFilter): self
+    {
+        return new self(array_merge($this->options, [
+            self::OPTION_VIDEO_FILTER => $videoFilter,
         ]));
     }
 
@@ -275,7 +292,7 @@ class VideoTranscodeParams
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getFFMpegArguments(): array
     {
@@ -283,9 +300,11 @@ class VideoTranscodeParams
         foreach ($this->options as $key => $value) {
             $ffmpeg_pattern = self::SUPPORTED_OPTIONS[$key]['ffmpeg_pattern'];
             if (is_bool($value)) {
-                $args[] = $ffmpeg_pattern;
+                $args[$key] = $ffmpeg_pattern;
+            } elseif ($value instanceof VideoFilterInterface) {
+                $args[$key] = sprintf($ffmpeg_pattern, $value->getFFmpegCLIValue());
             } else {
-                $args[] = sprintf($ffmpeg_pattern, $value);
+                $args[$key] = sprintf($ffmpeg_pattern, $value);
             }
         }
 

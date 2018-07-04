@@ -22,9 +22,7 @@ class FFmpegProcess extends AbstractProcess
     }
 
     /**
-     * @param string[] $arguments
-     *
-     * @return string
+     * @param array<int|string, string> $arguments
      */
     public function buildCommand(array $arguments): string
     {

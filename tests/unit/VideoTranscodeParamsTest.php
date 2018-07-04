@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
 use Soluble\MediaTools\VideoTranscodeParams;
 
 class VideoTranscodeParamsTest extends TestCase
@@ -70,6 +71,9 @@ class VideoTranscodeParamsTest extends TestCase
         foreach ($expectedOptions as $key => $value) {
             self::assertEquals($value, $params->getOption($key));
         }
+
+        $cliArgs = $params->getFFMpegArguments();
+        //foreach()
     }
 
     public function testNewParamMustOverwritePreviousParam(): void
@@ -83,14 +87,24 @@ class VideoTranscodeParamsTest extends TestCase
         ], $params->getOptions());
     }
 
-    public function testVideoFilters(): void
+    public function testWithVideoFilter(): void
     {
-        $params = (new VideoTranscodeParams())
-            ->withTileColumns(10)
-            ->withTileColumns(12);
+        $filter1 = new class() implements VideoFilterInterface {
+            public function getFFMpegCLIArgument(): string
+            {
+                return '-vf';
+            }
 
-        self::assertEquals([
-            VideoTranscodeParams::OPTION_TILE_COLUMNS      => 12,
-        ], $params->getOptions());
+            public function getFFmpegCLIValue(): string
+            {
+                return 'filter_1';
+            }
+        };
+
+        $params = (new VideoTranscodeParams())
+            ->withVideoFilter($filter1);
+
+        self::assertSame($filter1, $params->getOption(VideoTranscodeParams::OPTION_VIDEO_FILTER));
+        self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[VideoTranscodeParams::OPTION_VIDEO_FILTER]);
     }
 }

@@ -108,7 +108,9 @@ class VideoTranscode
 
         $process = $this->ffmpegConfig->getProcess();
 
-        $threads = $transcodeParams->getOption(VideoTranscodeParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
+        if (!$transcodeParams->hasOption(VideoTranscodeParams::OPTION_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
+            $transcodeParams = $transcodeParams->withThreads($this->ffmpegConfig->getThreads());
+        }
 
         $ffmpegCmd = $process->buildCommand(
             array_merge(
@@ -118,7 +120,6 @@ class VideoTranscode
                 ],
                 $transcodeParams->getFFMpegArguments(),
                 [
-                    ($threads !== null) ? sprintf('-threads %s', $threads) : '',
                     '-y', // tell to overwrite
                     sprintf('%s', escapeshellarg($outputFile)),
                 ]
