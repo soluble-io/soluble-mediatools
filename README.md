@@ -8,7 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Media tools, toolbax for media processing, transcoding...
+Media tools: toolbox for media processing, video transcoding...
 
 ## Status  
 
@@ -26,10 +26,7 @@ Media tools, toolbax for media processing, transcoding...
 - FFmpeg 3.4+, 4.0+
 
 
-
-
 ## Examples
-
 
 
 ### Transcoding
@@ -148,7 +145,7 @@ $videoThumb     = (new VideoThumbFactory())->__invoke($container);
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
 $ffmpegConfig = new FFMpegConfig('/usr/bin/ffmpeg');
-$fprobeConfig = new FFProbeConfig('/usr/bin/ffprobe');
+$ffprobeConfig = new FFProbeConfig('/usr/bin/ffprobe');
 
 ```
 
