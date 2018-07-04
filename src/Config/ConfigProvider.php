@@ -24,6 +24,8 @@ class ConfigProvider
     {
         return [
             'factories' => [
+                FFMpegConfig::class   => FFMpegConfigFactory::class,
+                FFProbeConfig::class  => FFProbeConfig::class,
                 VideoTranscode::class => VideoTranscodeFactory::class,
                 VideoProbe::class     => VideoProbeFactory::class,
                 VideoThumb::class     => VideoThumbFactory::class,

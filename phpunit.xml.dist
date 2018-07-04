@@ -30,23 +30,13 @@
     </filter>
 
     <php>
-
-
-        <const name="EXPRESSIVE_SERVER_HOST" value="localhost" />
-        <const name="EXPRESSIVE_SERVER_PORT" value="1353" />
-        <const name="EXPRESSIVE_SERVER_PATH" value="public" />
-
+        <const name="FFMPEG_BINARY_PATH" value="ffmpeg" />
+        <const name="FPROBE_BINARY_PATH" value="ffprobe" />
     </php>
 
 
     <logging>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <!--
-        <log type="tap" target="build/report.tap"/>
-        <log type="junit" target="build/report.junit.xml"/>
-        <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
-        <log type="coverage-text" target="build/coverage.txt"/>
-        -->
     </logging>
 
 </phpunit>

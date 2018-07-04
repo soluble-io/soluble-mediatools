@@ -98,7 +98,7 @@ class VideoTranscode
     }
     */
 
-    public function transcode(string $videoFile, string $outputFile, VideoTranscodeParams $transcodeParams, ?VideoFilterInterface $videoFilter = null): void
+    public function transcode(string $videoFile, string $outputFile, VideoTranscodeParams $transcodeParams, ?VideoFilterInterface $videoFilter = null): Process
     {
         $this->ensureFileExists($videoFile);
 
@@ -126,20 +126,13 @@ class VideoTranscode
             )
         );
 
-        echo $ffmpegCmd;
-
         $process = new Process($ffmpegCmd);
         $process->setTimeout(null);
         // 60 seconds without output will stop the process
         $process->setIdleTimeout(60);
         $process->start();
-        foreach ($process as $type => $data) {
-            if ($process::OUT === $type) {
-                echo "\nRead from stdout: " . $data;
-            } else { // $process::ERR === $type
-                echo "\nRead from stderr: " . $data;
-            }
-        }
+
+        return $process;
     }
 
     /**

@@ -106,18 +106,21 @@ $videoTranscode->transcode($file, "$file.webm", $params, $videoFilters);
 
 ``` 
 
-## Config
+## Configuration
 
-### Via container (psr/container compat)
+### Usage with psr/container
+
+Example 1: with zend-service-manager.
 
 ```php
 <?php declare(strict_types=1);
 
-use Soluble\MediaTools\VideoProbeFactory;
-use Soluble\MediaTools\VideoTranscodeFactory;
-use Soluble\MediaTools\VideoThumbFactory;
+use Soluble\MediaTools\{VideoTranscode, VideoProbe, VideoThumb};
+use Soluble\MediaTools\Config\ConfigProvider;
 use Zend\ServiceManager\ServiceManager;
 
+// Config options can be in a file, i.e: `require 'config/soluble-mediatools.global.php';`
+// or set via dotenv...
 $config = [
     'soluble-mediatools' => [
         'ffmpeg.threads'   => null, // do not set any threads: 0 means all cores
@@ -126,33 +129,26 @@ $config = [
     ],    
 ];
 
+// Service manager
+$container = new ServiceManager(
+                array_merge([
+                    'services' => [
+                        'config' => $config
+                    ]],
+                    (new ConfigProvider())->getDependencies()
+             ));
 
-$container = (new ServiceManager(['config' => $config]));
+// Now whenever you want an instance of a service:
 
-$videoProbe     = (new VideoProbeFactory())->__invoke($container);
-$videoTranscode = (new VideoTranscodeFactory())->__invoke($container);
-$videoThumb     = (new VideoThumbFactory())->__invoke($container);
-
-```
-
-
-
-### Programmatic (non-recommended)
-
-```php
-<?php declare(strict_types=1);
-
-use Soluble\MediaTools\Config\FFMpegConfig;
-use Soluble\MediaTools\Config\FFProbeConfig;
-$ffmpegConfig = new FFMpegConfig('/usr/bin/ffmpeg');
-$ffprobeConfig = new FFProbeConfig('/usr/bin/ffprobe');
+$videoProbe     = $container->get(VideoProbe::class);
+$videoTranscode = $container->get(VideoTranscode::class);
+$videoThumb     = $container->get(VideoThumb::class);
 
 ```
 
   
 ## Coding standards and interop
 
-* [PSR 7 HTTP Message](https://github.com/php-fig/http-message)
 * [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * [PSR 3 Logger interface](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
