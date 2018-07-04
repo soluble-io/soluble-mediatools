@@ -83,6 +83,9 @@ class VideoTranscodeParams
         self::OPTION_TILE_COLUMNS => [
             'ffmpeg_pattern' => '-tile-columns %s',
         ],
+        self::OPTION_TUNE => [
+            'ffmpeg_pattern' => '-tune %s',
+        ],
     ];
 
     /** @var array<string, bool|string|int|null> */

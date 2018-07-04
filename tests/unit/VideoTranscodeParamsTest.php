@@ -22,7 +22,7 @@ class VideoTranscodeParamsTest extends TestCase
         self::assertCount(1, $newParams->getOptions());
     }
 
-    public function testParams(): void
+    public function testGetOptionsMustEqualsParams(): void
     {
         $params = (new VideoTranscodeParams())
             ->withTileColumns(10)
@@ -36,14 +36,15 @@ class VideoTranscodeParamsTest extends TestCase
             ->withQuality('good')
             ->withStreamable(true)
             ->withPixFmt('yuv420p')
-            ->withPreset('best')
+            ->withPreset('fast')
             ->withAudioBitrate('128k')
             ->withAudioCodec('aac')
             ->withVideoCodec('h264')
             ->withVideoMaxBitrate('2M')
-            ->withFrameParallel(2);
+            ->withFrameParallel(2)
+            ->withTune('film');
 
-        self::assertEquals([
+        $expectedOptions = [
             VideoTranscodeParams::OPTION_TILE_COLUMNS      => 10,
             VideoTranscodeParams::OPTION_THREADS           => 8,
             VideoTranscodeParams::OPTION_SPEED             => 2,
@@ -55,12 +56,41 @@ class VideoTranscodeParamsTest extends TestCase
             VideoTranscodeParams::OPTION_QUALITY           => 'good',
             VideoTranscodeParams::OPTION_STREAMABLE        => true,
             VideoTranscodeParams::OPTION_PIX_FMT           => 'yuv420p',
-            VideoTranscodeParams::OPTION_PRESET            => 'best',
+            VideoTranscodeParams::OPTION_PRESET            => 'fast',
             VideoTranscodeParams::OPTION_AUDIO_BITRATE     => '128k',
             VideoTranscodeParams::OPTION_AUDIO_CODEC       => 'aac',
             VideoTranscodeParams::OPTION_VIDEO_CODEC       => 'h264',
             VideoTranscodeParams::OPTION_VIDEO_MAX_BITRATE => '2M',
             VideoTranscodeParams::OPTION_FRAME_PARALLEL    => 2,
+            VideoTranscodeParams::OPTION_TUNE              => 'film',
+        ];
+
+        self::assertEquals($expectedOptions, $params->getOptions());
+
+        foreach ($expectedOptions as $key => $value) {
+            self::assertEquals($value, $params->getOption($key));
+        }
+    }
+
+    public function testNewParamMustOverwritePreviousParam(): void
+    {
+        $params = (new VideoTranscodeParams())
+            ->withTileColumns(10)
+            ->withTileColumns(12);
+
+        self::assertEquals([
+            VideoTranscodeParams::OPTION_TILE_COLUMNS      => 12,
+        ], $params->getOptions());
+    }
+
+    public function testVideoFilters(): void
+    {
+        $params = (new VideoTranscodeParams())
+            ->withTileColumns(10)
+            ->withTileColumns(12);
+
+        self::assertEquals([
+            VideoTranscodeParams::OPTION_TILE_COLUMNS      => 12,
         ], $params->getOptions());
     }
 }
