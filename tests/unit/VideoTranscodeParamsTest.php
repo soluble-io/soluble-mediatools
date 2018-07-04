@@ -72,8 +72,11 @@ class VideoTranscodeParamsTest extends TestCase
             self::assertEquals($value, $params->getOption($key));
         }
 
-        $cliArgs = $params->getFFMpegArguments();
-        //foreach()
+        $cli = '-tile-columns 10 -threads 8 -speed 2 -g 240 -crf 32 -f mp4 ' .
+               '-minrate 750k -b:v 1M -quality good -movflags +faststart -pix_fmt yuv420p ' .
+               '-preset fast -b:a 128k -acodec aac -vcodec h264 -maxrate 2M ' .
+                '-frame-parallel 2 -tune film';
+        self::assertEquals($cli, implode(' ', $params->getFFMpegArguments()));
     }
 
     public function testNewParamMustOverwritePreviousParam(): void
