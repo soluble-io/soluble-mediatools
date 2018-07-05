@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools;
 
-use ProcessFailedException;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
@@ -13,6 +12,7 @@ use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
 use Soluble\MediaTools\Filter\Video\VideoFilterTypeDenoiseInterface;
 use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
 use Soluble\MediaTools\Util\CommonAssertionsTrait;
+use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
 class VideoConvert
@@ -74,18 +74,24 @@ class VideoConvert
     /**
      * Run a conversion, throw exception on error.
      *
-     * @throws FileNotFoundException    when inputFile does not exists
-     * @throws ProcessRuntimeException  The base class for all process exceptions
-     * @throws ProcessFailedException   Whenever the process has failed to run
-     * @throws ProcessTimedOutException Whenever a timeout occured before the process finished
-     * @throws ProcessSignaledException Whenever the process was stopped
+     * @param callable|null                 $callback A PHP callback to run whenever there is some
+     *                                                output available on STDOUT or STDERR
+     * @param array<string,string|int>|null $env      An array of env vars to set
+     *                                                when running the process
+     *
+     * @throws FileNotFoundException                     when inputFile does not exists
+     * @throws ProcessException\RuntimeException         The base class for all process exceptions
+     * @throws ProcessException\ProcessFailedException   Whenever the process has failed to run
+     * @throws ProcessException\ProcessTimedOutException Whenever a timeout occured before the process finished
+     * @throws ProcessException\ProcessSignaledException Whenever the process was stopped
      */
-    public function convert(string $inputFile, string $outputFile, VideoConvertParams $convertParams, ?VideoFilterInterface $videoFilter = null): void
+    public function convert(string $inputFile, string $outputFile, VideoConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void
     {
         $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
+
         try {
-            $process->mustRun();
-        } catch (ProcessRuntimeException $e) {
+            $process->mustRun($callback, (is_array($env) ? $env : $this->ffmpegConfig->getConversionEnv()));
+        } catch (ProcessException\RuntimeException $e) {
             throw $e;
         } catch (FileNotFoundException $e) {
             throw $e;
