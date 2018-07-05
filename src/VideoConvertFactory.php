@@ -7,11 +7,11 @@ namespace Soluble\MediaTools;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
 
-class VideoThumbFactory
+class VideoConvertFactory
 {
-    public function __invoke(ContainerInterface $container): VideoThumb
+    public function __invoke(ContainerInterface $container): VideoConvert
     {
-        return new VideoThumb(
+        return new VideoConvert(
             $container->get(FFMpegConfig::class),
             $container->get(VideoProbe::class)
         );

@@ -13,7 +13,7 @@ use Soluble\MediaTools\Filter\Video\VideoFilterTypeDenoiseInterface;
 use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
 use Symfony\Component\Process\Process;
 
-class VideoTranscode
+class VideoConvert
 {
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
@@ -29,7 +29,7 @@ class VideoTranscode
     }
 
     /*
-    public function transcodeMultiPass(string $videoFile, string $outputFile, VideoTranscodeParams $transcodeParams, VideoFilterInterface $videoFilter=null): void {
+    public function transcodeMultiPass(string $videoFile, string $outputFile, VideoConvertParams $transcodeParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {
@@ -37,7 +37,7 @@ class VideoTranscode
         }
 
 
-        $threads = $transcodeParams->getOption(VideoTranscodeParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
+        $threads = $transcodeParams->getOption(VideoConvertParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
 
         $ffmpegBin = $this->ffmpegConfig->getBinary();
 
@@ -98,9 +98,14 @@ class VideoTranscode
     }
     */
 
-    public function transcode(string $videoFile, string $outputFile, VideoTranscodeParams $transcodeParams, ?VideoFilterInterface $videoFilter = null): Process
+    /**
+     * Return symfony process.
+     *
+     * @throws FileNotFoundException when inputFile does not exists
+     */
+    public function getConversionProcess(string $inputFile, string $outputFile, VideoConvertParams $transcodeParams, ?VideoFilterInterface $videoFilter = null): Process
     {
-        $this->ensureFileExists($videoFile);
+        $this->ensureFileExists($inputFile);
 
         if ($videoFilter === null) {
             $videoFilter = new EmptyVideoFilter();
@@ -108,14 +113,14 @@ class VideoTranscode
 
         $process = $this->ffmpegConfig->getProcess();
 
-        if (!$transcodeParams->hasOption(VideoTranscodeParams::OPTION_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
+        if (!$transcodeParams->hasOption(VideoConvertParams::OPTION_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
             $transcodeParams = $transcodeParams->withThreads($this->ffmpegConfig->getThreads());
         }
 
         $ffmpegCmd = $process->buildCommand(
             array_merge(
                 [
-                    sprintf('-i %s', escapeshellarg($videoFile)), // input filename
+                    sprintf('-i %s', escapeshellarg($inputFile)), // input filename
                     $videoFilter->getFFMpegCLIArgument(), // add -vf yadif,nlmeans
                 ],
                 $transcodeParams->getFFMpegArguments(),
@@ -127,10 +132,19 @@ class VideoTranscode
         );
 
         $process = new Process($ffmpegCmd);
-        $process->setTimeout(null);
-        // 60 seconds without output will stop the process
-        $process->setIdleTimeout(60);
-        $process->start();
+        $process->setTimeout($this->ffmpegConfig->getConversionTimeout());
+        $process->setIdleTimeout($this->ffmpegConfig->getConversionIdleTimeout());
+
+        return $process;
+    }
+
+    /**
+     * @throws FileNotFoundException when inputFile does not exists
+     */
+    public function convert(string $inputFile, string $outputFile, VideoConvertParams $transcodeParams, ?VideoFilterInterface $videoFilter = null): Process
+    {
+        $process = $this->getConversionProcess($inputFile, $outputFile, $transcodeParams, $videoFilter);
+        $process->mustRun();
 
         return $process;
     }
@@ -163,6 +177,9 @@ class VideoTranscode
         return $deintFilter;
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     protected function ensureFileExists(string $file): void
     {
         if (!file_exists($file)) {

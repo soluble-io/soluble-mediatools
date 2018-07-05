@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
+use Soluble\MediaTools\VideoConvert;
+use Soluble\MediaTools\VideoConvertFactory;
 use Soluble\MediaTools\VideoProbe;
 use Soluble\MediaTools\VideoProbeFactory;
 use Soluble\MediaTools\VideoThumb;
 use Soluble\MediaTools\VideoThumbFactory;
-use Soluble\MediaTools\VideoTranscode;
-use Soluble\MediaTools\VideoTranscodeFactory;
 
 class ConfigProvider
 {
@@ -24,9 +24,12 @@ class ConfigProvider
     {
         return [
             'factories' => [
+                // FFMpeg stuff
                 FFMpegConfig::class   => FFMpegConfigFactory::class,
-                FFProbeConfig::class  => FFProbeConfig::class,
-                VideoTranscode::class => VideoTranscodeFactory::class,
+                FFProbeConfig::class  => FFProbeConfigFactory::class,
+
+                // Services classes
+                VideoConvert::class   => VideoConvertFactory::class,
                 VideoProbe::class     => VideoProbeFactory::class,
                 VideoThumb::class     => VideoThumbFactory::class,
             ],

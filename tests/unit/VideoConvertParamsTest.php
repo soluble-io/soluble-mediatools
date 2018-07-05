@@ -7,9 +7,9 @@ namespace MediaToolsTest;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
-use Soluble\MediaTools\VideoTranscodeParams;
+use Soluble\MediaTools\VideoConvertParams;
 
-class VideoTranscodeParamsTest extends TestCase
+class VideoConvertParamsTest extends TestCase
 {
     public function setUp(): void
     {
@@ -17,7 +17,7 @@ class VideoTranscodeParamsTest extends TestCase
 
     public function testMustBeImmutable(): void
     {
-        $params = new VideoTranscodeParams();
+        $params = new VideoConvertParams();
         self::assertCount(0, $params->getOptions());
         $newParams = $params->withThreads(1);
         self::assertCount(0, $params->getOptions());
@@ -26,26 +26,26 @@ class VideoTranscodeParamsTest extends TestCase
 
     public function testHasOption(): void
     {
-        $params = (new VideoTranscodeParams())
+        $params = (new VideoConvertParams())
                   ->withTileColumns(10);
-        self::assertTrue($params->hasOption(VideoTranscodeParams::OPTION_TILE_COLUMNS));
-        self::assertFalse($params->hasOption(VideoTranscodeParams::OPTION_FRAME_PARALLEL));
+        self::assertTrue($params->hasOption(VideoConvertParams::OPTION_TILE_COLUMNS));
+        self::assertFalse($params->hasOption(VideoConvertParams::OPTION_FRAME_PARALLEL));
     }
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
-        $injectedParams = new VideoTranscodeParams([
-            VideoTranscodeParams::OPTION_TUNE => 'grain',
+        $injectedParams = new VideoConvertParams([
+            VideoConvertParams::OPTION_TUNE => 'grain',
         ]);
 
-        $withParams = (new VideoTranscodeParams())->withTune('grain');
+        $withParams = (new VideoConvertParams())->withTune('grain');
 
         self::assertSame($injectedParams->getOptions(), $withParams->getOptions());
     }
 
     public function testGetOptionsMustEqualsParams(): void
     {
-        $params = (new VideoTranscodeParams())
+        $params = (new VideoConvertParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -66,24 +66,24 @@ class VideoTranscodeParamsTest extends TestCase
             ->withTune('film');
 
         $expectedOptions = [
-            VideoTranscodeParams::OPTION_TILE_COLUMNS      => 10,
-            VideoTranscodeParams::OPTION_THREADS           => 8,
-            VideoTranscodeParams::OPTION_SPEED             => 2,
-            VideoTranscodeParams::OPTION_KEYFRAME_SPACING  => 240,
-            VideoTranscodeParams::OPTION_CRF               => 32,
-            VideoTranscodeParams::OPTION_OUTPUT_FORMAT     => 'mp4',
-            VideoTranscodeParams::OPTION_VIDEO_MIN_BITRATE => '750k',
-            VideoTranscodeParams::OPTION_VIDEO_BITRATE     => '1M',
-            VideoTranscodeParams::OPTION_QUALITY           => 'good',
-            VideoTranscodeParams::OPTION_STREAMABLE        => true,
-            VideoTranscodeParams::OPTION_PIX_FMT           => 'yuv420p',
-            VideoTranscodeParams::OPTION_PRESET            => 'fast',
-            VideoTranscodeParams::OPTION_AUDIO_BITRATE     => '128k',
-            VideoTranscodeParams::OPTION_AUDIO_CODEC       => 'aac',
-            VideoTranscodeParams::OPTION_VIDEO_CODEC       => 'h264',
-            VideoTranscodeParams::OPTION_VIDEO_MAX_BITRATE => '2000000',
-            VideoTranscodeParams::OPTION_FRAME_PARALLEL    => 2,
-            VideoTranscodeParams::OPTION_TUNE              => 'film',
+            VideoConvertParams::OPTION_TILE_COLUMNS      => 10,
+            VideoConvertParams::OPTION_THREADS           => 8,
+            VideoConvertParams::OPTION_SPEED             => 2,
+            VideoConvertParams::OPTION_KEYFRAME_SPACING  => 240,
+            VideoConvertParams::OPTION_CRF               => 32,
+            VideoConvertParams::OPTION_OUTPUT_FORMAT     => 'mp4',
+            VideoConvertParams::OPTION_VIDEO_MIN_BITRATE => '750k',
+            VideoConvertParams::OPTION_VIDEO_BITRATE     => '1M',
+            VideoConvertParams::OPTION_QUALITY           => 'good',
+            VideoConvertParams::OPTION_STREAMABLE        => true,
+            VideoConvertParams::OPTION_PIX_FMT           => 'yuv420p',
+            VideoConvertParams::OPTION_PRESET            => 'fast',
+            VideoConvertParams::OPTION_AUDIO_BITRATE     => '128k',
+            VideoConvertParams::OPTION_AUDIO_CODEC       => 'aac',
+            VideoConvertParams::OPTION_VIDEO_CODEC       => 'h264',
+            VideoConvertParams::OPTION_VIDEO_MAX_BITRATE => '2000000',
+            VideoConvertParams::OPTION_FRAME_PARALLEL    => 2,
+            VideoConvertParams::OPTION_TUNE              => 'film',
         ];
 
         self::assertEquals($expectedOptions, $params->getOptions());
@@ -101,12 +101,12 @@ class VideoTranscodeParamsTest extends TestCase
 
     public function testNewParamMustOverwritePreviousParam(): void
     {
-        $params = (new VideoTranscodeParams())
+        $params = (new VideoConvertParams())
             ->withTileColumns(10)
             ->withTileColumns(12);
 
         self::assertEquals([
-            VideoTranscodeParams::OPTION_TILE_COLUMNS      => 12,
+            VideoConvertParams::OPTION_TILE_COLUMNS      => 12,
         ], $params->getOptions());
     }
 
@@ -124,22 +124,22 @@ class VideoTranscodeParamsTest extends TestCase
             }
         };
 
-        $params = (new VideoTranscodeParams())
+        $params = (new VideoConvertParams())
             ->withVideoFilter($filter1);
 
-        self::assertSame($filter1, $params->getOption(VideoTranscodeParams::OPTION_VIDEO_FILTER));
-        self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[VideoTranscodeParams::OPTION_VIDEO_FILTER]);
+        self::assertSame($filter1, $params->getOption(VideoConvertParams::OPTION_VIDEO_FILTER));
+        self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[VideoConvertParams::OPTION_VIDEO_FILTER]);
     }
 
     public function testUnsupportedParamThrowsInvalidArgumentException(): void
     {
         self::expectException(InvalidArgumentException::class);
-        new VideoTranscodeParams(['UnsupportedOption' => 'cool']);
+        new VideoConvertParams(['UnsupportedOption' => 'cool']);
     }
 
     public function testInvalidBitRateThrowsInvalidArgumentException(): void
     {
-        $params = new VideoTranscodeParams();
+        $params = new VideoConvertParams();
 
         try {
             $params->withVideoBitrate('901w');

@@ -7,7 +7,7 @@ namespace Soluble\MediaTools;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
 
-class VideoTranscodeParams
+class VideoConvertParams
 {
     public const OPTION_VIDEO_CODEC       = 'VIDEO_CODEC';
     public const OPTION_VIDEO_BITRATE     = 'VIDEO_BITRATE';

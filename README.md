@@ -8,46 +8,40 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Media tools: toolbox for media processing, video transcoding...
+Media tools: toolbox for media processing, video conversions, transcoding, transmuxing... Wrapper for ffmpeg/ffprobe. 
 
 ## Status  
 
-**Early stages**
+> WIP
 
 ## Features
 
-- Video thumbnailing
-- Video transcoding
-- Video detection
+- [x] Video conversion (transcoding, transmuxing...)
+- [x] Video thumbnailing (wip)
+- [x] Video information (wip)
 
 ## Requirements
 
 - PHP 7.1+
 - FFmpeg 3.4+, 4.0+
 
-
 ## Examples
 
+### Conversion
 
-### Transcoding
-
-mp4/h264/aac
+> Example of conversion from `mov` to `mp4/h264/aac`
 
 ```php
 <?php
-use Soluble\MediaTools\VideoTranscode;
-use Soluble\MediaTools\VideoTranscodeParams;
-use Soluble\MediaTools\VideoProbe;
+use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as ConversionException};
 
-// Use 
-$videoTranscode = new VideoTranscode($ffmpegConfig[], $videoProbe=(new VideoProbe(null, null))); 
+/**
+ * @var \Psr\Container\ContainerInterface $anyPsr11Container 
+ * @var VideoConvert $videoConvert video conversion service
+ */ 
+$videoConvert = $anyPsr11Container->get(VideoConvert::class); 
 
-$file = '/path/test.mov';
-
-// Optional, whether the source is interlaced ?
-$videoFilters = $videoTranscode->getDeintFilter($file);
-
-$params = (new VideoTranscodeParams())
+$convertParams = (new VideoConvertParams())
             ->withVideoCodec('h264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')
@@ -55,28 +49,45 @@ $params = (new VideoTranscodeParams())
             ->withStreamable(true)
             ->withCrf(24)
             ->withOutputFormat('mp4');
+    
+try {
+    $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
+} catch (ConversionException\FileNotFoundException $e) {
+    // Input file not found
+}
 
-$videoTranscode->transcode($file, "$file.mp4", $params, $videoFilters);
+if ($process->getExitCode() !== 0) {
+    // As an example
+    throw new \RuntimeException(
+          sprintf(
+              "Command '%s' failed with error code '%s', error output: '%s'.",
+              $process->getCommandLine(),
+              $process->getExitCode(),
+              $process->getErrorOutput()
+          )
+    );        
+}
 
 ``` 
 
-webm/vp9/opus
+> Example of conversion from `mov` to `webm/vp9/opus`
+
 
 ```php
 <?php
-use Soluble\MediaTools\VideoTranscode;
-use Soluble\MediaTools\VideoTranscodeParams;
+use Soluble\MediaTools\VideoConvert;
+use Soluble\MediaTools\VideoConvertParams;
 use Soluble\MediaTools\VideoProbe;
 
 // Use 
-$videoTranscode = new VideoTranscode($ffmpegConfig[], $videoProbe=(new VideoProbe(null, null))); 
+$videoConvert = new VideoConvert($ffmpegConfig[], $videoProbe=(new VideoProbe(null, null))); 
 
 $file = '/path/test.mov';
 
 // Optional, whether the source is interlaced ?
-$videoFilters = $videoTranscode->getDeintFilter($file);
+$videoFilters = $videoConvert->getDeintFilter($file);
 
-$params = (new VideoTranscodeParams())
+$params = (new VideoConvertParams())
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -102,7 +113,31 @@ $params = (new VideoTranscodeParams())
                 ->withOutputFormat('webm');
 
 
-$videoTranscode->transcode($file, "$file.webm", $params, $videoFilters);
+$process = $videoConvert->convert($file, "$file.webm", $params, $videoFilters);
+
+if ($process->getExitCode() !== 0) {
+    // As an example
+    throw new \RuntimeException(
+          sprintf(
+              "Command '%s' failed with error code '%s', error output: '%s'.",
+              $process->getCommandLine(),
+              $process->getExitCode(),
+              $process->getErrorOutput()
+          )
+    );        
+}
+
+
+/*
+foreach ($process as $type => $data) {
+    if ($process::OUT === $type) {
+        $stdOut .= $data;
+    } else { // $process::ERR === $type
+        $stdErr .= $data;
+    }
+}
+*/
+
 
 ``` 
 
@@ -115,7 +150,7 @@ Example 1: with zend-service-manager.
 ```php
 <?php declare(strict_types=1);
 
-use Soluble\MediaTools\{VideoTranscode, VideoProbe, VideoThumb};
+use Soluble\MediaTools\{VideoConvert, VideoProbe, VideoThumb};
 use Soluble\MediaTools\Config\ConfigProvider;
 use Zend\ServiceManager\ServiceManager;
 
@@ -141,7 +176,7 @@ $container = new ServiceManager(
 // Now whenever you want an instance of a service:
 
 $videoProbe     = $container->get(VideoProbe::class);
-$videoTranscode = $container->get(VideoTranscode::class);
+$VideoConvert = $container->get(VideoConvert::class);
 $videoThumb     = $container->get(VideoThumb::class);
 
 ```
