@@ -52,18 +52,20 @@ $convertParams = (new VideoConvertParams)
     
 try {
     $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
-} catch (MediaToolsException\FileNotFoundException $e) {
-    // My input file does not exists     
 } catch(MediaToolsException\ProcessConversionException $e) {
-    // The symfony process failed... To see the reason you can
-    // either use:
-    echo $e->getMessage();
-    echo $e->getProcess()->getErrorOutput();
-    echo $e->get
+    
+    // The ffmpeg 'symfony' process encountered a failure...
+    // To see the reason you can either use:
+    echo $e->getMessage();                      // full message 
+    echo $e->getProcess()->getErrorOutput();    // process stdErr
+    echo $e->wasCausedByTimeout() ? 'timeout' : '';
+    echo $e->wasCausedBySignal() ? 'interrupted' : '';
+    
+} catch (MediaToolsException\FileNotFoundException $e) {
+     echo "The input file does not exists";    
 }
     
-    
-
+   
 ``` 
 
 > Example of conversion from `mov` to `webm/vp9/opus`
@@ -71,19 +73,19 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\VideoConvert;
-use Soluble\MediaTools\VideoConvertParams;
-use Soluble\MediaTools\VideoProbe;
+use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
 
-// Use 
-$videoConvert = new VideoConvert($ffmpegConfig[], $videoProbe=(new VideoProbe(null, null))); 
+/**
+ * @var \Psr\Container\ContainerInterface $anyPsr11Container 
+ * @var VideoConvert $videoConvert video conversion service
+ */ 
+$videoConvert = $anyPsr11Container->get(VideoConvert::class); 
 
-$file = '/path/test.mov';
 
 // Optional, whether the source is interlaced ?
 $videoFilters = $videoConvert->getDeintFilter($file);
 
-$params = (new VideoConvertParams())
+$convertParams = (new VideoConvertParams())
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -109,31 +111,20 @@ $params = (new VideoConvertParams())
                 ->withOutputFormat('webm');
 
 
-$process = $videoConvert->convert($file, "$file.webm", $params, $videoFilters);
-
-if ($process->getExitCode() !== 0) {
-    // As an example
-    throw new \RuntimeException(
-          sprintf(
-              "Command '%s' failed with error code '%s', error output: '%s'.",
-              $process->getCommandLine(),
-              $process->getExitCode(),
-              $process->getErrorOutput()
-          )
-    );        
+try {
+    $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
+} catch(MediaToolsException\ProcessConversionException $e) {
+    
+    // The ffmpeg 'symfony' process encountered a failure...
+    // To see the reason you can either use:
+    echo $e->getMessage();                      // full message 
+    echo $e->getProcess()->getErrorOutput();    // process stdErr
+    echo $e->wasCausedByTimeout() ? 'timeout' : '';
+    echo $e->wasCausedBySignal() ? 'interrupted' : '';
+    
+} catch (MediaToolsException\FileNotFoundException $e) {
+     echo "The input file does not exists";    
 }
-
-
-/*
-foreach ($process as $type => $data) {
-    if ($process::OUT === $type) {
-        $stdOut .= $data;
-    } else { // $process::ERR === $type
-        $stdErr .= $data;
-    }
-}
-*/
-
 
 ``` 
 

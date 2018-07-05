@@ -46,7 +46,10 @@ class ProcessConversionException extends RuntimeException implements ProcessExce
         return $this->getPrevious() instanceof SymfonyProcessException\ProcessTimedOutException;
     }
 
-    public function getSymfonyProcessRuntimeException(): \Symfony\Component\Process\Exception\RuntimeException
+    /**
+     * @return SymfonyProcessException\ProcessFailedException|SymfonyProcessException\ProcessSignaledException|SymfonyProcessException\ProcessTimedOutException
+     */
+    public function getSymfonyProcessRuntimeException(): SymfonyProcessException\RuntimeException
     {
         /**
          * @var \Symfony\Component\Process\Exception\RuntimeException
