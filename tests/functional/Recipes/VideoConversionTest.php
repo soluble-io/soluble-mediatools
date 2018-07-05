@@ -6,46 +6,46 @@ namespace MediaToolsTest\Recipes;
 
 use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
-use Soluble\MediaTools\VideoConvertFactory;
+use Soluble\MediaTools\VideoConvert;
 use Soluble\MediaTools\VideoConvertParams;
 
 class VideoConversionTest extends TestCase
 {
     use TestUtilTrait;
 
-    /** @var ContainerInterface */
-    protected $container;
+    /** @var VideoConvert */
+    protected $videoConvert;
+
+    /** @var string */
+    protected $baseDir;
 
     /**
      * @throws \Exception
      */
     public function setUp(): void
     {
-        $this->container = $this->getConfiguredContainer();
+        $this->videoConvert = $this->getVideoConvertService();
+        $this->baseDir      = dirname(__FILE__, 3);
     }
 
     public function testBasicTransmuxing(): void
     {
-        $baseDir = dirname(__FILE__, 3);
-
-        $videoTranscode = (new VideoConvertFactory())->__invoke($this->container);
-
-        $inputFile  = $baseDir . '/data/big_buck_bunny_low.m4v';
-        $outputFile = $baseDir . '/output/big_buck_bunny_low.output.mp4';
+        $inputFile  = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
+        $outputFile = "{$this->baseDir}/output/big_buck_bunny_low.output.mp4";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
 
-        $transcodeParams = (new VideoConvertParams())
+        $convertParams = (new VideoConvertParams())
             ->withVideoCodec('copy')
             ->withOutputFormat('mp4');
 
         self::assertFileExists($inputFile);
         self::assertFileNotExists($outputFile);
 
-        $videoTranscode->getConversionProcess($inputFile, $outputFile, $transcodeParams)->run();
+        $process = $this->videoConvert->getConversionProcess($inputFile, $outputFile, $convertParams);
+        $process->run();
 
         if (!$process->isSuccessful()) {
             @unlink($outputFile);
