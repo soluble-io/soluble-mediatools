@@ -143,11 +143,22 @@ use Zend\ServiceManager\ServiceManager;
 
 // Config options can be in a file, i.e: `require 'config/soluble-mediatools.global.php';`
 // or set via dotenv...
+
 $config = [
     'soluble-mediatools' => [
-        'ffmpeg.threads'   => null, // do not set any threads: 0 means all cores
-        'ffmpeg.binary'  => 'ffmpeg', // or a complete path /opt/local/ffmpeg/bin/
-        'ffprobe.binary' => 'ffprobe', // or a complete path /opt/local/ffmpeg/bin/
+        /**
+         * Binaries
+         */
+        'ffmpeg.binary'         => 'ffmpeg',   // or a complete path /opt/local/ffmpeg/bin/ffmpeg
+        'ffprobe.binary'        => 'ffprobe',  // or a complete path /opt/local/ffmpeg/bin/ffprobe
+
+        /**
+         * Conversion options
+         */
+        'ffmpeg.conversion.threads'      => null,   // <null>: single thread; <0>: number of cores, <1+>: number of threads
+        'ffmpeg.conversion.timeout'      => null,   // <null>: no timeout, <number>: number of seconds before timing-out
+        'ffmpeg.conversion.idle_timeout' => 60,     // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
+        'ffmpeg.conversion.env'          => []      // An array of additional env vars to set when running the ffmpeg conversion process        
     ],    
 ];
 
@@ -167,7 +178,6 @@ $VideoConvert = $container->get(VideoConvert::class);
 $videoThumb     = $container->get(VideoThumb::class);
 
 ```
-
   
 ## Coding standards and interop
 
