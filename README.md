@@ -33,7 +33,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ```php
 <?php
-use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as ConversionException};
+use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
 
 /**
  * @var \Psr\Container\ContainerInterface $anyPsr11Container 
@@ -52,21 +52,17 @@ $convertParams = (new VideoConvertParams)
     
 try {
     $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
-} catch (ConversionException\FileNotFoundException $e) {
-    // Input file not found
+} catch (MediaToolsException\FileNotFoundException $e) {
+    // My input file does not exists     
+} catch(MediaToolsException\ProcessConversionException $e) {
+    // The symfony process failed... To see the reason you can
+    // either use:
+    echo $e->getMessage();
+    echo $e->getProcess()->getErrorOutput();
+    echo $e->get
 }
-
-if ($process->getExitCode() !== 0) {
-    // As an example
-    throw new \RuntimeException(
-          sprintf(
-              "Command '%s' failed with error code '%s', error output: '%s'.",
-              $process->getCommandLine(),
-              $process->getExitCode(),
-              $process->getErrorOutput()
-          )
-    );        
-}
+    
+    
 
 ``` 
 

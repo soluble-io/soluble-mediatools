@@ -6,6 +6,8 @@ namespace MediaToolsTest\Recipes;
 
 use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\VideoConvert;
 use Soluble\MediaTools\VideoConvertParams;
 
@@ -28,7 +30,7 @@ class VideoConversionTest extends TestCase
         $this->baseDir      = dirname(__FILE__, 3);
     }
 
-    public function testBasicTransmuxing(): void
+    public function testBasicUsage(): void
     {
         $inputFile  = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
         $outputFile = "{$this->baseDir}/output/big_buck_bunny_low.output.mp4";
@@ -44,24 +46,12 @@ class VideoConversionTest extends TestCase
         self::assertFileExists($inputFile);
         self::assertFileNotExists($outputFile);
 
-        $process = $this->videoConvert->getConversionProcess($inputFile, $outputFile, $convertParams);
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            @unlink($outputFile);
-            self::fail(
-                sprintf(
-                    "Command '%s' failed with error code '%s', error output: '%s' / '%s'.",
-                    $process->getCommandLine(),
-                    $process->getExitCode(),
-                    $process->getErrorOutput(),
-                    $process->getOutput()
-                )
-            );
+        try {
+            $this->videoConvert->convert($inputFile, $outputFile, $convertParams);
+        } catch (ProcessConversionException | FileNotFoundException $e) {
+            self::fail(sprintf('Failed to convert video: %s', $e->getMessage()));
         }
 
-        self::assertEquals('', $process->getOutput());
-        self::assertGreaterThan(0, mb_strlen($process->getErrorOutput()));
         self::assertFileExists($outputFile);
         unlink($outputFile);
     }

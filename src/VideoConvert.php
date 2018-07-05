@@ -6,6 +6,7 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
 use Soluble\MediaTools\Filter\Video\VideoFilterChain;
 use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
@@ -79,11 +80,8 @@ class VideoConvert
      * @param array<string,string|int>|null $env      An array of env vars to set
      *                                                when running the process
      *
-     * @throws FileNotFoundException                     when inputFile does not exists
-     * @throws ProcessException\RuntimeException         The base class for all process exceptions
-     * @throws ProcessException\ProcessFailedException   Whenever the process has failed to run
-     * @throws ProcessException\ProcessTimedOutException Whenever a timeout occured before the process finished
-     * @throws ProcessException\ProcessSignaledException Whenever the process was stopped
+     * @throws FileNotFoundException      When inputFile does not exists
+     * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
     public function convert(string $inputFile, string $outputFile, VideoConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void
     {
@@ -91,8 +89,9 @@ class VideoConvert
 
         try {
             $process->mustRun($callback, (is_array($env) ? $env : $this->ffmpegConfig->getConversionEnv()));
-        } catch (ProcessException\RuntimeException $e) {
-            throw $e;
+        } catch (ProcessException\RuntimeException $symfonyProcessException) {
+            // will include: ProcessFailedException|ProcessTimedOutException|ProcessSignaledException
+            throw new ProcessConversionException($process, $symfonyProcessException);
         } catch (FileNotFoundException $e) {
             throw $e;
         }
