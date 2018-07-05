@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Soluble\MediaTools\Util;
+
+use Soluble\MediaTools\Exception\FileNotFoundException;
+
+trait CommonAssertionsTrait
+{
+    /**
+     * @throws FileNotFoundException
+     */
+    protected function ensureFileExists(string $file): void
+    {
+        if (!file_exists($file)) {
+            throw new FileNotFoundException(sprintf('File "%s" does not exists or is not readable', $file));
+        }
+    }
+}

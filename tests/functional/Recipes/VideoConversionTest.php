@@ -45,7 +45,7 @@ class VideoConversionTest extends TestCase
         self::assertFileExists($inputFile);
         self::assertFileNotExists($outputFile);
 
-        $process = $videoTranscode->convert($inputFile, $outputFile, $transcodeParams);
+        $videoTranscode->getConversionProcess($inputFile, $outputFile, $transcodeParams)->run();
 
         if (!$process->isSuccessful()) {
             @unlink($outputFile);

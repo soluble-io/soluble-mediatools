@@ -57,8 +57,7 @@
                 "tests/util",
                 "tests/smoke"
             ]
-        },
-        "files": ["tests/TestsFactories.php"]
+        }
     },
 
     "scripts": {

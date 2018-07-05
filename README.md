@@ -41,14 +41,14 @@ use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as Conversio
  */ 
 $videoConvert = $anyPsr11Container->get(VideoConvert::class); 
 
-$convertParams = (new VideoConvertParams())
-            ->withVideoCodec('h264')
+$convertParams = (new VideoConvertParams)
+            ->withVideoCodec('h264')   // Video codec 
             ->withAudioCodec('aac')
-            ->withAudioBitrate('128k')
-            ->withPreset('medium')
-            ->withStreamable(true)
-            ->withCrf(24)
-            ->withOutputFormat('mp4');
+            ->withAudioBitrate('128k')            
+            ->withStreamable(true)     // Add streamable options (movflags & faststart) 
+            ->withCrf(24)              // Level of compression: better size / less visual quality  
+            ->withPreset('medium')     // Optional: see presets  
+            ->withOutputFormat('mp4'); // Optional: if not set, will be detected from output file extension.
     
 try {
     $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);

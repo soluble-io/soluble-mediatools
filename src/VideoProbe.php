@@ -6,12 +6,14 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
-use Soluble\MediaTools\Detection\InterlacingGuess;
-use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Detection\InterlacementGuess;
+use Soluble\MediaTools\Util\CommonAssertionsTrait;
 use Symfony\Component\Process\Process;
 
 class VideoProbe
 {
+    use CommonAssertionsTrait;
+
     /** @var FFProbeConfig */
     protected $ffprobeConfig;
 
@@ -50,10 +52,13 @@ class VideoProbe
         return VideoInfo::createFromFFProbeJson($file, $jsonOutput);
     }
 
-    public function guessInterlacing(string $file, float $threshold = InterlacingGuess::INTERLACING_DETECTION_THRESHOLD, int $framesToAnalyze = 1000): InterlacingGuess
+    /**
+     * @throws \Throwable
+     */
+    public function guessInterlacing(string $file, float $threshold = InterlacementGuess::INTERLACING_DETECTION_THRESHOLD, int $framesToAnalyze = 1000): InterlacementGuess
     {
         $cache_key = md5(sprintf('%s:%s:%s:%s', __METHOD__, $file, $threshold, $framesToAnalyze));
-        if (isset($this->cache[$cache_key]) && $this->cache[$cache_key] instanceof InterlacingGuess) {
+        if (isset($this->cache[$cache_key]) && $this->cache[$cache_key] instanceof InterlacementGuess) {
             return $this->cache[$cache_key];
         }
 
@@ -108,13 +113,13 @@ class VideoProbe
             }
         }
 
-        $guess                   = new InterlacingGuess($interlaced_tff, $interlaced_bff, $progressive, $undetermined);
+        $guess                   = new InterlacementGuess($interlaced_tff, $interlaced_bff, $progressive, $undetermined);
         $this->cache[$cache_key] = $guess;
 
         return $guess;
     }
 
-    /**
+    /*
      * Use ffprobe to determine if a video is POTENTIALLY interlaced...
      * Warning:
      *  - There's no absolute truth in that. but if false it's not
@@ -161,11 +166,4 @@ class VideoProbe
         return true;
     }
     */
-
-    protected function ensureFileExists(string $file): void
-    {
-        if (!file_exists($file)) {
-            throw new FileNotFoundException(sprintf('File "%s" does not exists or is not readable', $file));
-        }
-    }
 }
