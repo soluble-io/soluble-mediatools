@@ -8,7 +8,7 @@ use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
-use Soluble\MediaTools\Video\ConverterService;
+use Soluble\MediaTools\Video\ConverterServiceInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
@@ -18,7 +18,7 @@ class VideoSimpleConversionTest extends TestCase
 {
     use TestUtilTrait;
 
-    /** @var ConverterService */
+    /** @var ConverterServiceInterface */
     protected $videoConvert;
 
     /** @var string */

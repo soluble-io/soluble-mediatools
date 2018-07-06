@@ -14,6 +14,8 @@ class InterlaceDetect
 {
     use PathAssertionsTrait;
 
+    public const DEFAULT_INTERLACE_MAX_FRAMES = 1000;
+
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
@@ -26,7 +28,7 @@ class InterlaceDetect
      * @throws SPRuntimeException
      * @throws FileNotFoundException
      */
-    public function guessInterlacing(string $file, int $maxFramesToAnalyze = 1000): InterlaceGuess
+    public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceGuess
     {
         $this->ensureFileExists($file);
 

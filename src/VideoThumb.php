@@ -9,7 +9,6 @@ use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
-use Soluble\MediaTools\Video\Filter\VideoFilterTypeDenoiseInterface;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\ProbeServiceInterface;
 

@@ -6,14 +6,35 @@ namespace MediaToolsTest;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
-use Soluble\MediaTools\Video\ConverterService;
+use Soluble\MediaTools\Video\ConverterServiceInterface;
+use Soluble\MediaTools\Video\DetectionServiceInterface;
+use Soluble\MediaTools\Video\ProbeServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
 trait TestUtilTrait
 {
-    public function getVideoConvertService(): ConverterService
+    /**
+     * @throws \Exception
+     */
+    public function getVideoConvertService(): ConverterServiceInterface
     {
-        return $this->getConfiguredContainer()->get(ConverterService::class);
+        return $this->getConfiguredContainer()->get(ConverterServiceInterface::class);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function getVideoProbeService(): ProbeServiceInterface
+    {
+        return $this->getConfiguredContainer()->get(ProbeServiceInterface::class);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function getVideoDetectionService(): DetectionServiceInterface
+    {
+        return $this->getConfiguredContainer()->get(DetectionServiceInterface::class);
     }
 
     /**

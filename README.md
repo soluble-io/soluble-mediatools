@@ -32,13 +32,16 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 - [X] `Video\ThumbService`
   - [X] Basic thumbnail creation
   - [ ] Stabilize API first
+- [X] `Video\DetectionService`.
+  - [X] Interlacement detection (thru probablility).  
+
 
 ## Requirements
 
 - PHP 7.1+
 - FFmpeg 3.4+, 4.0+ 
  
-## VideoConverter service. 
+## Video\ConverterService service. 
 
 ### Process
 
@@ -48,7 +51,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ### Recipes
 
-> The following examples assumes that the `VideoConvert` service 
+> The following examples assumes that the `Video\ConvertServiceInterface`  
 > is already configured *(generally the services will be available through
 > a psr-11 compatible container or through framework integration... 
 > See [configuration](#configuration) section for more info)*      
@@ -58,10 +61,10 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 > use \Psr\Container\ContainerInterface;
 > use \Soluble\MediaTools\Video\ConverterServiceInterface;
 > /**
->  * @var ContainerInterface              $anyPsr11Container 
->  * @var ConverterServiceInterface       $videoConverter
+>  * @var ContainerInterface        $aPsr11Container 
+>  * @var ConverterServiceInterface $videoConverter
 >  */ 
-> $videoConverter = $anyPsr11Container->get(ConverterServiceInterface::class);
+> $videoConverter = $aPsr11Container->get(ConverterServiceInterface::class);
 > ```
 
  
@@ -158,6 +161,72 @@ try {
 }
 
 ``` 
+
+----------------------
+
+## Video\DetectionService service. 
+
+### Recipes
+
+> The following examples assumes that the `Video\DetectionServiceInterface`  
+> is already configured *(generally the services will be available through
+> a psr-11 compatible container or through framework integration... 
+> See [configuration](#configuration) section for more info)*      
+>
+> ```php
+> <?php
+> use Psr\Container\ContainerInterface;
+> use Soluble\MediaTools\Video\DetectionServiceInterface;
+> /**
+>  * @var ContainerInterface        $aPsr11Container 
+>  * @var DetectionServiceInterface $detectService
+>  */ 
+> $detectService = $aPsr11Container->get(DetectionServiceInterface::class);
+> ```
+
+ 
+#### Detect interlacement
+
+
+```php
+<?php
+use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\Detection\{InterlaceDetect, InterlaceGuess};
+
+$videoFile = '/path/input_video.webm';
+$maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES; // 1000
+
+try {
+    /** @var \Soluble\MediaTools\Video\DetectionServiceInterface $detectService */
+    $interlaceGuess = $detectService->detectInterlacement($videoFile, $maxFramesToAnalyze);
+} catch (MTException\FileNotFoundException $e) {
+    // The input file does not exists
+    throw $e;
+} 
+
+// Optional detection threshold:
+// By default 0.2 = 20% interlaced frames => interlaced video
+$threshold = InterlaceGuess::INTERLACING_DETECTION_THRESHOLD; 
+
+$isInterlaced = $interlaceGuess->isInterlaced($threshold);
+
+switch($interlaceGuess->getBestGuess($threshold)) {
+    case InterlaceGuess::MODE_INTERLACED_TFF:        
+    case InterlaceGuess::MODE_INTERLACED_BFF:
+        $isInterlaced = true;
+        break;
+    case InterlaceGuess::MODE_PROGRESSIVE:
+    case InterlaceGuess::MODE_UNDETERMINED:
+    default:
+        $isInterlaced = false;                    
+}
+
+// Or get the stats
+$stats = $interlaceGuess->getStats();
+
+```
+
+---------------------------
 
 ## Configuration
 
