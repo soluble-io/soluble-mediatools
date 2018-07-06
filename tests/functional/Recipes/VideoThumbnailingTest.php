@@ -6,6 +6,7 @@ namespace MediaToolsTest\Recipes;
 
 use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbnailingTest extends TestCase
@@ -38,11 +39,11 @@ class VideoThumbnailingTest extends TestCase
 
     public function testMakeThumbnail(): void
     {
-        $outputFile = $this->outputDir . '/thumb.jpg';
+        $outputFile = $this->outputDir . '/testMakeThumbnail.jpg';
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
-        $this->thumbService->makeThumbnails(
+        $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
             0.2
@@ -50,5 +51,11 @@ class VideoThumbnailingTest extends TestCase
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));
         unlink($outputFile);
+    }
+
+    public function testMakeThumbnailThrowsFileNotFoundException(): void
+    {
+        self::expectException(FileNotFoundException::class);
+        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '');
     }
 }

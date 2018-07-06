@@ -43,7 +43,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
  
 -------------- 
 ## Video\ConverterService. 
---------------
+
 
 The `Video\ConvertServiceInterface` offers two ways to convert a video to another one.
 
@@ -162,8 +162,48 @@ try {
 ``` 
 
 ----------------------
-## Video\DetectionService service. 
+## Video\ThumbService  
+
+### Recipes
+
+> The following examples assumes that the `Video\ThumbServiceInterface`  
+> is already configured *(generally the services will be available through
+> a psr-11 compatible container or through framework integration... 
+> See [configuration](#configuration) section for more info)*      
+>
+> ```php
+> <?php
+> use Psr\Container\ContainerInterface;
+> use Soluble\MediaTools\Video\ThumbServiceInterface;
+> /**
+>  * @var ContainerInterface     $aPsr11Container 
+>  * @var ThumbServiceInterface  $thumbService
+>  */ 
+> $detectService = $aPsr11Container->get(ThumbServiceInterface::class);
+> ```
+
+
+#### Create a thumbnail
+
+```php
+<?php
+use Soluble\MediaTools\Exception as MTException;
+
+$videoFile = '/path/input_video.webm';
+
+try {
+    /** @var \Soluble\MediaTools\Video\ThumbServiceInterface $thumbService */
+    $thumbService->makeThumbnail($videoFile, '/path/thumb.jpg', $time=0.25);
+} catch (MTException\FileNotFoundException $e) {
+    // The input file does not exists
+    throw $e;
+} 
+
+```
+
 ----------------------
+## Video\DetectionService service. 
+
 
 ### Recipes
 
@@ -237,7 +277,7 @@ $stats = $interlaceGuess->getStats();
 
 ---------------------------
 ## Configuration
----------------------------
+
 
 ### Usage with psr/container
 
