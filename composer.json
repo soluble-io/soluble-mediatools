@@ -60,8 +60,8 @@
             ]
         }
     },
-
     "scripts": {
+        "post-install-cmd": "\\SebastianFeldmann\\CaptainHook\\Composer\\Cmd::install",
         "check": [
             "@cs-check",
             "@phpstan"
