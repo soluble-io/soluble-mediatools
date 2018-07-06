@@ -36,9 +36,11 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 - FFmpeg 3.4+, 4.0+
  
 
-## `VideoConvert` conversion service. 
+## VideoConvert service. 
 
 ### Process
+
+### VideoConvertParams
 
 ### Exception
 
@@ -155,7 +157,7 @@ try {
 > See the [ConfigProvider](./src/Config/ConfigProvider.php) class to get an idea of how 
 > service registration can be achieved.  
 
-Example 1: with zend-service-manager.
+### With zend-service-manager.
 
 ```php
 <?php declare(strict_types=1);
