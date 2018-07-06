@@ -132,6 +132,10 @@ try {
 
 ### Usage with psr/container
 
+> MediaTools provides factories that can be easily used with any for psr-11 compatible container.
+> See the [ConfigProvider](./src/Config/ConfigProvider.php) class to get an idea of how 
+> service registration can be achieved.  
+
 Example 1: with zend-service-manager.
 
 ```php
@@ -165,16 +169,19 @@ $config = [
 // Service manager
 $container = new ServiceManager(
                 array_merge([
+                    // In Zend\ServiceManager configuration will be set
+                    // in 'services'.'config'. 
                     'services' => [
                         'config' => $config
                     ]],
+                    // Here the factories
                     (new ConfigProvider())->getDependencies()
              ));
 
 // Now whenever you want an instance of a service:
 
 $videoProbe     = $container->get(VideoProbe::class);
-$VideoConvert = $container->get(VideoConvert::class);
+$VideoConvert   = $container->get(VideoConvert::class);
 $videoThumb     = $container->get(VideoThumb::class);
 
 ```

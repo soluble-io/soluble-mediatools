@@ -35,4 +35,9 @@ class ConfigProvider
             ],
         ];
     }
+
+    public function getDefaultConfiguration(): array
+    {
+        return require dirname(__DIR__, 2) . '/config/soluble-mediatools.global.php';
+    }
 }

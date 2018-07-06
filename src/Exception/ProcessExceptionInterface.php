@@ -16,9 +16,11 @@ interface ProcessExceptionInterface extends ExceptionInterface
      */
     public function getSymfonyProcessRuntimeException(): SymfonyProcessException\RuntimeException;
 
-    public function wasCausedByFailure(): bool;
+    public function wasCausedByProcess(): bool;
 
     public function wasCausedByTimeout(): bool;
 
     public function wasCausedBySignal(): bool;
+
+    public function getFailureType(): string;
 }
