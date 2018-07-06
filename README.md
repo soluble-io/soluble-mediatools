@@ -27,9 +27,31 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ## Examples
 
+> The following examples assumes that the different services 
+> (VideoConvert, VideoProbe, VideoThumb) are configured and 
+> available. Generally the services will be available through
+> a psr-11 compatible container: 
+>
+> ```php
+> <?php
+> use \Psr\Container\ContainerInterface;
+> use \Soluble\MediaTools\{VideoConvert, VideoProbe};
+> /**
+>  * @var ContainerInterface $anyPsr11Container (zend-servicemanager, pimple...) 
+>  * @var VideoConvert       $videoConvert video conversion service
+>  * @var VideoProbe         $videoProbe   video probe service
+>  */ 
+> $videoConvert = $anyPsr11Container->get(VideoConvert::class);
+> $videoProbe   = $anyPsr11Container->get(VideoProbe::class);
+> 
+> ```
+>
+> See [configuration](#configuration) section for more info.
+
+
 ### Conversion
 
-> Example of conversion from `mov` to `mp4/h264/aac`
+> Basic conversion from `mov` to `mp4/h264/aac`
 
 ```php
 <?php
