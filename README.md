@@ -58,8 +58,8 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 >
 > ```php
 > <?php
-> use \Psr\Container\ContainerInterface;
-> use \Soluble\MediaTools\Video\ConverterServiceInterface;
+> use Psr\Container\ContainerInterface;
+> use Soluble\MediaTools\Video\ConverterServiceInterface;
 > /**
 >  * @var ContainerInterface        $aPsr11Container 
 >  * @var ConverterServiceInterface $videoConverter
@@ -67,8 +67,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 > $videoConverter = $aPsr11Container->get(ConverterServiceInterface::class);
 > ```
 
- 
-#### Simple example from `mov` to `mp4/x264/aac`
+#### Conversion from `mov` to `mp4/x264/aac`
 
 > See the [official H264](https://trac.ffmpeg.org/wiki/Encode/H.264) doc. 
 
@@ -104,7 +103,7 @@ try {
        
 ``` 
 
-#### Basic conversion from `mov` to `webm/vp9/opus`
+#### Conversion from `mov` to `webm/vp9/opus`
 
 > See the official [ffmpeg VP9 docs](https://trac.ffmpeg.org/wiki/Encode/VP9) 
 > and have a look at the [google vp9 VOD](https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines) guidelines
@@ -115,8 +114,6 @@ try {
 use Soluble\MediaTools\VideoConvertParams;
 use Soluble\MediaTools\Exception as MTException;
 
-// Optional, whether the source is interlaced ?
-$videoFilters = $videoConvert->getDeintFilter($file);
 
 $convertParams = (new VideoConvertParams())
                 ->withVideoCodec('libvpx-vp9')
@@ -206,7 +203,7 @@ try {
 
 // Optional detection threshold:
 // By default 0.2 = 20% interlaced frames => interlaced video
-$threshold = InterlaceGuess::INTERLACING_DETECTION_THRESHOLD; 
+$threshold = InterlaceGuess::DEFAULT_DETECTION_THRESHOLD; 
 
 $isInterlaced = $interlaceGuess->isInterlaced($threshold);
 
@@ -244,6 +241,7 @@ $stats = $interlaceGuess->getStats();
 use Soluble\MediaTools\Config\ConfigProvider;
 use Soluble\MediaTools\Video\ConverterServiceInterface;
 use Soluble\MediaTools\Video\ProbeServiceInterface;
+use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
 // Config options can be in a file, i.e: `require 'config/soluble-mediatools.global.php';`
@@ -283,6 +281,7 @@ $container = new ServiceManager(
 
 $videoConverter   = $container->get(ConverterServiceInterface::class);
 $videoProbe       = $container->get(ProbeServiceInterface::class);
+$videoDetection   = $container->get(DetectionServiceInterface::class);
 
 //$videoThumb     = $container->get(VideoThumb::class);
 
