@@ -8,9 +8,9 @@ use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
-use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
-use Soluble\MediaTools\Filter\Video\VideoFilterChain;
-use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
+use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
+use Soluble\MediaTools\Video\Filter\VideoFilterChain;
+use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\VideoConvert;
 use Soluble\MediaTools\VideoConvertParams;
 
@@ -50,8 +50,10 @@ class VideoSimpleConversionTest extends TestCase
         }
 
         $convertParams = (new VideoConvertParams())
-            ->withVideoCodec('copy')
-            ->withOutputFormat('mp4');
+            ->withVideoCodec('libx264')
+            ->withPreset('ultrafast')
+            ->withTune('animation')
+            ->withCrf(20);
 
         self::assertFileExists($this->videoFile);
         self::assertFileNotExists($outputFile);
@@ -64,6 +66,14 @@ class VideoSimpleConversionTest extends TestCase
 
         self::assertFileExists($outputFile);
         unlink($outputFile);
+
+        // Check the outputed command
+        $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
+        $cmdLine = $process->getCommandLine();
+
+        self::assertContains(' -vcodec libx264 ', $cmdLine);
+        self::assertContains(' -preset ultrafast ', $cmdLine);
+        self::assertContains(' -tune animation ', $cmdLine);
     }
 
     public function testFullOptions(): void
@@ -123,7 +133,7 @@ class VideoSimpleConversionTest extends TestCase
         self::assertContains(' -g 240 ', $cmdLine);
         self::assertContains(' -tile-columns 1 ', $cmdLine);
         self::assertContains(' -frame-parallel 1', $cmdLine);
-        self::assertContains(' -pix_fmt yuv420p', $cmdLine);
+        self::assertContains(' -pix_fmt yuv420p ', $cmdLine);
         self::assertContains(' -f webm ', $cmdLine);
     }
 
@@ -152,7 +162,7 @@ class VideoSimpleConversionTest extends TestCase
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $params);
-            self::fail('Video conversion with invalid codec must fail.');
+            self::fail('Filter conversion with invalid codec must fail.');
         } catch (ProcessConversionException $e) {
             self::assertTrue($e->wasCausedByProcess());
             self::assertEquals(1, $e->getCode());

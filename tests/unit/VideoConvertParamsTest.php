@@ -6,7 +6,7 @@ namespace MediaToolsTest;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 use Soluble\MediaTools\VideoConvertParams;
 
 class VideoConvertParamsTest extends TestCase

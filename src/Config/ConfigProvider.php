@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
+use Soluble\MediaTools\Video\VideoConverterServiceFactory;
+use Soluble\MediaTools\Video\VideoConverterServiceInterface;
 use Soluble\MediaTools\VideoConvert;
-use Soluble\MediaTools\VideoConvertFactory;
 use Soluble\MediaTools\VideoProbe;
 use Soluble\MediaTools\VideoProbeFactory;
 use Soluble\MediaTools\VideoThumb;
@@ -16,6 +17,9 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
+            'services' => [
+                'config' => $this->getDefaultConfiguration(),
+            ],
             'dependencies' => $this->getDependencies(),
         ];
     }
@@ -23,13 +27,17 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
+            'aliases' => [
+                VideoConvert::class => VideoConverterServiceInterface::class,
+            ],
             'factories' => [
                 // FFMpeg stuff
                 FFMpegConfig::class   => FFMpegConfigFactory::class,
                 FFProbeConfig::class  => FFProbeConfigFactory::class,
 
                 // Services classes
-                VideoConvert::class   => VideoConvertFactory::class,
+                VideoConverterServiceInterface::class   => VideoConverterServiceFactory::class,
+
                 VideoProbe::class     => VideoProbeFactory::class,
                 VideoThumb::class     => VideoThumbFactory::class,
             ],

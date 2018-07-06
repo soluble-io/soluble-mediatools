@@ -6,13 +6,13 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
-use Soluble\MediaTools\Detection\InterlacementGuess;
-use Soluble\MediaTools\Util\CommonAssertionsTrait;
+use Soluble\MediaTools\Util\PathAssertionsTrait;
+use Soluble\MediaTools\Video\Detection\InterlacementGuess;
 use Symfony\Component\Process\Process;
 
 class VideoProbe
 {
-    use CommonAssertionsTrait;
+    use PathAssertionsTrait;
 
     /** @var FFProbeConfig */
     protected $ffprobeConfig;

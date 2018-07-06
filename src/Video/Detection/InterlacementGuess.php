@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Detection;
+namespace Soluble\MediaTools\Video\Detection;
 
-use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
-use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
-use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
+use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
+use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 
 class InterlacementGuess
 {

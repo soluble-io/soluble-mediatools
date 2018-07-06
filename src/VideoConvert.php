@@ -7,18 +7,19 @@ namespace Soluble\MediaTools;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
-use Soluble\MediaTools\Filter\Video\EmptyVideoFilter;
-use Soluble\MediaTools\Filter\Video\VideoFilterChain;
-use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
-use Soluble\MediaTools\Filter\Video\VideoFilterTypeDenoiseInterface;
-use Soluble\MediaTools\Filter\Video\YadifVideoFilter;
-use Soluble\MediaTools\Util\CommonAssertionsTrait;
+use Soluble\MediaTools\Util\PathAssertionsTrait;
+use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
+use Soluble\MediaTools\Video\Filter\VideoFilterChain;
+use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\VideoFilterTypeDenoiseInterface;
+use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\Video\VideoConverterServiceInterface;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
-class VideoConvert
+class VideoConvert implements VideoConverterServiceInterface
 {
-    use CommonAssertionsTrait;
+    use PathAssertionsTrait;
 
     /** @var FFMpegConfig */
     protected $ffmpegConfig;

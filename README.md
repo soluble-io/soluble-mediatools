@@ -25,6 +25,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
       - [X] Deinterlacing video (Yadif, Hqdn3d)
   - [ ] Video scaling (todo)
   - [ ] Time slicing (todo)        
+  - [ ] Option to enable multipass (todo)
 - [X] `VideoThumb` for thumbnail creation.
   - [ ] Stabilize API first
 - [X] `VideoProbe` for getting infos about a video.
@@ -33,9 +34,8 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 ## Requirements
 
 - PHP 7.1+
-- FFmpeg 3.4+, 4.0+
+- FFmpeg 3.4+, 4.0+ 
  
-
 ## VideoConvert service. 
 
 ### Process
@@ -63,20 +63,22 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 > ```
 
  
-#### Simple example from `mov` to `mp4/h264/aac`
+#### Simple example from `mov` to `mp4/x264/aac`
+
+> See the [official H264](https://trac.ffmpeg.org/wiki/Encode/H.264) doc. 
 
 ```php
 <?php
 use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
 
 $convertParams = (new VideoConvertParams)
-            ->withVideoCodec('h264')   // Video codec 
+            ->withVideoCodec('libx264') Filter
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
-            ->withStreamable(true)     // Add streamable options (movflags & faststart) 
-            ->withCrf(24)              // Level of compression: better size / less visual quality  
-            ->withPreset('medium')     // Optional: see presets  
-            ->withOutputFormat('mp4'); // Optional: if not set, will be detected from output file extension.
+            ->withStreamable(true)      // Add streamable options (movflags & faststart) 
+            ->withCrf(24)               // Level of compression: better size / less visual quality  
+            ->withPreset('fast')        // Optional: see presets  
+            ->withOutputFormat('mp4');  // Optional: if not set, will be detected from output file extension.
     
 try {
     /** @var VideoConvert $videoConvert video conversion service */
@@ -97,6 +99,10 @@ try {
 ``` 
 
 #### Basic conversion from `mov` to `webm/vp9/opus`
+
+> See the official [ffmpeg VP9 docs](https://trac.ffmpeg.org/wiki/Encode/VP9) 
+> and have a look at the [google vp9 VOD](https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines) guidelines
+
 
 ```php
 <?php
@@ -162,7 +168,7 @@ try {
 ```php
 <?php declare(strict_types=1);
 
-use Soluble\MediaTools\{VideoConvert, VideoProbe, VideoThumb};
+use Soluble\MediaTools\Video\VideoConverterServiceInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
 use Zend\ServiceManager\ServiceManager;
 
@@ -201,9 +207,9 @@ $container = new ServiceManager(
 
 // Now whenever you want an instance of a service:
 
-$videoProbe     = $container->get(VideoProbe::class);
-$VideoConvert   = $container->get(VideoConvert::class);
-$videoThumb     = $container->get(VideoThumb::class);
+$videoConvert   = $container->get(VideoConverterServiceInterface::class);
+//$videoProbe     = $container->get(VideoProbe::class);
+//$videoThumb     = $container->get(VideoThumb::class);
 
 ```
   

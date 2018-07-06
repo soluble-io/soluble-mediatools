@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Util;
 
 use Soluble\MediaTools\Exception\FileNotFoundException;
 
-trait CommonAssertionsTrait
+trait PathAssertionsTrait
 {
     /**
      * @throws FileNotFoundException

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Filter\Video;
+namespace Soluble\MediaTools\Video\Filter;
 
 class EmptyVideoFilter implements VideoFilterInterface
 {

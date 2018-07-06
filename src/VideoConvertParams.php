@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Filter\Video\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
 class VideoConvertParams
 {
