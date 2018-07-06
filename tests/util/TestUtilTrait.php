@@ -9,6 +9,7 @@ use Soluble\MediaTools\Config\ConfigProvider;
 use Soluble\MediaTools\Video\ConverterServiceInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Soluble\MediaTools\Video\ProbeServiceInterface;
+use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
 trait TestUtilTrait
@@ -36,6 +37,16 @@ trait TestUtilTrait
     {
         return $this->getConfiguredContainer()->get(DetectionServiceInterface::class);
     }
+
+
+    /**
+     * @throws \Exception
+     */
+    public function getVideoThumbService(): ThumbServiceInterface
+    {
+        return $this->getConfiguredContainer()->get(ThumbServiceInterface::class);
+    }
+
 
     /**
      * @throws \Exception

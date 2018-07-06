@@ -6,6 +6,7 @@ namespace MediaToolsTest\Recipes;
 
 use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Detection\InterlaceGuess;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 
@@ -54,5 +55,12 @@ class VideoDetectionTest extends TestCase
 
         // Because some frames where detected as interlaced ttf > 0.01 %
         self::assertTrue($interlaceGuess->isInterlacedTff(0.01));
+    }
+
+
+    public function testDetectInterlacementThrowsFileNotFoundException(): void
+    {
+        self::expectException(FileNotFoundException::class);
+        $this->detectionService->detectInterlacement('/path/path/does_not_exist.mp4');
     }
 }

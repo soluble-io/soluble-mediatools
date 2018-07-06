@@ -13,6 +13,9 @@ use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Soluble\MediaTools\Video\ProbeService;
 use Soluble\MediaTools\Video\ProbeServiceFactory;
 use Soluble\MediaTools\Video\ProbeServiceInterface;
+use Soluble\MediaTools\Video\ThumbService;
+use Soluble\MediaTools\Video\ThumbServiceFactory;
+use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Soluble\MediaTools\VideoThumb;
 use Soluble\MediaTools\VideoThumbFactory;
 
@@ -35,9 +38,10 @@ class ConfigProvider
                 ConverterService::class => ConverterServiceInterface::class,
                 ProbeService::class     => ProbeServiceInterface::class,
                 DetectionService::class => DetectionServiceInterface::class,
+                ThumbService::class     => ThumbServiceInterface::class,
             ],
             'factories' => [
-                // FFMpeg stuff
+                // Configuration array for ffmpeg and ffprobe
                 FFMpegConfig::class   => FFMpegConfigFactory::class,
                 FFProbeConfig::class  => FFProbeConfigFactory::class,
 
@@ -45,8 +49,8 @@ class ConfigProvider
                 ConverterServiceInterface::class => ConverterServiceFactory::class,
                 ProbeServiceInterface::class     => ProbeServiceFactory::class,
                 DetectionServiceInterface::class => DetectionServiceFactory::class,
+                ThumbServiceInterface::class     => ThumbServiceFactory::class,
 
-                VideoThumb::class     => VideoThumbFactory::class,
             ],
         ];
     }

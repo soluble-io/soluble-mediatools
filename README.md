@@ -183,9 +183,16 @@ try {
 > $detectService = $aPsr11Container->get(DetectionServiceInterface::class);
 > ```
 
- 
+
 #### Detect interlacement
 
+> In some cases, detect interlaced videos cannot be achieved trivially 
+> through video metadata. When unsure we can use the `InterlaceGuess` 
+> to decide whether the video is interlaced (BFF or TFF) and conditionnally
+> add de-interlace filters (i.e. yadif)to conversion or thumbnail generation.
+> 
+> For more background see the [ffmpeg filters](https://ffmpeg.org/ffmpeg-filters.html) reference@see 
+> and [https://askubuntu.com/a/867203](https://askubuntu.com/a/867203).
 
 ```php
 <?php
@@ -222,6 +229,9 @@ switch($interlaceGuess->getBestGuess($threshold)) {
 
 // Or get the stats
 $stats = $interlaceGuess->getStats();
+
+// Then decide to apply a de-interlace filter to thumbnail generation
+// or video conversion.
 
 ```
 
