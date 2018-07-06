@@ -57,12 +57,6 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 <?php
 use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
 
-/**
- * @var \Psr\Container\ContainerInterface $anyPsr11Container 
- * @var VideoConvert $videoConvert video conversion service
- */ 
-$videoConvert = $anyPsr11Container->get(VideoConvert::class); 
-
 $convertParams = (new VideoConvertParams)
             ->withVideoCodec('h264')   // Video codec 
             ->withAudioCodec('aac')
@@ -73,7 +67,8 @@ $convertParams = (new VideoConvertParams)
             ->withOutputFormat('mp4'); // Optional: if not set, will be detected from output file extension.
     
 try {
-    $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
+    /** @var VideoConvert $videoConvert video conversion service */
+    $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
 } catch(MediaToolsException\ProcessConversionException $e) {
     
     // The ffmpeg 'symfony' process encountered a failure...
@@ -96,13 +91,6 @@ try {
 ```php
 <?php
 use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
-
-/**
- * @var \Psr\Container\ContainerInterface $anyPsr11Container 
- * @var VideoConvert $videoConvert video conversion service
- */ 
-$videoConvert = $anyPsr11Container->get(VideoConvert::class); 
-
 
 // Optional, whether the source is interlaced ?
 $videoFilters = $videoConvert->getDeintFilter($file);
@@ -134,7 +122,8 @@ $convertParams = (new VideoConvertParams())
 
 
 try {
-    $process = $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
+    /** @var VideoConvert $videoConvert video conversion service */
+    $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
 } catch(MediaToolsException\ProcessConversionException $e) {
     
     // The ffmpeg 'symfony' process encountered a failure...
