@@ -54,12 +54,12 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 > ```php
 > <?php
 > use \Psr\Container\ContainerInterface;
-> use \Soluble\MediaTools\VideoConvert;
+> use \Soluble\MediaTools\Video\VideoConverterServiceInterface;
 > /**
->  * @var ContainerInterface $anyPsr11Container (zend-servicemanager, pimple-interop...) 
->  * @var VideoConverter       $VideoConverter video conversion service
+>  * @var ContainerInterface              $anyPsr11Container 
+>  * @var VideoConverterServiceInterface  $videoConverter
 >  */ 
-> $VideoConverter = $anyPsr11Container->get(VideoConvert::class);
+> $videoConverter = $anyPsr11Container->get(VideoConverterServiceInterface::class);
 > ```
 
  
@@ -69,10 +69,11 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ```php
 <?php
-use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
+use Soluble\MediaTools\VideoConvertParams;
+use Soluble\MediaTools\Exception as MTException;
 
 $convertParams = (new VideoConvertParams)
-            ->withVideoCodec('libx264') Filter
+            ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
             ->withStreamable(true)      // Add streamable options (movflags & faststart) 
@@ -81,9 +82,9 @@ $convertParams = (new VideoConvertParams)
             ->withOutputFormat('mp4');  // Optional: if not set, will be detected from output file extension.
     
 try {
-    /** @var VideoConverter $VideoConverter video conversion service */
-    $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
-} catch(MediaToolsException\ProcessConversionException $e) {
+    /** @var \Soluble\MediaTools\Video\ConverterServiceInterface $videoConverter */
+    $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);    
+} catch(MTException\ProcessConversionException $e) {
     
     // The ffmpeg 'symfony' process encountered a failure...
     // To see the reason you can either use:
@@ -92,7 +93,7 @@ try {
     echo $e->wasCausedByTimeout() ? 'timeout' : '';
     echo $e->wasCausedBySignal() ? 'interrupted' : '';
     
-} catch (MediaToolsException\FileNotFoundException $e) {
+} catch (MTException\FileNotFoundException $e) {
      echo "The input file does not exists";    
 }
        
@@ -106,7 +107,8 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\{VideoConvert, VideoConvertParams, Exception as MediaToolsException};
+use Soluble\MediaTools\VideoConvertParams;
+use Soluble\MediaTools\Exception as MTException;
 
 // Optional, whether the source is interlaced ?
 $videoFilters = $videoConvert->getDeintFilter($file);
@@ -138,9 +140,9 @@ $convertParams = (new VideoConvertParams())
 
 
 try {
-    /** @var VideoConverter $VideoConverter video conversion service */
-    $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
-} catch(MediaToolsException\ProcessConversionException $e) {
+    /** @var \Soluble\MediaTools\Video\ConverterServiceInterface $videoConverter */
+    $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
+} catch(MTException\ProcessConversionException $e) {
     
     // The ffmpeg 'symfony' process encountered a failure...
     // To see the reason you can either use:
@@ -149,7 +151,7 @@ try {
     echo $e->wasCausedByTimeout() ? 'timeout' : '';
     echo $e->wasCausedBySignal() ? 'interrupted' : '';
     
-} catch (MediaToolsException\FileNotFoundException $e) {
+} catch (MTException\FileNotFoundException $e) {
      echo "The input file does not exists";    
 }
 
@@ -168,8 +170,9 @@ try {
 ```php
 <?php declare(strict_types=1);
 
-use Soluble\MediaTools\Video\VideoConverterServiceInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
+use Soluble\MediaTools\Video\ConverterServiceInterface;
+use Soluble\MediaTools\Video\ProbeServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
 // Config options can be in a file, i.e: `require 'config/soluble-mediatools.global.php';`
@@ -207,8 +210,9 @@ $container = new ServiceManager(
 
 // Now whenever you want an instance of a service:
 
-$videoConverter   = $container->get(VideoConverterServiceInterface::class);
-//$videoProbe     = $container->get(VideoProbe::class);
+$videoConverter   = $container->get(ConverterServiceInterface::class);
+$videoProbe       = $container->get(ProbeServiceInterface::class);
+
 //$videoThumb     = $container->get(VideoThumb::class);
 
 ```

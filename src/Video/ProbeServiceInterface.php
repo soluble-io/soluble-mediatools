@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\VideoInfo;
 
-interface VideoProbeServiceInterface
+interface ProbeServiceInterface
 {
     public function getMediaInfo(string $file): VideoInfo;
 }

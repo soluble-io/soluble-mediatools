@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Converter\Adapter;
 
+use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
 
 class FFMpegAdapter implements AdapterInterface
 {
+    /** @var FFMpegConfig */
+    protected $ffmpegConfig;
+
+    public function __construct(FFMpegConfig $ffmpegConfig)
+    {
+        $this->ffmpegConfig = $ffmpegConfig;
+    }
+
     /**
      * @return array<string, array<string, string>>
      */

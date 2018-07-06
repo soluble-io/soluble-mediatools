@@ -13,7 +13,7 @@ class VideoThumbFactory
     {
         return new VideoThumb(
             $container->get(FFMpegConfig::class),
-            $container->get(VideoProbe::class)
+            $container->get(Probe::class)
         );
     }
 }

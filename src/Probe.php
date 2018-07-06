@@ -8,10 +8,10 @@ use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Detection\InterlacementGuess;
-use Soluble\MediaTools\Video\VideoProbeServiceInterface;
+use Soluble\MediaTools\Video\ProbeServiceInterface;
 use Symfony\Component\Process\Process;
 
-class VideoProbe implements VideoProbeServiceInterface
+class Probe implements ProbeServiceInterface
 {
     use PathAssertionsTrait;
 

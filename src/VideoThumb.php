@@ -17,10 +17,10 @@ class VideoThumb
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /** @var VideoProbe */
+    /** @var Probe */
     protected $videoProbe;
 
-    public function __construct(FFMpegConfig $ffmpegConfig, VideoProbe $videoProbe)
+    public function __construct(FFMpegConfig $ffmpegConfig, Probe $videoProbe)
     {
         $this->videoProbe   = $videoProbe;
         $this->ffmpegConfig = $ffmpegConfig;

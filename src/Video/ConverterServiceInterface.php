@@ -9,7 +9,7 @@ use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\VideoConvertParams;
 use Symfony\Component\Process\Process;
 
-interface VideoConverterServiceInterface
+interface ConverterServiceInterface
 {
     /**
      * Return ready-to-run symfony process object that you can use

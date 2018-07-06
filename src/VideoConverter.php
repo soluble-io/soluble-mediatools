@@ -9,26 +9,26 @@ use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
+use Soluble\MediaTools\Video\ConverterServiceInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterTypeDenoiseInterface;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
-use Soluble\MediaTools\Video\VideoConverterServiceInterface;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
-class VideoConverter implements VideoConverterServiceInterface
+class VideoConverter implements ConverterServiceInterface
 {
     use PathAssertionsTrait;
 
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /** @var VideoProbe */
+    /** @var Probe */
     protected $videoProbe;
 
-    public function __construct(FFMpegConfig $ffmpegConfig, VideoProbe $videoProbe)
+    public function __construct(FFMpegConfig $ffmpegConfig, Probe $videoProbe)
     {
         $this->videoProbe   = $videoProbe;
         $this->ffmpegConfig = $ffmpegConfig;

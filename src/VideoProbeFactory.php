@@ -10,9 +10,9 @@ use Soluble\MediaTools\Config\FFProbeConfig;
 
 class VideoProbeFactory
 {
-    public function __invoke(ContainerInterface $container): VideoProbe
+    public function __invoke(ContainerInterface $container): Probe
     {
-        return new VideoProbe(
+        return new Probe(
             $container->get(FFProbeConfig::class),
             $container->get(FFMpegConfig::class)
         );
