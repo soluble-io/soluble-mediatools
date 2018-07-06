@@ -7,7 +7,7 @@ namespace MediaToolsTest\Video;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
-use Soluble\MediaTools\Video\ConverterParams;
+use Soluble\MediaTools\Video\ConvertParams;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
 class ConverterParamsTest extends TestCase
@@ -18,7 +18,7 @@ class ConverterParamsTest extends TestCase
 
     public function testMustBeImmutable(): void
     {
-        $params = new ConverterParams();
+        $params = new ConvertParams();
         self::assertCount(0, $params->getOptions());
         $newParams = $params->withThreads(1);
         self::assertCount(0, $params->getOptions());
@@ -27,7 +27,7 @@ class ConverterParamsTest extends TestCase
 
     public function testHasOption(): void
     {
-        $params = (new ConverterParams())
+        $params = (new ConvertParams())
                   ->withTileColumns(10);
         self::assertTrue($params->hasOption(ParamsInterface::PARAM_TILE_COLUMNS));
         self::assertFalse($params->hasOption(ParamsInterface::PARAM_FRAME_PARALLEL));
@@ -35,18 +35,18 @@ class ConverterParamsTest extends TestCase
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
-        $injectedParams = new ConverterParams([
+        $injectedParams = new ConvertParams([
             ParamsInterface::PARAM_TUNE => 'grain',
         ]);
 
-        $withParams = (new ConverterParams())->withTune('grain');
+        $withParams = (new ConvertParams())->withTune('grain');
 
         self::assertSame($injectedParams->getOptions(), $withParams->getOptions());
     }
 
     public function testGetOptionsMustEqualsParams(): void
     {
-        $params = (new ConverterParams())
+        $params = (new ConvertParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -102,7 +102,7 @@ class ConverterParamsTest extends TestCase
 
     public function testNewParamMustOverwritePreviousParam(): void
     {
-        $params = (new ConverterParams())
+        $params = (new ConvertParams())
             ->withTileColumns(10)
             ->withTileColumns(12);
 
@@ -125,7 +125,7 @@ class ConverterParamsTest extends TestCase
             }
         };
 
-        $params = (new ConverterParams())
+        $params = (new ConvertParams())
             ->withVideoFilter($filter1);
 
         self::assertSame($filter1, $params->getOption(ParamsInterface::PARAM_VIDEO_FILTER));
@@ -135,12 +135,12 @@ class ConverterParamsTest extends TestCase
     public function testUnsupportedParamThrowsInvalidArgumentException(): void
     {
         self::expectException(InvalidArgumentException::class);
-        new ConverterParams(['UnsupportedOption' => 'cool']);
+        new ConvertParams(['UnsupportedOption' => 'cool']);
     }
 
     public function testInvalidBitRateThrowsInvalidArgumentException(): void
     {
-        $params = new ConverterParams();
+        $params = new ConvertParams();
 
         try {
             $params->withVideoBitrate('901w');

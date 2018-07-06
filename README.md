@@ -41,11 +41,13 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 - PHP 7.1+
 - FFmpeg 3.4+, 4.0+ 
  
-## Video\ConverterService service. 
+-------------- 
+## Video\ConverterService. 
+--------------
 
-### Process
+The `Video\ConvertServiceInterface` offers two ways to convert a video to another one.
 
-### VideoConvertParams
+<TODO>
 
 ### Exception
 
@@ -73,10 +75,10 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ```php
 <?php
-use Soluble\MediaTools\VideoConvertParams;
+use Soluble\MediaTools\Video\ConvertParams;
 use Soluble\MediaTools\Exception as MTException;
 
-$convertParams = (new VideoConvertParams)
+$convertParams = (new ConvertParams)
             ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
@@ -111,11 +113,11 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\VideoConvertParams;
+use Soluble\MediaTools\Video\ConvertParams;
 use Soluble\MediaTools\Exception as MTException;
 
 
-$convertParams = (new VideoConvertParams())
+$convertParams = (new ConvertParams())
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -160,8 +162,8 @@ try {
 ``` 
 
 ----------------------
-
 ## Video\DetectionService service. 
+----------------------
 
 ### Recipes
 
@@ -224,8 +226,8 @@ $stats = $interlaceGuess->getStats();
 ```
 
 ---------------------------
-
 ## Configuration
+---------------------------
 
 ### Usage with psr/container
 

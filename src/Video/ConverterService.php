@@ -19,12 +19,8 @@ class ConverterService implements ConverterServiceInterface
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /** @var ProbeService */
-    protected $videoProbe;
-
-    public function __construct(FFMpegConfig $ffmpegConfig, ProbeService $videoProbe)
+    public function __construct(FFMpegConfig $ffmpegConfig)
     {
-        $this->videoProbe   = $videoProbe;
         $this->ffmpegConfig = $ffmpegConfig;
         $this->ffmpegConfig->getProcess()->ensureBinaryExists();
     }
@@ -38,7 +34,7 @@ class ConverterService implements ConverterServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, ConverterParams $convertParams): Process
+    public function getConversionProcess(string $inputFile, string $outputFile, ConvertParams $convertParams): Process
     {
         $this->ensureFileExists($inputFile);
 
@@ -79,7 +75,7 @@ class ConverterService implements ConverterServiceInterface
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, ConverterParams $convertParams, ?callable $callback = null, ?array $env = null): void
+    public function convert(string $inputFile, string $outputFile, ConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void
     {
         $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
 
@@ -95,7 +91,7 @@ class ConverterService implements ConverterServiceInterface
 
     /*
      * FOR LATER REFERENCE !!!
-    public function convertMultiPass(string $videoFile, string $outputFile, ConverterParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+    public function convertMultiPass(string $videoFile, string $outputFile, ConvertParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {
@@ -103,7 +99,7 @@ class ConverterService implements ConverterServiceInterface
         }
 
 
-        $threads = $convertParams->getOption(ConverterParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
+        $threads = $convertParams->getOption(ConvertParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
 
         $ffmpegBin = $this->ffmpegConfig->getBinary();
 

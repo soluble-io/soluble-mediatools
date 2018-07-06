@@ -12,8 +12,7 @@ class ConverterServiceFactory
     public function __invoke(ContainerInterface $container): ConverterServiceInterface
     {
         return new ConverterService(
-            $container->get(FFMpegConfig::class),
-            $container->get(ProbeService::class)
+            $container->get(FFMpegConfig::class)
         );
     }
 }

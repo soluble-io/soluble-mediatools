@@ -8,7 +8,7 @@ use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
-class ConverterParams implements ParamsInterface
+class ConvertParams implements ParamsInterface
 {
     public const SUPPORTED_OPTIONS = [
         self::PARAM_OUTPUT_FORMAT => [
