@@ -34,34 +34,34 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 - PHP 7.1+
 - FFmpeg 3.4+, 4.0+
+ 
 
-## Examples
+## `VideoConvert` conversion service. 
 
-> The following examples assumes that the different services 
-> (VideoConvert, VideoProbe, VideoThumb) are configured and 
-> available. Generally the services will be available through
-> a psr-11 compatible container: 
+### Process
+
+### Exception
+
+### Recipes
+
+> The following examples assumes that the `VideoConvert` service 
+> is already configured *(generally the services will be available through
+> a psr-11 compatible container or through framework integration... See [configuration](#configuration) 
+> section for more info)*      
 >
 > ```php
 > <?php
 > use \Psr\Container\ContainerInterface;
-> use \Soluble\MediaTools\{VideoConvert, VideoProbe};
+> use \Soluble\MediaTools\VideoConvert;
 > /**
->  * @var ContainerInterface $anyPsr11Container (zend-servicemanager, pimple...) 
+>  * @var ContainerInterface $anyPsr11Container (zend-servicemanager, pimple-interop...) 
 >  * @var VideoConvert       $videoConvert video conversion service
->  * @var VideoProbe         $videoProbe   video probe service
 >  */ 
 > $videoConvert = $anyPsr11Container->get(VideoConvert::class);
-> $videoProbe   = $anyPsr11Container->get(VideoProbe::class);
-> 
 > ```
->
-> See [configuration](#configuration) section for more info.
 
-
-### Conversion
-
-> Basic conversion from `mov` to `mp4/h264/aac`
+ 
+#### Simple example from `mov` to `mp4/h264/aac`
 
 ```php
 <?php
@@ -91,12 +91,10 @@ try {
 } catch (MediaToolsException\FileNotFoundException $e) {
      echo "The input file does not exists";    
 }
-    
-   
+       
 ``` 
 
-> Basicconversion from `mov` to `webm/vp9/opus`
-
+#### Basic conversion from `mov` to `webm/vp9/opus`
 
 ```php
 <?php
@@ -125,7 +123,7 @@ $convertParams = (new VideoConvertParams())
                 // the encoder must set tile-columns and frame-parallel.
                 ->withTileColumns(2)
                 ->withFrameParallel(1)
-                ->withSpeed(0)
+                ->withSpeed(1)
                 // Optional: Use videoprobe to be sure of color conversions if any needed
                 // ->withPixFmt('yuv420p') 
                 ->withOutputFormat('webm');

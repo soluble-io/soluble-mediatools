@@ -78,7 +78,6 @@ class VideoSimpleConversionTest extends TestCase
         $videoFilterChain->addFilter(new EmptyVideoFilter());
         $videoFilterChain->addFilter(new YadifVideoFilter());
 
-
         $convertParams = (new VideoConvertParams())
             ->withVideoCodec('libvpx-vp9')
             //->withCrf(32) - Using variable bitrate instead:
@@ -126,9 +125,7 @@ class VideoSimpleConversionTest extends TestCase
         self::assertContains(' -frame-parallel 1', $cmdLine);
         self::assertContains(' -pix_fmt yuv420p', $cmdLine);
         self::assertContains(' -f webm ', $cmdLine);
-
     }
-
 
     public function testConvertMustThrowFileNotFoundException(): void
     {
