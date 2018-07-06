@@ -91,8 +91,10 @@ class VideoConversionTest extends TestCase
             self::fail('Video conversion with invalid codec must fail.');
         } catch (ProcessConversionException $e) {
             self::assertTrue($e->wasCausedByProcess());
-            var_dump($e->getCode());
-            var_dump($e->getMessage());
+            self::assertEquals(1, $e->getCode());
+            self::assertEquals(ProcessConversionException::FAILURE_TYPE_PROCESS, $e->getFailureType());
+            self::assertContains('Unknown encoder \'NOVALIDCODEC\'', $e->getProcess()->getErrorOutput());
+            self::assertContains('Unknown encoder \'NOVALIDCODEC\'', $e->getMessage());
         } catch (\Throwable $e) {
             self::fail(sprintf(
                 'Invalid codec must throw a ProcessConversionException! (%s returned)',
