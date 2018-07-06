@@ -11,16 +11,17 @@ use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterTypeDenoiseInterface;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\Video\ProbeServiceInterface;
 
 class VideoThumb
 {
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /** @var Probe */
+    /** @var ProbeServiceInterface */
     protected $videoProbe;
 
-    public function __construct(FFMpegConfig $ffmpegConfig, Probe $videoProbe)
+    public function __construct(FFMpegConfig $ffmpegConfig, ProbeServiceInterface $videoProbe)
     {
         $this->videoProbe   = $videoProbe;
         $this->ffmpegConfig = $ffmpegConfig;
@@ -36,6 +37,7 @@ class VideoThumb
      *
      * @return VideoFilterInterface|VideoFilterChain|EmptyVideoFilter|YadifVideoFilter
      */
+    /*
     public function getDeintFilter(string $videoFile, ?VideoFilterTypeDenoiseInterface $denoiseFilter = null): VideoFilterInterface
     {
         $guess       = $this->videoProbe->guessInterlacing($videoFile);
@@ -53,7 +55,7 @@ class VideoThumb
         }
 
         return $deintFilter;
-    }
+    }*/
 
     public function makeThumbnails(string $videoFile, string $outputFile, float $time = 0.0, ?VideoFilterInterface $videoFilter = null): void
     {

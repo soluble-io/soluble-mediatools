@@ -6,14 +6,14 @@ namespace MediaToolsTest;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
-use Soluble\MediaTools\VideoConverter;
+use Soluble\MediaTools\Video\ConverterService;
 use Zend\ServiceManager\ServiceManager;
 
 trait TestUtilTrait
 {
-    public function getVideoConvertService(): VideoConverter
+    public function getVideoConvertService(): ConverterService
     {
-        return $this->getConfiguredContainer()->get(VideoConverter::class);
+        return $this->getConfiguredContainer()->get(ConverterService::class);
     }
 
     /**

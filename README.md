@@ -8,17 +8,17 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Media tools: toolbox for media processing, video conversions, transcoding, transmuxing... Wrapper for ffmpeg/ffprobe. 
+Media tools: toolbox for media processing, video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
 
 ## Status  
 
-> Early stages... VideoConverter almost API stable
+> Early stages... VideoConverter service almost API stable, other will follow soon.
 
 ## Features
 
 > Mediatools services:
 
-- [X] `VideoConverter` service.
+- [X] `Video\ConverterService`.
   - [X] Transcoding, transmuxing, compression (audio/video)
   - [X] Video Filters
       - [X] Chainable filters
@@ -26,9 +26,11 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
   - [ ] Video scaling (todo)
   - [ ] Time slicing (todo)        
   - [ ] Option to enable multipass transcoding (todo)
-- [X] `VideoProbe` for getting infos about a video.
-  - [ ] Stabilize API first    
-- [X] `VideoThumb` for thumbnail creation.
+- [X] `Video\ProbeService` 
+  - [X] Basic information like duration, frames....
+  - [ ] Need API Stabilization    
+- [X] `Video\ThumbService`
+  - [X] Basic thumbnail creation
   - [ ] Stabilize API first
 
 ## Requirements
@@ -54,12 +56,12 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 > ```php
 > <?php
 > use \Psr\Container\ContainerInterface;
-> use \Soluble\MediaTools\Video\VideoConverterServiceInterface;
+> use \Soluble\MediaTools\Video\ConverterServiceInterface;
 > /**
 >  * @var ContainerInterface              $anyPsr11Container 
->  * @var VideoConverterServiceInterface  $videoConverter
+>  * @var ConverterServiceInterface       $videoConverter
 >  */ 
-> $videoConverter = $anyPsr11Container->get(VideoConverterServiceInterface::class);
+> $videoConverter = $anyPsr11Container->get(ConverterServiceInterface::class);
 > ```
 
  

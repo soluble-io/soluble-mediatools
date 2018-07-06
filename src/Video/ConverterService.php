@@ -2,33 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools;
+namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
-use Soluble\MediaTools\Video\ConverterServiceInterface;
-use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
-use Soluble\MediaTools\Video\Filter\VideoFilterChain;
-use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
-use Soluble\MediaTools\Video\Filter\VideoFilterTypeDenoiseInterface;
-use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\VideoConvertParams;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
-class VideoConverter implements ConverterServiceInterface
+class ConverterService implements ConverterServiceInterface
 {
     use PathAssertionsTrait;
 
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
-    /** @var Probe */
+    /** @var ProbeService */
     protected $videoProbe;
 
-    public function __construct(FFMpegConfig $ffmpegConfig, Probe $videoProbe)
+    public function __construct(FFMpegConfig $ffmpegConfig, ProbeService $videoProbe)
     {
         $this->videoProbe   = $videoProbe;
         $this->ffmpegConfig = $ffmpegConfig;
@@ -99,36 +94,9 @@ class VideoConverter implements ConverterServiceInterface
         }
     }
 
-    /**
-     * Try to guess if the original video is interlaced (bff, tff) and
-     * return ffmpeg yadif filter argument and add denoise filter if any.
-     *
-     * @see https://ffmpeg.org/ffmpeg-filters.html (section yadif)
-     * @see https://askubuntu.com/a/867203
-     *
-     * @return VideoFilterInterface|VideoFilterChain|EmptyVideoFilter|YadifVideoFilter
-     */
-    public function getDeintFilter(string $videoFile, ?VideoFilterTypeDenoiseInterface $denoiseFilter = null): VideoFilterInterface
-    {
-        $guess       = $this->videoProbe->guessInterlacing($videoFile);
-        $deintFilter = $guess->getDeinterlaceVideoFilter();
-        // skip all filters if video is not interlaces
-        if ($deintFilter instanceof EmptyVideoFilter) {
-            return $deintFilter;
-        }
-        if ($denoiseFilter !== null) {
-            $videoFilterChain = new VideoFilterChain();
-            $videoFilterChain->addFilter($deintFilter);
-            $videoFilterChain->addFilter($denoiseFilter);
-
-            return $videoFilterChain;
-        }
-
-        return $deintFilter;
-    }
-
     /*
-    public function transcodeMultiPass(string $videoFile, string $outputFile, VideoConvertParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+     * FOR LATER REFERENCE !!!
+    public function convertMultiPass(string $videoFile, string $outputFile, VideoConvertParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools;
+namespace Soluble\MediaTools\Video;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
 
-class VideoProbeFactory
+class DetectionServiceFactory
 {
-    public function __invoke(ContainerInterface $container): Probe
+    public function __invoke(ContainerInterface $container): DetectionServiceInterface
     {
-        return new Probe(
+        return new DetectionService(
             $container->get(FFProbeConfig::class),
             $container->get(FFMpegConfig::class)
         );

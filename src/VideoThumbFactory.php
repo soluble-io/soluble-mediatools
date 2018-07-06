@@ -6,6 +6,7 @@ namespace Soluble\MediaTools;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\ProbeService;
 
 class VideoThumbFactory
 {
@@ -13,7 +14,7 @@ class VideoThumbFactory
     {
         return new VideoThumb(
             $container->get(FFMpegConfig::class),
-            $container->get(Probe::class)
+            $container->get(ProbeService::class)
         );
     }
 }

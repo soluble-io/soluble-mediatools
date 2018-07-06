@@ -8,7 +8,7 @@ use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 
-class InterlacementGuess
+class InterlaceGuess
 {
     /**
      * Default interlacing detection threshold
@@ -138,6 +138,9 @@ class InterlacementGuess
     }
 
     /**
+     * @see https://ffmpeg.org/ffmpeg-filters.html (section yadif)
+     * @see https://askubuntu.com/a/867203
+     *
      * @param float|null $threshold
      *
      * @return EmptyVideoFilter|YadifVideoFilter

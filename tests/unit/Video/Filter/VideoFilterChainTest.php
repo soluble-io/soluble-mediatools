@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Filter\Video;
+namespace MediaToolsTest\Video\Filter;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;

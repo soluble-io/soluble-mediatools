@@ -6,16 +6,14 @@ namespace Soluble\MediaTools\Video;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
-use Soluble\MediaTools\Probe;
-use Soluble\MediaTools\VideoConverter;
 
 class ConverterServiceFactory
 {
     public function __invoke(ContainerInterface $container): ConverterServiceInterface
     {
-        return new VideoConverter(
+        return new ConverterService(
             $container->get(FFMpegConfig::class),
-            $container->get(Probe::class)
+            $container->get(ProbeService::class)
         );
     }
 }
