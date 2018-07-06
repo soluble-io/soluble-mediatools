@@ -11,14 +11,14 @@ use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
-use Soluble\MediaTools\VideoConvert;
+use Soluble\MediaTools\VideoConverter;
 use Soluble\MediaTools\VideoConvertParams;
 
 class VideoSimpleConversionTest extends TestCase
 {
     use TestUtilTrait;
 
-    /** @var VideoConvert */
+    /** @var VideoConverter */
     protected $videoConvert;
 
     /** @var string */
@@ -36,6 +36,7 @@ class VideoSimpleConversionTest extends TestCase
     public function setUp(): void
     {
         $this->videoConvert = $this->getVideoConvertService();
+
         $this->baseDir      = dirname(__FILE__, 3);
         $this->outputDir    = "{$this->baseDir}/output";
         $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
@@ -55,6 +56,15 @@ class VideoSimpleConversionTest extends TestCase
             ->withTune('animation')
             ->withCrf(20);
 
+        // Check the outputed command
+        $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
+        $cmdLine = $process->getCommandLine();
+
+        self::assertContains(' -vcodec libx264 ', $cmdLine);
+        self::assertContains(' -preset ultrafast ', $cmdLine);
+        self::assertContains(' -tune animation ', $cmdLine);
+
+        // Run the real thing
         self::assertFileExists($this->videoFile);
         self::assertFileNotExists($outputFile);
 
@@ -66,14 +76,6 @@ class VideoSimpleConversionTest extends TestCase
 
         self::assertFileExists($outputFile);
         unlink($outputFile);
-
-        // Check the outputed command
-        $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
-        $cmdLine = $process->getCommandLine();
-
-        self::assertContains(' -vcodec libx264 ', $cmdLine);
-        self::assertContains(' -preset ultrafast ', $cmdLine);
-        self::assertContains(' -tune animation ', $cmdLine);
     }
 
     public function testFullOptions(): void
@@ -117,7 +119,7 @@ class VideoSimpleConversionTest extends TestCase
         self::assertFileExists($outputFile);
         unlink($outputFile);
 
-        // Check the outputed command
+        // Check the output from a new command
         $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
         $cmdLine = $process->getCommandLine();
 

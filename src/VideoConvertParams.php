@@ -5,90 +5,71 @@ declare(strict_types=1);
 namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Converter\ParamsInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
-class VideoConvertParams
+class VideoConvertParams implements ParamsInterface
 {
-    public const OPTION_VIDEO_CODEC       = 'VIDEO_CODEC';
-    public const OPTION_VIDEO_BITRATE     = 'VIDEO_BITRATE';
-    public const OPTION_VIDEO_MIN_BITRATE = 'VIDEO_MIN_BITRATE';
-    public const OPTION_VIDEO_MAX_BITRATE = 'VIDEO_MAX_BITRATE';
-    public const OPTION_VIDEO_FILTER      = 'VIDEO_FILTER';
-    public const OPTION_AUDIO_CODEC       = 'AUDIO_CODEC';
-    public const OPTION_AUDIO_BITRATE     = 'AUDIO_BITRATE';
-    public const OPTION_CRF               = 'CRF';
-    public const OPTION_PIX_FMT           = 'PIX_FMT';
-    public const OPTION_PRESET            = 'PRESET';
-    public const OPTION_TUNE              = 'TUNE';
-    public const OPTION_STREAMABLE        = 'STREAMABLE'; // h264
-    public const OPTION_QUALITY           = 'QUALITY'; // vp9 only
-    public const OPTION_OUTPUT_FORMAT     = 'OUTPUT_FORMAT';
-    public const OPTION_FRAME_PARALLEL    = 'FRAME_PARALLEL';
-    public const OPTION_TILE_COLUMNS      = 'TILE_COLUMNS';
-    public const OPTION_SPEED             = 'SPEED'; // vp9
-    public const OPTION_THREADS           = 'THREADS'; // vp9
-    public const OPTION_KEYFRAME_SPACING  = 'KEYFRAME_SPACING'; // vp9
-
     public const SUPPORTED_OPTIONS = [
-        self::OPTION_OUTPUT_FORMAT => [
+        self::PARAM_OUTPUT_FORMAT => [
             'ffmpeg_pattern' => '-f %s',
         ],
 
-        self::OPTION_VIDEO_CODEC => [
+        self::PARAM_VIDEO_CODEC => [
             'ffmpeg_pattern' => '-vcodec %s',
         ],
-        self::OPTION_VIDEO_BITRATE => [
+        self::PARAM_VIDEO_BITRATE => [
             'ffmpeg_pattern' => '-b:v %s',
         ],
-        self::OPTION_VIDEO_MIN_BITRATE => [
+        self::PARAM_VIDEO_MIN_BITRATE => [
             'ffmpeg_pattern' => '-minrate %s',
         ],
-        self::OPTION_VIDEO_MAX_BITRATE => [
+        self::PARAM_VIDEO_MAX_BITRATE => [
             'ffmpeg_pattern' => '-maxrate %s',
         ],
 
-        self::OPTION_AUDIO_CODEC => [
+        self::PARAM_AUDIO_CODEC => [
             'ffmpeg_pattern' => '-acodec %s',
         ],
-        self::OPTION_AUDIO_BITRATE => [
+        self::PARAM_AUDIO_BITRATE => [
             'ffmpeg_pattern' => '-b:a %s',
         ],
-        self::OPTION_PIX_FMT => [
+        self::PARAM_PIX_FMT => [
             'ffmpeg_pattern' => '-pix_fmt %s',
         ],
-        self::OPTION_PRESET => [
+        self::PARAM_PRESET => [
             'ffmpeg_pattern' => '-preset %s',
         ],
-        self::OPTION_SPEED => [
+        self::PARAM_SPEED => [
             'ffmpeg_pattern' => '-speed %s',
         ],
-        self::OPTION_THREADS => [
+        self::PARAM_THREADS => [
             'ffmpeg_pattern' => '-threads %s',
         ],
 
-        self::OPTION_KEYFRAME_SPACING => [
+        self::PARAM_KEYFRAME_SPACING => [
             'ffmpeg_pattern' => '-g %s',
         ],
-        self::OPTION_QUALITY => [
+        self::PARAM_QUALITY => [
             'ffmpeg_pattern' => '-quality %s',
         ],
-        self::OPTION_CRF => [
+        self::PARAM_CRF => [
             'ffmpeg_pattern' => '-crf %s',
         ],
-        self::OPTION_STREAMABLE => [
+        self::PARAM_STREAMABLE => [
             'ffmpeg_pattern' => '-movflags +faststart',
         ],
 
-        self::OPTION_FRAME_PARALLEL => [
+        self::PARAM_FRAME_PARALLEL => [
             'ffmpeg_pattern' => '-frame-parallel %s',
         ],
-        self::OPTION_TILE_COLUMNS => [
+        self::PARAM_TILE_COLUMNS => [
             'ffmpeg_pattern' => '-tile-columns %s',
         ],
-        self::OPTION_TUNE => [
+        self::PARAM_TUNE => [
             'ffmpeg_pattern' => '-tune %s',
         ],
-        self::OPTION_VIDEO_FILTER => [
+        self::PARAM_VIDEO_FILTER => [
             'ffmpeg_pattern' => '-vf %s',
         ],
     ];
@@ -136,21 +117,21 @@ class VideoConvertParams
     public function withVideoCodec(string $videoCodec): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_CODEC => $videoCodec,
+            self::PARAM_VIDEO_CODEC => $videoCodec,
         ]));
     }
 
     public function withVideoFilter(VideoFilterInterface $videoFilter): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_FILTER => $videoFilter,
+            self::PARAM_VIDEO_FILTER => $videoFilter,
         ]));
     }
 
     public function withAudioCodec(string $audioCodec): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_AUDIO_CODEC => $audioCodec,
+            self::PARAM_AUDIO_CODEC => $audioCodec,
         ]));
     }
 
@@ -165,7 +146,7 @@ class VideoConvertParams
     public function withTileColumns(int $tileColumns): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_TILE_COLUMNS => $tileColumns,
+            self::PARAM_TILE_COLUMNS => $tileColumns,
         ]));
     }
 
@@ -180,56 +161,56 @@ class VideoConvertParams
     public function withKeyframeSpacing(int $keyframeSpacing): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_KEYFRAME_SPACING => $keyframeSpacing,
+            self::PARAM_KEYFRAME_SPACING => $keyframeSpacing,
         ]));
     }
 
     public function withFrameParallel(int $frameParallel): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_FRAME_PARALLEL => $frameParallel,
+            self::PARAM_FRAME_PARALLEL => $frameParallel,
         ]));
     }
 
     public function withCrf(int $crf): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_CRF => $crf,
+            self::PARAM_CRF => $crf,
         ]));
     }
 
     public function withPixFmt(string $pixFmt): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_PIX_FMT => $pixFmt,
+            self::PARAM_PIX_FMT => $pixFmt,
         ]));
     }
 
     public function withPreset(string $preset): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_PRESET => $preset,
+            self::PARAM_PRESET => $preset,
         ]));
     }
 
     public function withSpeed(int $speed): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_SPEED => $speed,
+            self::PARAM_SPEED => $speed,
         ]));
     }
 
     public function withThreads(int $threads): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_THREADS => $threads,
+            self::PARAM_THREADS => $threads,
         ]));
     }
 
     public function withTune(string $tune): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_TUNE => $tune,
+            self::PARAM_TUNE => $tune,
         ]));
     }
 
@@ -239,7 +220,7 @@ class VideoConvertParams
     public function withStreamable(bool $streamable): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_STREAMABLE => $streamable,
+            self::PARAM_STREAMABLE => $streamable,
         ]));
     }
 
@@ -253,7 +234,7 @@ class VideoConvertParams
         $this->ensureValidBitRateUnit($bitrate);
 
         return new self(array_merge($this->options, [
-            self::OPTION_AUDIO_BITRATE => $bitrate,
+            self::PARAM_AUDIO_BITRATE => $bitrate,
         ]));
     }
 
@@ -267,7 +248,7 @@ class VideoConvertParams
         $this->ensureValidBitRateUnit($bitrate);
 
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_BITRATE => $bitrate,
+            self::PARAM_VIDEO_BITRATE => $bitrate,
         ]));
     }
 
@@ -281,7 +262,7 @@ class VideoConvertParams
         $this->ensureValidBitRateUnit($minBitrate);
 
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_MIN_BITRATE => $minBitrate,
+            self::PARAM_VIDEO_MIN_BITRATE => $minBitrate,
         ]));
     }
 
@@ -295,21 +276,21 @@ class VideoConvertParams
         $this->ensureValidBitRateUnit($maxBitrate);
 
         return new self(array_merge($this->options, [
-            self::OPTION_VIDEO_MAX_BITRATE => $maxBitrate,
+            self::PARAM_VIDEO_MAX_BITRATE => $maxBitrate,
         ]));
     }
 
     public function withQuality(string $quality): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_QUALITY => $quality,
+            self::PARAM_QUALITY => $quality,
         ]));
     }
 
     public function withOutputFormat(string $outputFormat): self
     {
         return new self(array_merge($this->options, [
-            self::OPTION_OUTPUT_FORMAT => $outputFormat,
+            self::PARAM_OUTPUT_FORMAT => $outputFormat,
         ]));
     }
 

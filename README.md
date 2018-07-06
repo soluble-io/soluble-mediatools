@@ -12,31 +12,31 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ## Status  
 
-> Early stages... VideoConvert almost API stable
+> Early stages... VideoConverter almost API stable
 
 ## Features
 
 > Mediatools services:
 
-- [X] `VideoConvert` for video conversion.
+- [X] `VideoConverter` service.
   - [X] Transcoding, transmuxing, compression (audio/video)
   - [X] Video Filters
       - [X] Chainable filters
-      - [X] Deinterlacing video (Yadif, Hqdn3d)
+      - [X] Deinterlacing video (Yadif, Hqdn3d)  
   - [ ] Video scaling (todo)
   - [ ] Time slicing (todo)        
-  - [ ] Option to enable multipass (todo)
+  - [ ] Option to enable multipass transcoding (todo)
+- [X] `VideoProbe` for getting infos about a video.
+  - [ ] Stabilize API first    
 - [X] `VideoThumb` for thumbnail creation.
   - [ ] Stabilize API first
-- [X] `VideoProbe` for getting infos about a video.
-  - [ ] Stabilize API first        
 
 ## Requirements
 
 - PHP 7.1+
 - FFmpeg 3.4+, 4.0+ 
  
-## VideoConvert service. 
+## VideoConverter service. 
 
 ### Process
 
@@ -48,8 +48,8 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 > The following examples assumes that the `VideoConvert` service 
 > is already configured *(generally the services will be available through
-> a psr-11 compatible container or through framework integration... See [configuration](#configuration) 
-> section for more info)*      
+> a psr-11 compatible container or through framework integration... 
+> See [configuration](#configuration) section for more info)*      
 >
 > ```php
 > <?php
@@ -57,9 +57,9 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 > use \Soluble\MediaTools\VideoConvert;
 > /**
 >  * @var ContainerInterface $anyPsr11Container (zend-servicemanager, pimple-interop...) 
->  * @var VideoConvert       $videoConvert video conversion service
+>  * @var VideoConverter       $VideoConverter video conversion service
 >  */ 
-> $videoConvert = $anyPsr11Container->get(VideoConvert::class);
+> $VideoConverter = $anyPsr11Container->get(VideoConvert::class);
 > ```
 
  
@@ -81,7 +81,7 @@ $convertParams = (new VideoConvertParams)
             ->withOutputFormat('mp4');  // Optional: if not set, will be detected from output file extension.
     
 try {
-    /** @var VideoConvert $videoConvert video conversion service */
+    /** @var VideoConverter $VideoConverter video conversion service */
     $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
 } catch(MediaToolsException\ProcessConversionException $e) {
     
@@ -138,7 +138,7 @@ $convertParams = (new VideoConvertParams())
 
 
 try {
-    /** @var VideoConvert $videoConvert video conversion service */
+    /** @var VideoConverter $VideoConverter video conversion service */
     $videoConvert->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
 } catch(MediaToolsException\ProcessConversionException $e) {
     
@@ -207,7 +207,7 @@ $container = new ServiceManager(
 
 // Now whenever you want an instance of a service:
 
-$videoConvert   = $container->get(VideoConverterServiceInterface::class);
+$videoConverter   = $container->get(VideoConverterServiceInterface::class);
 //$videoProbe     = $container->get(VideoProbe::class);
 //$videoThumb     = $container->get(VideoThumb::class);
 

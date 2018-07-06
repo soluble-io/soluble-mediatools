@@ -7,7 +7,8 @@ namespace Soluble\MediaTools;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
-use Soluble\MediaTools\Util\PathAssertionsTrait;
+use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Video\Converter\ParamsInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
@@ -17,7 +18,7 @@ use Soluble\MediaTools\Video\VideoConverterServiceInterface;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
-class VideoConvert implements VideoConverterServiceInterface
+class VideoConverter implements VideoConverterServiceInterface
 {
     use PathAssertionsTrait;
 
@@ -49,7 +50,7 @@ class VideoConvert implements VideoConverterServiceInterface
 
         $process = $this->ffmpegConfig->getProcess();
 
-        if (!$convertParams->hasOption(VideoConvertParams::OPTION_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
+        if (!$convertParams->hasOption(ParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
             $convertParams = $convertParams->withThreads($this->ffmpegConfig->getThreads());
         }
 

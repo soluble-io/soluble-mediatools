@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\VideoConvertParams;
 use Symfony\Component\Process\Process;
 
@@ -21,5 +22,16 @@ interface VideoConverterServiceInterface
      */
     public function getConversionProcess(string $inputFile, string $outputFile, VideoConvertParams $convertParams): Process;
 
+    /**
+     * Run a conversion, throw exception on error.
+     *
+     * @param callable|null                 $callback A PHP callback to run whenever there is some
+     *                                                output available on STDOUT or STDERR
+     * @param array<string,string|int>|null $env      An array of env vars to set
+     *                                                when running the process
+     *
+     * @throws FileNotFoundException      When inputFile does not exists
+     * @throws ProcessConversionException When the ffmpeg process conversion failed
+     */
     public function convert(string $inputFile, string $outputFile, VideoConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void;
 }
