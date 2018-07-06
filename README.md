@@ -12,21 +12,23 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ## Status  
 
-> WIP
+> Early stages... VideoConvert almost API stable
 
 ## Features
 
-- [x] Services
-  - [X] `VideoConvert` for video conversion.
-    - [X] Transcoding, transmuxing
-    - [ ] Video scaling (todo)
-    - [ ] Time slicing (todo)
-    - [X] Filters
-        - [X] De-interlace (Yadif, Hqdn3d)
-  - [X] `VideoThumb` for thumbnail creation.
-    - [ ] Stabilize API first
-  - [X] `VideoProbe` for getting infos about a video.
-    - [ ] Stabilize API         
+> Mediatools services:
+
+- [X] `VideoConvert` for video conversion.
+  - [X] Transcoding, transmuxing, compression (audio/video)
+  - [X] Video Filters
+      - [X] Chainable filters
+      - [X] Deinterlacing video (Yadif, Hqdn3d)
+  - [ ] Video scaling (todo)
+  - [ ] Time slicing (todo)        
+- [X] `VideoThumb` for thumbnail creation.
+  - [ ] Stabilize API first
+- [X] `VideoProbe` for getting infos about a video.
+  - [ ] Stabilize API first        
 
 ## Requirements
 
@@ -93,7 +95,7 @@ try {
    
 ``` 
 
-> Example of conversion from `mov` to `webm/vp9/opus`
+> Basicconversion from `mov` to `webm/vp9/opus`
 
 
 ```php
