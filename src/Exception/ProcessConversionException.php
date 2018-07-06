@@ -14,14 +14,10 @@ class ProcessConversionException extends RuntimeException implements ProcessExce
     public const FAILURE_TYPE_SIGNAL  = 'SIGNAL';
     public const FAILURE_TYPE_RUNTIME = 'RUNTIME';
 
-
-
     /** @var Process */
     private $process;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $failureType;
 
     public function __construct(Process $process, SPException\RuntimeException $previousException)
@@ -46,7 +42,7 @@ class ProcessConversionException extends RuntimeException implements ProcessExce
             $previousException
         );
 
-        $this->process = $process;
+        $this->process     = $process;
         $this->failureType = $type;
     }
 
@@ -74,7 +70,7 @@ class ProcessConversionException extends RuntimeException implements ProcessExce
     }
 
     /**
-     * Whether the failure is due to 'PROCESS', 'TIMEOUT', 'SIGNAL' or (generic) 'RUNTIME' exception
+     * Whether the failure is due to 'PROCESS', 'TIMEOUT', 'SIGNAL' or (generic) 'RUNTIME' exception.
      */
     public function getFailureType(): string
     {

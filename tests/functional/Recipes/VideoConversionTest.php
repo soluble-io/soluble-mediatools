@@ -21,14 +21,10 @@ class VideoConversionTest extends TestCase
     /** @var string */
     protected $baseDir;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $outputDir;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $videoFile;
 
     /**
@@ -44,7 +40,6 @@ class VideoConversionTest extends TestCase
 
     public function testBasicUsage(): void
     {
-
         $outputFile = "{$this->outputDir}/testBasicUsage.output.mp4";
 
         if (file_exists($outputFile)) {
@@ -80,27 +75,24 @@ class VideoConversionTest extends TestCase
 
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.output.mp4";
 
-        $params = (new VideoConvertParams)->withVideoCodec('NOVALIDCODEC');
+        $params = (new VideoConvertParams())->withVideoCodec('NOVALIDCODEC');
 
         $this->videoConvert->convert($this->videoFile, $outputFile, $params);
     }
 
     public function testConvertProcessConversionExceptionType(): void
     {
-
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.output.mp4";
 
-        $params = (new VideoConvertParams)->withVideoCodec('NOVALIDCODEC');
+        $params = (new VideoConvertParams())->withVideoCodec('NOVALIDCODEC');
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $params);
             self::fail('Video conversion with invalid codec must fail.');
         } catch (ProcessConversionException $e) {
-
             self::assertTrue($e->wasCausedByProcess());
             var_dump($e->getCode());
             var_dump($e->getMessage());
-
         } catch (\Throwable $e) {
             self::fail(sprintf(
                 'Invalid codec must throw a ProcessConversionException! (%s returned)',
@@ -108,6 +100,4 @@ class VideoConversionTest extends TestCase
             ));
         }
     }
-
-
 }
