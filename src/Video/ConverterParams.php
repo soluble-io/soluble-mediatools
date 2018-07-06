@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools;
+namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
-class VideoConvertParams implements ParamsInterface
+class ConverterParams implements ParamsInterface
 {
     public const SUPPORTED_OPTIONS = [
         self::PARAM_OUTPUT_FORMAT => [

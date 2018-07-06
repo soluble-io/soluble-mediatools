@@ -9,7 +9,6 @@ use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Converter\ParamsInterface;
-use Soluble\MediaTools\VideoConvertParams;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
@@ -39,7 +38,7 @@ class ConverterService implements ConverterServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, VideoConvertParams $convertParams): Process
+    public function getConversionProcess(string $inputFile, string $outputFile, ConverterParams $convertParams): Process
     {
         $this->ensureFileExists($inputFile);
 
@@ -80,7 +79,7 @@ class ConverterService implements ConverterServiceInterface
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, VideoConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void
+    public function convert(string $inputFile, string $outputFile, ConverterParams $convertParams, ?callable $callback = null, ?array $env = null): void
     {
         $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
 
@@ -96,7 +95,7 @@ class ConverterService implements ConverterServiceInterface
 
     /*
      * FOR LATER REFERENCE !!!
-    public function convertMultiPass(string $videoFile, string $outputFile, VideoConvertParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+    public function convertMultiPass(string $videoFile, string $outputFile, ConverterParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {
@@ -104,7 +103,7 @@ class ConverterService implements ConverterServiceInterface
         }
 
 
-        $threads = $convertParams->getOption(VideoConvertParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
+        $threads = $convertParams->getOption(ConverterParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
 
         $ffmpegBin = $this->ffmpegConfig->getBinary();
 
