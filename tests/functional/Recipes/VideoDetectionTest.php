@@ -57,7 +57,6 @@ class VideoDetectionTest extends TestCase
         self::assertTrue($interlaceGuess->isInterlacedTff(0.01));
     }
 
-
     public function testDetectInterlacementThrowsFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);

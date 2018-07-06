@@ -16,8 +16,6 @@ use Soluble\MediaTools\Video\ProbeServiceInterface;
 use Soluble\MediaTools\Video\ThumbService;
 use Soluble\MediaTools\Video\ThumbServiceFactory;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
-use Soluble\MediaTools\VideoThumb;
-use Soluble\MediaTools\VideoThumbFactory;
 
 class ConfigProvider
 {
@@ -50,7 +48,6 @@ class ConfigProvider
                 ProbeServiceInterface::class     => ProbeServiceFactory::class,
                 DetectionServiceInterface::class => DetectionServiceFactory::class,
                 ThumbServiceInterface::class     => ThumbServiceFactory::class,
-
             ],
         ];
     }

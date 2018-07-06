@@ -38,7 +38,6 @@ trait TestUtilTrait
         return $this->getConfiguredContainer()->get(DetectionServiceInterface::class);
     }
 
-
     /**
      * @throws \Exception
      */
@@ -46,7 +45,6 @@ trait TestUtilTrait
     {
         return $this->getConfiguredContainer()->get(ThumbServiceInterface::class);
     }
-
 
     /**
      * @throws \Exception

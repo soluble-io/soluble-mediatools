@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
-use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
@@ -22,7 +21,7 @@ class ThumbService implements ThumbServiceInterface
         $this->ffmpegConfig = $ffmpegConfig;
     }
 
-    public function makeThumbnails(string $videoFile, string $outputFile, float $time = 0.0, VideoFilterInterface $videoFilter = null): void
+    public function makeThumbnails(string $videoFile, string $outputFile, float $time = 0.0, ?VideoFilterInterface $videoFilter = null): void
     {
         $this->ensureFileExists($videoFile);
 
@@ -46,5 +45,4 @@ class ThumbService implements ThumbServiceInterface
 
         $process->runCommand($ffmpegCmd);
     }
-
 }

@@ -6,8 +6,6 @@ namespace MediaToolsTest\Recipes;
 
 use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Video\Detection\InterlaceGuess;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbnailingTest extends TestCase
@@ -40,12 +38,17 @@ class VideoThumbnailingTest extends TestCase
 
     public function testMakeThumbnail(): void
     {
+        $outputFile = $this->outputDir . '/thumb.jpg';
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
         $this->thumbService->makeThumbnails(
-                $this->videoFile,
-                $this->outputDir . '/thumb.jpg',
-                0.2
+            $this->videoFile,
+            $outputFile,
+            0.2
         );
-
+        self::assertFileExists($outputFile);
+        self::assertGreaterThan(0, filesize($outputFile));
+        unlink($outputFile);
     }
-
 }
