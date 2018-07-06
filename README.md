@@ -16,9 +16,17 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 ## Features
 
-- [x] Video conversion (transcoding, transmuxing...)
-- [x] Video thumbnailing (wip)
-- [x] Video information (wip)
+- [x] Services
+  - [X] Video conversion 
+    - [X] Transcoding, transmuxing
+    - [ ] Video scaling (todo)
+    - [ ] Time slicing (todo)
+    - [X] Filters
+        - [X] De-interlace (Yadif, Hqdn3d)
+  - [X] Video thumbnailer
+    - [ ] Stabilize API first
+  - [X] Video probe
+    - [ ] Stabilize API         
 
 ## Requirements
 
