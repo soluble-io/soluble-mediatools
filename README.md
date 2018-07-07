@@ -18,21 +18,21 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 
 > Mediatools services:
 
-- [X] `Video\ConverterService`.
+- [X] `VideoConversionService`.
   - [X] Transcoding, transmuxing, compression (audio/video)
   - [X] Video Filters
       - [X] Chainable filters
-      - [X] Deinterlacing video (Yadif, Hqdn3d)  
-  - [ ] Video scaling (todo)
-  - [ ] Time slicing (todo)        
+      - [X] Deinterlacing video (Yadif, Hqdn3d)
+  - [X] Time crop (seekstart - seekend)      
+  - [ ] Video scaling (todo)          
   - [ ] Option to enable multipass transcoding (todo)
-- [X] `Video\InfoService` 
+- [X] `VideoInfoService` 
   - [X] Basic information like duration, frames....
   - [ ] Need API Stabilization    
-- [X] `Video\ThumbService`
+- [X] `VideoThumbService`
   - [X] Basic thumbnail creation
   - [ ] Stabilize API first
-- [X] `Video\DetectionService`.
+- [X] `VideoDetectionService`.
   - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
 
 
@@ -42,7 +42,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 - FFmpeg 3.4+, 4.0+ 
  
 -------------- 
-## Video\ConverterService. 
+## Video\ConversionService. 
 
 
 The `Video\ConvertServiceInterface` offers two ways to convert a video to another one.
@@ -61,12 +61,12 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 > ```php
 > <?php
 > use Psr\Container\ContainerInterface;
-> use Soluble\MediaTools\Video\ConverterServiceInterface;
+> use Soluble\MediaTools\Video\ConversionServiceInterface;
 > /**
 >  * @var ContainerInterface        $aPsr11Container 
->  * @var ConverterServiceInterface $videoConverter
+>  * @var ConversionServiceInterface $videoConverter
 >  */ 
-> $videoConverter = $aPsr11Container->get(ConverterServiceInterface::class);
+> $videoConverter = $aPsr11Container->get(ConversionServiceInterface::class);
 > ```
 
 #### Conversion from `mov` to `mp4/x264/aac`
@@ -75,20 +75,19 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 
 ```php
 <?php
-use Soluble\MediaTools\Video\ConvertParams;
+use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\Exception as MTException;
 
-$convertParams = (new ConvertParams)
+$convertParams = (new VideoConversionParams)
             ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
             ->withStreamable(true)      // Add streamable options (movflags & faststart) 
             ->withCrf(24)               // Level of compression: better size / less visual quality  
-            ->withPreset('fast')        // Optional: see presets  
-            ->withOutputFormat('mp4');  tmp
+            ->withPreset('fast');       // Optional: see presets           
     
 try {
-    /** @var \Soluble\MediaTools\Video\ConverterServiceInterface $videoConverter */
+    /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);    
 } catch(MTException\ProcessConversionException $e) {
     
@@ -113,11 +112,11 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\ConvertParams;
+use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\Exception as MTException;
 
 
-$convertParams = (new ConvertParams())
+$convertParams = (new VideoConversionParams())
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -144,7 +143,7 @@ $convertParams = (new ConvertParams())
 
 
 try {
-    /** @var \Soluble\MediaTools\Video\ConverterServiceInterface $videoConverter */
+    /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
 } catch(MTException\ProcessConversionException $e) {
     
@@ -188,12 +187,13 @@ try {
 ```php
 <?php
 use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\SeekTime;
 
 $videoFile = '/path/input_video.webm';
 
 try {
     /** @var \Soluble\MediaTools\Video\ThumbServiceInterface $thumbService */
-    $thumbService->makeThumbnail($videoFile, '/path/thumb.jpg', $time=0.25);
+    $thumbService->makeThumbnail($videoFile, '/path/thumb.jpg', new SeekTime(4.25));
 } catch (MTException\FileNotFoundException $e) {
     // The input file does not exists
     throw $e;
@@ -227,7 +227,7 @@ try {
 #### Detect interlacement
 
 > In some cases, detect interlaced videos cannot be achieved trivially 
-> through video metadata. When unsure we can use the `InterlaceGuess` 
+> through video metadata. When unsure we can use the `InterlaceDetectGuess` 
 > to decide whether the video is interlaced (BFF or TFF) and conditionnally
 > add de-interlace filters (i.e. yadif)to conversion or thumbnail generation.
 > 
@@ -237,14 +237,14 @@ try {
 ```php
 <?php
 use Soluble\MediaTools\Exception as MTException;
-use Soluble\MediaTools\Video\Detection\{InterlaceDetect, InterlaceGuess};
+use Soluble\MediaTools\Video\Detection\{InterlaceDetect, InterlaceDetectGuess};
 
 $videoFile = '/path/input_video.webm';
 $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES; // 1000
 
 try {
     /** @var \Soluble\MediaTools\Video\DetectionServiceInterface $detectService */
-    $interlaceGuess = $detectService->detectInterlacement($videoFile, $maxFramesToAnalyze);
+    $InterlaceDetectGuess = $detectService->detectInterlacement($videoFile, $maxFramesToAnalyze);
 } catch (MTException\FileNotFoundException $e) {
     // The input file does not exists
     throw $e;
@@ -252,23 +252,23 @@ try {
 
 // Optional detection threshold:
 // By default 0.2 = 20% interlaced frames => interlaced video
-$threshold = InterlaceGuess::DEFAULT_DETECTION_THRESHOLD; 
+$threshold = InterlaceDetectGuess::DEFAULT_DETECTION_THRESHOLD; 
 
-$isInterlaced = $interlaceGuess->isInterlaced($threshold);
+$isInterlaced = $InterlaceDetectGuess->isInterlaced($threshold);
 
-switch($interlaceGuess->getBestGuess($threshold)) {
-    case InterlaceGuess::MODE_INTERLACED_TFF:        
-    case InterlaceGuess::MODE_INTERLACED_BFF:
+switch($InterlaceDetectGuess->getBestGuess($threshold)) {
+    case InterlaceDetectGuess::MODE_INTERLACED_TFF:        
+    case InterlaceDetectGuess::MODE_INTERLACED_BFF:
         $isInterlaced = true;
         break;
-    case InterlaceGuess::MODE_PROGRESSIVE:
-    case InterlaceGuess::MODE_UNDETERMINED:
+    case InterlaceDetectGuess::MODE_PROGRESSIVE:
+    case InterlaceDetectGuess::MODE_UNDETERMINED:
     default:
         $isInterlaced = false;                    
 }
 
 // Or get the stats
-$stats = $interlaceGuess->getStats();
+$stats = $InterlaceDetectGuess->getStats();
 
 // Then decide to apply a de-interlace filter to thumbnail generation
 // or video conversion.
@@ -291,8 +291,9 @@ $stats = $interlaceGuess->getStats();
 <?php declare(strict_types=1);
 
 use Soluble\MediaTools\Config\ConfigProvider;
-use Soluble\MediaTools\Video\ConverterServiceInterface;
-use Soluble\MediaTools\Video\ProbeServiceInterface;
+use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\InfoServiceInterface;
+use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
@@ -331,11 +332,10 @@ $container = new ServiceManager(
 
 // Now whenever you want an instance of a service:
 
-$videoConverter   = $container->get(ConverterServiceInterface::class);
-$videoProbe       = $container->get(ProbeServiceInterface::class);
+$videoConverter   = $container->get(ConversionServiceInterface::class);
+$videoInfoService = $container->get(InfoServiceInterface::class);
+$videoThumbnailer = $container->get(ThumbServiceInterface::class);
 $videoDetection   = $container->get(DetectionServiceInterface::class);
-
-//$videoThumb     = $container->get(VideoThumb::class);
 
 ```
   
