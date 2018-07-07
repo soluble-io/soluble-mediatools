@@ -264,13 +264,6 @@ class VideoConversionParams implements ConversionParamsInterface
         return array_key_exists($paramName, $this->params);
     }
 
-    public function withFilter(string $filter): self
-    {
-        return new self(array_merge($this->params, [
-            self::PARAM_FILTER => $filter,
-        ]));
-    }
-
     public function withSeekStart(SeekTime $seekTimeStart): self
     {
         return new self(array_merge($this->params, [

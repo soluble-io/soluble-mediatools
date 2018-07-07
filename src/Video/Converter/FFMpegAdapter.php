@@ -99,9 +99,6 @@ class FFMpegAdapter implements AdapterInterface
             ConversionParamsInterface::PARAM_VIDEO_FRAMES => [
                 'cli_pattern' => '-frames:v %d',
             ],
-            ConversionParamsInterface::PARAM_FILTER => [
-                'cli_pattern' => '-filter %s',
-            ],
             ConversionParamsInterface::PARAM_NOAUDIO => [
                 'cli_pattern' => '-an',
             ],

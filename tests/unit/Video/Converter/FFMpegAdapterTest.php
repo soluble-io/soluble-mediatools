@@ -54,14 +54,13 @@ class FFMpegAdapterTest extends TestCase
             ->withOverwrite()
             ->withNoAudio()
             ->withVideoFrames(1500)
-            ->withFilter('idet')
             ->withSeekStart($seekTimeStart)
             ->withSeekEnd($seekTimeEnd);
 
         $expectedCli = '-tile-columns 10 -threads 8 -speed 2 -g 240 -crf 32 -f mp4 ' .
                '-minrate 750k -b:v 1M -quality good -movflags +faststart -pix_fmt yuv420p ' .
                '-preset fast -b:a 128k -c:a aac -c:v h264 -maxrate 2000000 ' .
-               '-frame-parallel 2 -tune film -y -an -frames:v 1500 -filter idet ' .
+               '-frame-parallel 2 -tune film -y -an -frames:v 1500 ' .
                '-ss 0:00:00.1 -to 0:00:00.6';
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);

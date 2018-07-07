@@ -72,7 +72,6 @@ class VideoConversionParamsTest extends TestCase
             ->withOverwrite()
             ->withNoAudio()
             ->withVideoFrames(1500)
-            ->withFilter('idet')
             ->withSeekStart($seekTimeStart)
             ->withSeekEnd($seekTimeEnd);
 
@@ -95,10 +94,9 @@ class VideoConversionParamsTest extends TestCase
             ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
             ConversionParamsInterface::PARAM_FRAME_PARALLEL    => 2,
             ConversionParamsInterface::PARAM_TUNE              => 'film',
-            ConversionParamsInterface::PARAM_OVERWRITE    => true,
+            ConversionParamsInterface::PARAM_OVERWRITE         => true,
             ConversionParamsInterface::PARAM_NOAUDIO           => true,
             ConversionParamsInterface::PARAM_VIDEO_FRAMES      => 1500,
-            ConversionParamsInterface::PARAM_FILTER            => 'idet',
 
             ConversionParamsInterface::PARAM_SEEK_START        => $seekTimeStart,
             ConversionParamsInterface::PARAM_SEEK_END          => $seekTimeEnd,

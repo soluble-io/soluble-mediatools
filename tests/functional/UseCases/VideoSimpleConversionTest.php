@@ -11,7 +11,7 @@ use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
-use Soluble\MediaTools\Video\Filter\YadifInterface;
+use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
 
@@ -92,7 +92,7 @@ class VideoSimpleConversionTest extends TestCase
 
         $videoFilterChain = new VideoFilterChain();
         $videoFilterChain->addFilter(new EmptyVideoFilter());
-        $videoFilterChain->addFilter(new YadifInterface());
+        $videoFilterChain->addFilter(new YadifVideoFilter());
 
         $convertParams = (new VideoConversionParams())
             ->withVideoCodec('libvpx-vp9')

@@ -7,10 +7,10 @@ namespace Soluble\MediaTools\Video\Filter;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoDenoiserInterface;
 
-class NlmeansVideoFilterInterface implements FFMpegVideoFilterInterface, VideoDenoiserInterface
+class Hqdn3DVideoFilter implements FFMpegVideoFilterInterface, VideoDenoiserInterface
 {
     public function getFFmpegCLIValue(): string
     {
-        return 'nlmeans';
+        return 'hqdn3d';
     }
 }

@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Filter;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoDeinterlacerInterface;
 
-class YadifInterface implements FFMpegVideoFilterInterface, VideoDeinterlacerInterface
+class YadifVideoFilter implements FFMpegVideoFilterInterface, VideoDeinterlacerInterface
 {
     public const DEFAULT_MODE   = 0;
     public const DEFAULT_PARITY = -1;
