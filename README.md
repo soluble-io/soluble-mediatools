@@ -42,7 +42,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
 - FFmpeg 3.4+, 4.0+ 
  
 -------------- 
-## Video\ConversionService. 
+## VideoConversionService. 
 
 
 The `Video\ConvertServiceInterface` offers two ways to convert a video to another one.
@@ -79,6 +79,7 @@ use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\Exception as MTException;
 
 $convertParams = (new VideoConversionParams)
+            ->withOverwrite()
             ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
@@ -116,7 +117,8 @@ use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\Exception as MTException;
 
 
-$convertParams = (new VideoConversionParams())
+$convertParams = (new VideoConversionParams)
+                ->withOverwrite()
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -146,14 +148,35 @@ try {
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
 } catch(MTException\ProcessConversionException $e) {
-    
-    // The ffmpeg 'symfony' process encountered a failure...
-    // To see the reason you can either use:
-    echo $e->getMessage();                      // full message 
-    echo $e->getProcess()->getErrorOutput();    // process stdErr
-    echo $e->wasCausedByTimeout() ? 'timeout' : '';
-    echo $e->wasCausedBySignal() ? 'interrupted' : '';
-    
+    // ...        
+} catch (MTException\FileNotFoundException $e) {
+     echo "The input file does not exists";    
+}
+
+``` 
+
+#### Time crop
+
+> See the official [ffmpeg VP9 docs](https://trac.ffmpeg.org/wiki/Encode/VP9) 
+> and have a look at the [google vp9 VOD](https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines) guidelines
+
+
+```php
+<?php
+use Soluble\MediaTools\VideoConversionParams;
+use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Exception as MTException;
+
+$convertParams = (new VideoConversionParams)
+                ->withOverwrite()
+                ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
+                ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
+
+try {
+    /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
+    $videoConverter->convert('/path/inputFile.mp4', '/path/outputFile.mp4', $convertParams);
+} catch(MTException\ProcessConversionException $e) {
+    // ...        
 } catch (MTException\FileNotFoundException $e) {
      echo "The input file does not exists";    
 }
@@ -161,7 +184,7 @@ try {
 ``` 
 
 ----------------------
-## Video\ThumbService  
+## VideoThumbService  
 
 ### Recipes
 
@@ -202,7 +225,7 @@ try {
 ```
 
 ----------------------
-## Video\DetectionService service. 
+## VideoDetectionService. 
 
 
 ### Recipes
