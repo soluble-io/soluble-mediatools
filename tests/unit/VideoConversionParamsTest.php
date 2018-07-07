@@ -69,7 +69,7 @@ class VideoConversionParamsTest extends TestCase
             ->withVideoMaxBitrate('2000000')
             ->withFrameParallel(2)
             ->withTune('film')
-            ->withOverwriteFile()
+            ->withOverwrite()
             ->withNoAudio()
             ->withVideoFrames(1500)
             ->withFilter('idet')
@@ -95,7 +95,7 @@ class VideoConversionParamsTest extends TestCase
             ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
             ConversionParamsInterface::PARAM_FRAME_PARALLEL    => 2,
             ConversionParamsInterface::PARAM_TUNE              => 'film',
-            ConversionParamsInterface::PARAM_OVERWRITE_FILE    => true,
+            ConversionParamsInterface::PARAM_OVERWRITE    => true,
             ConversionParamsInterface::PARAM_NOAUDIO           => true,
             ConversionParamsInterface::PARAM_VIDEO_FRAMES      => 1500,
             ConversionParamsInterface::PARAM_FILTER            => 'idet',

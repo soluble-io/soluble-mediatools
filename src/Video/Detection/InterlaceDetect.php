@@ -44,7 +44,7 @@ class InterlaceDetect
             ->withVideoFrames($maxFramesToAnalyze)
             ->withNoAudio() // speed up the thing
             ->withOutputFormat('rawvideo')
-            ->withOverwriteFile();
+            ->withOverwrite();
 
         $arguments = $this->adapter->getMappedConversionParams($params);
         $ffmpegCmd = $this->adapter->getCliCommand($arguments, $file, new PlatformNullFile());

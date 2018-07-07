@@ -93,7 +93,7 @@ class FFMpegAdapter implements AdapterInterface
             ConversionParamsInterface::PARAM_VIDEO_FILTER => [
                 'cli_pattern' => '-vf %s',
             ],
-            ConversionParamsInterface::PARAM_OVERWRITE_FILE => [
+            ConversionParamsInterface::PARAM_OVERWRITE => [
                 'cli_pattern' => '-y',
             ],
             ConversionParamsInterface::PARAM_VIDEO_FRAMES => [

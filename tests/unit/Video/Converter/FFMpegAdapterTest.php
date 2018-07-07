@@ -51,7 +51,7 @@ class FFMpegAdapterTest extends TestCase
             ->withVideoMaxBitrate('2000000')
             ->withFrameParallel(2)
             ->withTune('film')
-            ->withOverwriteFile()
+            ->withOverwrite()
             ->withNoAudio()
             ->withVideoFrames(1500)
             ->withFilter('idet')

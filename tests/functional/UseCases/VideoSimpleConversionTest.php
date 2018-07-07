@@ -55,7 +55,7 @@ class VideoSimpleConversionTest extends TestCase
             ->withVideoCodec('libx264')
             ->withPreset('ultrafast')
             ->withTune('animation')
-            ->withOverwriteFile()
+            ->withOverwrite()
             ->withSeekStart(new SeekTime(1))
             ->withSeekEnd(new SeekTime(2))
             ->withCrf(20);

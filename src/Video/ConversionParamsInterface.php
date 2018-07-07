@@ -33,7 +33,7 @@ interface ConversionParamsInterface
     public const PARAM_KEYFRAME_SPACING  = 'KEYFRAME_SPACING';
 
     // File Options
-    public const PARAM_OVERWRITE_FILE    = 'OVERWRITE_FILE';
+    public const PARAM_OVERWRITE    = 'OVERWRITE';
 
     public const PARAM_FILTER            = 'FILTER';
     public const PARAM_NOAUDIO           = 'NOAUDIO';
@@ -65,7 +65,7 @@ interface ConversionParamsInterface
         self::PARAM_THREADS,
         self::PARAM_SPEED,
         self::PARAM_KEYFRAME_SPACING,
-        self::PARAM_OVERWRITE_FILE,
+        self::PARAM_OVERWRITE,
         self::PARAM_FILTER,
         self::PARAM_NOAUDIO,
         self::PARAM_VIDEO_FRAMES,
