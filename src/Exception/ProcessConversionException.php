@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Exception;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
-class ProcessConversionException extends RuntimeException implements ProcessExceptionInterface
+class ProcessConversionException extends RuntimeException implements ProcessExceptionInterface, ConversionExceptionInterface
 {
     public const FAILURE_TYPE_PROCESS = 'PROCESS';
     public const FAILURE_TYPE_TIMEOUT = 'TIMEOUT';

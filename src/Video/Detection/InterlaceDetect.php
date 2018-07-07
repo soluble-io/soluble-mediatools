@@ -7,6 +7,9 @@ namespace Soluble\MediaTools\Video\Detection;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Util\PlatformNullFile;
+use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
+use Soluble\MediaTools\VideoConversionParams;
 use Symfony\Component\Process\Exception\RuntimeException as SPRuntimeException;
 use Symfony\Component\Process\Process;
 
@@ -19,9 +22,13 @@ class InterlaceDetect
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
+    /** @var FFMpegAdapter */
+    protected $adapter;
+
     public function __construct(FFMpegConfig $ffmpegConfig)
     {
         $this->ffmpegConfig = $ffmpegConfig;
+        $this->adapter      = new FFMpegAdapter($ffmpegConfig);
     }
 
     /**
@@ -32,8 +39,17 @@ class InterlaceDetect
     {
         $this->ensureFileExists($file);
 
-        $ffmpegProcess = $this->ffmpegConfig->getProcess();
+        $params = (new VideoConversionParams())
+            ->withFilter('idet') // detect interlaced frames :)
+            ->withVideoFrames($maxFramesToAnalyze)
+            ->withNoAudio() // speed up the thing
+            ->withOutputFormat('rawvideo')
+            ->withOverwriteFile();
 
+        $arguments = $this->adapter->getMappedConversionParams($params);
+        $ffmpegCmd = $this->adapter->getCliCommand($arguments, $file, new PlatformNullFile());
+
+        /*
         $ffmpegCmd = $ffmpegProcess->buildCommand(
             [
                 sprintf('-i %s', escapeshellarg($file)),
@@ -43,7 +59,7 @@ class InterlaceDetect
                 '-f rawvideo', // tmp in raw
                 '-y /dev/null', // discard the tmp
             ]
-        );
+        );*/
 
         try {
             $process = new Process($ffmpegCmd);

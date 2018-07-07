@@ -7,7 +7,8 @@ namespace MediaToolsTest;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
-use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
+use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
 
 class VideoConversionParamsTest extends TestCase
@@ -19,18 +20,18 @@ class VideoConversionParamsTest extends TestCase
     public function testMustBeImmutable(): void
     {
         $params = new VideoConversionParams();
-        self::assertCount(0, $params->getOptions());
+        self::assertCount(0, $params->toArray());
         $newParams = $params->withThreads(1);
-        self::assertCount(0, $params->getOptions());
-        self::assertCount(1, $newParams->getOptions());
+        self::assertCount(0, $params->toArray());
+        self::assertCount(1, $newParams->toArray());
     }
 
-    public function testHasOption(): void
+    public function testHasParam(): void
     {
         $params = (new VideoConversionParams())
                   ->withTileColumns(10);
-        self::assertTrue($params->hasOption(ConversionParamsInterface::PARAM_TILE_COLUMNS));
-        self::assertFalse($params->hasOption(ConversionParamsInterface::PARAM_FRAME_PARALLEL));
+        self::assertTrue($params->hasParam(ConversionParamsInterface::PARAM_TILE_COLUMNS));
+        self::assertFalse($params->hasParam(ConversionParamsInterface::PARAM_FRAME_PARALLEL));
     }
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
@@ -41,11 +42,14 @@ class VideoConversionParamsTest extends TestCase
 
         $withParams = (new VideoConversionParams())->withTune('grain');
 
-        self::assertSame($injectedParams->getOptions(), $withParams->getOptions());
+        self::assertSame($injectedParams->toArray(), $withParams->toArray());
     }
 
     public function testGetOptionsMustEqualsParams(): void
     {
+        $seekTimeStart = new SeekTime(0.1);
+        $seekTimeEnd   = new SeekTime(0.6);
+
         $params = (new VideoConversionParams())
             ->withTileColumns(10)
             ->withThreads(8)
@@ -64,9 +68,15 @@ class VideoConversionParamsTest extends TestCase
             ->withVideoCodec('h264')
             ->withVideoMaxBitrate('2000000')
             ->withFrameParallel(2)
-            ->withTune('film');
+            ->withTune('film')
+            ->withOverwriteFile()
+            ->withNoAudio()
+            ->withVideoFrames(1500)
+            ->withFilter('idet')
+            ->withSeekStart($seekTimeStart)
+            ->withSeekEnd($seekTimeEnd);
 
-        $expectedOptions = [
+        $expectedParams = [
             ConversionParamsInterface::PARAM_TILE_COLUMNS      => 10,
             ConversionParamsInterface::PARAM_THREADS           => 8,
             ConversionParamsInterface::PARAM_SPEED             => 2,
@@ -85,19 +95,20 @@ class VideoConversionParamsTest extends TestCase
             ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
             ConversionParamsInterface::PARAM_FRAME_PARALLEL    => 2,
             ConversionParamsInterface::PARAM_TUNE              => 'film',
+            ConversionParamsInterface::PARAM_OVERWRITE_FILE    => true,
+            ConversionParamsInterface::PARAM_NOAUDIO           => true,
+            ConversionParamsInterface::PARAM_VIDEO_FRAMES      => 1500,
+            ConversionParamsInterface::PARAM_FILTER            => 'idet',
+
+            ConversionParamsInterface::PARAM_SEEK_START        => $seekTimeStart,
+            ConversionParamsInterface::PARAM_SEEK_END          => $seekTimeEnd,
         ];
 
-        self::assertEquals($expectedOptions, $params->getOptions());
+        self::assertEquals($expectedParams, $params->toArray());
 
-        foreach ($expectedOptions as $key => $value) {
-            self::assertEquals($value, $params->getOption($key));
+        foreach ($expectedParams as $key => $value) {
+            self::assertEquals($value, $params->getParam($key));
         }
-
-        $cli = '-tile-columns 10 -threads 8 -speed 2 -g 240 -crf 32 -f mp4 ' .
-               '-minrate 750k -b:v 1M -quality good -movflags +faststart -pix_fmt yuv420p ' .
-               '-preset fast -b:a 128k -acodec aac -vcodec h264 -maxrate 2000000 ' .
-                '-frame-parallel 2 -tune film';
-        self::assertEquals($cli, implode(' ', $params->getFFMpegArguments()));
     }
 
     public function testNewParamMustOverwritePreviousParam(): void
@@ -108,7 +119,7 @@ class VideoConversionParamsTest extends TestCase
 
         self::assertEquals([
             ConversionParamsInterface::PARAM_TILE_COLUMNS      => 12,
-        ], $params->getOptions());
+        ], $params->toArray());
     }
 
     public function testWithVideoFilter(): void
@@ -128,8 +139,7 @@ class VideoConversionParamsTest extends TestCase
         $params = (new VideoConversionParams())
             ->withVideoFilter($filter1);
 
-        self::assertSame($filter1, $params->getOption(ConversionParamsInterface::PARAM_VIDEO_FILTER));
-        self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[ConversionParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertSame($filter1, $params->getParam(ConversionParamsInterface::PARAM_VIDEO_FILTER));
     }
 
     public function testUnsupportedParamThrowsInvalidArgumentException(): void

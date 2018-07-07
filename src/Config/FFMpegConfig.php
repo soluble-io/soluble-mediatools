@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
-use Soluble\MediaTools\Process\FFmpegProcess;
-
 class FFMpegConfig
 {
     /** @var string */
     protected $binary;
-
-    /** @var FFmpegProcess */
-    protected $process;
 
     /** @var int|null */
     protected $threads;
@@ -70,14 +65,5 @@ class FFMpegConfig
     public function getConversionIdleTimeout(): ?int
     {
         return $this->conversionIdleTimeout;
-    }
-
-    public function getProcess(): FFmpegProcess
-    {
-        if ($this->process === null) {
-            $this->process = new FFmpegProcess($this);
-        }
-
-        return $this->process;
     }
 }

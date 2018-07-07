@@ -7,6 +7,7 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Functional\ConfigUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbnailingTest extends TestCase
@@ -46,7 +47,7 @@ class VideoThumbnailingTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            0.2
+            new SeekTime(0.2)
         );
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));

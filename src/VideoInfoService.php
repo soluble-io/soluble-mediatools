@@ -23,7 +23,6 @@ class VideoInfoService implements InfoServiceInterface
     {
         $this->ffprobeConfig = $ffProbeConfig;
         $this->ffmpegConfig  = $ffmpegConfig;
-        $this->ffprobeConfig->getProcess()->ensureBinaryExists();
     }
 
     public function getMediaInfo(string $file): VideoInfo

@@ -10,6 +10,7 @@ parameters:
 		#- */tests/server/expressive/*
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-		# Those constants are in phpunit, no way phpstan will find them ;)
-		#- '#Constant EXPRESSIVE_SERVER_HOST not found#'
+	    # With PHPStan 0.10 .... don't like this one so much
+		- '#Strict comparison using !== between null and null will always evaluate to false.#'
+
 

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Filter;
 
-class YadifVideoFilter extends AbstractVideoFilter implements VideoFilterTypeDeintInterface
+use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\Type\VideoDeinterlacerInterface;
+
+class YadifInterface implements FFMpegVideoFilterInterface, VideoDeinterlacerInterface
 {
     public const DEFAULT_MODE   = 0;
     public const DEFAULT_PARITY = -1;

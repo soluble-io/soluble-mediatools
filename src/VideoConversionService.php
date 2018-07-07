@@ -10,7 +10,8 @@ use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
-use Symfony\Component\Process\Exception as ProcessException;
+use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
+use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
 class VideoConversionService implements ConversionServiceInterface
@@ -20,10 +21,13 @@ class VideoConversionService implements ConversionServiceInterface
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
 
+    /** @var FFMpegAdapter */
+    protected $converter;
+
     public function __construct(FFMpegConfig $ffmpegConfig)
     {
         $this->ffmpegConfig = $ffmpegConfig;
-        $this->ffmpegConfig->getProcess()->ensureBinaryExists();
+        $this->converter    = new FFMpegAdapter($ffmpegConfig);
     }
 
     /**
@@ -39,28 +43,17 @@ class VideoConversionService implements ConversionServiceInterface
     {
         $this->ensureFileExists($inputFile);
 
-        $process = $this->ffmpegConfig->getProcess();
-
-        if (!$convertParams->hasOption(ConversionParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
+        if (!$convertParams->hasParam(ConversionParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
             $convertParams = $convertParams->withThreads($this->ffmpegConfig->getThreads());
         }
 
-        $ffmpegCmd = $process->buildCommand(
-            array_merge(
-                [
-                    sprintf('-i %s', escapeshellarg($inputFile)), // input filename
-                ],
-                $convertParams->getFFMpegArguments(),
-                [
-                    '-y', // tell to overwrite
-                    sprintf('%s', escapeshellarg($outputFile)),
-                ]
-            )
-        );
+        $arguments = $this->converter->getMappedConversionParams($convertParams);
+        $ffmpegCmd = $this->converter->getCliCommand($arguments, $inputFile, $outputFile);
 
         $process = new Process($ffmpegCmd);
         $process->setTimeout($this->ffmpegConfig->getConversionTimeout());
         $process->setIdleTimeout($this->ffmpegConfig->getConversionIdleTimeout());
+        $process->setEnv($this->ffmpegConfig->getConversionEnv());
 
         return $process;
     }
@@ -68,21 +61,19 @@ class VideoConversionService implements ConversionServiceInterface
     /**
      * Run a conversion, throw exception on error.
      *
-     * @param callable|null                 $callback A PHP callback to run whenever there is some
-     *                                                tmp available on STDOUT or STDERR
-     * @param array<string,string|int>|null $env      An array of env vars to set
-     *                                                when running the process
+     * @param callable|null $callback A PHP callback to run whenever there is some
+     *                                tmp available on STDOUT or STDERR
      *
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null, ?array $env = null): void
+    public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null): void
     {
         $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
 
         try {
-            $process->mustRun($callback, (is_array($env) ? $env : $this->ffmpegConfig->getConversionEnv()));
-        } catch (ProcessException\RuntimeException $symfonyProcessException) {
+            $process->mustRun($callback);
+        } catch (SPException\RuntimeException $symfonyProcessException) {
             // will include: ProcessFailedException|ProcessTimedOutException|ProcessSignaledException
             throw new ProcessConversionException($process, $symfonyProcessException);
         } catch (FileNotFoundException $e) {

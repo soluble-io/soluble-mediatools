@@ -11,7 +11,8 @@ use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
-use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\Video\Filter\YadifInterface;
+use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
 
 class VideoSimpleConversionTest extends TestCase
@@ -54,13 +55,16 @@ class VideoSimpleConversionTest extends TestCase
             ->withVideoCodec('libx264')
             ->withPreset('ultrafast')
             ->withTune('animation')
+            ->withOverwriteFile()
+            ->withSeekStart(new SeekTime(1))
+            ->withSeekEnd(new SeekTime(2))
             ->withCrf(20);
 
         // Check the outputed command
         $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
         $cmdLine = $process->getCommandLine();
 
-        self::assertContains(' -vcodec libx264 ', $cmdLine);
+        self::assertContains(' -c:v libx264 ', $cmdLine);
         self::assertContains(' -preset ultrafast ', $cmdLine);
         self::assertContains(' -tune animation ', $cmdLine);
 
@@ -88,7 +92,7 @@ class VideoSimpleConversionTest extends TestCase
 
         $videoFilterChain = new VideoFilterChain();
         $videoFilterChain->addFilter(new EmptyVideoFilter());
-        $videoFilterChain->addFilter(new YadifVideoFilter());
+        $videoFilterChain->addFilter(new YadifInterface());
 
         $convertParams = (new VideoConversionParams())
             ->withVideoCodec('libvpx-vp9')
@@ -105,6 +109,8 @@ class VideoSimpleConversionTest extends TestCase
             ->withTileColumns(1)
             ->withFrameParallel(1)
             ->withPixFmt('yuv420p')
+            ->withSeekStart(new SeekTime(1))
+            ->withSeekEnd(new SeekTime(2))
             ->withOutputFormat('webm');
 
         self::assertFileExists($this->videoFile);
@@ -123,11 +129,11 @@ class VideoSimpleConversionTest extends TestCase
         $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
         $cmdLine = $process->getCommandLine();
 
-        self::assertContains(' -vcodec libvpx-vp9 ', $cmdLine);
+        self::assertContains(' -c:v libvpx-vp9 ', $cmdLine);
         self::assertContains(' -b:v 200k ', $cmdLine);
         self::assertContains(' -maxrate 250000', $cmdLine);
         self::assertContains(' -minrate 150k ', $cmdLine);
-        self::assertContains(' -acodec libopus ', $cmdLine);
+        self::assertContains(' -c:a libopus ', $cmdLine);
         self::assertContains(' -b:a 96k ', $cmdLine);
         self::assertContains(' -vf yadif=mode=0:parity=-1:deint=0 ', $cmdLine);
         self::assertContains(' -threads 0 ', $cmdLine);
@@ -137,6 +143,8 @@ class VideoSimpleConversionTest extends TestCase
         self::assertContains(' -frame-parallel 1', $cmdLine);
         self::assertContains(' -pix_fmt yuv420p ', $cmdLine);
         self::assertContains(' -f webm ', $cmdLine);
+        self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
+        self::assertContains(' -to 0:00:02.0 ', $cmdLine);
     }
 
     public function testConvertMustThrowFileNotFoundException(): void

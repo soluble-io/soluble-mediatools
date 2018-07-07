@@ -25,9 +25,9 @@ class FFMpegConfigFactory
                 )
             );
         }
-        $threads     = $config['ffmpeg.conversion.threads'] ?? null;
-        $timeout     = $config['ffmpeg.conversion.timeout'] ?? null;
-        $idleTimeout = $config['ffmpeg.conversion.idle_timeout'] ?? null;
+        $threads     = $config['conversion.threads'] ?? null;
+        $timeout     = $config['conversion.timeout'] ?? null;
+        $idleTimeout = $config['conversion.idle_timeout'] ?? null;
 
         return new FFMpegConfig($config[$key], $threads, $timeout, $idleTimeout);
     }

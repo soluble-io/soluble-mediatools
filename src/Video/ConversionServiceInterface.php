@@ -25,13 +25,11 @@ interface ConversionServiceInterface
     /**
      * Run a conversion, throw exception on error.
      *
-     * @param callable|null                 $callback A PHP callback to run whenever there is some
-     *                                                tmp available on STDOUT or STDERR
-     * @param array<string,string|int>|null $env      An array of env vars to set
-     *                                                when running the process
+     * @param callable|null $callback A PHP callback to run whenever there is some
+     *                                tmp available on STDOUT or STDERR
      *
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null, ?array $env = null): void;
+    public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null): void;
 }

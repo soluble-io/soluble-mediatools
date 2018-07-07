@@ -26,7 +26,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
   - [ ] Video scaling (todo)
   - [ ] Time slicing (todo)        
   - [ ] Option to enable multipass transcoding (todo)
-- [X] `Video\ProbeService` 
+- [X] `Video\InfoService` 
   - [X] Basic information like duration, frames....
   - [ ] Need API Stabilization    
 - [X] `Video\ThumbService`
@@ -310,10 +310,10 @@ $config = [
         /**
          * Conversion options
          */
-        'ffmpeg.conversion.threads'      => null,   // <null>: single thread; <0>: number of cores, <1+>: number of threads
-        'ffmpeg.conversion.timeout'      => null,   // <null>: no timeout, <number>: number of seconds before timing-out
-        'ffmpeg.conversion.idle_timeout' => 60,     // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
-        'ffmpeg.conversion.env'          => []      // An array of additional env vars to set when running the ffmpeg conversion process        
+        'conversion.threads'      => null,   // <null>: single thread; <0>: number of cores, <1+>: number of threads
+        'conversion.timeout'      => null,   // <null>: no timeout, <number>: number of seconds before timing-out
+        'conversion.idle_timeout' => 60,     // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
+        'conversion.env'          => []      // An array of additional env vars to set when running the ffmpeg conversion process        
     ],    
 ];
 

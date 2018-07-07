@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Probe
+- [BC-Break] `Video\ProbeService` renamed to `Video\InfoService`.
+- [BC-Break] Concrete services instances moved to top level directory.
 
 ### Added
 
-- Timeslice
-
+- Support for `withSeekStart` and `withSeekEnd` methods.
 
 
 ## 0.2.0 (2018-07-06) 

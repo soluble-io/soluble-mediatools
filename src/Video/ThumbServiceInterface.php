@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
 interface ThumbServiceInterface
 {
-    public function makeThumbnail(string $videoFile, string $outputFile, float $time = 0.0, ?VideoFilterInterface $videoFilter = null): void;
+    public function makeThumbnail(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?callable $env = null): void;
 }

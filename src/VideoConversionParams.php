@@ -7,212 +7,138 @@ namespace Soluble\MediaTools;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Util\Assert\BitrateAssertionsTrait;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
-use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\Video\Converter\FFMpegCLIValueInterface;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
+use Soluble\MediaTools\Video\SeekTime;
 
 class VideoConversionParams implements ConversionParamsInterface
 {
     use BitrateAssertionsTrait;
 
-    public const SUPPORTED_OPTIONS = [
-        self::PARAM_OUTPUT_FORMAT => [
-            'ffmpeg_pattern' => '-f %s',
-        ],
-
-        self::PARAM_VIDEO_CODEC => [
-            'ffmpeg_pattern' => '-vcodec %s',
-        ],
-        self::PARAM_VIDEO_BITRATE => [
-            'ffmpeg_pattern' => '-b:v %s',
-        ],
-        self::PARAM_VIDEO_MIN_BITRATE => [
-            'ffmpeg_pattern' => '-minrate %s',
-        ],
-        self::PARAM_VIDEO_MAX_BITRATE => [
-            'ffmpeg_pattern' => '-maxrate %s',
-        ],
-
-        self::PARAM_AUDIO_CODEC => [
-            'ffmpeg_pattern' => '-acodec %s',
-        ],
-        self::PARAM_AUDIO_BITRATE => [
-            'ffmpeg_pattern' => '-b:a %s',
-        ],
-        self::PARAM_PIX_FMT => [
-            'ffmpeg_pattern' => '-pix_fmt %s',
-        ],
-        self::PARAM_PRESET => [
-            'ffmpeg_pattern' => '-preset %s',
-        ],
-        self::PARAM_SPEED => [
-            'ffmpeg_pattern' => '-speed %s',
-        ],
-        self::PARAM_THREADS => [
-            'ffmpeg_pattern' => '-threads %s',
-        ],
-
-        self::PARAM_KEYFRAME_SPACING => [
-            'ffmpeg_pattern' => '-g %s',
-        ],
-        self::PARAM_QUALITY => [
-            'ffmpeg_pattern' => '-quality %s',
-        ],
-        self::PARAM_CRF => [
-            'ffmpeg_pattern' => '-crf %s',
-        ],
-        self::PARAM_STREAMABLE => [
-            'ffmpeg_pattern' => '-movflags +faststart',
-        ],
-
-        self::PARAM_FRAME_PARALLEL => [
-            'ffmpeg_pattern' => '-frame-parallel %s',
-        ],
-        self::PARAM_TILE_COLUMNS => [
-            'ffmpeg_pattern' => '-tile-columns %s',
-        ],
-        self::PARAM_TUNE => [
-            'ffmpeg_pattern' => '-tune %s',
-        ],
-        self::PARAM_VIDEO_FILTER => [
-            'ffmpeg_pattern' => '-vf %s',
-        ],
-    ];
-
-    /** @var array<string, bool|string|int|VideoFilterInterface> */
-    protected $options = [];
+    /** @var array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> */
+    protected $params = [];
 
     /**
-     * @param array<string, bool|string|int|VideoFilterInterface> $options
+     * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params
      *
      * @throws InvalidArgumentException in case of unsupported option
      */
-    public function __construct($options = [])
+    public function __construct($params = [])
     {
-        $this->ensureSupportedOptions($options);
-        $this->options = $options;
-    }
-
-    public function isOptionValid(string $optionName): bool
-    {
-        return array_key_exists($optionName, self::SUPPORTED_OPTIONS);
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
-    }
-
-    /**
-     * @param string                                    $option
-     * @param bool|string|int|VideoFilterInterface|null $default if options does not exists set this one
-     *
-     * @return bool|string|int|VideoFilterInterface|null
-     */
-    public function getOption(string $option, $default = null)
-    {
-        return $this->options[$option] ?? $default;
-    }
-
-    public function hasOption(string $option): bool
-    {
-        return array_key_exists($option, $this->options);
+        $this->ensureSupportedParams($params);
+        $this->params = $params;
     }
 
     public function withVideoCodec(string $videoCodec): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_VIDEO_CODEC => $videoCodec,
         ]));
     }
 
     public function withVideoFilter(VideoFilterInterface $videoFilter): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_VIDEO_FILTER => $videoFilter,
         ]));
     }
 
     public function withAudioCodec(string $audioCodec): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_AUDIO_CODEC => $audioCodec,
         ]));
     }
 
     /**
+     * Set TileColumns (VP9 - to use in conjunction with FrameParallel).
+     *
      * Tiling splits the video frame into multiple columns,
      * which slightly reduces quality but speeds up encoding performance.
      * Tiles must be at least 256 pixels wide, so there is a limit to how many tiles can be used.
      * Depending upon the number of tiles and the resolution of the tmp frame, more CPU threads may be useful.
      *
      * Generally speaking, there is limited value to multiple threads when the tmp frame size is very small.
+     *
+     * @see VideoConversionParams::withFrameParallel()
      */
     public function withTileColumns(int $tileColumns): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_TILE_COLUMNS => $tileColumns,
         ]));
     }
 
     /**
-     * VP9 ?
+     * Set FrameParallel (VP9 - to use in conjunction with TileColumns).
+     *
+     * @see VideoConversionParams::withTileColumns()
+     */
+    public function withFrameParallel(int $frameParallel): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_FRAME_PARALLEL => $frameParallel,
+        ]));
+    }
+
+    /**
+     * Set KeyFrameSpacing (VP9).
+     *
      * It is recommended to allow up to 240 frames of video between keyframes (8 seconds for 30fps content).
      * Keyframes are video frames which are self-sufficient; they don't rely upon any other frames to render
      * but they tend to be larger than other frame types.
+     *
      * For web and mobile playback, generous spacing between keyframes allows the encoder to choose the best
      * placement of keyframes to maximize quality.
      */
     public function withKeyframeSpacing(int $keyframeSpacing): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_KEYFRAME_SPACING => $keyframeSpacing,
         ]));
     }
 
-    public function withFrameParallel(int $frameParallel): self
-    {
-        return new self(array_merge($this->options, [
-            self::PARAM_FRAME_PARALLEL => $frameParallel,
-        ]));
-    }
-
+    /**
+     * Set compression level (Constant Rate Factor).
+     */
     public function withCrf(int $crf): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_CRF => $crf,
         ]));
     }
 
     public function withPixFmt(string $pixFmt): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_PIX_FMT => $pixFmt,
         ]));
     }
 
     public function withPreset(string $preset): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_PRESET => $preset,
         ]));
     }
 
     public function withSpeed(int $speed): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_SPEED => $speed,
         ]));
     }
 
     public function withThreads(int $threads): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_THREADS => $threads,
         ]));
     }
 
     public function withTune(string $tune): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_TUNE => $tune,
         ]));
     }
@@ -222,7 +148,7 @@ class VideoConversionParams implements ConversionParamsInterface
      */
     public function withStreamable(bool $streamable): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_STREAMABLE => $streamable,
         ]));
     }
@@ -236,7 +162,7 @@ class VideoConversionParams implements ConversionParamsInterface
     {
         $this->ensureValidBitRateUnit($bitrate);
 
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_AUDIO_BITRATE => $bitrate,
         ]));
     }
@@ -250,7 +176,7 @@ class VideoConversionParams implements ConversionParamsInterface
     {
         $this->ensureValidBitRateUnit($bitrate);
 
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_VIDEO_BITRATE => $bitrate,
         ]));
     }
@@ -264,7 +190,7 @@ class VideoConversionParams implements ConversionParamsInterface
     {
         $this->ensureValidBitRateUnit($minBitrate);
 
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_VIDEO_MIN_BITRATE => $minBitrate,
         ]));
     }
@@ -278,56 +204,121 @@ class VideoConversionParams implements ConversionParamsInterface
     {
         $this->ensureValidBitRateUnit($maxBitrate);
 
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_VIDEO_MAX_BITRATE => $maxBitrate,
+        ]));
+    }
+
+    /**
+     * Whether to overwrite output file if it exists.
+     */
+    public function withOverwriteFile(): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_OVERWRITE_FILE => true
         ]));
     }
 
     public function withQuality(string $quality): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_QUALITY => $quality,
         ]));
     }
 
     public function withOutputFormat(string $outputFormat): self
     {
-        return new self(array_merge($this->options, [
+        return new self(array_merge($this->params, [
             self::PARAM_OUTPUT_FORMAT => $outputFormat,
         ]));
     }
 
-    /**
-     * @return array<string, string>
-     */
-    public function getFFMpegArguments(): array
+    public function isParamValid(string $paramName): bool
     {
-        $args = [];
-        foreach ($this->options as $key => $value) {
-            $ffmpeg_pattern = self::SUPPORTED_OPTIONS[$key]['ffmpeg_pattern'];
-            if (is_bool($value)) {
-                $args[$key] = $ffmpeg_pattern;
-            } elseif ($value instanceof VideoFilterInterface) {
-                $args[$key] = sprintf($ffmpeg_pattern, $value->getFFmpegCLIValue());
-            } else {
-                $args[$key] = sprintf($ffmpeg_pattern, $value);
-            }
-        }
-
-        return $args;
+        return in_array($paramName, self::BUILTIN_PARAMS, true);
     }
 
     /**
-     * Ensure that all options are supported.
+     * Return the internal array holding params.
+     *
+     * @return array<string,bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface>
+     */
+    public function toArray(): array
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param string                                                            $paramName
+     * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null $defaultValue if param does not exists set this one
+     *
+     * @return bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null
+     */
+    public function getParam(string $paramName, $defaultValue = null)
+    {
+        return $this->params[$paramName] ?? $defaultValue;
+    }
+
+    public function hasParam(string $paramName): bool
+    {
+        return array_key_exists($paramName, $this->params);
+    }
+
+    public function withFilter(string $filter): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_FILTER => $filter,
+        ]));
+    }
+
+    public function withSeekStart(SeekTime $seekTimeStart): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_SEEK_START => $seekTimeStart,
+        ]));
+    }
+
+    public function withSeekEnd(SeekTime $seekTimeEnd): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_SEEK_END => $seekTimeEnd,
+        ]));
+    }
+
+    public function withNoAudio(): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_NOAUDIO => true,
+        ]));
+    }
+
+    public function withVideoFrames(int $numberOfFrames): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_VIDEO_FRAMES => $numberOfFrames,
+        ]));
+    }
+
+    public function withVideoQualityScale(int $qualityScale): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_VIDEO_QUALITY_SCALE => $qualityScale,
+        ]));
+    }
+
+    /**
+     * Ensure that all params are supported.
+     *
+     * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params
      *
      * @throws InvalidArgumentException in case of unsupported option
      */
-    protected function ensureSupportedOptions(array $options): void
+    protected function ensureSupportedParams(array $params): void
     {
-        foreach (array_keys($options) as $optionName) {
-            if (!$this->isOptionValid($optionName)) {
+        foreach ($params as $paramName => $paramValue) {
+            if (!$this->isParamValid($paramName)) {
                 throw new InvalidArgumentException(
-                    sprintf('Unsupported option "%s" given.', $optionName)
+                    sprintf('Unsupported param "%s" given.', $paramName)
                 );
             }
         }

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Filter;
 
-class VideoFilterChain extends AbstractVideoFilter
+use Soluble\MediaTools\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
+
+class VideoFilterChain implements FFMpegVideoFilterInterface
 {
     /** @var VideoFilterInterface[] */
     protected $filters = [];
@@ -23,10 +27,21 @@ class VideoFilterChain extends AbstractVideoFilter
         $this->filters[] = $filter;
     }
 
+    /**
+     * @throws UnsupportedParamValueException
+     */
     public function getFFmpegCLIValue(): string
     {
         $values = [];
         foreach ($this->filters as $filter) {
+            if (!$filter instanceof FFMpegVideoFilterInterface) {
+                throw new UnsupportedParamValueException(
+                    sprintf(
+                        'Filter \'%s\' have not been made compatible with FFMpeg',
+                        get_class($filter)
+                    )
+                );
+            }
             $val = $filter->getFFmpegCLIValue();
             if ($val === '') {
                 continue;

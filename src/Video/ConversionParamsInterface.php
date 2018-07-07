@@ -6,27 +6,38 @@ namespace Soluble\MediaTools\Video;
 
 interface ConversionParamsInterface
 {
-    public const PARAM_VIDEO_CODEC       = 'VIDEO_CODEC';
-    public const PARAM_VIDEO_BITRATE     = 'VIDEO_BITRATE';
-    public const PARAM_VIDEO_MIN_BITRATE = 'VIDEO_MIN_BITRATE';
-    public const PARAM_VIDEO_MAX_BITRATE = 'VIDEO_MAX_BITRATE';
-    public const PARAM_VIDEO_FILTER      = 'VIDEO_FILTER';
-    public const PARAM_AUDIO_CODEC       = 'AUDIO_CODEC';
-    public const PARAM_AUDIO_BITRATE     = 'AUDIO_BITRATE';
-    public const PARAM_CRF               = 'CRF';
-    public const PARAM_PIX_FMT           = 'PIX_FMT';
-    public const PARAM_PRESET            = 'PRESET';
-    public const PARAM_TUNE              = 'TUNE';
-    public const PARAM_STREAMABLE        = 'STREAMABLE';
-    public const PARAM_QUALITY           = 'QUALITY';
-    public const PARAM_OUTPUT_FORMAT     = 'OUTPUT_FORMAT';
-    public const PARAM_FRAME_PARALLEL    = 'FRAME_PARALLEL';
-    public const PARAM_TILE_COLUMNS      = 'TILE_COLUMNS';
+    public const PARAM_VIDEO_CODEC         = 'VIDEO_CODEC';
+    public const PARAM_VIDEO_BITRATE       = 'VIDEO_BITRATE';
+    public const PARAM_VIDEO_MIN_BITRATE   = 'VIDEO_MIN_BITRATE';
+    public const PARAM_VIDEO_MAX_BITRATE   = 'VIDEO_MAX_BITRATE';
+    public const PARAM_VIDEO_QUALITY_SCALE = 'VIDEO_QUALITY_SCALE';
+    public const PARAM_VIDEO_FILTER        = 'VIDEO_FILTER';
+    public const PARAM_AUDIO_CODEC         = 'AUDIO_CODEC';
+    public const PARAM_AUDIO_BITRATE       = 'AUDIO_BITRATE';
+    public const PARAM_CRF                 = 'CRF';
+    public const PARAM_PIX_FMT             = 'PIX_FMT';
+    public const PARAM_PRESET              = 'PRESET';
+    public const PARAM_TUNE                = 'TUNE';
+    public const PARAM_STREAMABLE          = 'STREAMABLE';
+    public const PARAM_QUALITY             = 'QUALITY';
+    public const PARAM_OUTPUT_FORMAT       = 'OUTPUT_FORMAT';
+    public const PARAM_FRAME_PARALLEL      = 'FRAME_PARALLEL';
+    public const PARAM_TILE_COLUMNS        = 'TILE_COLUMNS';
+
+    public const PARAM_SEEK_START        = 'SEEK_START';
+    public const PARAM_SEEK_END          = 'SEEK_END';
 
     // Only for vp9
     public const PARAM_SPEED             = 'SPEED';
     public const PARAM_THREADS           = 'THREADS';
     public const PARAM_KEYFRAME_SPACING  = 'KEYFRAME_SPACING';
+
+    // File Options
+    public const PARAM_OVERWRITE_FILE    = 'OVERWRITE_FILE';
+
+    public const PARAM_FILTER            = 'FILTER';
+    public const PARAM_NOAUDIO           = 'NOAUDIO';
+    public const PARAM_VIDEO_FRAMES      = 'VIDEO_FRAMES';
 
     /**
      * Built-in params.
@@ -34,6 +45,7 @@ interface ConversionParamsInterface
      * @var string[]
      */
     public const BUILTIN_PARAMS = [
+        self::PARAM_VIDEO_QUALITY_SCALE,
         self::PARAM_VIDEO_CODEC,
         self::PARAM_VIDEO_BITRATE,
         self::PARAM_VIDEO_MIN_BITRATE,
@@ -50,5 +62,21 @@ interface ConversionParamsInterface
         self::PARAM_OUTPUT_FORMAT,
         self::PARAM_FRAME_PARALLEL,
         self::PARAM_TILE_COLUMNS,
+        self::PARAM_THREADS,
+        self::PARAM_SPEED,
+        self::PARAM_KEYFRAME_SPACING,
+        self::PARAM_OVERWRITE_FILE,
+        self::PARAM_FILTER,
+        self::PARAM_NOAUDIO,
+        self::PARAM_VIDEO_FRAMES,
+        self::PARAM_SEEK_START,
+        self::PARAM_SEEK_END,
     ];
+
+    /**
+     * Return the internal array holding params.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(): array;
 }

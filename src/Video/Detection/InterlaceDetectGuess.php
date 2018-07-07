@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Detection;
 
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
-use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
-use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\YadifInterface;
 
 class InterlaceDetectGuess
 {
@@ -143,14 +143,14 @@ class InterlaceDetectGuess
      *
      * @param float|null $threshold
      *
-     * @return EmptyVideoFilter|YadifVideoFilter
+     * @return EmptyVideoFilter|YadifInterface
      */
     public function getDeinterlaceVideoFilter(?float $threshold = null): VideoFilterInterface
     {
         if (!$this->isInterlaced($threshold)) {
             return new EmptyVideoFilter();
         }
-        $parity = YadifVideoFilter::DEFAULT_PARITY;
+        $parity = YadifInterface::DEFAULT_PARITY;
         if ($this->isInterlacedBff($threshold)) {
             // parity=1,  bff - Assume the bottom field is first.
             $parity = 1;
@@ -159,6 +159,6 @@ class InterlaceDetectGuess
             $parity = 0;
         }
 
-        return new YadifVideoFilter(YadifVideoFilter::DEFAULT_MODE, $parity, YadifVideoFilter::DEFAULT_DEINT);
+        return new YadifInterface(YadifInterface::DEFAULT_MODE, $parity, YadifInterface::DEFAULT_DEINT);
     }
 }

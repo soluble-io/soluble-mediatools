@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video\Filter;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
+use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
-use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
 class VideoFilterChainTest extends TestCase
 {
@@ -26,40 +28,16 @@ class VideoFilterChainTest extends TestCase
     public function testAddFiltersMustReturnCorrectCliArguments(): void
     {
         $filter1 = new class() implements VideoFilterInterface {
-            public function getFFMpegCLIArgument(): string
-            {
-                return '-vf';
-            }
-
-            public function getFFmpegCLIValue(): string
-            {
-                return 'filter_1';
-            }
         };
 
-        $filter2 = new class() implements VideoFilterInterface {
-            public function getFFMpegCLIArgument(): string
-            {
-                return '-vf';
-            }
-
+        $filter2 = new class() implements FFMpegVideoFilterInterface {
             public function getFFmpegCLIValue(): string
             {
                 return 'filter_2';
             }
         };
 
-        $filter3 = new class() implements VideoFilterInterface {
-            public function getFFMpegCLIArgument(): string
-            {
-                return '-vf';
-            }
-
-            public function getFFmpegCLIValue(): string
-            {
-                return ''; // empty filter
-            }
-        };
+        $filter3 = new EmptyVideoFilter();
 
         $chain = new VideoFilterChain();
         $chain->addFilter($filter1);
@@ -67,42 +45,35 @@ class VideoFilterChainTest extends TestCase
         $chain->addFilter($filter3);
 
         self::assertCount(3, $chain->getFilters());
-        self::assertEquals('-vf filter_1,filter_2', $chain->getFFMpegCLIArgument());
-        self::assertEquals('filter_1,filter_2', $chain->getFFmpegCLIValue());
-    }
-
-    public function testEmptyFiltersMustReturnEmptyCLIArg(): void
-    {
-        $filter1 = new class() implements VideoFilterInterface {
-            public function getFFMpegCLIArgument(): string
-            {
-                return '-vf';
+        $expectedCliValue = '';
+        foreach ($chain->getFilters() as $filter) {
+            if (!($filter instanceof FFMpegVideoFilterInterface)) {
+                continue;
             }
 
+            $expectedCliValue .= $filter->getFFmpegCLIValue();
+        }
+        self::assertEquals('filter_2', $expectedCliValue);
+    }
+
+    public function testFFMpegCliArgumentMustThrowUnsupportedParamValueException(): void
+    {
+        self::expectException(UnsupportedParamValueException::class);
+
+        $filter1 = new class() implements FFMpegVideoFilterInterface {
             public function getFFmpegCLIValue(): string
             {
-                return ''; // empty
+                return 'An ffmpeg ready filter'; // empty
             }
         };
 
         $filter2 = new class() implements VideoFilterInterface {
-            public function getFFMpegCLIArgument(): string
-            {
-                return '-vf';
-            }
-
-            public function getFFmpegCLIValue(): string
-            {
-                return ''; // empty
-            }
         };
 
         $chain = new VideoFilterChain();
         $chain->addFilter($filter1);
         $chain->addFilter($filter2);
 
-        self::assertCount(2, $chain->getFilters());
-        self::assertEquals('', $chain->getFFMpegCLIArgument());
-        self::assertEquals('', $chain->getFFmpegCLIValue());
+        $chain->getFFmpegCLIValue();
     }
 }
