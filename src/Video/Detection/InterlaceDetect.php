@@ -40,8 +40,8 @@ class InterlaceDetect
                 '-filter idet',
                 sprintf('-frames:v %d', $maxFramesToAnalyze),
                 '-an', // audio can be discarded
-                '-f rawvideo', // output in raw
-                '-y /dev/null', // discard the output
+                '-f rawvideo', // tmp in raw
+                '-y /dev/null', // discard the tmp
             ]
         );
 

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video;
+namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
-use Soluble\MediaTools\Video\Converter\ParamsInterface;
+use Soluble\MediaTools\Video\ConversionParamsInterface;
+use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
@@ -34,13 +35,13 @@ class VideoConversionService implements ConversionServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, ConversionParams $convertParams): Process
+    public function getConversionProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process
     {
         $this->ensureFileExists($inputFile);
 
         $process = $this->ffmpegConfig->getProcess();
 
-        if (!$convertParams->hasOption(ParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
+        if (!$convertParams->hasOption(ConversionParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
             $convertParams = $convertParams->withThreads($this->ffmpegConfig->getThreads());
         }
 
@@ -68,14 +69,14 @@ class VideoConversionService implements ConversionServiceInterface
      * Run a conversion, throw exception on error.
      *
      * @param callable|null                 $callback A PHP callback to run whenever there is some
-     *                                                output available on STDOUT or STDERR
+     *                                                tmp available on STDOUT or STDERR
      * @param array<string,string|int>|null $env      An array of env vars to set
      *                                                when running the process
      *
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, ConversionParams $convertParams, ?callable $callback = null, ?array $env = null): void
+    public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null, ?array $env = null): void
     {
         $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
 
@@ -91,7 +92,7 @@ class VideoConversionService implements ConversionServiceInterface
 
     /*
      * FOR LATER REFERENCE !!!
-    public function convertMultiPass(string $videoFile, string $outputFile, ConversionParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+    public function convertMultiPass(string $videoFile, string $outputFile, VideoConversionParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {
@@ -99,7 +100,7 @@ class VideoConversionService implements ConversionServiceInterface
         }
 
 
-        $threads = $convertParams->getOption(ConversionParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
+        $threads = $convertParams->getOption(VideoConversionParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
 
         $ffmpegBin = $this->ffmpegConfig->getBinary();
 
@@ -125,7 +126,7 @@ class VideoConversionService implements ConversionServiceInterface
             [
                 '-pass 2',
                 // speed 1 is a good speed vs. quality compromise.
-                // Produces output quality typically very close to speed 0, but usually encodes much faster.
+                // Produces tmp quality typically very close to speed 0, but usually encodes much faster.
                 '-speed 1',
                 '-y',
                 sprintf("%s", escapeshellarg($outputFile))
@@ -135,7 +136,7 @@ class VideoConversionService implements ConversionServiceInterface
 
         $process = new Process($pass1Cmd);
         $process->setTimeout(null);
-        $process->setIdleTimeout(60); // 60 seconds without output will stop the process
+        $process->setIdleTimeout(60); // 60 seconds without tmp will stop the process
         $process->start();
         foreach ($process as $type => $data) {
             if ($process::OUT === $type) {
@@ -147,7 +148,7 @@ class VideoConversionService implements ConversionServiceInterface
 
         $process = new Process($pass2Cmd);
         $process->setTimeout(null);
-        $process->setIdleTimeout(60); // 60 seconds without output will stop the process
+        $process->setIdleTimeout(60); // 60 seconds without tmp will stop the process
         $process->start();
         foreach ($process as $type => $data) {
             if ($process::OUT === $type) {

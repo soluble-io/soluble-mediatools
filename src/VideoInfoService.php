@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video;
+namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
-use Soluble\MediaTools\VideoInfo;
+use Soluble\MediaTools\Video\InfoServiceInterface;
 
-class VideoProbeService implements ProbeServiceInterface
+class VideoInfoService implements InfoServiceInterface
 {
     use PathAssertionsTrait;
 

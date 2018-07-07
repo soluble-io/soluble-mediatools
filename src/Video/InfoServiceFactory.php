@@ -7,12 +7,13 @@ namespace Soluble\MediaTools\Video;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
+use Soluble\MediaTools\VideoInfoService;
 
-class ProbeServiceFactory
+class InfoServiceFactory
 {
-    public function __invoke(ContainerInterface $container): ProbeServiceInterface
+    public function __invoke(ContainerInterface $container): InfoServiceInterface
     {
-        return new VideoProbeService(
+        return new VideoInfoService(
             $container->get(FFProbeConfig::class),
             $container->get(FFMpegConfig::class)
         );

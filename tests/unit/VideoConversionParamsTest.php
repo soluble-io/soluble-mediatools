@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Video;
+namespace MediaToolsTest;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Converter\ParamsInterface;
-use Soluble\MediaTools\Video\ConversionParams;
+use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\VideoConversionParams;
 
-class ConverterParamsTest extends TestCase
+class VideoConversionParamsTest extends TestCase
 {
     public function setUp(): void
     {
@@ -18,7 +18,7 @@ class ConverterParamsTest extends TestCase
 
     public function testMustBeImmutable(): void
     {
-        $params = new ConversionParams();
+        $params = new VideoConversionParams();
         self::assertCount(0, $params->getOptions());
         $newParams = $params->withThreads(1);
         self::assertCount(0, $params->getOptions());
@@ -27,26 +27,26 @@ class ConverterParamsTest extends TestCase
 
     public function testHasOption(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConversionParams())
                   ->withTileColumns(10);
-        self::assertTrue($params->hasOption(ParamsInterface::PARAM_TILE_COLUMNS));
-        self::assertFalse($params->hasOption(ParamsInterface::PARAM_FRAME_PARALLEL));
+        self::assertTrue($params->hasOption(ConversionParamsInterface::PARAM_TILE_COLUMNS));
+        self::assertFalse($params->hasOption(ConversionParamsInterface::PARAM_FRAME_PARALLEL));
     }
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
-        $injectedParams = new ConversionParams([
-            ParamsInterface::PARAM_TUNE => 'grain',
+        $injectedParams = new VideoConversionParams([
+            ConversionParamsInterface::PARAM_TUNE => 'grain',
         ]);
 
-        $withParams = (new ConversionParams())->withTune('grain');
+        $withParams = (new VideoConversionParams())->withTune('grain');
 
         self::assertSame($injectedParams->getOptions(), $withParams->getOptions());
     }
 
     public function testGetOptionsMustEqualsParams(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConversionParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -67,24 +67,24 @@ class ConverterParamsTest extends TestCase
             ->withTune('film');
 
         $expectedOptions = [
-            ParamsInterface::PARAM_TILE_COLUMNS      => 10,
-            ParamsInterface::PARAM_THREADS           => 8,
-            ParamsInterface::PARAM_SPEED             => 2,
-            ParamsInterface::PARAM_KEYFRAME_SPACING  => 240,
-            ParamsInterface::PARAM_CRF               => 32,
-            ParamsInterface::PARAM_OUTPUT_FORMAT     => 'mp4',
-            ParamsInterface::PARAM_VIDEO_MIN_BITRATE => '750k',
-            ParamsInterface::PARAM_VIDEO_BITRATE     => '1M',
-            ParamsInterface::PARAM_QUALITY           => 'good',
-            ParamsInterface::PARAM_STREAMABLE        => true,
-            ParamsInterface::PARAM_PIX_FMT           => 'yuv420p',
-            ParamsInterface::PARAM_PRESET            => 'fast',
-            ParamsInterface::PARAM_AUDIO_BITRATE     => '128k',
-            ParamsInterface::PARAM_AUDIO_CODEC       => 'aac',
-            ParamsInterface::PARAM_VIDEO_CODEC       => 'h264',
-            ParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
-            ParamsInterface::PARAM_FRAME_PARALLEL    => 2,
-            ParamsInterface::PARAM_TUNE              => 'film',
+            ConversionParamsInterface::PARAM_TILE_COLUMNS      => 10,
+            ConversionParamsInterface::PARAM_THREADS           => 8,
+            ConversionParamsInterface::PARAM_SPEED             => 2,
+            ConversionParamsInterface::PARAM_KEYFRAME_SPACING  => 240,
+            ConversionParamsInterface::PARAM_CRF               => 32,
+            ConversionParamsInterface::PARAM_OUTPUT_FORMAT     => 'mp4',
+            ConversionParamsInterface::PARAM_VIDEO_MIN_BITRATE => '750k',
+            ConversionParamsInterface::PARAM_VIDEO_BITRATE     => '1M',
+            ConversionParamsInterface::PARAM_QUALITY           => 'good',
+            ConversionParamsInterface::PARAM_STREAMABLE        => true,
+            ConversionParamsInterface::PARAM_PIX_FMT           => 'yuv420p',
+            ConversionParamsInterface::PARAM_PRESET            => 'fast',
+            ConversionParamsInterface::PARAM_AUDIO_BITRATE     => '128k',
+            ConversionParamsInterface::PARAM_AUDIO_CODEC       => 'aac',
+            ConversionParamsInterface::PARAM_VIDEO_CODEC       => 'h264',
+            ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
+            ConversionParamsInterface::PARAM_FRAME_PARALLEL    => 2,
+            ConversionParamsInterface::PARAM_TUNE              => 'film',
         ];
 
         self::assertEquals($expectedOptions, $params->getOptions());
@@ -102,12 +102,12 @@ class ConverterParamsTest extends TestCase
 
     public function testNewParamMustOverwritePreviousParam(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConversionParams())
             ->withTileColumns(10)
             ->withTileColumns(12);
 
         self::assertEquals([
-            ParamsInterface::PARAM_TILE_COLUMNS      => 12,
+            ConversionParamsInterface::PARAM_TILE_COLUMNS      => 12,
         ], $params->getOptions());
     }
 
@@ -125,22 +125,22 @@ class ConverterParamsTest extends TestCase
             }
         };
 
-        $params = (new ConversionParams())
+        $params = (new VideoConversionParams())
             ->withVideoFilter($filter1);
 
-        self::assertSame($filter1, $params->getOption(ParamsInterface::PARAM_VIDEO_FILTER));
-        self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[ParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertSame($filter1, $params->getOption(ConversionParamsInterface::PARAM_VIDEO_FILTER));
+        self::assertEquals('-vf filter_1', $params->getFFMpegArguments()[ConversionParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testUnsupportedParamThrowsInvalidArgumentException(): void
     {
         self::expectException(InvalidArgumentException::class);
-        new ConversionParams(['UnsupportedOption' => 'cool']);
+        new VideoConversionParams(['UnsupportedOption' => 'cool']);
     }
 
     public function testInvalidBitRateThrowsInvalidArgumentException(): void
     {
-        $params = new ConversionParams();
+        $params = new VideoConversionParams();
 
         try {
             $params->withVideoBitrate('901w');

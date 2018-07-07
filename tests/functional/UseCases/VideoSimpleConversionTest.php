@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Recipes;
+namespace MediaToolsTest\Functional\UseCases;
 
-use MediaToolsTest\TestUtilTrait;
+use MediaToolsTest\Functional\ConfigUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
-use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\VideoConversionParams;
 
 class VideoSimpleConversionTest extends TestCase
 {
-    use TestUtilTrait;
+    use ConfigUtilTrait;
 
     /** @var ConversionServiceInterface */
     protected $videoConvert;
@@ -38,19 +38,19 @@ class VideoSimpleConversionTest extends TestCase
         $this->videoConvert = $this->getVideoConvertService();
 
         $this->baseDir      = dirname(__FILE__, 3);
-        $this->outputDir    = "{$this->baseDir}/output";
+        $this->outputDir    = "{$this->baseDir}/tmp";
         $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
     }
 
     public function testBasicUsage(): void
     {
-        $outputFile = "{$this->outputDir}/testBasicUsage.output.mp4";
+        $outputFile = "{$this->outputDir}/testBasicUsage.tmp.mp4";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
 
-        $convertParams = (new ConversionParams())
+        $convertParams = (new VideoConversionParams())
             ->withVideoCodec('libx264')
             ->withPreset('ultrafast')
             ->withTune('animation')
@@ -80,7 +80,7 @@ class VideoSimpleConversionTest extends TestCase
 
     public function testFullOptions(): void
     {
-        $outputFile = "{$this->outputDir}/testFullOptions.output.webm";
+        $outputFile = "{$this->outputDir}/testFullOptions.tmp.webm";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
@@ -90,7 +90,7 @@ class VideoSimpleConversionTest extends TestCase
         $videoFilterChain->addFilter(new EmptyVideoFilter());
         $videoFilterChain->addFilter(new YadifVideoFilter());
 
-        $convertParams = (new ConversionParams())
+        $convertParams = (new VideoConversionParams())
             ->withVideoCodec('libvpx-vp9')
             //->withCrf(32) - Using variable bitrate instead:
             ->withVideoBitrate('200k') // target bitrate
@@ -119,7 +119,7 @@ class VideoSimpleConversionTest extends TestCase
         self::assertFileExists($outputFile);
         unlink($outputFile);
 
-        // Check the output from a new command
+        // Check the tmp from a new command
         $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
         $cmdLine = $process->getCommandLine();
 
@@ -142,25 +142,25 @@ class VideoSimpleConversionTest extends TestCase
     public function testConvertMustThrowFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);
-        $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new ConversionParams());
+        $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConversionParams());
     }
 
     public function testConvertMustThrowProcessConversionException(): void
     {
         self::expectException(ProcessConversionException::class);
 
-        $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.output.mp4";
+        $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
-        $params = (new ConversionParams())->withVideoCodec('NOVALIDCODEC');
+        $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
 
         $this->videoConvert->convert($this->videoFile, $outputFile, $params);
     }
 
     public function testConvertProcessConversionExceptionType(): void
     {
-        $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.output.mp4";
+        $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
-        $params = (new ConversionParams())->withVideoCodec('NOVALIDCODEC');
+        $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $params);

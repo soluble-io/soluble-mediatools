@@ -6,6 +6,7 @@ namespace Soluble\MediaTools\Video;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\VideoDetectionService;
 
 class DetectionServiceFactory
 {

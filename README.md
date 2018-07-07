@@ -85,7 +85,7 @@ $convertParams = (new ConvertParams)
             ->withStreamable(true)      // Add streamable options (movflags & faststart) 
             ->withCrf(24)               // Level of compression: better size / less visual quality  
             ->withPreset('fast')        // Optional: see presets  
-            ->withOutputFormat('mp4');  // Optional: if not set, will be detected from output file extension.
+            ->withOutputFormat('mp4');  tmp
     
 try {
     /** @var \Soluble\MediaTools\Video\ConverterServiceInterface $videoConverter */

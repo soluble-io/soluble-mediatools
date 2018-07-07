@@ -13,8 +13,8 @@ composer.lock
 /build
 /phpunit*.xml
 # For Tests
-/tests/output/*
-!/tests/output/.gitkeep
+/tests/tmp/*
+!/tests/tmp/.gitkeep
 # For Travis
 infection-log.txt
 .travis/ffmpeg-release-64bit-static

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest;
+namespace MediaToolsTest\Functional;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Soluble\MediaTools\Video\ProbeServiceInterface;
+use Soluble\MediaTools\Video\InfoServiceInterface;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
-trait TestUtilTrait
+trait ConfigUtilTrait
 {
     /**
      * @throws \Exception
@@ -25,9 +25,9 @@ trait TestUtilTrait
     /**
      * @throws \Exception
      */
-    public function getVideoProbeService(): ProbeServiceInterface
+    public function getVideoProbeService(): InfoServiceInterface
     {
-        return $this->getConfiguredContainer()->get(ProbeServiceInterface::class);
+        return $this->getConfiguredContainer()->get(InfoServiceInterface::class);
     }
 
     /**

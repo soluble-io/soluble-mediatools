@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Recipes;
+namespace MediaToolsTest\Functional\UseCases;
 
-use MediaToolsTest\TestUtilTrait;
+use MediaToolsTest\Functional\ConfigUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbnailingTest extends TestCase
 {
-    use TestUtilTrait;
+    use ConfigUtilTrait;
 
     /** @var ThumbServiceInterface */
     protected $thumbService;
@@ -33,7 +33,7 @@ class VideoThumbnailingTest extends TestCase
         $this->thumbService = $this->getVideoThumbService();
 
         $this->baseDir      = dirname(__FILE__, 3);
-        $this->outputDir    = "{$this->baseDir}/output";
+        $this->outputDir    = "{$this->baseDir}/tmp";
         $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
     }
 

@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video;
+namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
+use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Symfony\Component\Process\Exception\RuntimeException as SPRuntimeException;
 
 class VideoDetectionService implements DetectionServiceInterface

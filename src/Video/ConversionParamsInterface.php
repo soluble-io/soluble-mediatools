@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video\Converter;
+namespace Soluble\MediaTools\Video;
 
-interface ParamsInterface
+interface ConversionParamsInterface
 {
     public const PARAM_VIDEO_CODEC       = 'VIDEO_CODEC';
     public const PARAM_VIDEO_BITRATE     = 'VIDEO_BITRATE';

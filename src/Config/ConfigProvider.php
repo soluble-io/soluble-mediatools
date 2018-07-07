@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
-use Soluble\MediaTools\Video\VideoConversionService;
 use Soluble\MediaTools\Video\ConversionServiceFactory;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
-use Soluble\MediaTools\Video\VideoDetectionService;
 use Soluble\MediaTools\Video\DetectionServiceFactory;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Soluble\MediaTools\Video\VideoProbeService;
-use Soluble\MediaTools\Video\ProbeServiceFactory;
-use Soluble\MediaTools\Video\ProbeServiceInterface;
-use Soluble\MediaTools\Video\VideoThumbService;
+use Soluble\MediaTools\Video\InfoServiceFactory;
+use Soluble\MediaTools\Video\InfoServiceInterface;
 use Soluble\MediaTools\Video\ThumbServiceFactory;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
+use Soluble\MediaTools\VideoConversionService;
+use Soluble\MediaTools\VideoDetectionService;
+use Soluble\MediaTools\VideoInfoService;
+use Soluble\MediaTools\VideoThumbService;
 
 class ConfigProvider
 {
@@ -34,9 +34,9 @@ class ConfigProvider
         return [
             'aliases' => [
                 VideoConversionService::class => ConversionServiceInterface::class,
-                VideoProbeService::class     => ProbeServiceInterface::class,
-                VideoDetectionService::class => DetectionServiceInterface::class,
-                VideoThumbService::class     => ThumbServiceInterface::class,
+                VideoInfoService::class       => InfoServiceInterface::class,
+                VideoDetectionService::class  => DetectionServiceInterface::class,
+                VideoThumbService::class      => ThumbServiceInterface::class,
             ],
             'factories' => [
                 // Configuration array for ffmpeg and ffprobe
@@ -45,9 +45,9 @@ class ConfigProvider
 
                 // Services classes
                 ConversionServiceInterface::class => ConversionServiceFactory::class,
-                ProbeServiceInterface::class     => ProbeServiceFactory::class,
-                DetectionServiceInterface::class => DetectionServiceFactory::class,
-                ThumbServiceInterface::class     => ThumbServiceFactory::class,
+                InfoServiceInterface::class       => InfoServiceFactory::class,
+                DetectionServiceInterface::class  => DetectionServiceFactory::class,
+                ThumbServiceInterface::class      => ThumbServiceFactory::class,
             ],
         ];
     }

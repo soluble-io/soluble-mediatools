@@ -54,10 +54,9 @@
         "psr-4": {
             "MediaToolsTest\\": [
                 "tests/unit",
-                "tests/functional",
-                "tests/util",
-                "tests/smoke"
-            ]
+                "tests/util"
+            ],
+            "MediaToolsTest\\Functional\\": "tests/functional"
         }
     },
     "scripts": {

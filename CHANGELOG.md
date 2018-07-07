@@ -5,11 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.2.0 (2018-07-??) TBD
+## 0.3.0 (2018-07-xx) TBD 
 
 ### Changed
 
-- [BC-Break] Renamed `VideoTranscode` service to `VideoConvert`. 
+- Probe
+
+### Added
+
+- Timeslice
+
+
+
+## 0.2.0 (2018-07-06) 
+
+### Changed
+
+- [BC-Break] *Complete class re-organisation*, this kind of refactoring will tend
+  to be avoided in subsequent releases.
 
 ### Added
 

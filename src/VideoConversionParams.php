@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video;
+namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Converter\ParamsInterface;
+use Soluble\MediaTools\Util\Assert\BitrateAssertionsTrait;
+use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
-class ConversionParams implements ParamsInterface
+class VideoConversionParams implements ConversionParamsInterface
 {
+    use BitrateAssertionsTrait;
+
     public const SUPPORTED_OPTIONS = [
         self::PARAM_OUTPUT_FORMAT => [
             'ffmpeg_pattern' => '-f %s',
@@ -139,9 +142,9 @@ class ConversionParams implements ParamsInterface
      * Tiling splits the video frame into multiple columns,
      * which slightly reduces quality but speeds up encoding performance.
      * Tiles must be at least 256 pixels wide, so there is a limit to how many tiles can be used.
-     * Depending upon the number of tiles and the resolution of the output frame, more CPU threads may be useful.
+     * Depending upon the number of tiles and the resolution of the tmp frame, more CPU threads may be useful.
      *
-     * Generally speaking, there is limited value to multiple threads when the output frame size is very small.
+     * Generally speaking, there is limited value to multiple threads when the tmp frame size is very small.
      */
     public function withTileColumns(int $tileColumns): self
     {
@@ -312,18 +315,6 @@ class ConversionParams implements ParamsInterface
         }
 
         return $args;
-    }
-
-    /**
-     * Ensure that a bitrate is valid (optional unit: k or M ).
-     *
-     * @throws InvalidArgumentException
-     */
-    protected function ensureValidBitRateUnit(string $bitrate): void
-    {
-        if (preg_match('/^\d+(k|M)?$/i', $bitrate) !== 1) {
-            throw new InvalidArgumentException(sprintf('"%s"', $bitrate));
-        }
     }
 
     /**

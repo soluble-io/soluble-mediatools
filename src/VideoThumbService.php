@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video;
+namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
+use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbService implements ThumbServiceInterface
 {
