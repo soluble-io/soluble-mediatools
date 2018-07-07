@@ -8,7 +8,7 @@ use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Symfony\Component\Process\Process;
 
-interface ConverterServiceInterface
+interface ConversionServiceInterface
 {
     /**
      * Return ready-to-run symfony process object that you can use
@@ -19,7 +19,7 @@ interface ConverterServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, ConvertParams $convertParams): Process;
+    public function getConversionProcess(string $inputFile, string $outputFile, ConversionParams $convertParams): Process;
 
     /**
      * Run a conversion, throw exception on error.
@@ -32,5 +32,5 @@ interface ConverterServiceInterface
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, ConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void;
+    public function convert(string $inputFile, string $outputFile, ConversionParams $convertParams, ?callable $callback = null, ?array $env = null): void;
 }

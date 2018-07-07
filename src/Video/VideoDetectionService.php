@@ -7,10 +7,10 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
-use Soluble\MediaTools\Video\Detection\InterlaceGuess;
+use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Symfony\Component\Process\Exception\RuntimeException as SPRuntimeException;
 
-class DetectionService implements DetectionServiceInterface
+class VideoDetectionService implements DetectionServiceInterface
 {
     /** @var FFMpegConfig */
     protected $ffmpegConfig;
@@ -26,7 +26,7 @@ class DetectionService implements DetectionServiceInterface
      * @throws SPRuntimeException
      * @throws FileNotFoundException
      */
-    public function detectInterlacement(string $file, int $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceGuess
+    public function detectInterlacement(string $file, int $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceDetectGuess
     {
         $interlaceDetect = new InterlaceDetect($this->ffmpegConfig);
 

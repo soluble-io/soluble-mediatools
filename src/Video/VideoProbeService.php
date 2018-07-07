@@ -9,7 +9,7 @@ use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\VideoInfo;
 
-class ProbeService implements ProbeServiceInterface
+class VideoProbeService implements ProbeServiceInterface
 {
     use PathAssertionsTrait;
 

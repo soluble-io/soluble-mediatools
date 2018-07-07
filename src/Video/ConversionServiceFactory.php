@@ -7,11 +7,11 @@ namespace Soluble\MediaTools\Video;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
 
-class ConverterServiceFactory
+class ConversionServiceFactory
 {
-    public function __invoke(ContainerInterface $container): ConverterServiceInterface
+    public function __invoke(ContainerInterface $container): ConversionServiceInterface
     {
-        return new ConverterService(
+        return new VideoConversionService(
             $container->get(FFMpegConfig::class)
         );
     }

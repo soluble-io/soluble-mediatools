@@ -33,7 +33,7 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
   - [X] Basic thumbnail creation
   - [ ] Stabilize API first
 - [X] `Video\DetectionService`.
-  - [X] Interlacement detection (thru probablility).  
+  - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
 
 
 ## Requirements

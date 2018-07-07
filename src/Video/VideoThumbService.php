@@ -10,7 +10,7 @@ use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 
-class ThumbService implements ThumbServiceInterface
+class VideoThumbService implements ThumbServiceInterface
 {
     use PathAssertionsTrait;
 

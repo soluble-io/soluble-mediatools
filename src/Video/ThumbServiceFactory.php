@@ -11,7 +11,7 @@ class ThumbServiceFactory
 {
     public function __invoke(ContainerInterface $container): ThumbServiceInterface
     {
-        return new ThumbService(
+        return new VideoThumbService(
             $container->get(FFMpegConfig::class)
         );
     }

@@ -7,7 +7,7 @@ namespace MediaToolsTest\Recipes;
 use MediaToolsTest\TestUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Video\Detection\InterlaceGuess;
+use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 
 class VideoDetectionTest extends TestCase
@@ -46,12 +46,12 @@ class VideoDetectionTest extends TestCase
         self::assertFalse($interlaceGuess->isInterlaced(0.1));
         self::assertFalse($interlaceGuess->isInterlacedTff(0.1));
         self::assertFalse($interlaceGuess->isInterlacedBff(0.1));
-        self::assertEquals(InterlaceGuess::MODE_PROGRESSIVE, $interlaceGuess->getBestGuess());
+        self::assertEquals(InterlaceDetectGuess::MODE_PROGRESSIVE, $interlaceGuess->getBestGuess());
 
         $stats = $interlaceGuess->getStats();
-        self::assertGreaterThan(0.8, $stats[InterlaceGuess::MODE_PROGRESSIVE]);
-        self::assertLessThan(0.1, $stats[InterlaceGuess::MODE_UNDETERMINED]);
-        self::assertLessThan(0.05, $stats[InterlaceGuess::MODE_INTERLACED_TFF]);
+        self::assertGreaterThan(0.8, $stats[InterlaceDetectGuess::MODE_PROGRESSIVE]);
+        self::assertLessThan(0.1, $stats[InterlaceDetectGuess::MODE_UNDETERMINED]);
+        self::assertLessThan(0.05, $stats[InterlaceDetectGuess::MODE_INTERLACED_TFF]);
 
         // Because some frames where detected as interlaced ttf > 0.01 %
         self::assertTrue($interlaceGuess->isInterlacedTff(0.01));

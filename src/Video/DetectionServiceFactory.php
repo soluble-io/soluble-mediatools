@@ -11,7 +11,7 @@ class DetectionServiceFactory
 {
     public function __invoke(ContainerInterface $container): DetectionServiceInterface
     {
-        return new DetectionService(
+        return new VideoDetectionService(
             $container->get(FFMpegConfig::class)
         );
     }

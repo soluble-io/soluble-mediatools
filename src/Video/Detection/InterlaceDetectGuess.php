@@ -8,7 +8,7 @@ use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 
-class InterlaceGuess
+class InterlaceDetectGuess
 {
     /**
      * Default interlacing detection threshold

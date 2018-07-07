@@ -28,7 +28,7 @@ class InterlaceDetect
      * @throws SPRuntimeException
      * @throws FileNotFoundException
      */
-    public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceGuess
+    public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceDetectGuess
     {
         $this->ensureFileExists($file);
 
@@ -82,6 +82,6 @@ class InterlaceDetect
             }
         }
 
-        return new InterlaceGuess($interlaced_tff, $interlaced_bff, $progressive, $undetermined);
+        return new InterlaceDetectGuess($interlaced_tff, $interlaced_bff, $progressive, $undetermined);
     }
 }

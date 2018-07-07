@@ -12,7 +12,7 @@ class ProbeServiceFactory
 {
     public function __invoke(ContainerInterface $container): ProbeServiceInterface
     {
-        return new ProbeService(
+        return new VideoProbeService(
             $container->get(FFProbeConfig::class),
             $container->get(FFMpegConfig::class)
         );

@@ -6,7 +6,7 @@ namespace MediaToolsTest;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
-use Soluble\MediaTools\Video\ConverterServiceInterface;
+use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Soluble\MediaTools\Video\ProbeServiceInterface;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
@@ -17,9 +17,9 @@ trait TestUtilTrait
     /**
      * @throws \Exception
      */
-    public function getVideoConvertService(): ConverterServiceInterface
+    public function getVideoConvertService(): ConversionServiceInterface
     {
-        return $this->getConfiguredContainer()->get(ConverterServiceInterface::class);
+        return $this->getConfiguredContainer()->get(ConversionServiceInterface::class);
     }
 
     /**

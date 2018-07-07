@@ -12,7 +12,7 @@ use Soluble\MediaTools\Video\Converter\ParamsInterface;
 use Symfony\Component\Process\Exception as ProcessException;
 use Symfony\Component\Process\Process;
 
-class ConverterService implements ConverterServiceInterface
+class VideoConversionService implements ConversionServiceInterface
 {
     use PathAssertionsTrait;
 
@@ -34,7 +34,7 @@ class ConverterService implements ConverterServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, ConvertParams $convertParams): Process
+    public function getConversionProcess(string $inputFile, string $outputFile, ConversionParams $convertParams): Process
     {
         $this->ensureFileExists($inputFile);
 
@@ -75,7 +75,7 @@ class ConverterService implements ConverterServiceInterface
      * @throws FileNotFoundException      When inputFile does not exists
      * @throws ProcessConversionException When the ffmpeg process conversion failed
      */
-    public function convert(string $inputFile, string $outputFile, ConvertParams $convertParams, ?callable $callback = null, ?array $env = null): void
+    public function convert(string $inputFile, string $outputFile, ConversionParams $convertParams, ?callable $callback = null, ?array $env = null): void
     {
         $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
 
@@ -91,7 +91,7 @@ class ConverterService implements ConverterServiceInterface
 
     /*
      * FOR LATER REFERENCE !!!
-    public function convertMultiPass(string $videoFile, string $outputFile, ConvertParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+    public function convertMultiPass(string $videoFile, string $outputFile, ConversionParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {
@@ -99,7 +99,7 @@ class ConverterService implements ConverterServiceInterface
         }
 
 
-        $threads = $convertParams->getOption(ConvertParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
+        $threads = $convertParams->getOption(ConversionParams::OPTION_THREADS, $this->ffmpegConfig->getThreads());
 
         $ffmpegBin = $this->ffmpegConfig->getBinary();
 
