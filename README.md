@@ -79,7 +79,6 @@ use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\Exception as MTException;
 
 $convertParams = (new VideoConversionParams)
-            ->withOverwrite()
             ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
@@ -118,7 +117,6 @@ use Soluble\MediaTools\Exception as MTException;
 
 
 $convertParams = (new VideoConversionParams)
-                ->withOverwrite()
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -168,7 +166,6 @@ use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Exception as MTException;
 
 $convertParams = (new VideoConversionParams)
-                ->withOverwrite()
                 ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
                 ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
 
@@ -201,7 +198,7 @@ try {
 >  * @var ContainerInterface     $aPsr11Container 
 >  * @var ThumbServiceInterface  $thumbService
 >  */ 
-> $detectService = $aPsr11Container->get(ThumbServiceInterface::class);
+> $thumbService = $aPsr11Container->get(ThumbServiceInterface::class);
 > ```
 
 
@@ -285,7 +282,11 @@ switch($InterlaceDetectGuess->getBestGuess($threshold)) {
         $isInterlaced = true;
         break;
     case InterlaceDetectGuess::MODE_PROGRESSIVE:
+        $isInterlaced = false;
+        break;        
     case InterlaceDetectGuess::MODE_UNDETERMINED:
+        // No clear winner here... No mode
+        // reach the threshold.
     default:
         $isInterlaced = false;                    
 }
