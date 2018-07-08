@@ -6,6 +6,7 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
+use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\InfoServiceInterface;
 
@@ -25,6 +26,12 @@ class VideoInfoService implements InfoServiceInterface
         $this->ffmpegConfig  = $ffmpegConfig;
     }
 
+    /**
+     * @param string $file
+     * @return VideoInfo
+     * @throws FileNotFoundException
+     * @throws \Throwable
+     */
     public function getMediaInfo(string $file): VideoInfo
     {
         $this->ensureFileExists($file);
