@@ -210,12 +210,26 @@ class VideoConversionParams implements ConversionParamsInterface
     }
 
     /**
-     * Whether to overwrite output file if it exists.
+     * Add with overwrite option (default).
+     *
+     * @see VideoConversionParams::withNoOverwrite()
      */
     public function withOverwrite(): self
     {
         return new self(array_merge($this->params, [
             self::PARAM_OVERWRITE => true
+        ]));
+    }
+
+    /**
+     * Add protection against output file overwriting.
+     *
+     * @see VideoConversionParams::witoOverwrite()
+     */
+    public function withNoOverwrite(): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_OVERWRITE => false
         ]));
     }
 
