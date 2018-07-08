@@ -126,8 +126,7 @@ class FFMpegAdapter implements AdapterInterface
 
         // Add default overwrite option if not set
         $overwriteParam = ConversionParamsInterface::PARAM_OVERWRITE;
-        if (!  $conversionParams->hasParam($overwriteParam))
-        {
+        if (!$conversionParams->hasParam($overwriteParam)) {
             $conversionParams = $conversionParams->withBuiltInParam(
                 $overwriteParam,
                 true
