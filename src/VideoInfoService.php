@@ -17,13 +17,9 @@ class VideoInfoService implements InfoServiceInterface
     /** @var FFProbeConfig */
     protected $ffprobeConfig;
 
-    /** @var FFMpegConfig */
-    protected $ffmpegConfig;
-
-    public function __construct(FFProbeConfig $ffProbeConfig, FFMpegConfig $ffmpegConfig)
+    public function __construct(FFProbeConfig $ffProbeConfig)
     {
         $this->ffprobeConfig = $ffProbeConfig;
-        $this->ffmpegConfig  = $ffmpegConfig;
     }
 
     /**

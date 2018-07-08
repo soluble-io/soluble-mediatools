@@ -14,8 +14,7 @@ class InfoServiceFactory
     public function __invoke(ContainerInterface $container): InfoServiceInterface
     {
         return new VideoInfoService(
-            $container->get(FFProbeConfig::class),
-            $container->get(FFMpegConfig::class)
+            $container->get(FFProbeConfig::class)
         );
     }
 }
