@@ -28,7 +28,9 @@ class VideoInfoService implements InfoServiceInterface
 
     /**
      * @param string $file
+     *
      * @return VideoInfo
+     *
      * @throws FileNotFoundException
      * @throws \Throwable
      */
