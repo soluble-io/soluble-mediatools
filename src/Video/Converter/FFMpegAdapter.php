@@ -29,86 +29,86 @@ class FFMpegAdapter implements AdapterInterface
     {
         return [
             ConversionParamsInterface::PARAM_OUTPUT_FORMAT => [
-                'cli_pattern' => '-f %s',
+                'pattern' => '-f %s',
             ],
 
             ConversionParamsInterface::PARAM_VIDEO_CODEC => [
-                'cli_pattern' => '-c:v %s',
+                'pattern' => '-c:v %s',
             ],
             ConversionParamsInterface::PARAM_VIDEO_BITRATE => [
-                'cli_pattern' => '-b:v %s',
+                'pattern' => '-b:v %s',
             ],
             ConversionParamsInterface::PARAM_VIDEO_MIN_BITRATE => [
-                'cli_pattern' => '-minrate %s',
+                'pattern' => '-minrate %s',
             ],
             ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => [
-                'cli_pattern' => '-maxrate %s',
+                'pattern' => '-maxrate %s',
             ],
 
             ConversionParamsInterface::PARAM_AUDIO_CODEC => [
-                'cli_pattern' => '-c:a %s',
+                'pattern' => '-c:a %s',
             ],
             ConversionParamsInterface::PARAM_AUDIO_BITRATE => [
-                'cli_pattern' => '-b:a %s',
+                'pattern' => '-b:a %s',
             ],
             ConversionParamsInterface::PARAM_PIX_FMT => [
-                'cli_pattern' => '-pix_fmt %s',
+                'pattern' => '-pix_fmt %s',
             ],
             ConversionParamsInterface::PARAM_PRESET => [
-                'cli_pattern' => '-preset %s',
+                'pattern' => '-preset %s',
             ],
             ConversionParamsInterface::PARAM_SPEED => [
-                'cli_pattern' => '-speed %d',
+                'pattern' => '-speed %d',
             ],
             ConversionParamsInterface::PARAM_THREADS => [
-                'cli_pattern' => '-threads %d',
+                'pattern' => '-threads %d',
             ],
             ConversionParamsInterface::PARAM_KEYFRAME_SPACING => [
-                'cli_pattern' => '-g %d',
+                'pattern' => '-g %d',
             ],
             ConversionParamsInterface::PARAM_QUALITY => [
-                'cli_pattern' => '-quality %s',
+                'pattern' => '-quality %s',
             ],
 
             ConversionParamsInterface::PARAM_VIDEO_QUALITY_SCALE => [
-                'cli_pattern' => '-qscale:v %d',
+                'pattern' => '-qscale:v %d',
             ],
 
             ConversionParamsInterface::PARAM_CRF => [
-                'cli_pattern' => '-crf %d',
+                'pattern' => '-crf %d',
             ],
             ConversionParamsInterface::PARAM_STREAMABLE => [
-                'cli_pattern' => '-movflags +faststart',
+                'pattern' => '-movflags +faststart',
             ],
 
             ConversionParamsInterface::PARAM_FRAME_PARALLEL => [
-                'cli_pattern' => '-frame-parallel %s',
+                'pattern' => '-frame-parallel %s',
             ],
             ConversionParamsInterface::PARAM_TILE_COLUMNS => [
-                'cli_pattern' => '-tile-columns %s',
+                'pattern' => '-tile-columns %s',
             ],
             ConversionParamsInterface::PARAM_TUNE => [
-                'cli_pattern' => '-tune %s',
+                'pattern' => '-tune %s',
             ],
             ConversionParamsInterface::PARAM_VIDEO_FILTER => [
-                'cli_pattern' => '-vf %s',
+                'pattern' => '-vf %s',
             ],
             ConversionParamsInterface::PARAM_OVERWRITE => [
-                'cli_pattern' => '-y',
+                'pattern' => '-y',
             ],
             ConversionParamsInterface::PARAM_VIDEO_FRAMES => [
-                'cli_pattern' => '-frames:v %d',
+                'pattern' => '-frames:v %d',
             ],
             ConversionParamsInterface::PARAM_NOAUDIO => [
-                'cli_pattern' => '-an',
+                'pattern' => '-an',
             ],
 
             ConversionParamsInterface::PARAM_SEEK_START => [
-                'cli_pattern' => '-ss %s',
+                'pattern' => '-ss %s',
             ],
 
             ConversionParamsInterface::PARAM_SEEK_END => [
-                'cli_pattern' => '-to %s',
+                'pattern' => '-to %s',
             ],
         ];
     }
@@ -124,6 +124,11 @@ class FFMpegAdapter implements AdapterInterface
         $args             = [];
         $supportedOptions = $this->getParamsOptions();
 
+        // Add default overwrite option if not set
+        if (!$conversionParams->hasParam(ConversionParamsInterface::PARAM_OVERWRITE)) {
+            $conversionParams->withBuiltInParam(ConversionParamsInterface::PARAM_OVERWRITE, true);
+        }
+
         foreach ($conversionParams->toArray() as $paramName => $value) {
             if (!array_key_exists($paramName, $supportedOptions)) {
                 throw new UnsupportedParamException(
@@ -133,7 +138,7 @@ class FFMpegAdapter implements AdapterInterface
                     )
                 );
             }
-            $ffmpeg_pattern = $supportedOptions[$paramName]['cli_pattern'];
+            $ffmpeg_pattern = $supportedOptions[$paramName]['pattern'];
             if (is_bool($value)) {
                 $args[$paramName] = $ffmpeg_pattern;
             } elseif ($value instanceof FFMpegCLIValueInterface) {
