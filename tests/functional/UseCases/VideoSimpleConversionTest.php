@@ -56,6 +56,7 @@ class VideoSimpleConversionTest extends TestCase
             ->withPreset('ultrafast')
             ->withTune('animation')
             ->withOverwrite()
+            // Will speed up test
             ->withSeekStart(new SeekTime(1))
             ->withSeekEnd(new SeekTime(2))
             ->withCrf(20);
@@ -109,8 +110,9 @@ class VideoSimpleConversionTest extends TestCase
             ->withTileColumns(1)
             ->withFrameParallel(1)
             ->withPixFmt('yuv420p')
+            // Will speed up - takes 200 frames from second 1
             ->withSeekStart(new SeekTime(1))
-            ->withSeekEnd(new SeekTime(2))
+            ->withVideoFrames(200)
             ->withOutputFormat('webm');
 
         self::assertFileExists($this->videoFile);
@@ -144,7 +146,7 @@ class VideoSimpleConversionTest extends TestCase
         self::assertContains(' -pix_fmt yuv420p ', $cmdLine);
         self::assertContains(' -f webm ', $cmdLine);
         self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
-        self::assertContains(' -to 0:00:02.0 ', $cmdLine);
+        self::assertContains(' -frames:v 200 ', $cmdLine);
     }
 
     public function testConvertMustThrowFileNotFoundException(): void
