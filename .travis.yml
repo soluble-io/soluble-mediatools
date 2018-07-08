@@ -9,7 +9,7 @@ matrix:
       env:
         - SEND_COVERAGE=true
         - CHECK=true
-        - INFECTION=false
+        - INFECTION=true
     - php: 7.2
     - php: nightly
   allow_failures:
@@ -30,7 +30,7 @@ before_script:
 script:
   - ./vendor/bin/phpunit -v -c .travis/phpunit.travis.xml --coverage-clover=coverage.xml
   - if [[ $CHECK == true ]]; then composer check; fi
-  - if [[ $INFECTION == true ]]; then ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=80 --min-covered-msi=90 --threads=4; fi
+  - if [[ $INFECTION == true ]]; then ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=50 --min-covered-msi=50 --threads=4; fi
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
