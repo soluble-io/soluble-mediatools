@@ -25,7 +25,7 @@ trait ConfigUtilTrait
     /**
      * @throws \Exception
      */
-    public function getVideoProbeService(): InfoServiceInterface
+    public function getVideoInfoService(): InfoServiceInterface
     {
         return $this->getConfiguredContainer()->get(InfoServiceInterface::class);
     }
