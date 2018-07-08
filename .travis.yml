@@ -28,7 +28,7 @@ before_script:
   # -------------------------------------------------------------------------
   - composer install --no-interaction --ignore-platform-reqs
 script:
-  - ./vendor/bin/phpunit -v -c .travis/phpunit.travis.xml --coverage-clover=coverage.xml
+  - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
   - if [[ $CHECK == true ]]; then composer check; fi
   - if [[ $INFECTION == true ]]; then ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=50 --min-covered-msi=50 --threads=4; fi
 
