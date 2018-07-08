@@ -247,37 +247,6 @@ class VideoConversionParams implements ConversionParamsInterface
         ]));
     }
 
-    public function isParamValid(string $paramName): bool
-    {
-        return in_array($paramName, self::BUILTIN_PARAMS, true);
-    }
-
-    /**
-     * Return the internal array holding params.
-     *
-     * @return array<string,bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface>
-     */
-    public function toArray(): array
-    {
-        return $this->params;
-    }
-
-    /**
-     * @param string                                                            $paramName
-     * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null $defaultValue if param does not exists set this one
-     *
-     * @return bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null
-     */
-    public function getParam(string $paramName, $defaultValue = null)
-    {
-        return $this->params[$paramName] ?? $defaultValue;
-    }
-
-    public function hasParam(string $paramName): bool
-    {
-        return array_key_exists($paramName, $this->params);
-    }
-
     public function withSeekStart(SeekTime $seekTimeStart): self
     {
         return new self(array_merge($this->params, [
@@ -306,11 +275,62 @@ class VideoConversionParams implements ConversionParamsInterface
         ]));
     }
 
+    /**
+     * Set the video encoder quality scale. (-qscale:v <int>, alias to -q:v <int>).
+     *
+     * @param int $qualityScale a number interpreted by the encoder, generally 1-5
+     *
+     * @see VideoConversionParams::withQuality()
+     */
     public function withVideoQualityScale(int $qualityScale): self
     {
         return new self(array_merge($this->params, [
             self::PARAM_VIDEO_QUALITY_SCALE => $qualityScale,
         ]));
+    }
+
+    /**
+     * Set a built-in param...
+     *
+     * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface $paramValue
+     *
+     * @throws InvalidArgumentException in case of unsupported builtin param
+     */
+    public function withBuiltInParam(string $paramName, $paramValue): ConversionParamsInterface
+    {
+        return new self(array_merge($this->params, [
+            $paramName => $paramValue,
+        ]));
+    }
+
+    /**
+     * Return the internal array holding params.
+     *
+     * @return array<string,bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface>
+     */
+    public function toArray(): array
+    {
+        return $this->params;
+    }
+
+    public function isParamValid(string $paramName): bool
+    {
+        return in_array($paramName, self::BUILTIN_PARAMS, true);
+    }
+
+    /**
+     * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null $defaultValue if param does not exists set this one
+     *
+     * @return bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null
+     */
+    public function getParam(string $paramName, $defaultValue = null)
+    {
+        return $this->params[$paramName] ?? $defaultValue;
+    }
+
+    public function hasParam(string $paramName): bool
+    {
+        return array_key_exists($paramName, $this->params);
     }
 
     /**
