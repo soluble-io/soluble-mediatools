@@ -125,8 +125,13 @@ class FFMpegAdapter implements AdapterInterface
         $supportedOptions = $this->getParamsOptions();
 
         // Add default overwrite option if not set
-        if (!$conversionParams->hasParam(ConversionParamsInterface::PARAM_OVERWRITE)) {
-            $conversionParams->withBuiltInParam(ConversionParamsInterface::PARAM_OVERWRITE, true);
+        $overwriteParam = ConversionParamsInterface::PARAM_OVERWRITE;
+        if (!  $conversionParams->hasParam($overwriteParam))
+        {
+            $conversionParams = $conversionParams->withBuiltInParam(
+                $overwriteParam,
+                true
+            );
         }
 
         foreach ($conversionParams->toArray() as $paramName => $value) {
@@ -138,15 +143,15 @@ class FFMpegAdapter implements AdapterInterface
                     )
                 );
             }
-            $ffmpeg_pattern = $supportedOptions[$paramName]['pattern'];
+            $pattern = $supportedOptions[$paramName]['pattern'];
             if (is_bool($value)) {
-                $args[$paramName] = $ffmpeg_pattern;
+                $args[$paramName] = $value ? $pattern : '';
             } elseif ($value instanceof FFMpegCLIValueInterface) {
-                $args[$paramName] = sprintf($ffmpeg_pattern, $value->getFFmpegCLIValue());
+                $args[$paramName] = sprintf($pattern, $value->getFFmpegCLIValue());
             } elseif ($value instanceof FFMpegVideoFilterInterface) {
-                $args[$paramName] = sprintf($ffmpeg_pattern, $value->getFFmpegCLIValue());
+                $args[$paramName] = sprintf($pattern, $value->getFFmpegCLIValue());
             } elseif (is_string($value) || is_int($value)) {
-                $args[$paramName] = sprintf($ffmpeg_pattern, $value);
+                $args[$paramName] = sprintf($pattern, $value);
             } else {
                 throw new UnsupportedParamValueException(
                     sprintf(

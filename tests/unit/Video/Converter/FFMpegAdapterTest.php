@@ -68,6 +68,31 @@ class FFMpegAdapterTest extends TestCase
         self::assertEquals($expectedCli, implode(' ', $args));
     }
 
+
+    public function testOverwiteSupport(): void
+    {
+
+        $conversionParams = (new VideoConversionParams());
+
+        self::assertEquals('-y', implode(' ',
+            $this->ffmpegAdapter->getMappedConversionParams($conversionParams)
+        ));
+
+
+        $conversionParams = (new VideoConversionParams())->withOverwrite();
+
+        self::assertEquals('-y', implode(' ',
+            $this->ffmpegAdapter->getMappedConversionParams($conversionParams)
+        ));
+
+        $conversionParams = (new VideoConversionParams())->withNoOverwrite();
+        $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
+        self::assertEquals('', implode(' ', $args ));
+
+
+    }
+
+
     public function testWithFFMpegVideoFilter(): void
     {
         $filter1 = new class() implements FFMpegVideoFilterInterface {
