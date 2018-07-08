@@ -13,7 +13,7 @@ matrix:
         - INFECTION=true
     - php: nightly
       env:
-        - IGNORE_PLATFORM_REQS="--ignore-plaform-reqs"
+        - IGNORE_PLATFORM_REQS="--ignore-platform-reqs"
   allow_failures:
     - php: nightly
 
