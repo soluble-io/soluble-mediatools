@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Soluble\MediaTools\Exception\InvalidArgumentException;
+
 interface ConversionParamsInterface
 {
     public const PARAM_VIDEO_CODEC         = 'VIDEO_CODEC';
@@ -77,4 +79,28 @@ interface ConversionParamsInterface
      * @return array<string, mixed>
      */
     public function toArray(): array;
+
+    /**
+     * Test whether a param is built-in or valid.
+     */
+    public function isParamValid(string $paramName): bool;
+
+    /**
+     * Set a built-in param...
+     *
+     * @param string $paramName  a param that must exist in builtInParams
+     * @param mixed  $paramValue
+     *
+     * @throws InvalidArgumentException in case of unsupported builtin param
+     */
+    public function withBuiltInParam(string $paramName, $paramValue): self;
+
+    /**
+     * @param mixed $defaultValue if param does not exists set this one
+     *
+     * @return mixed
+     */
+    public function getParam(string $paramName, $defaultValue = null);
+
+    public function hasParam(string $paramName): bool;
 }
