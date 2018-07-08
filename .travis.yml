@@ -12,6 +12,8 @@ matrix:
         - CHECK=true
         - INFECTION=true
     - php: nightly
+      env:
+        - IGNORE_PLATFORM_REQS="--ignore-plaform-reqs"
   allow_failures:
     - php: nightly
 
@@ -26,7 +28,7 @@ before_script:
   # -------------------------------------------------------------------------
   # Step 2: Regular composer install
   # -------------------------------------------------------------------------
-  - composer install --no-interaction
+  - composer install --no-interaction $IGNORE_PLATFORM_REQS
 script:
   - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
   - if [[ $CHECK == true ]]; then composer check; fi
