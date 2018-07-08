@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools;
 
-use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
