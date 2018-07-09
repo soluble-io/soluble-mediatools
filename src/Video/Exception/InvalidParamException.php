@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Exception;
 
-use Soluble\MediaTools\Exception\RuntimeException;
+use Soluble\MediaTools\Exception\RuntimeException as RTE;
 
-class InvalidParamException extends RuntimeException implements ConversionExceptionInterface, DetectionExceptionInterface, InfoExceptionInterface
+class InvalidParamException extends RTE implements ConversionExceptionInterface, DetectionExceptionInterface, InfoExceptionInterface
 {
 }
