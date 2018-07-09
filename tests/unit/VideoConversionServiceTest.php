@@ -6,6 +6,7 @@ namespace MediaToolsTest;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
@@ -30,7 +31,7 @@ class VideoConversionServiceTest extends TestCase
         $this->converter = $this->getVideoConvertService();
     }
 
-    public function testGetConversionProcessMustReturnCorrectParams(): void
+    public function testGetSymfonyProcessMustReturnCorrectParams(): void
     {
         $videoFilterChain = new VideoFilterChain();
         $videoFilterChain->addFilter(new EmptyVideoFilter());
@@ -57,7 +58,7 @@ class VideoConversionServiceTest extends TestCase
             ->withVideoFrames(200)
             ->withOutputFormat('webm');
 
-        $process = $this->converter->getConversionProcess(
+        $process = $this->converter->getSymfonyProcess(
             __FILE__,
             '/path/output',
             $convertParams
@@ -81,5 +82,36 @@ class VideoConversionServiceTest extends TestCase
         self::assertContains(' -f webm ', $cmdLine);
         self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
         self::assertContains(' -frames:v 200 ', $cmdLine);
+    }
+
+    public function testGetSymfonyProcessMustDefaultToConfigThreads(): void
+    {
+        $convertParams = (new VideoConversionParams());
+
+        $process = (new VideoConversionService(
+            new FFMpegConfig('ffmpeg', 3)
+        ))->getSymfonyProcess(
+            __FILE__,
+            '/path/output',
+            $convertParams
+        );
+
+        $cmdLine = $process->getCommandLine();
+
+        self::assertContains(' -threads 3 ', $cmdLine);
+
+        // If null threads nothing must be set in cli
+
+        $process = (new VideoConversionService(
+            new FFMpegConfig('ffmpeg', null)
+        ))->getSymfonyProcess(
+            __FILE__,
+            '/path/output',
+            $convertParams
+        );
+
+        $cmdLine = $process->getCommandLine();
+
+        self::assertNotContains(' -threads ', $cmdLine);
     }
 }
