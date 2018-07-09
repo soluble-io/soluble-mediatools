@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- [BC-Break] Renamed params in global [configuration file](./config/soluble-mediatools.global.php)
+- [BC-Break] Renamed params in global [configuration file](config/soluble-mediatools.config.php)
 - [BC-Break] Renamed `VideoInfoService::getMediaInfo()` in `VideoInfoService::getInfo()`
 - [BC-Break] Renamed `VideoConversionService::getConversionProcess()` in `getSymfonyProcess()`
 - Moved internal class `VideoInfo` in `Video\Info` namespace.

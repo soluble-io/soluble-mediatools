@@ -321,7 +321,7 @@ use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
-// Config options can be in a file, i.e: `require 'config/soluble-mediatools.global.php';`
+soluble-mediatools.config.php
 // or set via dotenv...
 
 $config = [

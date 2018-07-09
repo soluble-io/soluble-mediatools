@@ -1,6 +1,10 @@
 <?php
+/**
+ * Default configuration file
+ */
 
 return [
+
     'soluble-mediatools' => [
         /*
         |--------------------------------------------------------------------------
