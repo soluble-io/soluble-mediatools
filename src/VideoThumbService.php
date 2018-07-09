@@ -62,9 +62,9 @@ class VideoThumbService implements ThumbServiceInterface
         $ffmpegCmd = $this->adapter->getCliCommand($arguments, $videoFile, $thumbnailFile);
 
         $process = new Process($ffmpegCmd);
-        $process->setTimeout($this->ffmpegConfig->getConversionTimeout());
-        $process->setIdleTimeout($this->ffmpegConfig->getConversionIdleTimeout());
-        $process->setEnv($this->ffmpegConfig->getConversionEnv());
+        $process->setTimeout($this->ffmpegConfig->getTimeout());
+        $process->setIdleTimeout($this->ffmpegConfig->getIdleTimeout());
+        $process->setEnv($this->ffmpegConfig->getEnv());
 
         return $process;
     }
