@@ -57,7 +57,7 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 > use Psr\Container\ContainerInterface;
 > use Soluble\MediaTools\Video\ConversionServiceInterface;
 > /**
->  * @var ContainerInterface        $aPsr11Container 
+>  * @var ContainerInterface         $aPsr11Container 
 >  * @var ConversionServiceInterface $videoConverter
 >  */ 
 > $videoConverter = $aPsr11Container->get(ConversionServiceInterface::class);
@@ -70,7 +70,7 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 ```php
 <?php
 use Soluble\MediaTools\VideoConversionParams;
-use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\Exception as VideoException;
 
 $convertParams = (new VideoConversionParams)
             ->withVideoCodec('libx264')
@@ -81,19 +81,13 @@ $convertParams = (new VideoConversionParams)
             ->withPreset('fast');       // Optional: see presets           
     
 try {
+    
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
-    $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);    
-} catch(MTException\ProcessConversionException $e) {
+    $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
     
-    // The ffmpeg 'symfony' process encountered a failure...
-    // To see the reason you can either use:
-    echo $e->getMessage();                      // full message 
-    echo $e->getProcess()->getErrorOutput();    // process stdErr
-    echo $e->wasCausedByTimeout() ? 'timeout' : '';
-    echo $e->wasCausedBySignal() ? 'interrupted' : '';
-    
-} catch (MTException\FileNotFoundException $e) {
-     echo "The input file does not exists";    
+} catch(VideoException\ConversionExceptionInterface $e) {
+    // See chapters about exception !!! 
+   
 }
        
 ``` 
@@ -107,7 +101,7 @@ try {
 ```php
 <?php
 use Soluble\MediaTools\VideoConversionParams;
-use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\Exception as VideoException;
 
 
 $convertParams = (new VideoConversionParams)
@@ -137,13 +131,13 @@ $convertParams = (new VideoConversionParams)
 
 
 try {
+    
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
-} catch(MTException\ProcessConversionException $e) {
-    // ...        
-} catch (MTException\FileNotFoundException $e) {
-     echo "The input file does not exists";    
-}
+    
+} catch(VideoException\ConversionExceptionInterface $e) {
+    // see chapter about exceptions        
+} 
 
 ``` 
 
@@ -157,7 +151,7 @@ try {
 <?php
 use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\Exception as VideoException;
 
 $convertParams = (new VideoConversionParams)
                 ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
@@ -166,10 +160,8 @@ $convertParams = (new VideoConversionParams)
 try {
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mp4', '/path/outputFile.mp4', $convertParams);
-} catch(MTException\ProcessConversionException $e) {
-    // ...        
-} catch (MTException\FileNotFoundException $e) {
-     echo "The input file does not exists";    
+} catch(VideoException\ConversionExceptionInterface $e) {
+    // see chapter about exceptions        
 }
 
 ``` 
@@ -200,7 +192,7 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\Exception as VideoException;
 use Soluble\MediaTools\Video\SeekTime;
 
 $videoFile = '/path/input_video.webm';
@@ -208,9 +200,8 @@ $videoFile = '/path/input_video.webm';
 try {
     /** @var \Soluble\MediaTools\Video\ThumbServiceInterface $thumbService */
     $thumbService->makeThumbnail($videoFile, '/path/thumb.jpg', new SeekTime(4.25));
-} catch (MTException\FileNotFoundException $e) {
-    // The input file does not exists
-    throw $e;
+} catch (VideoException\ConversionExceptionInterface $e) {    
+    // see chapter about exceptions
 } 
 
 ```

@@ -15,12 +15,4 @@ interface ProcessExceptionInterface extends ExceptionInterface
      * @return SymfonyProcessException\ProcessFailedException|SymfonyProcessException\ProcessSignaledException|SymfonyProcessException\ProcessTimedOutException
      */
     public function getSymfonyProcessRuntimeException(): SymfonyProcessException\RuntimeException;
-
-    public function wasCausedByProcess(): bool;
-
-    public function wasCausedByTimeout(): bool;
-
-    public function wasCausedBySignal(): bool;
-
-    public function getFailureType(): string;
 }

@@ -6,8 +6,18 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Exception\UnsupportedParamException;
+use Soluble\MediaTools\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
+use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ProcessFailedException;
+use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
+use Soluble\MediaTools\Video\Exception\ProcessTimeOutException;
+use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
@@ -37,12 +47,11 @@ class VideoThumbService implements ThumbServiceInterface
      *
      * @see https://symfony.com/doc/current/components/process.html
      *
-     * @throws FileNotFoundException when inputFile does not exists
+     * @throws UnsupportedParamException
+     * @throws UnsupportedParamValueException
      */
     public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null): Process
     {
-        $this->ensureFileExists($videoFile);
-
         $params = (new VideoConversionParams());
 
         if ($time !== null) {
@@ -71,19 +80,34 @@ class VideoThumbService implements ThumbServiceInterface
     }
 
     /**
-     * @throws FileNotFoundException
-     * @throws SPException\RuntimeException
+     * @throws ConversionExceptionInterface        Base exception class for conversion exceptions
+     * @throws ConversionProcessExceptionInterface Base exception class for process conversion exceptions
+     * @throws MissingInputFileException
+     * @throws ProcessTimeOutException
+     * @throws ProcessFailedException
+     * @throws ProcessSignaledException
+     * @throws RuntimeException
+     * @throws InvalidParamException
      */
     public function makeThumbnail(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?callable $callback = null): void
     {
-        $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $time, $videoFilter);
         try {
+            $this->ensureFileExists($videoFile);
+
+            $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $time, $videoFilter);
             $process->mustRun($callback);
-        } catch (SPException\RuntimeException $symfonyProcessException) {
-            // will include: ProcessFailedException|ProcessTimedOutException|ProcessSignaledException
-            throw $symfonyProcessException;
         } catch (FileNotFoundException $e) {
-            throw $e;
+            throw new MissingInputFileException($e->getMessage());
+        } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
+            throw new InvalidParamException($e->getMessage());
+        } catch (SPException\ProcessTimedOutException $e) {
+            throw new ProcessTimeOutException($e->getProcess(), $e);
+        } catch (SPException\ProcessSignaledException $e) {
+            throw new ProcessSignaledException($e->getProcess(), $e);
+        } catch (SPException\ProcessFailedException $e) {
+            throw new ProcessFailedException($e->getProcess(), $e);
+        } catch (SPException\RuntimeException $e) {
+            throw new RuntimeException($e->getMessage());
         }
     }
 }

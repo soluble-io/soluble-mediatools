@@ -6,9 +6,10 @@ namespace MediaToolsTest\Functional\UseCases;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Exception\ProcessConversionException;
+use Soluble\MediaTools\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
@@ -64,7 +65,7 @@ class VideoConversionTest extends TestCase
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
-        } catch (ProcessConversionException | FileNotFoundException $e) {
+        } catch (ConversionExceptionInterface $e) {
             self::fail(sprintf('Failed to convert video: %s', $e->getMessage()));
         }
 
@@ -105,7 +106,7 @@ class VideoConversionTest extends TestCase
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
-        } catch (ProcessConversionException | FileNotFoundException $e) {
+        } catch (ConversionExceptionInterface $e) {
             self::fail(sprintf('Failed to convert video: %s', $e->getMessage()));
         }
 
@@ -115,41 +116,18 @@ class VideoConversionTest extends TestCase
 
     public function testConvertMustThrowFileNotFoundException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        self::expectException(MissingInputFileException::class);
         $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConversionParams());
     }
 
-    public function testConvertMustThrowProcessConversionException(): void
+    public function testConvertMustThrowProcessException(): void
     {
-        self::expectException(ProcessConversionException::class);
+        self::expectException(ProcessExceptionInterface::class);
 
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
         $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
 
         $this->videoConvert->convert($this->videoFile, $outputFile, $params);
-    }
-
-    public function testConvertProcessConversionExceptionType(): void
-    {
-        $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
-
-        $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
-
-        try {
-            $this->videoConvert->convert($this->videoFile, $outputFile, $params);
-            self::fail('Filter conversion with invalid codec must fail.');
-        } catch (ProcessConversionException $e) {
-            self::assertTrue($e->wasCausedByProcess());
-            self::assertEquals(1, $e->getCode());
-            self::assertEquals(ProcessConversionException::FAILURE_TYPE_PROCESS, $e->getFailureType());
-            self::assertContains('Unknown encoder \'NOVALIDCODEC\'', $e->getProcess()->getErrorOutput());
-            self::assertContains('Unknown encoder \'NOVALIDCODEC\'', $e->getMessage());
-        } catch (\Throwable $e) {
-            self::fail(sprintf(
-                'Invalid codec must throw a ProcessConversionException! (%s returned)',
-                get_class($e)
-            ));
-        }
     }
 }

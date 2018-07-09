@@ -6,11 +6,20 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Exception\ProcessConversionException;
+use Soluble\MediaTools\Exception\UnsupportedParamException;
+use Soluble\MediaTools\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
+use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ProcessFailedException;
+use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
+use Soluble\MediaTools\Video\Exception\ProcessTimeOutException;
+use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
@@ -37,12 +46,11 @@ class VideoConversionService implements ConversionServiceInterface
      *
      * @see https://symfony.com/doc/current/components/process.html
      *
-     * @throws FileNotFoundException when inputFile does not exists
+     * @throws UnsupportedParamException
+     * @throws UnsupportedParamValueException
      */
     public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process
     {
-        $this->ensureFileExists($inputFile);
-
         if (!$convertParams->hasParam(ConversionParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
             $convertParams = $convertParams->withThreads($this->ffmpegConfig->getThreads());
         }
@@ -64,18 +72,33 @@ class VideoConversionService implements ConversionServiceInterface
      * @param callable|null $callback A PHP callback to run whenever there is some
      *                                tmp available on STDOUT or STDERR
      *
-     * @throws FileNotFoundException      When inputFile does not exists
-     * @throws ProcessConversionException When the ffmpeg process conversion failed
+     * @throws ConversionExceptionInterface        Base exception class for conversion exceptions
+     * @throws ConversionProcessExceptionInterface Base exception class for process conversion exceptions
+     * @throws MissingInputFileException
+     * @throws ProcessTimeOutException
+     * @throws ProcessFailedException
+     * @throws ProcessSignaledException
+     * @throws InvalidParamException
+     * @throws RuntimeException
      */
     public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null): void
     {
-        $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams);
-
         try {
+            $this->ensureFileExists($inputFile);
+            $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams);
             $process->mustRun($callback);
-        } catch (SPException\RuntimeException $symfonyProcessException) {
-            // will include: ProcessFailedException|ProcessTimedOutException|ProcessSignaledException
-            throw new ProcessConversionException($process, $symfonyProcessException);
+        } catch (FileNotFoundException $e) {
+            throw new MissingInputFileException($e->getMessage());
+        } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
+            throw new InvalidParamException($e->getMessage());
+        } catch (SPException\ProcessTimedOutException $e) {
+            throw new ProcessTimeOutException($e->getProcess(), $e);
+        } catch (SPException\ProcessSignaledException $e) {
+            throw new ProcessSignaledException($e->getProcess(), $e);
+        } catch (SPException\ProcessFailedException $e) {
+            throw new ProcessFailedException($e->getProcess(), $e);
+        } catch (SPException\RuntimeException $e) {
+            throw new RuntimeException($e->getMessage());
         }
     }
 
