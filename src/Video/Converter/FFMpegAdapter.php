@@ -146,8 +146,7 @@ class FFMpegAdapter implements AdapterInterface
             if (is_bool($value)) {
                 $args[$paramName] = $value ? $pattern : '';
             } elseif ($value instanceof FFMpegCLIValueInterface) {
-                $args[$paramName] = sprintf($pattern, $value->getFFmpegCLIValue());
-            } elseif ($value instanceof FFMpegVideoFilterInterface) {
+                // Will test also FFMpegVideoFilterInterface
                 $args[$paramName] = sprintf($pattern, $value->getFFmpegCLIValue());
             } elseif (is_string($value) || is_int($value)) {
                 $args[$paramName] = sprintf($pattern, $value);
