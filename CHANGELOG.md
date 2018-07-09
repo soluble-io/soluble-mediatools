@@ -7,14 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.4.0 (2018-??-??)  
 
+### Changed
+
+- [BC-Break] Renamed params in global [configuration file](./config/soluble-mediatools.global.php)
+- [BC-Break] Renamed `VideoInfoService::getMediaInfo()` in `VideoInfoService::getInfo()`
+- Moved internal class `VideoInfo` in `Video\Info` namespace.
+
 ### Added
 
 - `ConversionParamsInterface::withBuiltInParam()` to set a built-in (supported) param. 
 - `ConversionParamsInterface::withNoOverwrite()` to ensure a file is never overwritten
 
-### Changed
+### Improved
 
-- `VideoConversionParams::withOverwrite()` is interpreted by default (no need to specify)
+- `VideoInfoServices` now relies on `symfony/process`
+- Improved config params separation for `FFProbeConfig` and `FFMpegConfig`.
+- Improved customization of config factories `FFProbeConfigFactory` and `FFMpegConfigFactory`
+- Improved error reporting using config factories.
+ 
 
 ### Fixed
 
