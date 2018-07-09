@@ -7,6 +7,7 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 
@@ -38,9 +39,9 @@ class VideoThumbnailingTest extends TestCase
         $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
     }
 
-    public function testMakeThumbnail(): void
+    public function testSimpleThumbnail(): void
     {
-        $outputFile = $this->outputDir . '/testMakeThumbnail.jpg';
+        $outputFile = $this->outputDir . '/testSimpleThumbnail.jpg';
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
@@ -48,6 +49,23 @@ class VideoThumbnailingTest extends TestCase
             $this->videoFile,
             $outputFile,
             new SeekTime(0.2)
+        );
+        self::assertFileExists($outputFile);
+        self::assertGreaterThan(0, filesize($outputFile));
+        unlink($outputFile);
+    }
+
+    public function testThumbnailWithFilter(): void
+    {
+        $outputFile = $this->outputDir . '/testThumbnailWithFilter.jpg';
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+        $this->thumbService->makeThumbnail(
+            $this->videoFile,
+            $outputFile,
+            new SeekTime(0.2),
+            new Hqdn3DVideoFilter()
         );
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));
