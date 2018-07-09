@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Detection;
 
-use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Util\PlatformNullFile;
@@ -20,13 +20,13 @@ class InterlaceDetect
 
     public const DEFAULT_INTERLACE_MAX_FRAMES = 1000;
 
-    /** @var FFMpegConfig */
+    /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
     /** @var FFMpegAdapter */
     protected $adapter;
 
-    public function __construct(FFMpegConfig $ffmpegConfig)
+    public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
         $this->ffmpegConfig = $ffmpegConfig;
         $this->adapter      = new FFMpegAdapter($ffmpegConfig);

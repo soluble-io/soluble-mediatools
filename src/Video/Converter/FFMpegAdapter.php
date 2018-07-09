@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Converter;
 
-use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Exception\UnsupportedParamValueException;
@@ -14,10 +14,10 @@ use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
 class FFMpegAdapter implements AdapterInterface
 {
-    /** @var FFMpegConfig */
+    /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
-    public function __construct(FFMpegConfig $ffmpegConfig)
+    public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
         $this->ffmpegConfig = $ffmpegConfig;
     }

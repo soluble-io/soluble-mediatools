@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools;
 
-use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
@@ -18,13 +18,13 @@ class VideoThumbService implements ThumbServiceInterface
 {
     use PathAssertionsTrait;
 
-    /** @var FFMpegConfig */
+    /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
     /** @var FFMpegAdapter */
     protected $adapter;
 
-    public function __construct(FFMpegConfig $ffmpegConfig)
+    public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
         $this->ffmpegConfig = $ffmpegConfig;
         $this->adapter      = new FFMpegAdapter($ffmpegConfig);

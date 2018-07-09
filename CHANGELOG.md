@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Moved internal class `VideoInfo` in `Video\Info` namespace.
 - `VideoConversionService` set `withOverwrite()` by default.
 
-
 ### Added
 
 - `ConversionParamsInterface::withBuiltInParam()` to set a built-in (supported) param. 
@@ -26,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Improved config params separation for `FFProbeConfig` and `FFMpegConfig`.
 - Improved customization of config factories `FFProbeConfigFactory` and `FFMpegConfigFactory`
 - Improved error reporting using config factories.
+- Factories for `FFProbeConfigFactory` and `FFMpegConfigFactory` uses interfaces.
  
 ### Fixed
 

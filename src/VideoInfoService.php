@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools;
 
-use Soluble\MediaTools\Config\FFProbeConfig;
+use Soluble\MediaTools\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Info;
@@ -15,10 +15,10 @@ class VideoInfoService implements InfoServiceInterface
 {
     use PathAssertionsTrait;
 
-    /** @var FFProbeConfig */
+    /** @var FFProbeConfigInterface */
     protected $ffprobeConfig;
 
-    public function __construct(FFProbeConfig $ffProbeConfig)
+    public function __construct(FFProbeConfigInterface $ffProbeConfig)
     {
         $this->ffprobeConfig = $ffProbeConfig;
     }

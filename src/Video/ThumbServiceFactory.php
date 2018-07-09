@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Psr\Container\ContainerInterface;
-use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\VideoThumbService;
 
 class ThumbServiceFactory
@@ -13,7 +13,7 @@ class ThumbServiceFactory
     public function __invoke(ContainerInterface $container): ThumbServiceInterface
     {
         return new VideoThumbService(
-            $container->get(FFMpegConfig::class)
+            $container->get(FFMpegConfigInterface::class)
         );
     }
 }

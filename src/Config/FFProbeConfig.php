@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
-class FFProbeConfig
+class FFProbeConfig implements FFProbeConfigInterface
 {
-    public const DEFAULT_BINARY       = 'ffprobe';
-    public const DEFAULT_TIMEOUT      = null;
-    public const DEFAULT_IDLE_TIMEOUT = null;
-    public const DEFAULT_ENV          = [];
-
     /** @var string */
     protected $binary;
 
