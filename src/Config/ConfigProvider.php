@@ -38,18 +38,18 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'aliases' => $this->getAliases(),
+            'aliases'   => $this->getAliases(),
             'factories' => $this->getFactories()
         ];
     }
 
     /**
-     * Return concrete implementation aliases if needed
+     * Return concrete implementation aliases if needed.
      *
      * @return array<string, string>
      */
-    public function getAliases(): array {
-
+    public function getAliases(): array
+    {
         return [
             // Configuration holders
             FFMpegConfig::class           => FFMpegConfigInterface::class,
@@ -64,11 +64,12 @@ class ConfigProvider
     }
 
     /**
-     * Return interface based factories
+     * Return interface based factories.
      *
      * @return array<string, string>
      */
-    public function getFactories(): array {
+    public function getFactories(): array
+    {
         return [
             // Configuration holders
             FFMpegConfigInterface::class   => FFMpegConfigFactory::class,
