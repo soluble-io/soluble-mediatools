@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
+- Exceptions for conversion and thumbnailing.
 - `VideoInfoServices` now relies on `symfony/process`
 - Improved config params separation for `FFProbeConfig` and `FFMpegConfig`.
 - Improved customization of config factories `FFProbeConfigFactory` and `FFMpegConfigFactory`
