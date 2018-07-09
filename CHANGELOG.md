@@ -25,12 +25,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Improved customization of config factories `FFProbeConfigFactory` and `FFMpegConfigFactory`
 - Improved error reporting using config factories.
  
-
 ### Fixed
 
 - Added missing interface methods in `AdapterInterface`
 - Added missing interface methods in `ConversionParamsInterface`
 
+### Removed
+
+- `AbstractProcess` family internal classes, no use exclusively `symfony/process` 
 
 ## 0.3.0 (2018-07-08)  
 
