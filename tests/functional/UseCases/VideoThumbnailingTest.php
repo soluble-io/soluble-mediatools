@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\UseCases;
 
-use MediaToolsTest\Functional\ConfigUtilTrait;
+use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\SeekTime;
@@ -12,7 +12,7 @@ use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbnailingTest extends TestCase
 {
-    use ConfigUtilTrait;
+    use ServicesProviderTrait;
 
     /** @var ThumbServiceInterface */
     protected $thumbService;

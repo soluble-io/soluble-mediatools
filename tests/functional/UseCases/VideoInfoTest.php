@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\UseCases;
 
-use MediaToolsTest\Functional\ConfigUtilTrait;
+use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\InfoServiceInterface;
 
 class VideoInfoTest extends TestCase
 {
-    use ConfigUtilTrait;
+    use ServicesProviderTrait;
 
     /** @var InfoServiceInterface */
     protected $infoService;
