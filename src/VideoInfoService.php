@@ -8,6 +8,7 @@ use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\InfoServiceInterface;
+use Soluble\MediaTools\Video\Info;
 use Symfony\Component\Process\Process;
 
 class VideoInfoService implements InfoServiceInterface
@@ -58,12 +59,12 @@ class VideoInfoService implements InfoServiceInterface
     /**
      * @param string $file
      *
-     * @return VideoInfo
+     * @return Info
      *
      * @throws FileNotFoundException
      * @throws \Throwable
      */
-    public function getMediaInfo(string $file): VideoInfo
+    public function getInfo(string $file): Info
     {
         $process = $this->getFFProbeProcess($file);
 
@@ -74,6 +75,6 @@ class VideoInfoService implements InfoServiceInterface
             throw $e;
         }
 
-        return VideoInfo::createFromFFProbeJson($file, $output);
+        return Info::createFromFFProbeJson($file, $output);
     }
 }

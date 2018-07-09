@@ -35,13 +35,13 @@ class VideoInfoTest extends TestCase
 
     public function testGetInfo(): void
     {
-        $videoInfo = $this->infoService->getMediaInfo($this->videoFile);
+        $videoInfo = $this->infoService->getInfo($this->videoFile);
         self::assertEquals(61.533000, $videoInfo->getDuration());
     }
 
     public function testGetMEdiaInfoThrowsFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);
-        $this->infoService->getMediaInfo('/path/path/does_not_exist.mp4');
+        $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 }
