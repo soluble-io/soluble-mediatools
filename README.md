@@ -28,10 +28,8 @@ Media tools: toolbox for media processing, video conversions, transcoding, trans
   - [ ] Option to enable multipass transcoding (todo)
 - [X] `VideoInfoService` 
   - [X] Basic information like duration, frames....
-  - [ ] Need API Stabilization    
 - [X] `VideoThumbService`
   - [X] Basic thumbnail creation
-  - [ ] Stabilize API first
 - [X] `VideoDetectionService`.
   - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
 
@@ -300,47 +298,63 @@ $stats = $InterlaceDetectGuess->getStats();
 ```
 
 ---------------------------
+
+## Installation
+
+### Binaries 
+
+> This library relies on FFMpeg binaries 
+>
+> - **[ffmpeg](https://ffmpeg.org/ffmpeg.html)** is required by `VideoConversionService`, `VideoDetectionService` and `VideoThumbService`.
+> - **[ffprobe](https://ffmpeg.org/ffprobe.html)** is required by `VideoInfoService`.
+>  
+> Statically [compiled binaries](https://ffmpeg.org/download.html) exists in case your OS does not provide them.
+>
+> *Tip: For integration tests see our [ffmpeg travis install](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) script*. 
+
+
 ## Configuration
 
+### PSR-11/container way 
 
-### Usage with psr/container
+> Mediatools is PSR-11/container friendly and provides some ready to use factories.
 
-> MediaTools provides factories that can be easily used with any for psr-11 compatible container.
-> See the [ConfigProvider](./src/Config/ConfigProvider.php) class to get an idea of how 
-> service registration can be achieved.  
-
-### With zend-service-manager.
+#### Create a config file  
 
 ```php
-<?php declare(strict_types=1);
-
-use Soluble\MediaTools\Config\ConfigProvider;
-use Soluble\MediaTools\Video\ConversionServiceInterface;
-use Soluble\MediaTools\Video\InfoServiceInterface;
-use Soluble\MediaTools\Video\ThumbServiceInterface;
-use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Zend\ServiceManager\ServiceManager;
-
-soluble-mediatools.config.php
-// or set via dotenv...
-
-$config = [
+<?php 
+return [
     'soluble-mediatools' => [
-        /**
-         * Binaries
-         */
-        'ffmpeg.binary'         => 'ffmpeg',   // or a complete path /opt/local/ffmpeg/bin/ffmpeg
-        'ffprobe.binary'        => 'ffprobe',  // or a complete path /opt/local/ffmpeg/bin/ffprobe
 
-        /**
-         * Conversion options
-         */
-        'conversion.threads'      => null,   // <null>: single thread; <0>: number of cores, <1+>: number of threads
-        'conversion.timeout'      => null,   // <null>: no timeout, <number>: number of seconds before timing-out
-        'conversion.idle_timeout' => 60,     // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
-        'conversion.env'          => []      // An array of additional env vars to set when running the ffmpeg conversion process        
-    ],    
+        'ffmpeg.binary'         => 'ffmpeg',   // Or a complete path /opt/local/ffmpeg/bin/ffmpeg
+        //'ffmpeg.threads'        => null,       // <null>: single thread; <0>: number of cores, <1+>: number of threads
+        //'ffmpeg.timeout'        => null,       // <null>: no timeout, <number>: number of seconds before timing-out
+        //'ffmpeg.idle_timeout'   => null,       // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
+        //'ffmpeg.env'            => [],         // An array of additional env vars to set when running the ffmpeg conversion process
+
+
+        'ffprobe.binary'        => 'ffprobe',  // Or a complete path /opt/local/ffmpeg/bin/ffprobe
+        //'ffprobe.timeout'       => null,       // <null>: no timeout, <number>: number of seconds before timing-out
+        //'ffprobe.idle_timeout'  => null,       // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
+        //'ffprobe.env'           => [],         // An array of additional env vars to set when running the ffprobe
+    ],
 ];
+```
+
+> Tip: Have a look to the [config/soluble-mediatools.config.php](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file
+> for most up-to-date info about defaults.
+
+#### Registration 
+ 
+Require the config file and feed your container (example with zend-servicemanager)  
+ 
+```php
+<?php 
+
+use Zend\ServiceManager\ServiceManager;
+use Soluble\MediaTools\Config\ConfigProvider;
+
+$config = require('/path/config/soluble-mediatools.config.php');
 
 // Service manager
 $container = new ServiceManager(
@@ -354,14 +368,21 @@ $container = new ServiceManager(
                     (new ConfigProvider())->getDependencies()
              ));
 
-// Now whenever you want an instance of a service:
-
-$videoConverter   = $container->get(ConversionServiceInterface::class);
-$videoInfoService = $container->get(InfoServiceInterface::class);
-$videoThumbnailer = $container->get(ThumbServiceInterface::class);
-$videoDetection   = $container->get(DetectionServiceInterface::class);
-
 ```
+
+> Tip: Have a look to the [ConfigProvider](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Config/ConfigProvider.php) class
+> to get some ideas about registered factories / aliases
+
+
+### Framework(s) integration
+
+> No framework integration have been done yet... Open a P/R or send us a link.
+>
+> - [ ] zend-expressive (wip) 
+> - [ ] Laravel (todo)
+> - [ ] Symfony (todo)
+>
+
   
 ## Coding standards and interop
 
