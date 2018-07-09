@@ -7,8 +7,8 @@ namespace Soluble\MediaTools;
 use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
-use Soluble\MediaTools\Video\InfoServiceInterface;
 use Soluble\MediaTools\Video\Info;
+use Soluble\MediaTools\Video\InfoServiceInterface;
 use Symfony\Component\Process\Process;
 
 class VideoInfoService implements InfoServiceInterface

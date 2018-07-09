@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools;
+namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Exception\JsonParseException;
-use Soluble\MediaTools\Video\InfoInterface;
 
-class VideoInfo implements InfoInterface
+class Info implements InfoInterface
 {
     public const STREAM_TYPE_AUDIO = 'audio';
     public const STREAM_TYPE_VIDEO = 'video';
