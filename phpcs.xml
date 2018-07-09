@@ -47,6 +47,6 @@
 
     <file>src</file>
     <file>tests</file>
-    <exclude-pattern>tests/output</exclude-pattern>
+    <exclude-pattern>tests/tmp</exclude-pattern>
     <exclude-pattern>tests/data</exclude-pattern>
 </ruleset>
