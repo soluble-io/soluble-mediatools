@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Functional;
+namespace MediaToolsTest\Util;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Config\ConfigProvider;
@@ -12,7 +12,7 @@ use Soluble\MediaTools\Video\InfoServiceInterface;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
-trait ConfigUtilTrait
+trait ServicesProviderTrait
 {
     /**
      * @throws \Exception
