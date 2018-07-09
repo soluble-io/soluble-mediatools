@@ -39,7 +39,7 @@ class VideoConversionService implements ConversionServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process
+    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process
     {
         $this->ensureFileExists($inputFile);
 
@@ -69,7 +69,7 @@ class VideoConversionService implements ConversionServiceInterface
      */
     public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null): void
     {
-        $process = $this->getConversionProcess($inputFile, $outputFile, $convertParams);
+        $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams);
 
         try {
             $process->mustRun($callback);
