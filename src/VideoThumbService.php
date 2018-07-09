@@ -39,11 +39,12 @@ class VideoThumbService implements ThumbServiceInterface
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null): Process
+    public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null): Process
     {
         $this->ensureFileExists($videoFile);
 
         $params = (new VideoConversionParams());
+
         if ($time !== null) {
             // For performance reasons time seek must be
             // made at the beginning of options
@@ -75,7 +76,7 @@ class VideoThumbService implements ThumbServiceInterface
      */
     public function makeThumbnail(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?callable $callback = null): void
     {
-        $process = $this->getConversionProcess($videoFile, $thumbnailFile, $time, $videoFilter);
+        $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $time, $videoFilter);
         try {
             $process->mustRun($callback);
         } catch (SPException\RuntimeException $symfonyProcessException) {
