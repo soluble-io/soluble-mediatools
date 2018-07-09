@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.4.0 (2018-??-??)  
+## 1.0.0 (2018-xx-xx) TBD !
+
+
+
+## 0.4.0 (2018-07-09)  
 
 ### Changed
 
@@ -22,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
-- Exceptions for conversion and thumbnailing.
+- Uniform Exceptions for conversion, thumbnailing and infos (doc coming).
 - `VideoInfoServices` now relies on `symfony/process`
 - Improved config params separation for `FFProbeConfig` and `FFMpegConfig`.
 - Improved customization of config factories `FFProbeConfigFactory` and `FFMpegConfigFactory`
