@@ -8,11 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Media tools: toolbox for media processing, video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
-
-## Status  
-
-> Early stages... VideoConverter service almost API stable, other will follow soon.
+Toolbox for media processing, video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
 
 ## Features
 
