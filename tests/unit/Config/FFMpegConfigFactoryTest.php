@@ -114,4 +114,12 @@ class FFMpegConfigFactoryTest extends TestCase
 
         (new FFMpegConfigFactory())($container);
     }
+
+    public function testMustThrowInvalidConfigExceptionWhenNoEntry(): void
+    {
+        self::expectException(InvalidConfigException::class);
+        $container = $this->createZendServiceManager([]);
+
+        (new FFMpegConfigFactory('cool'))($container);
+    }
 }

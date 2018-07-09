@@ -109,4 +109,11 @@ class FFProbeConfigFactoryTest extends TestCase
         $container = $this->createZendServiceManager([]);
         (new FFProbeConfigFactory())($container);
     }
+
+    public function testMustThrowInvalidConfigExceptionWhenNoEntry(): void
+    {
+        self::expectException(InvalidConfigException::class);
+        $container = $this->createZendServiceManager([]);
+        (new FFProbeConfigFactory('noentry'))($container);
+    }
 }
