@@ -4,19 +4,41 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
-use Soluble\MediaTools\Process\FFprobeProcess;
-
 class FFProbeConfig
 {
+    public const DEFAULT_BINARY       = 'ffprobe';
+    public const DEFAULT_TIMEOUT      = null;
+    public const DEFAULT_IDLE_TIMEOUT = null;
+    public const DEFAULT_ENV          = [];
+
     /** @var string */
     protected $binary;
 
-    /** @var FFprobeProcess */
-    protected $process;
+    /** @var int|null */
+    protected $timeout;
 
-    public function __construct(string $binary)
-    {
-        $this->binary = $binary;
+    /** @var int|null */
+    protected $idleTimeout;
+
+    /** @var array<string, string|int> */
+    protected $env;
+
+    /**
+     * @param string                    $ffprobeBinary FFProbeBinary, by default ffprobe
+     * @param int|null                  $timeout       max allowed time (in seconds) for conversion, null for no timeout
+     * @param int|null                  $idleTimeout   max allowed idle time (in seconds) for conversion, null for no timeout
+     * @param array<string, string|int> $env           An array of additional env vars to set when running the ffprobe process
+     */
+    public function __construct(
+        string $ffprobeBinary = self::DEFAULT_BINARY,
+        ?int $timeout = self::DEFAULT_TIMEOUT,
+        ?int $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
+        array $env = self::DEFAULT_ENV
+    ) {
+        $this->binary      = $ffprobeBinary;
+        $this->timeout     = $timeout;
+        $this->idleTimeout = $idleTimeout;
+        $this->env         = $env;
     }
 
     public function getBinary(): string
@@ -24,12 +46,21 @@ class FFProbeConfig
         return $this->binary;
     }
 
-    public function getProcess(): FFprobeProcess
+    public function getTimeout(): ?int
     {
-        if ($this->process === null) {
-            $this->process = new FFprobeProcess($this);
-        }
+        return $this->timeout;
+    }
 
-        return $this->process;
+    public function getIdleTimeout(): ?int
+    {
+        return $this->idleTimeout;
+    }
+
+    /**
+     * @return array<string, string|int>
+     */
+    public function getEnv(): array
+    {
+        return $this->env;
     }
 }
