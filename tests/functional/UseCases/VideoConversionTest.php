@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\UseCases;
 
-use MediaToolsTest\Functional\ConfigUtilTrait;
+use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\ProcessConversionException;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
-use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
-use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
 
-class VideoSimpleConversionTest extends TestCase
+class VideoConversionTest extends TestCase
 {
-    use ConfigUtilTrait;
+    use ServicesProviderTrait;
 
     /** @var ConversionServiceInterface */
     protected $videoConvert;
@@ -43,7 +41,7 @@ class VideoSimpleConversionTest extends TestCase
         $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
     }
 
-    public function testBasicUsage(): void
+    public function testBasicConversion(): void
     {
         $outputFile = "{$this->outputDir}/testBasicUsage.tmp.mp4";
 
@@ -61,15 +59,6 @@ class VideoSimpleConversionTest extends TestCase
             ->withSeekEnd(new SeekTime(2))
             ->withCrf(20);
 
-        // Check the outputed command
-        $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
-        $cmdLine = $process->getCommandLine();
-
-        self::assertContains(' -c:v libx264 ', $cmdLine);
-        self::assertContains(' -preset ultrafast ', $cmdLine);
-        self::assertContains(' -tune animation ', $cmdLine);
-
-        // Run the real thing
         self::assertFileExists($this->videoFile);
         self::assertFileNotExists($outputFile);
 
@@ -83,17 +72,13 @@ class VideoSimpleConversionTest extends TestCase
         unlink($outputFile);
     }
 
-    public function testFullOptions(): void
+    public function testWithMoreOptions(): void
     {
         $outputFile = "{$this->outputDir}/testFullOptions.tmp.webm";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
-
-        $videoFilterChain = new VideoFilterChain();
-        $videoFilterChain->addFilter(new EmptyVideoFilter());
-        $videoFilterChain->addFilter(new YadifVideoFilter());
 
         $convertParams = (new VideoConversionParams())
             ->withVideoCodec('libvpx-vp9')
@@ -103,7 +88,7 @@ class VideoSimpleConversionTest extends TestCase
             ->withVideoMinBitrate('150k') // min bitrate
             ->withAudioCodec('libopus')
             ->withAudioBitrate('96k')
-            ->withVideoFilter($videoFilterChain)
+            ->withVideoFilter(new YadifVideoFilter())
             ->withThreads(0) // 0 means threads = number of cores
             ->withSpeed(8)
             ->withKeyframeSpacing(240)
@@ -126,27 +111,6 @@ class VideoSimpleConversionTest extends TestCase
 
         self::assertFileExists($outputFile);
         unlink($outputFile);
-
-        // Check the tmp from a new command
-        $process = $this->videoConvert->getConversionProcess($this->videoFile, $outputFile, $convertParams);
-        $cmdLine = $process->getCommandLine();
-
-        self::assertContains(' -c:v libvpx-vp9 ', $cmdLine);
-        self::assertContains(' -b:v 200k ', $cmdLine);
-        self::assertContains(' -maxrate 250000', $cmdLine);
-        self::assertContains(' -minrate 150k ', $cmdLine);
-        self::assertContains(' -c:a libopus ', $cmdLine);
-        self::assertContains(' -b:a 96k ', $cmdLine);
-        self::assertContains(' -vf yadif=mode=0:parity=-1:deint=0 ', $cmdLine);
-        self::assertContains(' -threads 0 ', $cmdLine);
-        self::assertContains(' -speed 8 ', $cmdLine);
-        self::assertContains(' -g 240 ', $cmdLine);
-        self::assertContains(' -tile-columns 1 ', $cmdLine);
-        self::assertContains(' -frame-parallel 1', $cmdLine);
-        self::assertContains(' -pix_fmt yuv420p ', $cmdLine);
-        self::assertContains(' -f webm ', $cmdLine);
-        self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
-        self::assertContains(' -frames:v 200 ', $cmdLine);
     }
 
     public function testConvertMustThrowFileNotFoundException(): void
