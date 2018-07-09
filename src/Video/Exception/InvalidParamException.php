@@ -6,6 +6,6 @@ namespace Soluble\MediaTools\Video\Exception;
 
 use Soluble\MediaTools\Exception\RuntimeException;
 
-class InvalidParamException extends RuntimeException implements ConversionExceptionInterface
+class InvalidParamException extends RuntimeException implements ConversionExceptionInterface, DetectionExceptionInterface, InfoExceptionInterface
 {
 }

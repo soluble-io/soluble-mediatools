@@ -6,12 +6,20 @@ namespace Soluble\MediaTools\Video\Detection;
 
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Exception\UnsupportedParamException;
+use Soluble\MediaTools\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Util\PlatformNullFile;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
+use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\DetectionProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ProcessFailedException;
+use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Soluble\MediaTools\Video\Filter\IdetVideoFilter;
 use Soluble\MediaTools\VideoConversionParams;
-use Symfony\Component\Process\Exception\RuntimeException as SPRuntimeException;
+use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
 class InterlaceDetect
@@ -33,13 +41,14 @@ class InterlaceDetect
     }
 
     /**
-     * @throws SPRuntimeException
-     * @throws FileNotFoundException
+     * @throws DetectionExceptionInterface
+     * @throws DetectionProcessExceptionInterface
+     * @throws ProcessFailedException
+     * @throws MissingInputFileException
+     * @throws RuntimeException
      */
     public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceDetectGuess
     {
-        $this->ensureFileExists($file);
-
         $params = (new VideoConversionParams())
             ->withVideoFilter(new IdetVideoFilter()) // detect interlaced frames :)
             ->withVideoFrames($maxFramesToAnalyze)
@@ -47,26 +56,22 @@ class InterlaceDetect
             ->withOutputFormat('rawvideo')
             ->withOverwrite();
 
-        $arguments = $this->adapter->getMappedConversionParams($params);
-        $ffmpegCmd = $this->adapter->getCliCommand($arguments, $file, new PlatformNullFile());
-
-        /*
-        $ffmpegCmd = $ffmpegProcess->buildCommand(
-            [
-                sprintf('-i %s', escapeshellarg($file)),
-                '-filter idet',
-                sprintf('-frames:v %d', $maxFramesToAnalyze),
-                '-an', // audio can be discarded
-                '-f rawvideo', // tmp in raw
-                '-y /dev/null', // discard the tmp
-            ]
-        );*/
-
         try {
+            $this->ensureFileExists($file);
+
+            $arguments = $this->adapter->getMappedConversionParams($params);
+            $ffmpegCmd = $this->adapter->getCliCommand($arguments, $file, new PlatformNullFile());
+
             $process = new Process($ffmpegCmd);
             $process->mustRun();
-        } catch (SPRuntimeException $e) {
-            throw $e;
+        } catch (FileNotFoundException $e) {
+            throw new MissingInputFileException($e->getMessage());
+        } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
+            throw new InvalidParamException($e->getMessage());
+        } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
+            throw new ProcessFailedException($e->getProcess(), $e);
+        } catch (SPException\RuntimeException $e) {
+            throw new RuntimeException($e->getMessage());
         }
 
         $stdErr = preg_split("/(\r\n|\n|\r)/", $process->getErrorOutput());

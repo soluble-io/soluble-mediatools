@@ -6,6 +6,6 @@ namespace Soluble\MediaTools\Video\Exception;
 
 use Soluble\MediaTools\Exception\FileNotFoundException;
 
-class MissingInputFileException extends FileNotFoundException implements ConversionExceptionInterface
+class MissingInputFileException extends FileNotFoundException implements ConversionExceptionInterface, DetectionExceptionInterface, InfoExceptionInterface
 {
 }

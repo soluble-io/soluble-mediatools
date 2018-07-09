@@ -37,6 +37,9 @@ class VideoInfoTest extends TestCase
     {
         $videoInfo = $this->infoService->getInfo($this->videoFile);
         self::assertEquals(61.533000, $videoInfo->getDuration());
+
+        self::assertEquals(realpath($this->videoFile), realpath($videoInfo->getFile()));
+        self::assertEquals(1113, $videoInfo->getNbFrames());
     }
 
     public function testGetMEdiaInfoThrowsFileNotFoundException(): void

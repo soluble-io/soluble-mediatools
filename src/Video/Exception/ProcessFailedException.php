@@ -6,6 +6,6 @@ namespace Soluble\MediaTools\Video\Exception;
 
 use Soluble\MediaTools\Exception\ProcessException;
 
-class ProcessFailedException extends ProcessException implements ConversionExceptionInterface, ConversionProcessExceptionInterface
+class ProcessFailedException extends ProcessException implements ConversionProcessExceptionInterface, DetectionProcessExceptionInterface, InfoProcessExceptionInterface
 {
 }
