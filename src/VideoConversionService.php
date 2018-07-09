@@ -76,8 +76,6 @@ class VideoConversionService implements ConversionServiceInterface
         } catch (SPException\RuntimeException $symfonyProcessException) {
             // will include: ProcessFailedException|ProcessTimedOutException|ProcessSignaledException
             throw new ProcessConversionException($process, $symfonyProcessException);
-        } catch (FileNotFoundException $e) {
-            throw $e;
         }
     }
 
