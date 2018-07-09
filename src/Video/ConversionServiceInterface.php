@@ -14,13 +14,13 @@ interface ConversionServiceInterface
     /**
      * Return ready-to-run symfony process object that you can use
      * to `run()` or `start()` programmatically. Useful if you want to make
-     * things async...
+     * things your way...
      *
      * @see https://symfony.com/doc/current/components/process.html
      *
      * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getConversionProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process;
+    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process;
 
     /**
      * Run a conversion, throw exception on error.
