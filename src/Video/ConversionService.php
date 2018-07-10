@@ -90,7 +90,7 @@ class ConversionService implements ConversionServiceInterface
     {
         try {
             $this->ensureFileExists($inputFile);
-            $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams);
+            $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
             $process->mustRun($callback);
         } catch (FileNotFoundException $e) {
             throw new MissingInputFileException($e->getMessage());

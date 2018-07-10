@@ -10,23 +10,23 @@ class ProcessParams implements ProcessParamsInterface
     public const DEFAULT_IDLE_TIMEOUT = null;
     public const DEFAULT_ENV          = [];
 
-    /** @var int|null */
+    /** @var float|null */
     protected $timeout;
 
-    /** @var int|null */
+    /** @var float|null */
     protected $idleTimeout;
 
     /** @var array<string, string|int> */
     protected $env;
 
     /**
-     * @param int|null                  $timeout     max allowed time (in seconds) for symfony process
-     * @param int|null                  $idleTimeout max allowed idle time (in seconds) for symfony process
+     * @param float|null                $timeout     max allowed time (in seconds) for symfony process
+     * @param float|null                $idleTimeout max allowed idle time (in seconds) for symfony process
      * @param array<string, string|int> $env         An array of additional env vars to set when running the symfony process
      */
     public function __construct(
-        ?int $timeout = self::DEFAULT_TIMEOUT,
-        ?int $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
+        ?float $timeout = self::DEFAULT_TIMEOUT,
+        ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
         $this->timeout     = $timeout;
@@ -34,22 +34,22 @@ class ProcessParams implements ProcessParamsInterface
         $this->env         = $env;
     }
 
-    public function getTimeout(): ?int
+    public function getTimeout(): ?float
     {
         return $this->timeout;
     }
 
-    public function setTimeout(?int $timeout): void
+    public function setTimeout(?float $timeout): void
     {
         $this->timeout = $timeout;
     }
 
-    public function getIdleTimeout(): ?int
+    public function getIdleTimeout(): ?float
     {
         return $this->idleTimeout;
     }
 
-    public function setIdleTimeout(?int $idleTimeout): void
+    public function setIdleTimeout(?float $idleTimeout): void
     {
         $this->idleTimeout = $idleTimeout;
     }

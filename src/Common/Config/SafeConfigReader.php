@@ -43,6 +43,42 @@ class SafeConfigReader
     }
 
     /**
+     * @return float|null
+     *
+     * @throws InvalidConfigException
+     */
+    public function getNullableFloat(string $key, ?float $default = null, bool $tolerateInt=true): ?float
+    {
+        $value = $this->getValueOrDefault($key, $default);
+        if (!($value === null) && !is_float($value)) {
+            if ($tolerateInt && is_int($value)) {
+                $value = (float) $value;
+            } else {
+                $this->throwInvalidConfigException(sprintf(
+                    'Param \'%s\' must be int, \'%s\' given',
+                    $key,
+                    gettype($value)
+                ), $key);
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Check strict float.
+     *
+     * @throws InvalidConfigException
+     */
+    public function getFloat(string $key, ?float $default = null, bool $tolerateInt = true): float
+    {
+        $value = $this->getNullableFloat($key, $default, $tolerateInt);
+        $this->ensureNotNull($value, $key);
+
+        return (float) $value;
+    }
+
+    /**
      * Check strict int.
      *
      * @throws InvalidConfigException

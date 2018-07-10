@@ -10,13 +10,13 @@ interface ProcessParamsInterface
      * Return time-out in seconds (or null for no timeout)
      * to set when running a symfony process.
      */
-    public function getTimeout(): ?int;
+    public function getTimeout(): ?float;
 
     /**
      * Return idle time-out in seconds (or null for no timeout)
      * to set when running a symfony process.
      */
-    public function getIdleTimeout(): ?int;
+    public function getIdleTimeout(): ?float;
 
     /**
      * Return additional environment variables to set

@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- [BC-Break] Moved `[Conversion|Thumb|Detection|Info]Service` one level up in `Video\[Conversion|Thumb|Detection|Info]Service`.
+  As well `VideoConversionParams` becomes `Video\ConversionParams`. Search/replace should be sufficient.
+  *(This change makes possible a future split of this repo (audio-video-subtitles...) without
+  sacrificing BC)*.   
 - [BC-Break] `ProcessTimeOutException` renamed to `ProcessTimedOutException` for coherence.
 
-> The following changes concerns internal classes (possible bc-break):
+> The following changes concerns internal classes (less possible bc-break):
 
 - Possible bc-break moved base exception into `MediaTools\Common` namespace.
 - Possible bc-break some internal util classes moved into `MediaTools\Common` namespace.
@@ -22,7 +26,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Consumption of `ConversionParamsInterface` instead of concrete implementation in `convert()`.
 
 ### Added
-
 
 - Possibility to set timeout per conversion: see `ProcessParamsInterface` in `convert()` or `makeThumbnail()`
 - Q&A Testing timed-out behaviour (functional tests working)

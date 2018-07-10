@@ -14,6 +14,7 @@ use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\Video\ProcessParams;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
 use Soluble\MediaTools\VideoConversionService;
@@ -61,7 +62,7 @@ class VideoConversionTest extends TestCase
             ->withOverwrite()
             // Will speed up test
             ->withSeekStart(new SeekTime(1))
-            ->withSeekEnd(new SeekTime(2))
+            ->withSeekEnd(new SeekTime(1.2))
             ->withCrf(20);
 
         self::assertFileExists($this->videoFile);
@@ -88,6 +89,7 @@ class VideoConversionTest extends TestCase
         $convertParams = (new VideoConversionParams())
             ->withVideoCodec('libvpx-vp9')
             //->withCrf(32) - Using variable bitrate instead:
+            ->withSeekStart(new SeekTime(1))
             ->withVideoBitrate('200k') // target bitrate
             ->withVideoMaxBitrate('250000') // max bitrate
             ->withVideoMinBitrate('150k') // min bitrate
@@ -100,9 +102,8 @@ class VideoConversionTest extends TestCase
             ->withTileColumns(1)
             ->withFrameParallel(1)
             ->withPixFmt('yuv420p')
-            // Will speed up - takes 200 frames from second 1
-            ->withSeekStart(new SeekTime(1))
-            ->withVideoFrames(200)
+            // Will speed up - takes only 25 frames
+            ->withVideoFrames(25)
             ->withOutputFormat('webm');
 
         self::assertFileExists($this->videoFile);
@@ -146,29 +147,61 @@ class VideoConversionTest extends TestCase
         $this->videoConvert->convert("{$this->baseDir}/data/not_a_video_file.mov", $outputFile, $params);
     }
 
-    public function testConvertMustThrowExceptionOnTimeout(): void
+    public function testConvertMustThrowExceptionOnDefaultTimeout(): void
     {
         self::expectException(ProcessTimedOutException::class);
 
-        $outputFile = "{$this->outputDir}/testFullOptions.tmp.webm";
+        $outputFile = "{$this->outputDir}/throwExceptionOnGlobalTimeout.tmp.mp4";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
 
         $convertParams = (new VideoConversionParams())
-            ->withVideoCodec('libvpx-vp9')
-            ->withVideoBitrate('2M') // target bitrate
-            ->withAudioCodec('libopus')
-            ->withAudioBitrate('128k')
-            ->withOutputFormat('webm');
+            ->withVideoCodec('h264');
 
         $container    = $this->getConfiguredContainer();
         $globalConfig = $container->get(FFMpegConfigInterface::class);
 
-        $ffmpegConfig = new FFMpegConfig($globalConfig->getBinary(), null, $timeout = 1);
+        $ffmpegConfig = new FFMpegConfig($globalConfig->getBinary(), null, $timeout = 0.2);
         $videoConvert = new VideoConversionService($ffmpegConfig);
 
         $videoConvert->convert($this->videoFile, $outputFile, $convertParams);
+    }
+
+    public function testConvertMustThrowExceptionOnTimeout(): void
+    {
+        self::expectException(ProcessTimedOutException::class);
+
+        $outputFile = "{$this->outputDir}/throwExceptionOnTimeout.tmp.mp4";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $convertParams = (new VideoConversionParams())
+            ->withVideoCodec('h264');
+
+        $processParams = new ProcessParams(0.1, null, []);
+
+        $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams, null, $processParams);
+    }
+
+    public function testConvertMustThrowExceptionOnIdleTimeout(): void
+    {
+        self::expectException(ProcessTimedOutException::class);
+
+        $outputFile = "{$this->outputDir}/throwExceptionOnTimeout.tmp.mp4";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $convertParams = (new VideoConversionParams())
+            ->withVideoCodec('h264');
+
+        $processParams = new ProcessParams(null, 0.1, []);
+
+        $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams, null, $processParams);
     }
 }

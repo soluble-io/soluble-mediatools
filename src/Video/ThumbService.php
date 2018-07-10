@@ -103,7 +103,7 @@ class ThumbService implements ThumbServiceInterface
         try {
             $this->ensureFileExists($videoFile);
 
-            $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $time, $videoFilter);
+            $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $time, $videoFilter, $processParams);
             $process->mustRun($callback);
         } catch (FileNotFoundException $e) {
             throw new MissingInputFileException($e->getMessage());

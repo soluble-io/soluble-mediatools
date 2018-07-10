@@ -7,6 +7,8 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Process\ProcessParams;
+use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
@@ -76,5 +78,25 @@ class VideoThumbnailingTest extends TestCase
     {
         self::expectException(FileNotFoundException::class);
         $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '');
+    }
+
+    public function testMakeThumbnailMustThrowExceptionOnTimeout(): void
+    {
+        self::expectException(ProcessTimedOutException::class);
+
+        $outputFile = "{$this->outputDir}/throwExceptionOnTimeout.jpg";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+        $this->thumbService->makeThumbnail(
+            $this->videoFile,
+            $outputFile,
+            new SeekTime(0.2),
+            null,
+            null,
+            new ProcessParams(0.01, null, [])
+        );
+        self::assertFileExists($outputFile);
     }
 }

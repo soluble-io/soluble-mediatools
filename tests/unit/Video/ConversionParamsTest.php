@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest;
+namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\VideoConversionParams;
 
-class VideoConversionParamsTest extends TestCase
+class ConversionParamsTest extends TestCase
 {
     public function setUp(): void
     {
@@ -19,7 +19,7 @@ class VideoConversionParamsTest extends TestCase
 
     public function testMustBeImmutable(): void
     {
-        $params = new VideoConversionParams();
+        $params = new ConversionParams();
         self::assertCount(0, $params->toArray());
         $newParams = $params->withThreads(1);
         self::assertCount(0, $params->toArray());
@@ -28,7 +28,7 @@ class VideoConversionParamsTest extends TestCase
 
     public function testHasParam(): void
     {
-        $params = (new VideoConversionParams())
+        $params = (new ConversionParams())
                   ->withTileColumns(10);
         self::assertTrue($params->hasParam(ConversionParamsInterface::PARAM_TILE_COLUMNS));
         self::assertFalse($params->hasParam(ConversionParamsInterface::PARAM_FRAME_PARALLEL));
@@ -36,11 +36,11 @@ class VideoConversionParamsTest extends TestCase
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
-        $injectedParams = new VideoConversionParams([
+        $injectedParams = new ConversionParams([
             ConversionParamsInterface::PARAM_TUNE => 'grain',
         ]);
 
-        $withParams = (new VideoConversionParams())->withTune('grain');
+        $withParams = (new ConversionParams())->withTune('grain');
 
         self::assertSame($injectedParams->toArray(), $withParams->toArray());
     }
@@ -50,7 +50,7 @@ class VideoConversionParamsTest extends TestCase
         $seekTimeStart = new SeekTime(0.1);
         $seekTimeEnd   = new SeekTime(0.6);
 
-        $params = (new VideoConversionParams())
+        $params = (new ConversionParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -111,7 +111,7 @@ class VideoConversionParamsTest extends TestCase
 
     public function testNewParamMustOverwritePreviousParam(): void
     {
-        $params = (new VideoConversionParams())
+        $params = (new ConversionParams())
             ->withTileColumns(10)
             ->withTileColumns(12);
 
@@ -134,7 +134,7 @@ class VideoConversionParamsTest extends TestCase
             }
         };
 
-        $params = (new VideoConversionParams())
+        $params = (new ConversionParams())
             ->withVideoFilter($filter1);
 
         self::assertSame($filter1, $params->getParam(ConversionParamsInterface::PARAM_VIDEO_FILTER));
@@ -143,12 +143,12 @@ class VideoConversionParamsTest extends TestCase
     public function testUnsupportedParamThrowsInvalidArgumentException(): void
     {
         self::expectException(InvalidArgumentException::class);
-        new VideoConversionParams(['UnsupportedOption' => 'cool']);
+        new ConversionParams(['UnsupportedOption' => 'cool']);
     }
 
     public function testInvalidBitRateThrowsInvalidArgumentException(): void
     {
-        $params = new VideoConversionParams();
+        $params = new ConversionParams();
 
         try {
             $params->withVideoBitrate('901w');

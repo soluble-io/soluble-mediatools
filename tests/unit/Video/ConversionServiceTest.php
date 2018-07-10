@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest;
+namespace MediaToolsTest\Video;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\ConversionParams;
+use Soluble\MediaTools\Video\ConversionService;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
@@ -14,14 +16,12 @@ use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\VideoConversionParams;
-use Soluble\MediaTools\VideoConversionService;
 
-class VideoConversionServiceTest extends TestCase
+class ConversionServiceTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /** @var VideoConversionService|ConversionServiceInterface */
+    /** @var ConversionServiceInterface */
     protected $converter;
 
     public function setUp(): void
@@ -37,7 +37,7 @@ class VideoConversionServiceTest extends TestCase
         $videoFilterChain->addFilter(new Hqdn3DVideoFilter());
         $videoFilterChain->addFilter(new NlmeansVideoFilter());
 
-        $convertParams = (new VideoConversionParams())
+        $convertParams = (new ConversionParams())
             ->withVideoCodec('libvpx-vp9')
             ->withCrf(32)
             ->withVideoBitrate('200k')
@@ -84,9 +84,9 @@ class VideoConversionServiceTest extends TestCase
 
     public function testGetSymfonyProcessMustDefaultToConfigThreads(): void
     {
-        $convertParams = (new VideoConversionParams());
+        $convertParams = (new ConversionParams());
 
-        $process = (new VideoConversionService(
+        $process = (new ConversionService(
             new FFMpegConfig('ffmpeg', 3)
         ))->getSymfonyProcess(
             __FILE__,
@@ -100,7 +100,7 @@ class VideoConversionServiceTest extends TestCase
 
         // If null threads nothing must be set in cli
 
-        $process = (new VideoConversionService(
+        $process = (new ConversionService(
             new FFMpegConfig('ffmpeg', null)
         ))->getSymfonyProcess(
             __FILE__,

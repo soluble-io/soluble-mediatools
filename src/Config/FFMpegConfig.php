@@ -18,10 +18,10 @@ class FFMpegConfig implements FFMpegConfigInterface
     /** @var int|null */
     protected $threads;
 
-    /** @var int|null */
+    /** @var float|null */
     protected $timeout;
 
-    /** @var int|null */
+    /** @var float|null */
     protected $idleTimeout;
 
     /** @var array<string, string|int> */
@@ -30,15 +30,15 @@ class FFMpegConfig implements FFMpegConfigInterface
     /**
      * @param string                    $ffmpegBinary
      * @param int|null                  $threads      number fo threads used for conversion, null means single threads, 0 all cores, ....
-     * @param int|null                  $timeout      max allowed time (in seconds) for conversion, null for no timeout
-     * @param int|null                  $idleTimeout  max allowed idle time (in seconds) for conversion, null for no timeout
+     * @param float|null                $timeout      max allowed time (in seconds) for conversion, null for no timeout
+     * @param float|null                $idleTimeout  max allowed idle time (in seconds) for conversion, null for no timeout
      * @param array<string, string|int> $env          An array of additional env vars to set when running the ffmpeg conversion process
      */
     public function __construct(
         string $ffmpegBinary = self::DEFAULT_BINARY,
         ?int $threads = self::DEFAULT_THREADS,
-        ?int $timeout = self::DEFAULT_TIMEOUT,
-        ?int $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
+        ?float $timeout = self::DEFAULT_TIMEOUT,
+        ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
         $this->binary      = $ffmpegBinary;
@@ -58,12 +58,12 @@ class FFMpegConfig implements FFMpegConfigInterface
         return $this->threads;
     }
 
-    public function getTimeout(): ?int
+    public function getTimeout(): ?float
     {
         return $this->timeout;
     }
 
-    public function getIdleTimeout(): ?int
+    public function getIdleTimeout(): ?float
     {
         return $this->idleTimeout;
     }

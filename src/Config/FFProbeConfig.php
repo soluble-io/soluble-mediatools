@@ -14,10 +14,10 @@ class FFProbeConfig implements FFProbeConfigInterface
     /** @var string */
     protected $binary;
 
-    /** @var int|null */
+    /** @var float|null */
     protected $timeout;
 
-    /** @var int|null */
+    /** @var float|null */
     protected $idleTimeout;
 
     /** @var array<string, string|int> */
@@ -25,14 +25,14 @@ class FFProbeConfig implements FFProbeConfigInterface
 
     /**
      * @param string                    $ffprobeBinary FFProbeBinary, by default ffprobe
-     * @param int|null                  $timeout       max allowed time (in seconds) for conversion, null for no timeout
-     * @param int|null                  $idleTimeout   max allowed idle time (in seconds) for conversion, null for no timeout
+     * @param float|null                $timeout       max allowed time (in seconds) for conversion, null for no timeout
+     * @param float|null                $idleTimeout   max allowed idle time (in seconds) for conversion, null for no timeout
      * @param array<string, string|int> $env           An array of additional env vars to set when running the ffprobe process
      */
     public function __construct(
         string $ffprobeBinary = self::DEFAULT_BINARY,
-        ?int $timeout = self::DEFAULT_TIMEOUT,
-        ?int $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
+        ?float $timeout = self::DEFAULT_TIMEOUT,
+        ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
         $this->binary      = $ffprobeBinary;
@@ -46,12 +46,12 @@ class FFProbeConfig implements FFProbeConfigInterface
         return $this->binary;
     }
 
-    public function getTimeout(): ?int
+    public function getTimeout(): ?float
     {
         return $this->timeout;
     }
 
-    public function getIdleTimeout(): ?int
+    public function getIdleTimeout(): ?float
     {
         return $this->idleTimeout;
     }

@@ -55,8 +55,8 @@ class FFMpegConfigFactory
         return new FFMpegConfig(
             $scr->getString('ffmpeg.binary', FFMpegConfig::DEFAULT_BINARY),
             $scr->getNullableInt('ffmpeg.threads', FFMpegConfig::DEFAULT_THREADS),
-            $scr->getNullableInt('ffmpeg.timeout', FFMpegConfig::DEFAULT_TIMEOUT),
-            $scr->getNullableInt('ffmpeg.idle_timeout', FFMpegConfig::DEFAULT_IDLE_TIMEOUT),
+            $scr->getNullableFloat('ffmpeg.timeout', FFMpegConfig::DEFAULT_TIMEOUT),
+            $scr->getNullableFloat('ffmpeg.idle_timeout', FFMpegConfig::DEFAULT_IDLE_TIMEOUT),
             $scr->getArray('ffmpeg.env', FFMpegConfig::DEFAULT_ENV)
         );
     }

@@ -54,8 +54,8 @@ class FFProbeConfigFactory
 
         return new FFProbeConfig(
             $scr->getString('ffprobe.binary', FFProbeConfig::DEFAULT_BINARY),
-            $scr->getNullableInt('ffprobe.timeout', FFProbeConfig::DEFAULT_TIMEOUT),
-            $scr->getNullableInt('ffprobe.idle_timeout', FFProbeConfig::DEFAULT_IDLE_TIMEOUT),
+            $scr->getNullableFloat('ffprobe.timeout', FFProbeConfig::DEFAULT_TIMEOUT),
+            $scr->getNullableFloat('ffprobe.idle_timeout', FFProbeConfig::DEFAULT_IDLE_TIMEOUT),
             $scr->getArray('ffprobe.env', FFProbeConfig::DEFAULT_ENV)
         );
     }
