@@ -69,10 +69,9 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 
 ```php
 <?php
-use Soluble\MediaTools\VideoConversionParams;
-use Soluble\MediaTools\Video\Exception as VideoException;
+use Soluble\MediaTools\Video\{Exception, ConversionParams};
 
-$convertParams = (new VideoConversionParams)
+$convertParams = (new ConversionParams)
             ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
@@ -82,10 +81,10 @@ $convertParams = (new VideoConversionParams)
     
 try {
     
-    /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
+    /** @var Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
     
-} catch(VideoException\ConversionExceptionInterface $e) {
+} catch(Exception\ConversionExceptionInterface $e) {
     // See chapters about exception !!! 
    
 }
@@ -100,11 +99,9 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\VideoConversionParams;
-use Soluble\MediaTools\Video\Exception as VideoException;
+use Soluble\MediaTools\Video\{Exception, ConversionParams};
 
-
-$convertParams = (new VideoConversionParams)
+$convertParams = (new ConversionParams)
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -133,9 +130,10 @@ $convertParams = (new VideoConversionParams)
 try {
     
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
+    
     $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
     
-} catch(VideoException\ConversionExceptionInterface $e) {
+} catch(Exception\ConversionExceptionInterface $e) {
     // see chapter about exceptions        
 } 
 
@@ -149,18 +147,16 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\VideoConversionParams;
-use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\Video\Exception as VideoException;
+use Soluble\MediaTools\Video\{Exception, ConversionParams, SeekTime};
 
-$convertParams = (new VideoConversionParams)
+$convertParams = (new ConversionParams)
                 ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
                 ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
 
 try {
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
     $videoConverter->convert('/path/inputFile.mp4', '/path/outputFile.mp4', $convertParams);
-} catch(VideoException\ConversionExceptionInterface $e) {
+} catch(Exception\ConversionExceptionInterface $e) {
     // see chapter about exceptions        
 }
 
@@ -192,15 +188,18 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\Exception as VideoException;
-use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\{Exception, SeekTime, ThumbServiceInterface};
+
 
 $videoFile = '/path/input_video.webm';
 
 try {
-    /** @var \Soluble\MediaTools\Video\ThumbServiceInterface $thumbService */
+    
+    /** @var ThumbServiceInterface $thumbService */
+    
     $thumbService->makeThumbnail($videoFile, '/path/thumb.jpg', new SeekTime(4.25));
-} catch (VideoException\ConversionExceptionInterface $e) {    
+    
+} catch (Exception\ConversionExceptionInterface $e) {    
     // see chapter about exceptions
 } 
 
@@ -241,7 +240,7 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Exception as MTException;
+use Soluble\MediaTools\Video\Exception as MTException;
 use Soluble\MediaTools\Video\Detection\{InterlaceDetect, InterlaceDetectGuess};
 
 $videoFile = '/path/input_video.webm';
@@ -250,8 +249,9 @@ $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES; // 1000
 try {
     /** @var \Soluble\MediaTools\Video\DetectionServiceInterface $detectService */
     $InterlaceDetectGuess = $detectService->detectInterlacement($videoFile, $maxFramesToAnalyze);
-} catch (MTException\FileNotFoundException $e) {
+} catch (MTException\MissingInputFileException $e) {
     // The input file does not exists
+    // See more examples in exception section
     throw $e;
 } 
 
