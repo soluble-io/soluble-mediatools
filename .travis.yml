@@ -33,7 +33,7 @@ jobs:
     - stage: Mutation
 
   include:
-    - stage: Test PHP 7.2
+    - stage: Tests and Coverage (PHP 7.2)
       php: 7.2
       env: COVERAGE=yes INSTALL_FFMPEG=yes
       script:
@@ -41,19 +41,16 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
         - bash <(curl -s https://codecov.io/bash)
-    - stage: Coding standard
-      php: 7.2
-      script:
-        - composer cs-check
-    - stage: Static analysis
+    - stage: PHPStan and Code style
       php: 7.2
       script:
         - composer phpstan
-    - stage: Test PHP7.1 (unit tests only)
+        - composer cs-check
+    - stage: Test PHP7.1
       php: 7.1
-      env: COVERAGE=false
+      env: COVERAGE=false INSTALL_FFMPEG=yes
       script:
-        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Mutation
       php: 7.2
       env: COVERAGE=true INSTALL_FFMPEG=yes

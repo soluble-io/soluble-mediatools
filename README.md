@@ -8,32 +8,32 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for media processing, video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
+Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
 
 ## Features
 
-> Mediatools services:
+> Video services:
 
-- [X] `VideoConversionService`.
-  - [X] Transcoding, transmuxing, compression (audio/video)
-  - [X] Video Filters
-      - [X] Chainable filters
-      - [X] Deinterlacing video (Yadif, Hqdn3d)
-  - [X] Time crop (seekstart - seekend)      
-  - [ ] Video scaling (todo)          
+- [X] `Video\ConversionService`.
+  - [X] Transcoding, transmuxing, compression (audio/video)     
+  - [X] Video Filters (Chainable filters)      
+      - [X] Deinterlace (`YadifVideoFilter`)
+      - [X] Denoise (`Hqdn3dVideoFilter`, `NlmeansVideoFilter`)
+      - [ ] Video scaling (todo)
+  - [X] Video clipping (seekstart - seekend)                  
   - [ ] Option to enable multipass transcoding (todo)
-- [X] `VideoInfoService` 
+- [X] `Video\InfoService` 
   - [X] Basic information like duration, frames....
-- [X] `VideoThumbService`
+- [X] `Video\ThumbService`
   - [X] Basic thumbnail creation
-- [X] `VideoDetectionService`.
+- [X] `Video\DetectionService`.
   - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
 
 
 ## Requirements
 
 - PHP 7.1+
-- FFmpeg 3.4+, 4.0+ 
+- FFmpeg 3.4+, 4.0+, see [install](#binaries). 
  
 -------------- 
 ## VideoConversionService. 
@@ -139,10 +139,9 @@ try {
 
 ``` 
 
-#### Time crop
+#### Video clipping
 
-> See the official [ffmpeg VP9 docs](https://trac.ffmpeg.org/wiki/Encode/VP9) 
-> and have a look at the [google vp9 VOD](https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines) guidelines
+> See the official [ffmpeg docs](https://trac.ffmpeg.org/wiki/Seeking) 
 
 
 ```php
