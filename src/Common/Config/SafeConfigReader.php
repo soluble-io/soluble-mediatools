@@ -47,7 +47,7 @@ class SafeConfigReader
      *
      * @throws InvalidConfigException
      */
-    public function getNullableFloat(string $key, ?float $default = null, bool $tolerateInt=true): ?float
+    public function getNullableFloat(string $key, ?float $default = null, bool $tolerateInt = true): ?float
     {
         $value = $this->getValueOrDefault($key, $default);
         if (!($value === null) && !is_float($value)) {

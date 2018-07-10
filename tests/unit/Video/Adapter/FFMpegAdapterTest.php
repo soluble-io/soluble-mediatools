@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
+use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\Video\ConversionParams;
 
 class FFMpegAdapterTest extends TestCase
 {

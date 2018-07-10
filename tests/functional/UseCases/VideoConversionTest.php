@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
+use Soluble\MediaTools\Video\ConversionParams;
+use Soluble\MediaTools\Video\ConversionService as VideoConversionService;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
@@ -16,8 +18,6 @@ use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\ProcessParams;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\VideoConversionService;
 
 class VideoConversionTest extends TestCase
 {
