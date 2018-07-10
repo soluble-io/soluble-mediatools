@@ -10,7 +10,7 @@ cache:
 
 before_install:
   - |
-    if [ "x$COVERAGE" != "xyes" ]; then
+    if [ "x$XDEBUG" != "xyes" ]; then
       mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
     fi
   - |
@@ -35,7 +35,7 @@ jobs:
   include:
     - stage: Tests and Coverage (PHP 7.2)
       php: 7.2
-      env: COVERAGE=yes INSTALL_FFMPEG=yes
+      env: XDEBUG=yes INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
@@ -48,17 +48,17 @@ jobs:
         - composer cs-check
     - stage: Test PHP7.1
       php: 7.1
-      env: COVERAGE=false INSTALL_FFMPEG=yes
+      env: XDEBUG=false INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Mutation
       php: 7.2
-      env: COVERAGE=true
+      env: XDEBUG=yes
       script:
         - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --test-framework-options="--testsuite unit" --min-msi=40 --min-covered-msi=40 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
-      env: COVERAGE=false IGNORE_PLATFORM_REQS=yes
+      env: IGNORE_PLATFORM_REQS=yes
       script:
         - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
 
