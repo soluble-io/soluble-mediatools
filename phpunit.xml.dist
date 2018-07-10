@@ -17,17 +17,7 @@
         <testsuite name="functional">
             <directory>./tests/functional</directory>
         </testsuite>
-        <testsuite name="smoke">
-            <directory>./tests/smoke</directory>
-        </testsuite>
-
     </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
 
     <php>
         <const name="FFMPEG_BINARY_PATH" value="ffmpeg" />
