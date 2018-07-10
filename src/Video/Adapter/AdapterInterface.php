@@ -22,8 +22,8 @@ interface AdapterInterface
     public function getMappedConversionParams(ConversionParamsInterface $conversionParams): array;
 
     /**
-     * @param array       $arguments
-     * @param null|string $inputFile
+     * @param array                        $arguments
+     * @param null|string                  $inputFile
      * @param null|string|PlatformNullFile $outputFile
      *
      * @return string
