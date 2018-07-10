@@ -10,7 +10,7 @@ use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
+use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\DetectionProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidParamException;

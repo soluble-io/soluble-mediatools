@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\VideoConversionParams;
 use Symfony\Component\Process\Process;
 
 interface ConversionServiceInterface
@@ -17,7 +16,7 @@ interface ConversionServiceInterface
      *
      * @see https://symfony.com/doc/current/components/process.html
      */
-    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConversionParams $convertParams): Process;
+    public function getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams): Process;
 
     /**
      * Run a conversion, throw exception on error.
@@ -27,5 +26,5 @@ interface ConversionServiceInterface
      *
      * @throws ConversionExceptionInterface When inputFile does not exists
      */
-    public function convert(string $inputFile, string $outputFile, VideoConversionParams $convertParams, ?callable $callback = null): void;
+    public function convert(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?callable $callback = null): void;
 }

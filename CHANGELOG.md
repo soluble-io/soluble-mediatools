@@ -5,8 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.0 (2018-xx-xx) TBD !
+## 0.5.0 (2018-xx-xx) TBD !
 
+### Changed
+
+- [BC-Break] `ProcessTimeOutException` renamed to `ProcessTimedOutException` for coherence.
+
+> The following changes concerns internal classes (possible bc-break):
+
+- Possible bc-break moved base exception into `MediaTools\Common` namespace.
+- Possible bc-break some internal util classes moved into `MediaTools\Common` namespace.
+- Possible bc-break `PlatformNullFile` moved into `MediaTools\Common\IO` namespace.
+
+### Improved
+
+- Consumption of `ConversionParamsInterface` instead of concrete implementation in `conver()`.
+
+### Added
+
+- Q&A Testing timed-out behaviour (functional tests working)
 
 
 ## 0.4.0 (2018-07-09)  

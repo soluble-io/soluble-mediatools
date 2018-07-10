@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video\Converter;
+namespace Soluble\MediaTools\Video\Adapter;
 
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;

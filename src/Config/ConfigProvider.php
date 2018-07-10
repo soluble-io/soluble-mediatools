@@ -28,7 +28,7 @@ class ConfigProvider
             'services' => [
                 'config' => $this->getDefaultConfiguration(),
             ],
-            'dependencies' => $this->getDependencies()
+            'dependencies' => $this->getDependencies(),
         ];
     }
 
@@ -39,7 +39,7 @@ class ConfigProvider
     {
         return [
             'aliases'   => $this->getAliases(),
-            'factories' => $this->getFactories()
+            'factories' => $this->getFactories(),
         ];
     }
 
@@ -56,10 +56,10 @@ class ConfigProvider
             FFProbeConfig::class          => FFProbeConfigInterface::class,
 
             // Services
-            VideoConversionService::class => ConversionServiceInterface::class,
-            VideoInfoService::class       => InfoServiceInterface::class,
-            VideoDetectionService::class  => DetectionServiceInterface::class,
-            VideoThumbService::class      => ThumbServiceInterface::class,
+            VideoConversionService::class      => ConversionServiceInterface::class,
+            VideoInfoService::class            => InfoServiceInterface::class,
+            VideoDetectionService::class       => DetectionServiceInterface::class,
+            VideoThumbService::class           => ThumbServiceInterface::class,
         ];
     }
 
