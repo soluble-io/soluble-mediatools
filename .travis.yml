@@ -6,14 +6,21 @@ cache:
         - vendor
         - $HOME/.composer/cache
 
+
 before_install:
   - |
     if [ "x$COVERAGE" != "xyes" ]; then
       mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
     fi
 
+  - |
+    if [ "x$INSTALL_FFMPEG" != "xyes" ]; then
+      ./travis/travis-install-ffmpeg.sh
+    fi
+
+
 install:
-  - travis_retry composer -n update --prefer-dist --no-interaction $IGNORE_PLATFORM_REQS
+  - travis_retry composer -n update --prefer-dist --no-interaction "$IGNORE_PLATFORM_REQS"
 
 jobs:
   allow_failures:
@@ -23,7 +30,7 @@ jobs:
   include:
     - stage: Test PHP 7.2
       php: 7.2
-      env: COVERAGE=yes
+      env: COVERAGE=yes INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
@@ -37,14 +44,14 @@ jobs:
       php: 7.2
       script:
         - composer phpstan
-    - stage: Test PHP7.1
-      php: 7.2
+    - stage: Test PHP7.1 (unit tests only)
+      php: 7.1
       env: COVERAGE=false
       script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
     - stage: Mutation
       php: 7.2
-      env: COVERAGE=true
+      env: COVERAGE=true INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=55 --min-covered-msi=65 --threads=4
     - stage: Test PHP Nightly
