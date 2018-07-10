@@ -21,9 +21,7 @@ class VideoConversionServiceTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /**
-     * @var VideoConversionService|ConversionServiceInterface
-     */
+    /** @var VideoConversionService|ConversionServiceInterface */
     protected $converter;
 
     public function setUp(): void
