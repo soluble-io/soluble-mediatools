@@ -1,40 +1,56 @@
 language: php
 sudo: required
-dist: trusty
-group: edge
 
-matrix:
-  include:
-    - php: 7.1
-    - php: 7.2
-      env:
-        - SEND_COVERAGE=true
-        - CHECK=true
-        - INFECTION=true
-    - php: nightly
-      env:
-        - IGNORE_PLATFORM_REQS="--ignore-platform-reqs"
+cache:
+    directories:
+        - vendor
+        - $HOME/.composer/cache
+
+before_install:
+  - |
+    if [ "x$COVERAGE" != "xyes" ]; then
+      mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
+    fi
+
+install:
+  - rm composer.lock
+  - travis_retry composer -n update --prefer-dist --no-interaction $IGNORE_PLATFORM_REQS
+
+jobs:
   allow_failures:
     - php: nightly
+    - stage: Mutation
 
-before_script:
-  # -------------------------------------------------------------------------
-  # Step 1: FFMpeg installation
-  # -------------------------------------------------------------------------
-  #- sudo add-apt-repository -y ppa:mc3man/trusty-media
-  #- sudo apt-get -qq update
-  #- sudo apt-get install -y ffmpeg
-  - .travis/travis-install-ffmpeg.sh
-  # -------------------------------------------------------------------------
-  # Step 2: Regular composer install
-  # -------------------------------------------------------------------------
-  - composer install --no-interaction $IGNORE_PLATFORM_REQS
-script:
-  - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
-  - if [[ $CHECK == true ]]; then composer check; fi
-  - if [[ $INFECTION == true ]]; then ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=55 --min-covered-msi=65 --threads=4; fi
+  include:
+    - stage: Test PHP 7.2
+      php: 7.2
+      env: COVERAGE=true
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+        - bash <(curl -s https://codecov.io/bash)
+    - stage: Coding standard
+      php: 7.2
+      script:
+        - composer cs-check
+    - stage: Static analysis
+      php: 7.2
+      script:
+        - composer phpstan
+    - stage: Test PHP7.1
+      php: 7.2
+      env: COVERAGE=false
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+    - stage: Mutation
+      php: 7.2
+      env: COVERAGE=true
+      script:
+        - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=55 --min-covered-msi=65 --threads=4
+    - stage: Test PHP Nightly
+      php: nightly
+      env: COVERAGE=false IGNORE_PLATFORM_REQS="--ignore-platform-reqs"
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
 
-after_script:
-  - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [[ $SEND_COVERAGE == true ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
-  - if [[ $SEND_COVERAGE == true ]]; then bash <(curl -s https://codecov.io/bash); fi
