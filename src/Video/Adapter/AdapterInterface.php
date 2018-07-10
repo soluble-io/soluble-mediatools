@@ -6,6 +6,7 @@ namespace Soluble\MediaTools\Video\Adapter;
 
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 
 interface AdapterInterface
@@ -23,7 +24,7 @@ interface AdapterInterface
     /**
      * @param array       $arguments
      * @param null|string $inputFile
-     * @param null        $outputFile
+     * @param null|string|PlatformNullFile $outputFile
      *
      * @return string
      */
