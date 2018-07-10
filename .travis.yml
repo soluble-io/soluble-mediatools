@@ -14,7 +14,7 @@ before_install:
       mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
     fi
   - |
-    if [ "x$INSTALL_FFMPEG" != "xyes" ]; then
+    if [ "x$INSTALL_FFMPEG" == "xyes" ]; then
       .travis/travis-install-ffmpeg.sh
     fi
 
