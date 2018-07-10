@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   *(This change makes possible a future split of this repo (audio-video-subtitles...) without
   sacrificing BC)*.   
 - [BC-Break] `ProcessTimeOutException` renamed to `ProcessTimedOutException` for coherence.
+- [BC-Break] Moved `Config\*` to `Video\Config\*`, update FFMpegConfig, FFProbeConfig, ConfigProvider locations.
 
 > The following changes concerns internal classes (less possible bc-break):
 
