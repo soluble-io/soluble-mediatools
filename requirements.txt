@@ -1,0 +1,7 @@
+#
+# Dependencies for documentation
+#
+mkdocs>=0.17.1
+Pygments>=2.2
+pymdown-extensions>=4.11
+mkdocs-material>=2.9.2
