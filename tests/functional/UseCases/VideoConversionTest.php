@@ -6,13 +6,17 @@ namespace MediaToolsTest\Functional\UseCases;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\VideoConversionParams;
+use Soluble\MediaTools\VideoConversionService;
 
 class VideoConversionTest extends TestCase
 {
@@ -120,7 +124,7 @@ class VideoConversionTest extends TestCase
         $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConversionParams());
     }
 
-    public function testConvertMustThrowProcessException(): void
+    public function testConvertInvalidCodecMustThrowProcessException(): void
     {
         self::expectException(ProcessExceptionInterface::class);
 
@@ -129,5 +133,42 @@ class VideoConversionTest extends TestCase
         $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
 
         $this->videoConvert->convert($this->videoFile, $outputFile, $params);
+    }
+
+    public function testConvertInvalidFileMustThrowProcessException(): void
+    {
+        self::expectException(ProcessExceptionInterface::class);
+
+        $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
+
+        $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
+
+        $this->videoConvert->convert("{$this->baseDir}/data/not_a_video_file.mov", $outputFile, $params);
+    }
+
+    public function testConvertMustThrowExceptionOnTimeout(): void
+    {
+        self::expectException(ProcessTimedOutException::class);
+
+        $outputFile = "{$this->outputDir}/testFullOptions.tmp.webm";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $convertParams = (new VideoConversionParams())
+            ->withVideoCodec('libvpx-vp9')
+            ->withVideoBitrate('2M') // target bitrate
+            ->withAudioCodec('libopus')
+            ->withAudioBitrate('128k')
+            ->withOutputFormat('webm');
+
+        $container    = $this->getConfiguredContainer();
+        $globalConfig = $container->get(FFMpegConfigInterface::class);
+
+        $ffmpegConfig = new FFMpegConfig($globalConfig->getBinary(), null, $timeout=1);
+        $videoConvert = new VideoConversionService($ffmpegConfig);
+
+        $videoConvert->convert($this->videoFile, $outputFile, $convertParams);
     }
 }
