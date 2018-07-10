@@ -293,6 +293,9 @@ class ConversionParams implements ConversionParamsInterface
      * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface $paramValue
      *
      * @throws InvalidArgumentException in case of unsupported builtin param
+     *
+     * For static analysis the trick is to return 'self' instead of interface
+     * @return self
      */
     public function withBuiltInParam(string $paramName, $paramValue): ConversionParamsInterface
     {

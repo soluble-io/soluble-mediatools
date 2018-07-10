@@ -21,6 +21,11 @@ class FFMpegAdapter implements AdapterInterface
         $this->ffmpegConfig = $ffmpegConfig;
     }
 
+    public function getDefaultThreads(): ?int
+    {
+        return $this->ffmpegConfig->getThreads();
+    }
+
     /**
      * @return array<string, array<string, string>>
      */

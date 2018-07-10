@@ -10,6 +10,8 @@ use Soluble\MediaTools\Video\ConversionParamsInterface;
 
 interface AdapterInterface
 {
+    public function getDefaultThreads(): ?int;
+
     /**
      * @return array<string, string>
      *

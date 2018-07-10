@@ -19,10 +19,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
-- Consumption of `ConversionParamsInterface` instead of concrete implementation in `conver()`.
+- Consumption of `ConversionParamsInterface` instead of concrete implementation in `convert()`.
 
 ### Added
 
+
+- Possibility to set timeout per conversion: see `ProcessParamsInterface` in `convert()` or `makeThumbnail()`
 - Q&A Testing timed-out behaviour (functional tests working)
 
 

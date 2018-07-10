@@ -8,6 +8,7 @@ use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
@@ -25,16 +26,16 @@ class ConversionService implements ConversionServiceInterface
 {
     use PathAssertionsTrait;
 
-    /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    /** @var ProcessParamsInterface */
+    protected $processParams;
 
     /** @var FFMpegAdapter */
-    protected $converter;
+    protected $adapter;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
-        $this->ffmpegConfig = $ffmpegConfig;
-        $this->converter    = new FFMpegAdapter($ffmpegConfig);
+        $this->adapter       = new FFMpegAdapter($ffmpegConfig);
+        $this->processParams = $ffmpegConfig;
     }
 
     /**
@@ -47,19 +48,25 @@ class ConversionService implements ConversionServiceInterface
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
      */
-    public function getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams): Process
+    public function getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process
     {
-        if (!$convertParams->hasParam(ConversionParamsInterface::PARAM_THREADS) && $this->ffmpegConfig->getThreads() !== null) {
-            $convertParams = $convertParams->withBuiltInParam(ConversionParamsInterface::PARAM_THREADS, $this->ffmpegConfig->getThreads());
+        if (!$convertParams->hasParam(ConversionParamsInterface::PARAM_THREADS)
+            && $this->adapter->getDefaultThreads() !== null) {
+            $convertParams = $convertParams->withBuiltInParam(
+                ConversionParamsInterface::PARAM_THREADS,
+                $this->adapter->getDefaultThreads()
+            );
         }
 
-        $arguments = $this->converter->getMappedConversionParams($convertParams);
-        $ffmpegCmd = $this->converter->getCliCommand($arguments, $inputFile, $outputFile);
+        $arguments = $this->adapter->getMappedConversionParams($convertParams);
+        $ffmpegCmd = $this->adapter->getCliCommand($arguments, $inputFile, $outputFile);
+
+        $pp = $processParams ?? $this->processParams;
 
         $process = new Process($ffmpegCmd);
-        $process->setTimeout($this->ffmpegConfig->getTimeout());
-        $process->setIdleTimeout($this->ffmpegConfig->getIdleTimeout());
-        $process->setEnv($this->ffmpegConfig->getEnv());
+        $process->setTimeout($pp->getTimeout());
+        $process->setIdleTimeout($pp->getIdleTimeout());
+        $process->setEnv($pp->getEnv());
 
         return $process;
     }
@@ -79,7 +86,7 @@ class ConversionService implements ConversionServiceInterface
      * @throws InvalidParamException
      * @throws RuntimeException
      */
-    public function convert(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?callable $callback = null): void
+    public function convert(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
             $this->ensureFileExists($inputFile);

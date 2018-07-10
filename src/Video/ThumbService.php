@@ -8,6 +8,7 @@ use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
@@ -26,16 +27,16 @@ class ThumbService implements ThumbServiceInterface
 {
     use PathAssertionsTrait;
 
-    /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    /** @var ProcessParamsInterface */
+    protected $processParams;
 
     /** @var FFMpegAdapter */
     protected $adapter;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
-        $this->ffmpegConfig = $ffmpegConfig;
-        $this->adapter      = new FFMpegAdapter($ffmpegConfig);
+        $this->adapter       = new FFMpegAdapter($ffmpegConfig);
+        $this->processParams = $ffmpegConfig;
     }
 
     /**
@@ -48,9 +49,17 @@ class ThumbService implements ThumbServiceInterface
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
      */
-    public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null): Process
+    public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?ProcessParamsInterface $processParams = null): Process
     {
         $params = (new ConversionParams());
+
+        if (!$params->hasParam(ConversionParamsInterface::PARAM_THREADS)
+            && $this->adapter->getDefaultThreads() !== null) {
+            $params = $params->withBuiltInParam(
+                ConversionParamsInterface::PARAM_THREADS,
+                $this->adapter->getDefaultThreads()
+            );
+        }
 
         if ($time !== null) {
             // For performance reasons time seek must be
@@ -69,10 +78,12 @@ class ThumbService implements ThumbServiceInterface
         $arguments = $this->adapter->getMappedConversionParams($params);
         $ffmpegCmd = $this->adapter->getCliCommand($arguments, $videoFile, $thumbnailFile);
 
+        $pp = $processParams ?? $this->processParams;
+
         $process = new Process($ffmpegCmd);
-        $process->setTimeout($this->ffmpegConfig->getTimeout());
-        $process->setIdleTimeout($this->ffmpegConfig->getIdleTimeout());
-        $process->setEnv($this->ffmpegConfig->getEnv());
+        $process->setTimeout($pp->getTimeout());
+        $process->setIdleTimeout($pp->getIdleTimeout());
+        $process->setEnv($pp->getEnv());
 
         return $process;
     }
@@ -87,7 +98,7 @@ class ThumbService implements ThumbServiceInterface
      * @throws RuntimeException
      * @throws InvalidParamException
      */
-    public function makeThumbnail(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?callable $callback = null): void
+    public function makeThumbnail(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
             $this->ensureFileExists($videoFile);

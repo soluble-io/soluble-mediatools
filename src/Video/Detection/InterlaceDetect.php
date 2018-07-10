@@ -9,6 +9,7 @@ use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
@@ -28,16 +29,16 @@ class InterlaceDetect
 
     public const DEFAULT_INTERLACE_MAX_FRAMES = 1000;
 
-    /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    /** @var ProcessParamsInterface */
+    protected $processParams;
 
     /** @var FFMpegAdapter */
     protected $adapter;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
-        $this->ffmpegConfig = $ffmpegConfig;
-        $this->adapter      = new FFMpegAdapter($ffmpegConfig);
+        $this->processParams = $ffmpegConfig;
+        $this->adapter       = new FFMpegAdapter($ffmpegConfig);
     }
 
     /**
