@@ -44,7 +44,6 @@ class ProcessParams implements ProcessParamsInterface
         $this->timeout = $timeout;
     }
 
-
     public function getIdleTimeout(): ?int
     {
         return $this->idleTimeout;
@@ -63,7 +62,6 @@ class ProcessParams implements ProcessParamsInterface
         return $this->env;
     }
 
-
     /**
      * @param array<string, string|int> $env
      */
@@ -71,9 +69,4 @@ class ProcessParams implements ProcessParamsInterface
     {
         $this->env = $env;
     }
-
-
-
-
-
 }
