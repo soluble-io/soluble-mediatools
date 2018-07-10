@@ -109,7 +109,7 @@ class ConversionService implements ConversionServiceInterface
 
     /*
      * FOR LATER REFERENCE !!!
-    public function convertMultiPass(string $videoFile, string $outputFile, VideoConversionParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+    public function convertMultiPass(string $videoFile, string $outputFile, ConversionParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {

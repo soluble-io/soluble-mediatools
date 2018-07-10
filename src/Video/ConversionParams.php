@@ -58,7 +58,7 @@ class ConversionParams implements ConversionParamsInterface
      *
      * Generally speaking, there is limited value to multiple threads when the tmp frame size is very small.
      *
-     * @see VideoConversionParams::withFrameParallel()
+     * @see self::withFrameParallel()
      */
     public function withTileColumns(int $tileColumns): self
     {
@@ -70,7 +70,7 @@ class ConversionParams implements ConversionParamsInterface
     /**
      * Set FrameParallel (VP9 - to use in conjunction with TileColumns).
      *
-     * @see VideoConversionParams::withTileColumns()
+     * @see self::withTileColumns()
      */
     public function withFrameParallel(int $frameParallel): self
     {
@@ -210,7 +210,7 @@ class ConversionParams implements ConversionParamsInterface
     /**
      * Add with overwrite option (default).
      *
-     * @see VideoConversionParams::withNoOverwrite()
+     * @see self::withNoOverwrite()
      */
     public function withOverwrite(): self
     {
@@ -222,7 +222,7 @@ class ConversionParams implements ConversionParamsInterface
     /**
      * Add protection against output file overwriting.
      *
-     * @see VideoConversionParams::witoOverwrite()
+     * @see self::witoOverwrite()
      */
     public function withNoOverwrite(): self
     {
@@ -278,7 +278,7 @@ class ConversionParams implements ConversionParamsInterface
      *
      * @param int $qualityScale a number interpreted by the encoder, generally 1-5
      *
-     * @see VideoConversionParams::withQuality()
+     * @see self::withQuality()
      */
     public function withVideoQualityScale(int $qualityScale): self
     {

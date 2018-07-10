@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\ProcessParams;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\VideoConversionParams;
+use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\VideoConversionService;
 
 class VideoConversionTest extends TestCase
@@ -55,7 +55,7 @@ class VideoConversionTest extends TestCase
             unlink($outputFile);
         }
 
-        $convertParams = (new VideoConversionParams())
+        $convertParams = (new ConversionParams())
             ->withVideoCodec('libx264')
             ->withPreset('ultrafast')
             ->withTune('animation')
@@ -86,7 +86,7 @@ class VideoConversionTest extends TestCase
             unlink($outputFile);
         }
 
-        $convertParams = (new VideoConversionParams())
+        $convertParams = (new ConversionParams())
             ->withVideoCodec('libvpx-vp9')
             //->withCrf(32) - Using variable bitrate instead:
             ->withSeekStart(new SeekTime(1))
@@ -122,7 +122,7 @@ class VideoConversionTest extends TestCase
     public function testConvertMustThrowFileNotFoundException(): void
     {
         self::expectException(MissingInputFileException::class);
-        $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConversionParams());
+        $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new ConversionParams());
     }
 
     public function testConvertInvalidCodecMustThrowProcessException(): void
@@ -131,7 +131,7 @@ class VideoConversionTest extends TestCase
 
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
-        $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
+        $params = (new ConversionParams())->withVideoCodec('NOVALIDCODEC');
 
         $this->videoConvert->convert($this->videoFile, $outputFile, $params);
     }
@@ -142,7 +142,7 @@ class VideoConversionTest extends TestCase
 
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
-        $params = (new VideoConversionParams())->withVideoCodec('NOVALIDCODEC');
+        $params = (new ConversionParams())->withVideoCodec('NOVALIDCODEC');
 
         $this->videoConvert->convert("{$this->baseDir}/data/not_a_video_file.mov", $outputFile, $params);
     }
@@ -157,7 +157,7 @@ class VideoConversionTest extends TestCase
             unlink($outputFile);
         }
 
-        $convertParams = (new VideoConversionParams())
+        $convertParams = (new ConversionParams())
             ->withVideoCodec('h264');
 
         $container    = $this->getConfiguredContainer();
@@ -179,7 +179,7 @@ class VideoConversionTest extends TestCase
             unlink($outputFile);
         }
 
-        $convertParams = (new VideoConversionParams())
+        $convertParams = (new ConversionParams())
             ->withVideoCodec('h264');
 
         $processParams = new ProcessParams(0.1, null, []);
@@ -197,7 +197,7 @@ class VideoConversionTest extends TestCase
             unlink($outputFile);
         }
 
-        $convertParams = (new VideoConversionParams())
+        $convertParams = (new ConversionParams())
             ->withVideoCodec('h264');
 
         $processParams = new ProcessParams(null, 0.1, []);

@@ -13,7 +13,7 @@ use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\VideoConversionParams;
+use Soluble\MediaTools\Video\ConversionParams;
 
 class FFMpegAdapterTest extends TestCase
 {
@@ -32,7 +32,7 @@ class FFMpegAdapterTest extends TestCase
         $seekTimeStart = new SeekTime(0.1);
         $seekTimeEnd   = new SeekTime(0.6);
 
-        $conversionParams = (new VideoConversionParams())
+        $conversionParams = (new ConversionParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -70,21 +70,21 @@ class FFMpegAdapterTest extends TestCase
 
     public function testOverwiteSupport(): void
     {
-        $conversionParams = (new VideoConversionParams());
+        $conversionParams = (new ConversionParams());
 
         self::assertEquals('-y', implode(
             ' ',
             $this->ffmpegAdapter->getMappedConversionParams($conversionParams)
         ));
 
-        $conversionParams = (new VideoConversionParams())->withOverwrite();
+        $conversionParams = (new ConversionParams())->withOverwrite();
 
         self::assertEquals('-y', implode(
             ' ',
             $this->ffmpegAdapter->getMappedConversionParams($conversionParams)
         ));
 
-        $conversionParams = (new VideoConversionParams())->withNoOverwrite();
+        $conversionParams = (new ConversionParams())->withNoOverwrite();
         $args             = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
         self::assertEquals('', implode(' ', $args));
     }
@@ -98,7 +98,7 @@ class FFMpegAdapterTest extends TestCase
             }
         };
 
-        $conversionParams = (new VideoConversionParams())
+        $conversionParams = (new ConversionParams())
             ->withVideoFilter($filter1);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
@@ -125,7 +125,7 @@ class FFMpegAdapterTest extends TestCase
         $filterChain->addFilter($filter1);
         $filterChain->addFilter($filter2);
 
-        $conversionParams = (new VideoConversionParams())
+        $conversionParams = (new ConversionParams())
             ->withVideoFilter($filterChain);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
@@ -138,7 +138,7 @@ class FFMpegAdapterTest extends TestCase
         $filter1 = new class() implements VideoFilterInterface {
         };
 
-        $conversionParams = (new VideoConversionParams())
+        $conversionParams = (new ConversionParams())
             ->withVideoFilter($filter1);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
