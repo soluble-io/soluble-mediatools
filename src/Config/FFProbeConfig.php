@@ -11,7 +11,6 @@ class FFProbeConfig implements FFProbeConfigInterface
     public const DEFAULT_IDLE_TIMEOUT = null;
     public const DEFAULT_ENV          = [];
 
-
     /** @var string */
     protected $binary;
 

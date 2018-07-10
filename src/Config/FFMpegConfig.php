@@ -12,7 +12,6 @@ class FFMpegConfig implements FFMpegConfigInterface
     public const DEFAULT_IDLE_TIMEOUT = null;
     public const DEFAULT_ENV          = [];
 
-
     /** @var string */
     protected $binary;
 

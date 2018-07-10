@@ -6,7 +6,6 @@ namespace Soluble\MediaTools\Config;
 
 interface FFMpegConfigInterface
 {
-
     public function getBinary(): string;
 
     public function getThreads(): ?int;
