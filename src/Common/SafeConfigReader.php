@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Util;
+namespace Soluble\MediaTools\Common;
 
 use Soluble\MediaTools\Exception\InvalidConfigException;
 
