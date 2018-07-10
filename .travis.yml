@@ -48,10 +48,10 @@ jobs:
         - composer cs-check
     - stage: Test PHP7.1
       php: 7.1
-      env: XDEBUG=false INSTALL_FFMPEG=yes
+      env: INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
-    - stage: Mutation
+    - stage: Mutation (unit tests only)
       php: 7.2
       env: XDEBUG=yes
       script:
