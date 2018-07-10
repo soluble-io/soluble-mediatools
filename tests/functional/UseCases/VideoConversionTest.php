@@ -166,7 +166,7 @@ class VideoConversionTest extends TestCase
         $container    = $this->getConfiguredContainer();
         $globalConfig = $container->get(FFMpegConfigInterface::class);
 
-        $ffmpegConfig = new FFMpegConfig($globalConfig->getBinary(), null, $timeout=1);
+        $ffmpegConfig = new FFMpegConfig($globalConfig->getBinary(), null, $timeout = 1);
         $videoConvert = new VideoConversionService($ffmpegConfig);
 
         $videoConvert->convert($this->videoFile, $outputFile, $convertParams);
