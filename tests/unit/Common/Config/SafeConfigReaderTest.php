@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Common;
+namespace MediaToolsTest\Common\Config;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Common\SafeConfigReader;
+use Soluble\MediaTools\Common\Config\SafeConfigReader;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
 class SafeConfigReaderTest extends TestCase

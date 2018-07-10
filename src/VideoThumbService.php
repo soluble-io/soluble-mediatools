@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
-use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;

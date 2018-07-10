@@ -6,9 +6,9 @@ namespace MediaToolsTest\Config;
 
 use MediaToolsTest\Util\ContainerUtilTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 use Soluble\MediaTools\Config\FFProbeConfig;
 use Soluble\MediaTools\Config\FFProbeConfigFactory;
-use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
 class FFProbeConfigFactoryTest extends TestCase
 {
