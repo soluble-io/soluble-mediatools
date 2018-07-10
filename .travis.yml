@@ -30,7 +30,7 @@ install:
 jobs:
   allow_failures:
     - php: nightly
-    - stage: Mutation
+    - stage: Mutation (unit tests only)
 
   include:
     - stage: Tests and Coverage (PHP 7.2)
@@ -55,7 +55,7 @@ jobs:
       php: 7.2
       env: XDEBUG=yes
       script:
-        - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --test-framework-options="--testsuite unit" --min-msi=40 --min-covered-msi=40 --threads=4
+        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite unit' --min-msi=40 --min-covered-msi=40 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
       env: IGNORE_PLATFORM_REQS=yes
