@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Config;
+namespace MediaToolsTest\Video\Config;
 
 use MediaToolsTest\Util\ContainerUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
-use Soluble\MediaTools\Config\FFMpegConfig;
-use Soluble\MediaTools\Config\FFMpegConfigFactory;
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Config\FFMpegConfigFactory;
 
 class FFMpegConfigFactoryTest extends TestCase
 {

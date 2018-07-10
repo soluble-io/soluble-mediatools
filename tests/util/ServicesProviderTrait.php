@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Util;
 
 use Psr\Container\ContainerInterface;
-use Soluble\MediaTools\Config\ConfigProvider;
+use Soluble\MediaTools\Video\Config\ConfigProvider;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Soluble\MediaTools\Video\InfoServiceInterface;

@@ -339,7 +339,7 @@ Require the config file and feed your container (example with zend-servicemanage
 <?php 
 
 use Zend\ServiceManager\ServiceManager;
-use Soluble\MediaTools\Config\ConfigProvider;
+use Soluble\MediaTools\Video\Config\ConfigProvider;
 
 $config = require('/path/config/soluble-mediatools.config.php');
 

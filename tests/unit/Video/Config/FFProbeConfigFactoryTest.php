@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Config;
+namespace MediaToolsTest\Video\Config;
 
 use MediaToolsTest\Util\ContainerUtilTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
-use Soluble\MediaTools\Config\FFProbeConfig;
-use Soluble\MediaTools\Config\FFProbeConfigFactory;
+use Soluble\MediaTools\Video\Config\FFProbeConfig;
+use Soluble\MediaTools\Video\Config\FFProbeConfigFactory;
 
 class FFProbeConfigFactoryTest extends TestCase
 {

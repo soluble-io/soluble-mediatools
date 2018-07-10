@@ -6,8 +6,8 @@ namespace MediaToolsTest\Video\Adapter;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
-use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;

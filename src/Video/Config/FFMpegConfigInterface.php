@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Config;
+namespace Soluble\MediaTools\Video\Config;
 
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Config;
+namespace Soluble\MediaTools\Video\Config;
 
 use Soluble\MediaTools\Video\ConversionService;
 use Soluble\MediaTools\Video\ConversionServiceFactory;
@@ -25,9 +25,6 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'services' => [
-                'config' => $this->getDefaultConfiguration(),
-            ],
             'dependencies' => $this->getDependencies(),
         ];
     }
@@ -88,6 +85,6 @@ class ConfigProvider
      */
     public function getDefaultConfiguration(): array
     {
-        return require dirname(__DIR__, 2) . '/config/soluble-mediatools.config.php';
+        return require dirname(__DIR__, 3) . '/config/soluble-mediatools.config.php';
     }
 }

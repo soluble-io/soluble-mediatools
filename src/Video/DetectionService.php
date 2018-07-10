@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Config\FFMpegConfigInterface;
+use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;

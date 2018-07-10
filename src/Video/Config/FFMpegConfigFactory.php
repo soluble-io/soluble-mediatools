@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Config;
+namespace Soluble\MediaTools\Video\Config;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -10,7 +10,7 @@ use Psr\Container\NotFoundExceptionInterface;
 use Soluble\MediaTools\Common\Config\SafeConfigReader;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
-class FFProbeConfigFactory
+class FFMpegConfigFactory
 {
     public const DEFAULT_ENTRY_NAME = 'config';
     public const DEFAULT_CONFIG_KEY = 'soluble-mediatools';
@@ -32,7 +32,7 @@ class FFProbeConfigFactory
     /**
      * @throws InvalidConfigException
      */
-    public function __invoke(ContainerInterface $container): FFProbeConfig
+    public function __invoke(ContainerInterface $container): FFMpegConfig
     {
         try {
             $containerConfig = $container->get($this->entryName);
@@ -52,11 +52,12 @@ class FFProbeConfigFactory
 
         $scr = new SafeConfigReader($config, $this->configKey ?? '');
 
-        return new FFProbeConfig(
-            $scr->getString('ffprobe.binary', FFProbeConfig::DEFAULT_BINARY),
-            $scr->getNullableFloat('ffprobe.timeout', FFProbeConfig::DEFAULT_TIMEOUT),
-            $scr->getNullableFloat('ffprobe.idle_timeout', FFProbeConfig::DEFAULT_IDLE_TIMEOUT),
-            $scr->getArray('ffprobe.env', FFProbeConfig::DEFAULT_ENV)
+        return new FFMpegConfig(
+            $scr->getString('ffmpeg.binary', FFMpegConfig::DEFAULT_BINARY),
+            $scr->getNullableInt('ffmpeg.threads', FFMpegConfig::DEFAULT_THREADS),
+            $scr->getNullableFloat('ffmpeg.timeout', FFMpegConfig::DEFAULT_TIMEOUT),
+            $scr->getNullableFloat('ffmpeg.idle_timeout', FFMpegConfig::DEFAULT_IDLE_TIMEOUT),
+            $scr->getArray('ffmpeg.env', FFMpegConfig::DEFAULT_ENV)
         );
     }
 }

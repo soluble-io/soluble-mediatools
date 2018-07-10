@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
-use Soluble\MediaTools\Config\FFProbeConfigInterface;
+use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Exception\InfoExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InfoProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;

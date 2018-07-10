@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Config;
+namespace Soluble\MediaTools\Video\Config;
 
-class FFMpegConfig implements FFMpegConfigInterface
+class FFProbeConfig implements FFProbeConfigInterface
 {
     public const DEFAULT_BINARY       = 'ffmpeg';
-    public const DEFAULT_THREADS      = null;
     public const DEFAULT_TIMEOUT      = null;
     public const DEFAULT_IDLE_TIMEOUT = null;
     public const DEFAULT_ENV          = [];
 
     /** @var string */
     protected $binary;
-
-    /** @var int|null */
-    protected $threads;
 
     /** @var float|null */
     protected $timeout;
@@ -28,21 +24,18 @@ class FFMpegConfig implements FFMpegConfigInterface
     protected $env;
 
     /**
-     * @param string                    $ffmpegBinary
-     * @param int|null                  $threads      number fo threads used for conversion, null means single threads, 0 all cores, ....
-     * @param float|null                $timeout      max allowed time (in seconds) for conversion, null for no timeout
-     * @param float|null                $idleTimeout  max allowed idle time (in seconds) for conversion, null for no timeout
-     * @param array<string, string|int> $env          An array of additional env vars to set when running the ffmpeg conversion process
+     * @param string                    $ffprobeBinary FFProbeBinary, by default ffprobe
+     * @param float|null                $timeout       max allowed time (in seconds) for conversion, null for no timeout
+     * @param float|null                $idleTimeout   max allowed idle time (in seconds) for conversion, null for no timeout
+     * @param array<string, string|int> $env           An array of additional env vars to set when running the ffprobe process
      */
     public function __construct(
-        string $ffmpegBinary = self::DEFAULT_BINARY,
-        ?int $threads = self::DEFAULT_THREADS,
+        string $ffprobeBinary = self::DEFAULT_BINARY,
         ?float $timeout = self::DEFAULT_TIMEOUT,
         ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
-        $this->binary      = $ffmpegBinary;
-        $this->threads     = $threads;
+        $this->binary      = $ffprobeBinary;
         $this->timeout     = $timeout;
         $this->idleTimeout = $idleTimeout;
         $this->env         = $env;
@@ -51,11 +44,6 @@ class FFMpegConfig implements FFMpegConfigInterface
     public function getBinary(): string
     {
         return $this->binary;
-    }
-
-    public function getThreads(): ?int
-    {
-        return $this->threads;
     }
 
     public function getTimeout(): ?float

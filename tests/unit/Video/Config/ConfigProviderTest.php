@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MediaToolsTest\Config;
+namespace MediaToolsTest\Video\Config;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Config\ConfigProvider;
+use Soluble\MediaTools\Video\Config\ConfigProvider;
 
 class ConfigProviderTest extends TestCase
 {

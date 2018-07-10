@@ -6,7 +6,7 @@ namespace MediaToolsTest\Video;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\ConversionService;
 use Soluble\MediaTools\Video\ConversionServiceInterface;

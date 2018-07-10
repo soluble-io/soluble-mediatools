@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Psr\Container\ContainerInterface;
-use Soluble\MediaTools\Config\FFMpegConfigInterface;
+use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 
 class ThumbServiceFactory
 {
