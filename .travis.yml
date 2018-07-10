@@ -23,7 +23,7 @@ jobs:
   include:
     - stage: Test PHP 7.2
       php: 7.2
-      env: COVERAGE=true
+      env: COVERAGE=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
