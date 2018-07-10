@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Converter\FFMpegCLIValueInterface;
 
 class SeekTime implements FFMpegCLIValueInterface

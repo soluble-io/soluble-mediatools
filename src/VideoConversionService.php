@@ -6,9 +6,9 @@ namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Exception\FileNotFoundException;
-use Soluble\MediaTools\Exception\UnsupportedParamException;
-use Soluble\MediaTools\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
+use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;

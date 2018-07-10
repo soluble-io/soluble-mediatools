@@ -6,7 +6,7 @@ namespace MediaToolsTest\Functional\UseCases;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\InfoServiceInterface;
 
 class VideoInfoTest extends TestCase

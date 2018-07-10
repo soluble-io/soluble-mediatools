@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common;
 
-use Soluble\MediaTools\Exception\InvalidConfigException;
+use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
 class SafeConfigReader
 {

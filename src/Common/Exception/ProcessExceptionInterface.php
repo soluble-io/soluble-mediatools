@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Exception;
+namespace Soluble\MediaTools\Common\Exception;
 
 use Symfony\Component\Process\Exception as SymfonyProcessException;
 use Symfony\Component\Process\Process;

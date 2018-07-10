@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Exception\JsonParseException;
+use Soluble\MediaTools\Common\Exception\JsonParseException;
 
 class Info implements InfoInterface
 {

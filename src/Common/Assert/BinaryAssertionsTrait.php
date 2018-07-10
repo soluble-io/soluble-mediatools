@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Assert;
 
-use Soluble\MediaTools\Exception\MissingBinaryException;
+use Soluble\MediaTools\Common\Exception\MissingBinaryException;
 
 trait BinaryAssertionsTrait
 {

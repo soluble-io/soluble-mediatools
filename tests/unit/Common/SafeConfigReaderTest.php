@@ -6,7 +6,7 @@ namespace MediaToolsTest\Common;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\SafeConfigReader;
-use Soluble\MediaTools\Exception\InvalidConfigException;
+use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
 class SafeConfigReaderTest extends TestCase
 {

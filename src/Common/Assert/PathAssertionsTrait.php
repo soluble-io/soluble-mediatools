@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Assert;
 
-use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 
 trait PathAssertionsTrait
 {

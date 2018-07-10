@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\SeekTime;
 
 class SeekTimeTest extends TestCase

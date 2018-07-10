@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools;
 
 use Soluble\MediaTools\Common\Assert\BitrateAssertionsTrait;
-use Soluble\MediaTools\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Converter\FFMpegCLIValueInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;

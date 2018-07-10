@@ -8,7 +8,7 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Config\FFMpegConfig;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Exception\ProcessExceptionInterface;
+use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;

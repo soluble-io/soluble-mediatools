@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Filter;
 
-use Soluble\MediaTools\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 

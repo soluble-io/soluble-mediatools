@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Exception;
 
-class RuntimeException extends \Soluble\MediaTools\Exception\RuntimeException implements ConversionExceptionInterface, DetectionExceptionInterface, InfoExceptionInterface
+class RuntimeException extends \Soluble\MediaTools\Common\Exception\RuntimeException implements ConversionExceptionInterface, DetectionExceptionInterface, InfoExceptionInterface
 {
 }

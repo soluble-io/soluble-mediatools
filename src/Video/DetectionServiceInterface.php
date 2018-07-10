@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Symfony\Component\Process\Exception\RuntimeException as SPRuntimeException;
 
