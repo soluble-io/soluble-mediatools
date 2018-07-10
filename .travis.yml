@@ -5,22 +5,27 @@ cache:
     directories:
         - vendor
         - $HOME/.composer/cache
-
+        - .travis/downloads
+        - .travis/ffmpeg-release-64bit-static
 
 before_install:
   - |
     if [ "x$COVERAGE" != "xyes" ]; then
       mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
     fi
-
   - |
     if [ "x$INSTALL_FFMPEG" != "xyes" ]; then
-      ./travis/travis-install-ffmpeg.sh
+      .travis/travis-install-ffmpeg.sh
     fi
 
-
 install:
-  - travis_retry composer -n update --prefer-dist --no-interaction "$IGNORE_PLATFORM_REQS"
+  - |
+    if [ "x$IGNORE_PLATFORM_REQS" != "xyes" ]; then
+      travis_retry composer -n update --prefer-dist --no-interaction
+    else
+      travis_retry composer -n update --prefer-dist --no-interaction --ignore-platform-reqs
+    fi
+
 
 jobs:
   allow_failures:
@@ -54,9 +59,9 @@ jobs:
       env: COVERAGE=true INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=55 --min-covered-msi=65 --threads=4
-    - stage: Test PHP Nightly
+    - stage: Test PHP Nightly (unit tests only)
       php: nightly
-      env: COVERAGE=false IGNORE_PLATFORM_REQS="--ignore-platform-reqs"
+      env: COVERAGE=false IGNORE_PLATFORM_REQS=yes
       script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
 
