@@ -357,7 +357,7 @@ $container = new ServiceManager(
 
 ```
 
-> Tip: Have a look to the [ConfigProvider](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Config/ConfigProvider.php) class
+> Tip: Have a look to the [ConfigProvider](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/ConfigProvider.php) class
 > to get some ideas about registered factories / aliases
 
 
