@@ -53,9 +53,9 @@ jobs:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Mutation
       php: 7.2
-      env: COVERAGE=true INSTALL_FFMPEG=yes
+      env: COVERAGE=true
       script:
-        - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --min-msi=55 --min-covered-msi=65 --threads=4
+        - ./vendor/bin/infection --configuration=.travis/infection.travis.json --test-framework=phpunit --test-framework-options="--testsuite unit" --min-msi=40 --min-covered-msi=40 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
       env: COVERAGE=false IGNORE_PLATFORM_REQS=yes
