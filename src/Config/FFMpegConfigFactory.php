@@ -7,8 +7,8 @@ namespace Soluble\MediaTools\Config;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Soluble\MediaTools\Common\SafeConfigReader;
 use Soluble\MediaTools\Exception\InvalidConfigException;
-use Soluble\MediaTools\Util\SafeConfigReader;
 
 class FFMpegConfigFactory
 {

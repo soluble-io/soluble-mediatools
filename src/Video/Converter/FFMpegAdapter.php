@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Converter;
 
+use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Exception\UnsupportedParamValueException;
-use Soluble\MediaTools\Util\PlatformNullFile;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
-use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
 class FFMpegAdapter implements AdapterInterface
 {

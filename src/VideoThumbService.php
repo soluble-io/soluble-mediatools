@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools;
 
+use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Exception\UnsupportedParamValueException;
-use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
-use Soluble\MediaTools\Video\Exception\ProcessTimeOutException;
+use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
@@ -83,7 +83,7 @@ class VideoThumbService implements ThumbServiceInterface
      * @throws ConversionExceptionInterface        Base exception class for conversion exceptions
      * @throws ConversionProcessExceptionInterface Base exception class for process conversion exceptions
      * @throws MissingInputFileException
-     * @throws ProcessTimeOutException
+     * @throws ProcessTimedOutException
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
      * @throws RuntimeException
@@ -101,7 +101,7 @@ class VideoThumbService implements ThumbServiceInterface
         } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
             throw new InvalidParamException($e->getMessage());
         } catch (SPException\ProcessTimedOutException $e) {
-            throw new ProcessTimeOutException($e->getProcess(), $e);
+            throw new ProcessTimedOutException($e->getProcess(), $e);
         } catch (SPException\ProcessSignaledException $e) {
             throw new ProcessSignaledException($e->getProcess(), $e);
         } catch (SPException\ProcessFailedException $e) {

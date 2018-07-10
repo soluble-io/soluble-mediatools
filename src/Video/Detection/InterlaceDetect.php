@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Detection;
 
+use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Exception\FileNotFoundException;
 use Soluble\MediaTools\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Exception\UnsupportedParamValueException;
-use Soluble\MediaTools\Util\Assert\PathAssertionsTrait;
-use Soluble\MediaTools\Util\PlatformNullFile;
 use Soluble\MediaTools\Video\Converter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\DetectionProcessExceptionInterface;
