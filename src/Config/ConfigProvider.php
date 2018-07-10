@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Config;
 
+use Soluble\MediaTools\Video\ConversionService;
 use Soluble\MediaTools\Video\ConversionServiceFactory;
 use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\DetectionService;
 use Soluble\MediaTools\Video\DetectionServiceFactory;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
+use Soluble\MediaTools\Video\InfoService;
 use Soluble\MediaTools\Video\InfoServiceFactory;
 use Soluble\MediaTools\Video\InfoServiceInterface;
+use Soluble\MediaTools\Video\ThumbService;
 use Soluble\MediaTools\Video\ThumbServiceFactory;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
-use Soluble\MediaTools\VideoConversionService;
-use Soluble\MediaTools\VideoDetectionService;
-use Soluble\MediaTools\VideoInfoService;
-use Soluble\MediaTools\VideoThumbService;
 
 class ConfigProvider
 {
@@ -56,10 +56,10 @@ class ConfigProvider
             FFProbeConfig::class          => FFProbeConfigInterface::class,
 
             // Services
-            VideoConversionService::class      => ConversionServiceInterface::class,
-            VideoInfoService::class            => InfoServiceInterface::class,
-            VideoDetectionService::class       => DetectionServiceInterface::class,
-            VideoThumbService::class           => ThumbServiceInterface::class,
+            ConversionService::class      => ConversionServiceInterface::class,
+            InfoService::class            => InfoServiceInterface::class,
+            DetectionService::class       => DetectionServiceInterface::class,
+            ThumbService::class           => ThumbServiceInterface::class,
         ];
     }
 
