@@ -31,6 +31,7 @@ jobs:
   allow_failures:
     - php: nightly
     - stage: Mutation (unit tests only)
+    - stage: Make doc
 
   include:
     - stage: Tests and Coverage (PHP 7.2)
@@ -51,6 +52,10 @@ jobs:
       env: INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+    - stage: Make doc
+      script:
+        - pip install -r ./requirements.txt
+        - mkdocs build
     - stage: Mutation (unit tests only)
       php: 7.2
       env: XDEBUG=yes
