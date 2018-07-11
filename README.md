@@ -63,7 +63,7 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 > $videoConverter = $aPsr11Container->get(ConversionServiceInterface::class);
 > ```
 
-#### Conversion from `mov` to `mp4/x264/aac`
+#### Transcode `mov` to `mp4/x264/aac`
 
 > See the [official H264](https://trac.ffmpeg.org/wiki/Encode/H.264) doc. 
 
@@ -71,7 +71,7 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 <?php
 use Soluble\MediaTools\Video\{Exception, ConversionParams, ConversionServiceInterface};
 
-$convertParams = (new ConversionParams)
+$convertParams = (new ConversionParams())
             ->withVideoCodec('libx264')
             ->withAudioCodec('aac')
             ->withAudioBitrate('128k')            
@@ -96,7 +96,7 @@ try {
        
 ``` 
 
-#### Conversion from `mov` to `webm/vp9/opus`
+#### Transcode `mp4` to `webm/vp9/opus`
 
 > See the official [ffmpeg VP9 docs](https://trac.ffmpeg.org/wiki/Encode/VP9) 
 > and have a look at the [google vp9 VOD](https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines) guidelines
@@ -104,9 +104,9 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{Exception, ConversionParams};
+use Soluble\MediaTools\Video\{Exception, ConversionParams, ConversionServiceInterface};
 
-$convertParams = (new ConversionParams)
+$convertParams = (new ConversionParams())
                 ->withVideoCodec('libvpx-vp9')
                 ->withVideoBitrate('750k')
                 ->withQuality('good')
@@ -134,9 +134,13 @@ $convertParams = (new ConversionParams)
 
 try {
     
-    /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
+    /** @var ConversionServiceInterface $videoConverter */
     
-    $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.webm', $convertParams);
+    $videoConverter->convert(
+        '/path/inputFile.mp4', 
+        '/path/outputFile.webm', 
+        $convertParams
+    );
     
 } catch(Exception\ConversionExceptionInterface $e) {
     // see chapter about exceptions        
@@ -144,7 +148,7 @@ try {
 
 ``` 
 
-#### Video clipping
+#### Clip video
 
 > See the official [ffmpeg docs](https://trac.ffmpeg.org/wiki/Seeking) 
 
@@ -153,7 +157,7 @@ try {
 <?php
 use Soluble\MediaTools\Video\{Exception, ConversionParams, SeekTime};
 
-$convertParams = (new ConversionParams)
+$convertParams = (new ConversionParams())
                 ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
                 ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
 
@@ -188,7 +192,7 @@ try {
 > ```
 
 
-#### Simple thumbnail creation
+#### Basic thumbnail
 
 ```php
 <?php
