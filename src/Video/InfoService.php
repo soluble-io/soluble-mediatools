@@ -6,6 +6,8 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Process\ProcessFactory;
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Exception\InfoExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InfoProcessExceptionInterface;
@@ -33,10 +35,8 @@ class InfoService implements InfoServiceInterface
      * things your way...
      *
      * @see https://symfony.com/doc/current/components/process.html
-     *
-     * @throws FileNotFoundException when inputFile does not exists
      */
-    public function getFFProbeProcess(string $inputFile): Process
+    public function getSymfonyProcess(string $inputFile, ?ProcessParamsInterface $processParams = null): Process
     {
         $ffprobeCmd = trim(sprintf(
             '%s %s %s',
@@ -50,12 +50,9 @@ class InfoService implements InfoServiceInterface
             sprintf('-i %s', escapeshellarg($inputFile))
         ));
 
-        $process = new Process($ffprobeCmd);
-        $process->setTimeout($this->ffprobeConfig->getTimeout());
-        $process->setIdleTimeout($this->ffprobeConfig->getIdleTimeout());
-        $process->setEnv($this->ffprobeConfig->getEnv());
+        $pp = $processParams ?? $this->ffprobeConfig->getProcessParams();
 
-        return $process;
+        return (new ProcessFactory($ffprobeCmd, $pp))();
     }
 
     /**
@@ -69,7 +66,7 @@ class InfoService implements InfoServiceInterface
     {
         try {
             $this->ensureFileExists($file);
-            $process = $this->getFFProbeProcess($file);
+            $process = $this->getSymfonyProcess($file);
 
             $process->mustRun();
             $output = $process->getOutput();

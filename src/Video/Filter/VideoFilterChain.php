@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Filter;
 
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
@@ -13,10 +14,23 @@ class VideoFilterChain implements FFMpegVideoFilterInterface
     /** @var VideoFilterInterface[] */
     protected $filters = [];
 
-    public function __construct()
+    /**
+     * @param VideoFilterInterface[] $filters
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(array $filters = [])
     {
+        if ($filters === []) {
+            return;
+        }
+
+        $this->addFilters($filters);
     }
 
+    /**
+     * @return VideoFilterInterface[]
+     */
     public function getFilters(): array
     {
         return $this->filters;
@@ -25,6 +39,26 @@ class VideoFilterChain implements FFMpegVideoFilterInterface
     public function addFilter(VideoFilterInterface $filter): void
     {
         $this->filters[] = $filter;
+    }
+
+    /**
+     * @param VideoFilterInterface[] $filters
+     *
+     * @throws InvalidArgumentException
+     */
+    public function addFilters(array $filters): void
+    {
+        foreach ($filters as $filter) {
+            if (!$filter instanceof VideoFilterInterface) {
+                throw new InvalidArgumentException(sprintf(
+                    'Cannot add filter \'%s\', it must not implement %s',
+                    is_object($filter) ? get_class($filter) : gettype($filter),
+                    VideoFilterInterface::class
+                ));
+            }
+            $this->filters[] = $filter;
+        }
+        $this->filters = $this->filters + $filters;
     }
 
     /**

@@ -1,0 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Soluble\MediaTools\Video\Exception;
+
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException as IAE;
+
+class InvalidArgumentException extends IAE
+{
+}

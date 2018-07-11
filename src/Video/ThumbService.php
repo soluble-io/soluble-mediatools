@@ -8,8 +8,8 @@ use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
@@ -27,16 +27,12 @@ class ThumbService implements ThumbServiceInterface
 {
     use PathAssertionsTrait;
 
-    /** @var ProcessParamsInterface */
-    protected $processParams;
-
-    /** @var FFMpegAdapter */
-    protected $adapter;
+    /** @var FFMpegConfigInterface */
+    protected $ffmpegConfig;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
-        $this->adapter       = new FFMpegAdapter($ffmpegConfig);
-        $this->processParams = $ffmpegConfig;
+        $this->ffmpegConfig = $ffmpegConfig;
     }
 
     /**
@@ -51,13 +47,15 @@ class ThumbService implements ThumbServiceInterface
      */
     public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ?SeekTime $time = null, ?VideoFilterInterface $videoFilter = null, ?ProcessParamsInterface $processParams = null): Process
     {
+        $adapter = $this->ffmpegConfig->getAdapter();
+
         $params = (new ConversionParams());
 
         if (!$params->hasParam(ConversionParamsInterface::PARAM_THREADS)
-            && $this->adapter->getDefaultThreads() !== null) {
+            && $adapter->getDefaultThreads() !== null) {
             $params = $params->withBuiltInParam(
                 ConversionParamsInterface::PARAM_THREADS,
-                $this->adapter->getDefaultThreads()
+                $adapter->getDefaultThreads()
             );
         }
 
@@ -75,17 +73,12 @@ class ThumbService implements ThumbServiceInterface
         // Quality scale for the mjpeg encoder
         $params->withVideoQualityScale(2);
 
-        $arguments = $this->adapter->getMappedConversionParams($params);
-        $ffmpegCmd = $this->adapter->getCliCommand($arguments, $videoFile, $thumbnailFile);
+        $arguments = $adapter->getMappedConversionParams($params);
+        $ffmpegCmd = $adapter->getCliCommand($arguments, $videoFile, $thumbnailFile);
 
-        $pp = $processParams ?? $this->processParams;
+        $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
 
-        $process = new Process($ffmpegCmd);
-        $process->setTimeout($pp->getTimeout());
-        $process->setIdleTimeout($pp->getIdleTimeout());
-        $process->setEnv($pp->getEnv());
-
-        return $process;
+        return (new ProcessFactory($ffmpegCmd, $pp))();
     }
 
     /**

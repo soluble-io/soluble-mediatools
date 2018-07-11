@@ -67,9 +67,9 @@ class FFProbeConfigFactoryTest extends TestCase
 
         $config = (new FFProbeConfigFactory())->__invoke($container);
         self::assertEquals(FFProbeConfig::DEFAULT_BINARY, $config->getBinary());
-        self::assertEquals(FFProbeConfig::DEFAULT_TIMEOUT, $config->getTimeout());
-        self::assertEquals(FFProbeConfig::DEFAULT_IDLE_TIMEOUT, $config->getIdleTimeout());
-        self::assertEquals(FFProbeConfig::DEFAULT_ENV, $config->getEnv());
+        self::assertEquals(FFProbeConfig::DEFAULT_TIMEOUT, $config->getProcessParams()->getTimeout());
+        self::assertEquals(FFProbeConfig::DEFAULT_IDLE_TIMEOUT, $config->getProcessParams()->getIdleTimeout());
+        self::assertEquals(FFProbeConfig::DEFAULT_ENV, $config->getProcessParams()->getEnv());
     }
 
     public function testMustReturnFFMpegConfig(): void
@@ -85,9 +85,9 @@ class FFProbeConfigFactoryTest extends TestCase
 
         $config = (new FFProbeConfigFactory())->__invoke($container);
         self::assertEquals('hello', $config->getBinary());
-        self::assertEquals(200, $config->getTimeout());
-        self::assertEquals(50, $config->getIdleTimeout());
-        self::assertEquals(['cool' => 'test'], $config->getEnv());
+        self::assertEquals(200, $config->getProcessParams()->getTimeout());
+        self::assertEquals(50, $config->getProcessParams()->getIdleTimeout());
+        self::assertEquals(['cool' => 'test'], $config->getProcessParams()->getEnv());
     }
 
     public function testMustThrowInvalidConfigExceptionWhenInvalidType(): void

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Config;
 
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
+use Soluble\MediaTools\Video\ProcessParams;
+
 class FFProbeConfig implements FFProbeConfigInterface
 {
     public const DEFAULT_BINARY       = 'ffmpeg';
@@ -14,14 +17,8 @@ class FFProbeConfig implements FFProbeConfigInterface
     /** @var string */
     protected $binary;
 
-    /** @var float|null */
-    protected $timeout;
-
-    /** @var float|null */
-    protected $idleTimeout;
-
-    /** @var array<string, string|int> */
-    protected $env;
+    /** @var ProcessParamsInterface */
+    protected $processParams;
 
     /**
      * @param string                    $ffprobeBinary FFProbeBinary, by default ffprobe
@@ -35,10 +32,12 @@ class FFProbeConfig implements FFProbeConfigInterface
         ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
-        $this->binary      = $ffprobeBinary;
-        $this->timeout     = $timeout;
-        $this->idleTimeout = $idleTimeout;
-        $this->env         = $env;
+        $this->binary        = $ffprobeBinary;
+        $this->processParams = new ProcessParams(
+            $timeout,
+            $idleTimeout,
+            $env
+        );
     }
 
     public function getBinary(): string
@@ -46,21 +45,8 @@ class FFProbeConfig implements FFProbeConfigInterface
         return $this->binary;
     }
 
-    public function getTimeout(): ?float
+    public function getProcessParams(): ProcessParamsInterface
     {
-        return $this->timeout;
-    }
-
-    public function getIdleTimeout(): ?float
-    {
-        return $this->idleTimeout;
-    }
-
-    /**
-     * @return array<string, string|int>
-     */
-    public function getEnv(): array
-    {
-        return $this->env;
+        return $this->processParams;
     }
 }

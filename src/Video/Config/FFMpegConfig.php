@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Config;
 
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
+use Soluble\MediaTools\Video\Adapter\AdapterInterface;
+use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
+use Soluble\MediaTools\Video\ProcessParams;
+
 class FFMpegConfig implements FFMpegConfigInterface
 {
     public const DEFAULT_BINARY       = 'ffmpeg';
@@ -18,14 +23,11 @@ class FFMpegConfig implements FFMpegConfigInterface
     /** @var int|null */
     protected $threads;
 
-    /** @var float|null */
-    protected $timeout;
+    /** @var FFMpegAdapter */
+    protected $ffmpegAdapter;
 
-    /** @var float|null */
-    protected $idleTimeout;
-
-    /** @var array<string, string|int> */
-    protected $env;
+    /** @var ProcessParams */
+    protected $processParams;
 
     /**
      * @param string                    $ffmpegBinary
@@ -43,9 +45,12 @@ class FFMpegConfig implements FFMpegConfigInterface
     ) {
         $this->binary      = $ffmpegBinary;
         $this->threads     = $threads;
-        $this->timeout     = $timeout;
-        $this->idleTimeout = $idleTimeout;
-        $this->env         = $env;
+
+        $this->processParams = new ProcessParams(
+            $timeout,
+            $idleTimeout,
+            $env
+        );
     }
 
     public function getBinary(): string
@@ -58,21 +63,20 @@ class FFMpegConfig implements FFMpegConfigInterface
         return $this->threads;
     }
 
-    public function getTimeout(): ?float
+    public function getProcessParams(): ProcessParamsInterface
     {
-        return $this->timeout;
-    }
-
-    public function getIdleTimeout(): ?float
-    {
-        return $this->idleTimeout;
+        return $this->processParams;
     }
 
     /**
-     * @return array<string, string|int>
+     * @return FFMpegAdapter
      */
-    public function getEnv(): array
+    public function getAdapter(): AdapterInterface
     {
-        return $this->env;
+        if ($this->ffmpegAdapter === null) {
+            $this->ffmpegAdapter = new FFMpegAdapter($this);
+        }
+
+        return $this->ffmpegAdapter;
     }
 }

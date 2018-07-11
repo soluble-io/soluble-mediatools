@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
@@ -32,10 +33,10 @@ class DetectionService implements DetectionServiceInterface
      * @throws MissingInputFileException
      * @throws RuntimeException
      */
-    public function detectInterlacement(string $file, int $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceDetectGuess
+    public function detectInterlacement(string $file, int $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
     {
         $interlaceDetect = new InterlaceDetect($this->ffmpegConfig);
 
-        return $interlaceDetect->guessInterlacing($file, $maxFramesToAnalyze);
+        return $interlaceDetect->guessInterlacing($file, $maxFramesToAnalyze, $processParams);
     }
 }

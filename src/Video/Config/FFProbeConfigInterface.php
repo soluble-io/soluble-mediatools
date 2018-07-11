@@ -6,7 +6,9 @@ namespace Soluble\MediaTools\Video\Config;
 
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 
-interface FFProbeConfigInterface extends ProcessParamsInterface
+interface FFProbeConfigInterface
 {
     public function getBinary(): string;
+
+    public function getProcessParams(): ProcessParamsInterface;
 }

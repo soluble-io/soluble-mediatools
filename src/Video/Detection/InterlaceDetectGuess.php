@@ -12,10 +12,10 @@ class InterlaceDetectGuess
 {
     /**
      * Default interlacing detection threshold
-     * 20% frames detected interlaced is a sufficient
+     * 25% frames detected interlaced is a sufficient
      * threshold to detect interlacing.
      */
-    public const DEFAULT_DETECTION_THRESHOLD = 0.2;
+    public const DEFAULT_DETECTION_THRESHOLD = 0.25;
 
     public const MODE_INTERLACED_BFF = 'INTERLACED_BFF';
     public const MODE_INTERLACED_TFF = 'INTERLACED_TFF';

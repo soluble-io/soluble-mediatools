@@ -8,8 +8,8 @@ use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
@@ -26,16 +26,12 @@ class ConversionService implements ConversionServiceInterface
 {
     use PathAssertionsTrait;
 
-    /** @var ProcessParamsInterface */
-    protected $processParams;
-
-    /** @var FFMpegAdapter */
-    protected $adapter;
+    /** @var FFMpegConfigInterface */
+    protected $ffmpegConfig;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
-        $this->adapter       = new FFMpegAdapter($ffmpegConfig);
-        $this->processParams = $ffmpegConfig;
+        $this->ffmpegConfig  = $ffmpegConfig;
     }
 
     /**
@@ -50,25 +46,22 @@ class ConversionService implements ConversionServiceInterface
      */
     public function getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process
     {
+        $adapter = $this->ffmpegConfig->getAdapter();
+
         if (!$convertParams->hasParam(ConversionParamsInterface::PARAM_THREADS)
-            && $this->adapter->getDefaultThreads() !== null) {
+            && $adapter->getDefaultThreads() !== null) {
             $convertParams = $convertParams->withBuiltInParam(
                 ConversionParamsInterface::PARAM_THREADS,
-                $this->adapter->getDefaultThreads()
+                $adapter->getDefaultThreads()
             );
         }
 
-        $arguments = $this->adapter->getMappedConversionParams($convertParams);
-        $ffmpegCmd = $this->adapter->getCliCommand($arguments, $inputFile, $outputFile);
+        $arguments = $adapter->getMappedConversionParams($convertParams);
+        $ffmpegCmd = $adapter->getCliCommand($arguments, $inputFile, $outputFile);
 
-        $pp = $processParams ?? $this->processParams;
+        $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
 
-        $process = new Process($ffmpegCmd);
-        $process->setTimeout($pp->getTimeout());
-        $process->setIdleTimeout($pp->getIdleTimeout());
-        $process->setEnv($pp->getEnv());
-
-        return $process;
+        return (new ProcessFactory($ffmpegCmd, $pp))();
     }
 
     /**

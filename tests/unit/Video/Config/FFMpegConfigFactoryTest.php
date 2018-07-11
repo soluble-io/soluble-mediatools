@@ -69,9 +69,9 @@ class FFMpegConfigFactoryTest extends TestCase
         $config = (new FFMpegConfigFactory())->__invoke($container);
         self::assertEquals(FFMpegConfig::DEFAULT_BINARY, $config->getBinary());
         self::assertEquals(FFMpegConfig::DEFAULT_THREADS, $config->getThreads());
-        self::assertEquals(FFMpegConfig::DEFAULT_TIMEOUT, $config->getTimeout());
-        self::assertEquals(FFMpegConfig::DEFAULT_IDLE_TIMEOUT, $config->getIdleTimeout());
-        self::assertEquals(FFMpegConfig::DEFAULT_ENV, $config->getEnv());
+        self::assertEquals(FFMpegConfig::DEFAULT_TIMEOUT, $config->getProcessParams()->getTimeout());
+        self::assertEquals(FFMpegConfig::DEFAULT_IDLE_TIMEOUT, $config->getProcessParams()->getIdleTimeout());
+        self::assertEquals(FFMpegConfig::DEFAULT_ENV, $config->getProcessParams()->getEnv());
     }
 
     public function testMustReturnFFMpegConfig(): void
@@ -89,9 +89,9 @@ class FFMpegConfigFactoryTest extends TestCase
         $config = (new FFMpegConfigFactory())->__invoke($container);
         self::assertEquals('hello', $config->getBinary());
         self::assertEquals(10, $config->getThreads());
-        self::assertEquals(200, $config->getTimeout());
-        self::assertEquals(50, $config->getIdleTimeout());
-        self::assertEquals(['cool' => 'test'], $config->getEnv());
+        self::assertEquals(200, $config->getProcessParams()->getTimeout());
+        self::assertEquals(50, $config->getProcessParams()->getIdleTimeout());
+        self::assertEquals(['cool' => 'test'], $config->getProcessParams()->getEnv());
     }
 
     public function testMustThrowInvalidConfigExceptionWhenInvalidType(): void

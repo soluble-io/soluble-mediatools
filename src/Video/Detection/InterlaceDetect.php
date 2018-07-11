@@ -9,8 +9,8 @@ use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
+use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
@@ -21,7 +21,6 @@ use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Soluble\MediaTools\Video\Filter\IdetVideoFilter;
 use Symfony\Component\Process\Exception as SPException;
-use Symfony\Component\Process\Process;
 
 class InterlaceDetect
 {
@@ -29,16 +28,12 @@ class InterlaceDetect
 
     public const DEFAULT_INTERLACE_MAX_FRAMES = 1000;
 
-    /** @var ProcessParamsInterface */
-    protected $processParams;
-
-    /** @var FFMpegAdapter */
-    protected $adapter;
+    /** @var FFMpegConfigInterface */
+    protected $ffmpegConfig;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {
-        $this->processParams = $ffmpegConfig;
-        $this->adapter       = new FFMpegAdapter($ffmpegConfig);
+        $this->ffmpegConfig = $ffmpegConfig;
     }
 
     /**
@@ -48,9 +43,10 @@ class InterlaceDetect
      * @throws MissingInputFileException
      * @throws RuntimeException
      */
-    public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES): InterlaceDetectGuess
+    public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
     {
-        $params = (new ConversionParams())
+        $adapter = $this->ffmpegConfig->getAdapter();
+        $params  = (new ConversionParams())
             ->withVideoFilter(new IdetVideoFilter()) // detect interlaced frames :)
             ->withVideoFrames($maxFramesToAnalyze)
             ->withNoAudio() // speed up the thing
@@ -60,10 +56,12 @@ class InterlaceDetect
         try {
             $this->ensureFileExists($file);
 
-            $arguments = $this->adapter->getMappedConversionParams($params);
-            $ffmpegCmd = $this->adapter->getCliCommand($arguments, $file, new PlatformNullFile());
+            $arguments = $adapter->getMappedConversionParams($params);
+            $ffmpegCmd = $adapter->getCliCommand($arguments, $file, new PlatformNullFile());
 
-            $process = new Process($ffmpegCmd);
+            $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
+
+            $process = (new ProcessFactory($ffmpegCmd, $pp))->__invoke();
             $process->mustRun();
         } catch (FileNotFoundException $e) {
             throw new MissingInputFileException($e->getMessage());
