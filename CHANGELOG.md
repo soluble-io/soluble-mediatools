@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.0 (2018-07-xx)
+
+### Changed
+
+- [BC-Break] `ThumbServiceInterface::makeThumbnail()` now requires `ThumbParamsInterface`.
+
+### Added
+
+- Added `VideoFilterChain::__construct(array $filters = [])`
+- Added `VideoFilterChain::addFilters(array $filters = [])`
+
+### Improved
+
+- Separation of concern for `ProcessParamInterface`
+
 ## 0.5.0 (2018-07-10) 
 
 ### Changed

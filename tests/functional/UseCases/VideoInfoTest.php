@@ -42,7 +42,7 @@ class VideoInfoTest extends TestCase
         self::assertEquals(1113, $videoInfo->getNbFrames());
     }
 
-    public function testGetMEdiaInfoThrowsFileNotFoundException(): void
+    public function testGetMediaInfoThrowsFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);
         $this->infoService->getInfo('/path/path/does_not_exist.mp4');

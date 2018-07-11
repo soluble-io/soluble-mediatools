@@ -69,7 +69,7 @@ The `Video\ConvertServiceInterface` offers two ways to convert a video to anothe
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{Exception, ConversionParams};
+use Soluble\MediaTools\Video\{Exception, ConversionParams, ConversionServiceInterface};
 
 $convertParams = (new ConversionParams)
             ->withVideoCodec('libx264')
@@ -81,8 +81,13 @@ $convertParams = (new ConversionParams)
     
 try {
     
-    /** @var Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
-    $videoConverter->convert('/path/inputFile.mov', '/path/outputFile.mp4', $convertParams);
+    /** @var ConversionServiceInterface $videoConverter */
+    
+    $videoConverter->convert(
+        '/path/inputFile.mov', 
+        '/path/outputFile.mp4', 
+        $convertParams
+    );
     
 } catch(Exception\ConversionExceptionInterface $e) {
     // See chapters about exception !!! 
@@ -183,26 +188,63 @@ try {
 > ```
 
 
-#### Create a thumbnail
+#### Simple thumbnail creation
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{Exception, SeekTime, ThumbServiceInterface};
-
-
-$videoFile = '/path/input_video.webm';
+use Soluble\MediaTools\Video\{Exception, SeekTime, ThumbParams, ThumbServiceInterface};
 
 try {
     
     /** @var ThumbServiceInterface $thumbService */
     
-    $thumbService->makeThumbnail($videoFile, '/path/thumb.jpg', new SeekTime(4.25));
+    $thumbService->makeThumbnail(
+        '/path/input_video.webm', 
+        '/path/output_thumb.jpg', 
+        (new ThumbParams())->withSeekTime(new SeekTime(4.25))
+    );
     
 } catch (Exception\ConversionExceptionInterface $e) {    
     // see chapter about exceptions
 } 
 
 ```
+
+#### Advanced parameters
+
+```php
+<?php 
+use Soluble\MediaTools\Video\{Exception, SeekTime, ThumbParams, Filter, ProcessParams, ThumbServiceInterface};
+
+
+try {
+    
+    /** @var ThumbServiceInterface $thumbService */
+
+    $thumbService->makeThumbnail(
+            '/path/input.mov',
+            '/path/output_thumb.jpg',
+            (new ThumbParams())    
+                ->withSeekTime(new SeekTime(0.25))
+                // Deinterlace, denoise
+                ->withVideoFilter(new Filter\VideoFilterChain([
+                    new Filter\YadifVideoFilter(),
+                    new Filter\NlmeansVideoFilter()
+                ]))
+                // Quality scale to send to mjpeg encoder
+                ->withQualityScale(2),
+            null,
+            // Time-out after 1 second !
+            new ProcessParams(1.0)
+    );
+
+    
+} catch (Exception\ConversionExceptionInterface $e) {    
+    // see chapter about exceptions
+} 
+```
+
+
 
 ----------------------
 ## VideoDetectionService. 

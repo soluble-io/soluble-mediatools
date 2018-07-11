@@ -10,7 +10,11 @@ use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Process\ProcessParams;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
+use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
+use Soluble\MediaTools\Video\Filter\VideoFilterChain;
+use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\ThumbParams;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 
 class VideoThumbnailingTest extends TestCase
@@ -50,7 +54,7 @@ class VideoThumbnailingTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            new SeekTime(0.2)
+            (new ThumbParams())->withSeekTime(new SeekTime(0.2))
         );
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));
@@ -66,18 +70,28 @@ class VideoThumbnailingTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            new SeekTime(0.2),
-            new Hqdn3DVideoFilter()
+            (new ThumbParams())
+                ->withSeekTime(new SeekTime(0.25))
+                ->withVideoFilter(new VideoFilterChain([
+                    new YadifVideoFilter(),
+                    new NlmeansVideoFilter(),
+                ]))
         );
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));
         unlink($outputFile);
     }
 
+    public function testMakeThumbnailThrowsMissingTimeException(): void
+    {
+        self::expectException(FileNotFoundException::class);
+        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new ThumbParams());
+    }
+
     public function testMakeThumbnailThrowsFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);
-        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '');
+        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new ThumbParams());
     }
 
     public function testMakeThumbnailMustThrowExceptionOnTimeout(): void
@@ -92,8 +106,13 @@ class VideoThumbnailingTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            new SeekTime(0.2),
-            null,
+            (new ThumbParams())
+                ->withSeekTime(new SeekTime(0.25))
+                ->withVideoFilter(new VideoFilterChain([
+                    new YadifVideoFilter(),
+                    new NlmeansVideoFilter(),
+                    new Hqdn3DVideoFilter(),
+                ])),
             null,
             new ProcessParams(0.01, null, [])
         );

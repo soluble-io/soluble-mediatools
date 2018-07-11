@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Common\Service\ActionParamInterface;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
-interface ConversionParamsInterface
+interface ConversionParamsInterface extends ActionParamInterface
 {
     public const PARAM_VIDEO_CODEC         = 'VIDEO_CODEC';
     public const PARAM_VIDEO_BITRATE       = 'VIDEO_BITRATE';
@@ -22,7 +23,6 @@ interface ConversionParamsInterface
     public const PARAM_TUNE                = 'TUNE';
     public const PARAM_STREAMABLE          = 'STREAMABLE';
     public const PARAM_QUALITY             = 'QUALITY';
-    public const PARAM_OUTPUT_FORMAT       = 'OUTPUT_FORMAT';
     public const PARAM_FRAME_PARALLEL      = 'FRAME_PARALLEL';
     public const PARAM_TILE_COLUMNS        = 'TILE_COLUMNS';
 
@@ -37,8 +37,9 @@ interface ConversionParamsInterface
     // File Options
     public const PARAM_OVERWRITE        = 'OVERWRITE';
 
-    public const PARAM_NOAUDIO           = 'NOAUDIO';
-    public const PARAM_VIDEO_FRAMES      = 'VIDEO_FRAMES';
+    public const PARAM_NOAUDIO             = 'NOAUDIO';
+    public const PARAM_VIDEO_FRAMES        = 'VIDEO_FRAMES';
+    public const PARAM_OUTPUT_FORMAT       = 'OUTPUT_FORMAT';
 
     /**
      * Built-in params.
@@ -74,18 +75,6 @@ interface ConversionParamsInterface
     ];
 
     /**
-     * Return the internal array holding params.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(): array;
-
-    /**
-     * Test whether a param is built-in or valid.
-     */
-    public function isParamValid(string $paramName): bool;
-
-    /**
      * Set a built-in param...
      *
      * @param string $paramName  a param that must exist in builtInParams
@@ -94,13 +83,4 @@ interface ConversionParamsInterface
      * @throws InvalidArgumentException in case of unsupported builtin param
      */
     public function withBuiltInParam(string $paramName, $paramValue): self;
-
-    /**
-     * @param mixed $defaultValue if param does not exists set this one
-     *
-     * @return mixed
-     */
-    public function getParam(string $paramName, $defaultValue = null);
-
-    public function hasParam(string $paramName): bool;
 }

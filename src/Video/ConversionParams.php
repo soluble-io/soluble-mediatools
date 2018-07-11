@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Assert\BitrateAssertionsTrait;
-use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
 class ConversionParams implements ConversionParamsInterface
