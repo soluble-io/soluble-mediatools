@@ -10,6 +10,10 @@
 
 Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
 
+## Status
+
+WIP... doc in progress: https://soluble-io.github.io/soluble-mediatools/
+
 ## Features
 
 > Video services:

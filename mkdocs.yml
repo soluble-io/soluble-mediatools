@@ -1,5 +1,5 @@
-site_name: 'soluble-mediatools'
-site_description: 'Mediatools'
+site_name: 'Mediatools'
+site_description: 'soluble-mediatools documentation'
 site_author: 'Sébastien Vanvelthem'
 site_url: https://docs.soluble.io/soluble-mediatools/
 
@@ -21,26 +21,27 @@ pages:
       }
 
 
-# Documentation and theme
-theme: 'material'
-
-# Options
-extra:
-  #logo: 'images/logo.svg'
-  logo:
-    icon: 'thumbs_up_down'
-  language: en
+theme:
+  name: 'material'
+  language: 'en'
   palette:
-    primary: 'deep-orange'
-    accent: 'light blue'
+    primary: 'light green'
+    accent: 'green'
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
+  logo:
+    icon: 'play_circle_outline'
+  feature:
+    tabs: false
+
+
+# Customization
+extra:
   social:
     - type: 'github'
       link: 'https://github.com/soluble-io/soluble-mediatools'
-  feature:
-    tabs: true
+
 
 
 extra_css:

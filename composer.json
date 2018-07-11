@@ -73,7 +73,8 @@
         "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src tests",
         "doc:install": "pip install -r requirements.txt --upgrade",
         "doc:build": "mkdocs build",
-        "doc:serve": "mkdocs serve --dev-addr localhost:8094"
+        "doc:serve": "mkdocs serve --dev-addr localhost:8094",
+        "doc:deploy": "mkdocs gh-deploy"
     },
     "suggest": {
         "monolog/monolog": "PSR-3 compatible logger"
