@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
@@ -19,9 +21,13 @@ class DetectionService implements DetectionServiceInterface
     /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
-    public function __construct(FFMpegConfigInterface $ffmpegConfig)
+    /** @var LoggerInterface|NullLogger */
+    protected $logger;
+
+    public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {
         $this->ffmpegConfig  = $ffmpegConfig;
+        $this->logger        = $logger ?? new NullLogger();
     }
 
     /**

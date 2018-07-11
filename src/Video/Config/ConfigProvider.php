@@ -77,6 +77,9 @@ class ConfigProvider
             InfoServiceInterface::class       => InfoServiceFactory::class,
             DetectionServiceInterface::class  => DetectionServiceFactory::class,
             ThumbServiceInterface::class      => ThumbServiceFactory::class,
+
+            // Logger
+            //LoggerConfigInterface::class    => <Factory to create / too much choice>
         ];
     }
 

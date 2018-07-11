@@ -27,7 +27,6 @@
         "friendsofphp/php-cs-fixer": "^2.11.1",
         "guzzlehttp/guzzle": "^6.2.3",
         "infection/infection": "^0.9.0",
-        "mikey179/vfsStream": "^1.6",
         "monolog/monolog": "^1.23.0",
         "phpspec/prophecy": "^1.7",
         "phpstan/phpstan": "^0.10.1",

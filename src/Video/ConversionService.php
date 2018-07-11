@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
@@ -29,9 +32,14 @@ class ConversionService implements ConversionServiceInterface
     /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
-    public function __construct(FFMpegConfigInterface $ffmpegConfig)
+    /** @var LoggerInterface|NullLogger */
+    protected $logger;
+
+    public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {
         $this->ffmpegConfig  = $ffmpegConfig;
+
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -82,21 +90,37 @@ class ConversionService implements ConversionServiceInterface
     public function convert(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
-            $this->ensureFileExists($inputFile);
-            $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
-            $process->mustRun($callback);
-        } catch (FileNotFoundException $e) {
-            throw new MissingInputFileException($e->getMessage());
-        } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-            throw new InvalidParamException($e->getMessage());
-        } catch (SPException\ProcessTimedOutException $e) {
-            throw new ProcessTimedOutException($e->getProcess(), $e);
-        } catch (SPException\ProcessSignaledException $e) {
-            throw new ProcessSignaledException($e->getProcess(), $e);
-        } catch (SPException\ProcessFailedException $e) {
-            throw new ProcessFailedException($e->getProcess(), $e);
-        } catch (SPException\RuntimeException $e) {
-            throw new RuntimeException($e->getMessage());
+            try {
+                $this->ensureFileExists($inputFile);
+                $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
+                $process->mustRun($callback);
+            } catch (FileNotFoundException $e) {
+                throw new MissingInputFileException($e->getMessage());
+            } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
+                throw new InvalidParamException($e->getMessage());
+            } catch (SPException\ProcessTimedOutException $e) {
+                throw new ProcessTimedOutException($e->getProcess(), $e);
+            } catch (SPException\ProcessSignaledException $e) {
+                throw new ProcessSignaledException($e->getProcess(), $e);
+            } catch (SPException\ProcessFailedException $e) {
+                throw new ProcessFailedException($e->getProcess(), $e);
+            } catch (SPException\RuntimeException $e) {
+                throw new RuntimeException($e->getMessage());
+            }
+        } catch (\Throwable $e) {
+            $exceptionNs = explode('\\', get_class($e));
+            $this->logger->log(
+                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+                sprintf(
+                    'Video conversion failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
+                    $exceptionNs[count($exceptionNs) - 1],
+                    __METHOD__,
+                    $e->getMessage(),
+                    $inputFile,
+                    $outputFile
+                )
+            );
+            throw $e;
         }
     }
 

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
@@ -35,10 +38,14 @@ class ThumbService implements ThumbServiceInterface
     /** @var int */
     protected $defaultQualityScale;
 
-    public function __construct(FFMpegConfigInterface $ffmpegConfig, int $defaultQualityScale = self::DEFAULT_QUALITY_SCALE)
+    /** @var LoggerInterface|NullLogger */
+    protected $logger;
+
+    public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null, int $defaultQualityScale = self::DEFAULT_QUALITY_SCALE)
     {
         $this->ffmpegConfig        = $ffmpegConfig;
         $this->defaultQualityScale = $defaultQualityScale;
+        $this->logger              = $logger ?? new NullLogger();
     }
 
     /**
@@ -108,22 +115,38 @@ class ThumbService implements ThumbServiceInterface
     public function makeThumbnail(string $videoFile, string $thumbnailFile, ThumbParamsInterface $thumbParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
-            $this->ensureFileExists($videoFile);
+            try {
+                $this->ensureFileExists($videoFile);
 
-            $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
-            $process->mustRun($callback);
-        } catch (FileNotFoundException $e) {
-            throw new MissingInputFileException($e->getMessage());
-        } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-            throw new InvalidParamException($e->getMessage());
-        } catch (SPException\ProcessTimedOutException $e) {
-            throw new ProcessTimedOutException($e->getProcess(), $e);
-        } catch (SPException\ProcessSignaledException $e) {
-            throw new ProcessSignaledException($e->getProcess(), $e);
-        } catch (SPException\ProcessFailedException $e) {
-            throw new ProcessFailedException($e->getProcess(), $e);
-        } catch (SPException\RuntimeException $e) {
-            throw new RuntimeException($e->getMessage());
+                $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
+                $process->mustRun($callback);
+            } catch (FileNotFoundException $e) {
+                throw new MissingInputFileException($e->getMessage());
+            } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
+                throw new InvalidParamException($e->getMessage());
+            } catch (SPException\ProcessTimedOutException $e) {
+                throw new ProcessTimedOutException($e->getProcess(), $e);
+            } catch (SPException\ProcessSignaledException $e) {
+                throw new ProcessSignaledException($e->getProcess(), $e);
+            } catch (SPException\ProcessFailedException $e) {
+                throw new ProcessFailedException($e->getProcess(), $e);
+            } catch (SPException\RuntimeException $e) {
+                throw new RuntimeException($e->getMessage());
+            }
+        } catch (\Throwable $e) {
+            $exceptionNs = explode('\\', get_class($e));
+            $this->logger->log(
+                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+                sprintf(
+                    'Video thumbnailing failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
+                    $exceptionNs[count($exceptionNs) - 1],
+                    __METHOD__,
+                    $e->getMessage(),
+                    $videoFile,
+                    $thumbnailFile
+                )
+            );
+            throw $e;
         }
     }
 }

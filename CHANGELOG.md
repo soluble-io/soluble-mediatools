@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.6.0 (2018-07-xx)
+
+## 0.6.0 (2018-07-11)
 
 ### Changed
 
@@ -13,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Support for psr/log in video conversion, thumbnail and info services.  
 - Added `VideoFilterChain::__construct(array $filters = [])`
 - Added `VideoFilterChain::addFilters(array $filters = [])`
 
