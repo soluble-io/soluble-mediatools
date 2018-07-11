@@ -7,10 +7,14 @@ parameters:
 		- php
 		- dist
 	excludes_analyse:
-		#- */tests/server/expressive/*
+	    # Because I could not find a way to make phpstan not report
+	    # errors when trying to produce them, understand who understand
+		- tests/unit/Video/Filter/VideoFilterChainTest.php
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
 	    # With PHPStan 0.10 .... don't like this one so much
 		- '#Strict comparison using !== between null and null will always evaluate to false.#'
+		- '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
+
 
 
