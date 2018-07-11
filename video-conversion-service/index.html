@@ -53,7 +53,7 @@
       
         
         
-        <meta name="theme-color" content="#7cb342">
+        <meta name="theme-color" content="#2196f3">
       
     
     
@@ -77,7 +77,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="light-green" data-md-color-accent="green">
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="green">
   
     <svg class="md-svg">
       <defs>
@@ -202,7 +202,51 @@
     <div class="md-container">
       
         
+          
+
+
+<div class="md-hero" data-md-component="hero">
+  <div class="md-hero__inner md-grid">
+    Video conversion service
+  </div>
+</div>
+        
       
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Introduction" class="md-tabs__link">
+        Introduction
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" title="Video" class="md-tabs__link md-tabs__link--active">
+          Video
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
       
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
@@ -382,6 +426,12 @@
 </li>
       
       
+        <li class="md-nav__item">
+          <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
+            Source
+          </a>
+        </li>
+      
       
       
       
@@ -491,6 +541,12 @@
 </li>
       
       
+        <li class="md-nav__item">
+          <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
+            Source
+          </a>
+        </li>
+      
       
       
       
@@ -515,8 +571,8 @@
 <h3 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConversionExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ConversionService</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\</span><span class="p">{</span><span class="nx">ConversionExceptionInterface</span><span class="p">};</span>
 
 <span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConversionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
@@ -537,11 +593,39 @@
 </pre></div>
 
 <h3 id="initialize">Initialize<a class="headerlink" href="#initialize" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionService</span><span class="p">;</span>
+
+<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConversionService</span><span class="p">(</span>    
+    <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
+        <span class="nv">$binary</span> <span class="o">=</span> <span class="s1">&#39;ffmpeg&#39;</span><span class="p">,</span>  <span class="c1">// (?string) - path to ffmpeg binary </span>
+        <span class="nv">$threads</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>     <span class="c1">// (?int)    - ffmpeg default threads (null: single-thread)</span>
+        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>     <span class="c1">// (?float)  - max time in seconds for ffmpeg process (null: disable) </span>
+        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="c1">// (?float)  - max idle time in seconds for ffmpeg process</span>
+        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>            <span class="c1">// (array)   - additional environment variables               </span>
+    <span class="p">),</span>
+
+    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span> <span class="c1">// (?\Psr\Log\LoggerInterface) - Default to `\Psr\Log\NullLogger`.  </span>
+<span class="p">);</span>
 </pre></div>
 
 <h3 id="conversion-params">Conversion params<a class="headerlink" href="#conversion-params" title="Permanent link">&para;</a></h3>
-<h4 id="video-filters">Video filters<a class="headerlink" href="#video-filters" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionParams</span><span class="p">;</span>
+
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span>
+    <span class="c1">// FFMpeg</span>
+    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>  
+    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>         
+    <span class="o">-&gt;</span><span class="na">withPreset</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;aac&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">);</span>            
+</pre></div>
+
+<details class="tip" open="open"><summary>Tip</summary><p><code>ConversionParams</code> offers an <mark>immutable</mark> interface <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> <img alt="😄" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/1f604.svg" title=":smile:" /> 
+ ☂️🍓🥩🍢🍻🤾‍♂️🥌  </p></details><h4 id="video-filters">Video filters<a class="headerlink" href="#video-filters" title="Permanent link">&para;</a></h4>
 <h3 id="exception">Exception<a class="headerlink" href="#exception" title="Permanent link">&para;</a></h3>
 <h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
 <div class="admonition info">
@@ -662,6 +746,17 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 <span class="p">}</span>
 </pre></div>
                 
+                  
+                    <h2 id="__source">Source</h2>
+                    
+                    
+                      
+                    
+                    
+                    
+                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionService.php" title="Video/ConversionService.php" class="md-source-file">
+                      Video/ConversionService.php
+                    </a>
                   
                 
               
