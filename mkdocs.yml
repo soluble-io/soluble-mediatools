@@ -1,7 +1,7 @@
 site_name: 'Mediatools'
 site_description: 'soluble-mediatools documentation'
 site_author: 'Sébastien Vanvelthem'
-site_url: https://docs.soluble.io/soluble-mediatools/
+site_url: https://soluble-io.github.io/soluble-mediatools
 
 # Repository
 repo_name: 'soluble-mediatools'
