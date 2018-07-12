@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Config;
 
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\Adapter\AdapterInterface;
+use Soluble\MediaTools\Video\Adapter\ConverterAdapterInterface;
 
 interface FFMpegConfigInterface
 {
@@ -19,9 +19,9 @@ interface FFMpegConfigInterface
     /**
      * Return underlying ffmpeg/converter adapter.
      *
-     * @return AdapterInterface
+     * @return ConverterAdapterInterface
      */
-    public function getAdapter(): AdapterInterface;
+    public function getAdapter(): ConverterAdapterInterface;
 
     /**
      * Return symfony process params (timeout, ideltimeout, env).

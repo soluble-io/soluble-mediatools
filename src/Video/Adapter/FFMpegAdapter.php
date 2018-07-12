@@ -11,7 +11,7 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 
-class FFMpegAdapter implements AdapterInterface
+class FFMpegAdapter implements ConverterAdapterInterface
 {
     /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;

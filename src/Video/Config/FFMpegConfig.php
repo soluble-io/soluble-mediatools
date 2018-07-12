@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Config;
 
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\Adapter\AdapterInterface;
+use Soluble\MediaTools\Video\Adapter\ConverterAdapterInterface;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\ProcessParams;
 
@@ -71,7 +71,7 @@ class FFMpegConfig implements FFMpegConfigInterface
     /**
      * @return FFMpegAdapter
      */
-    public function getAdapter(): AdapterInterface
+    public function getAdapter(): ConverterAdapterInterface
     {
         if ($this->ffmpegAdapter === null) {
             $this->ffmpegAdapter = new FFMpegAdapter($this);

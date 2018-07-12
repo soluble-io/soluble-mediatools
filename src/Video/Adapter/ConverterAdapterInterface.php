@@ -9,7 +9,7 @@ use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
 
-interface AdapterInterface
+interface ConverterAdapterInterface
 {
     public function getDefaultThreads(): ?int;
 
