@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.1 (2018-07-12)
+
+### Added
+
+- New method for video conversion params `ConvertParams::withoutParam(string $paramName)`.
+- New method for video thumbnail params `ThumbParams::withoutParam(string $paramName)`. 
+
+### Changed 
+
+- Internal `AdapterInterface` becomes `ConverterAdapterInterface`.
+- Internal `FFMpegConverterAdapter` becomes `FFMpegAdapter`.
+
+### Improved
+
+- Documentation site !!!
+
+### Fixed
+
+- Fixed exception `MissingTimeException`, that was missing ;)
+
 
 ## 0.6.0 (2018-07-11)
 
@@ -21,22 +41,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Improved
 
 - Separation of concern for `ProcessParamInterface`
-
-## 0.5.1 (2018-07-??)
-
-### Added
-
-- New method for video conversion params `ConvertParams::withoutParam(string $paramName)`.
-- New method for video thumbnail params `ThumbParams::withoutParam(string $paramName)`. 
-
-### Changed 
-
-- Internal `AdapterInterface` becomes `ConverterAdapterInterface`.
-- Internal `FFMpegConverterAdapter` becomes `FFMpegAdapter`.
-
-### Improved
-
-- Documentation
 
 ## 0.5.0 (2018-07-10) 
 

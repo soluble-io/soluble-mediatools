@@ -108,12 +108,14 @@ $params = (new ConversionParams())
     ```
 
 
-#### Video filters
+### Video filters
 
-<todo>
+todo
 
 ### Exception
 
+You can safely catch exceptions with the generic `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,
+alternatively you can also :
 
 ```php
 <?php
@@ -123,13 +125,18 @@ use Soluble\MediaTools\Video\Exception as VE;
 /** @var ConversionService $vcs */
 $params = (new ConversionParams())->withVideoCodec('xxx');     
 try {
+    
     $vcs->convert('i.mov', 'o.mp4', $params);
+    
+// All exception below implements Ve\ConversionExceptionInterface
+// It's possible to get them all in once
+        
 } catch(VE\MissingInputFileException $e) {
     
     // 'i.mov does not exists
     
-    echo $e->getMessage();
-            
+    echo $e->getMessage();    
+    
 } catch(
     
     // The following 3 exeptions are linked to process

@@ -57,10 +57,15 @@ class ThumbService implements ThumbServiceInterface
      *
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
+     * @throws MissingTimeException
      */
     public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ThumbParamsInterface $thumbParams, ?ProcessParamsInterface $processParams = null): Process
     {
         $adapter = $this->ffmpegConfig->getAdapter();
+
+        if (!$thumbParams->hasParam(ThumbParamsInterface::PARAM_SEEK_TIME)) {
+            throw new MissingTimeException('Missing seekTime parameter');
+        }
 
         $conversionParams = (new ConversionParams());
 
