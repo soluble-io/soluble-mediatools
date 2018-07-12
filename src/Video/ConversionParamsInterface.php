@@ -83,4 +83,9 @@ interface ConversionParamsInterface extends ActionParamInterface
      * @throws InvalidArgumentException in case of unsupported builtin param
      */
     public function withBuiltInParam(string $paramName, $paramValue): self;
+
+    /**
+     * Return ConversionParams without this one.
+     */
+    public function withoutParam(string $paramName): self;
 }

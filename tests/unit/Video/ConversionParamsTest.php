@@ -26,6 +26,18 @@ class ConversionParamsTest extends TestCase
         self::assertCount(1, $newParams->toArray());
     }
 
+    public function testWithoutParam(): void
+    {
+        $params = (new ConversionParams())
+            ->withTileColumns(10)
+            ->withThreads(10);
+
+        $newParams = $params->withoutParam(ConversionParams::PARAM_THREADS);
+        self::assertTrue($newParams->hasParam(ConversionParamsInterface::PARAM_TILE_COLUMNS));
+        self::assertFalse($newParams->hasParam(ConversionParamsInterface::PARAM_THREADS));
+        self::assertTrue($params->hasParam(ConversionParamsInterface::PARAM_THREADS));
+    }
+
     public function testHasParam(): void
     {
         $params = (new ConversionParams())

@@ -288,21 +288,30 @@ class ConversionParams implements ConversionParamsInterface
     }
 
     /**
-     * Set a built-in param...
-     *
      * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface $paramValue
      *
      * @throws InvalidArgumentException in case of unsupported builtin param
      *
-     * For static analysis the trick is to return 'self' instead of interface
-     *
-     * @return self
+     * @return self (For static analysis the trick is to return 'self' instead of interface)
      */
     public function withBuiltInParam(string $paramName, $paramValue): ConversionParamsInterface
     {
         return new self(array_merge($this->params, [
             $paramName => $paramValue,
         ]));
+    }
+
+    /**
+     * @return self (For static analysis the trick is to return 'self' instead of interface)
+     */
+    public function withoutParam(string $paramName): ConversionParamsInterface
+    {
+        $ao = (new \ArrayObject($this->params));
+        if ($ao->offsetExists($paramName)) {
+            $ao->offsetUnset($paramName);
+        }
+
+        return new self($ao->getArrayCopy());
     }
 
     /**
