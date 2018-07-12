@@ -13,7 +13,7 @@
         <meta name="description" content="soluble-mediatools documentation">
       
       
-        <link rel="canonical" href="https://soluble-io.github.io/soluble-mediatools/video-conversion-service/">
+        <link rel="canonical" href="https://soluble-io.github.io/soluble-mediatools/video-thumb-service/">
       
       
         <meta name="author" content="Sébastien Vanvelthem">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Convert - Mediatools</title>
+        <title>Thumbnail - Mediatools</title>
       
     
     
@@ -134,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                Convert
+                Thumbnail
               </span>
             
           
@@ -209,7 +209,7 @@
 
 <div class="md-hero md-hero--expand" data-md-component="hero">
   <div class="md-hero__inner md-grid">
-    Video conversion service
+    Video thumb service
   </div>
 </div>
         
@@ -305,6 +305,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../video-conversion-service/" title="Convert" class="md-nav__link">
+      Convert
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -314,11 +326,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Convert
+        Thumbnail
       </label>
     
-    <a href="./" title="Convert" class="md-nav__link md-nav__link--active">
-      Convert
+    <a href="./" title="Thumbnail" class="md-nav__link md-nav__link--active">
+      Thumbnail
     </a>
     
       
@@ -344,8 +356,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conversion-params" title="Conversion params" class="md-nav__link">
-    Conversion params
+  <a href="#params" title="Params" class="md-nav__link">
+    Params
   </a>
   
 </li>
@@ -369,33 +381,6 @@
     Recipes
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#transcode-to-mp4x264aac" title="Transcode to mp4/x264/aac" class="md-nav__link">
-    Transcode to mp4/x264/aac
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transcode-to-webmvp9opus" title="Transcode to webm/vp9/opus" class="md-nav__link">
-    Transcode to webm/vp9/opus
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#video-clipping" title="Video clipping" class="md-nav__link">
-    Video clipping
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
       
@@ -412,18 +397,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../video-thumb-service/" title="Thumbnail" class="md-nav__link">
-      Thumbnail
-    </a>
   </li>
 
         
@@ -513,8 +486,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conversion-params" title="Conversion params" class="md-nav__link">
-    Conversion params
+  <a href="#params" title="Params" class="md-nav__link">
+    Params
   </a>
   
 </li>
@@ -537,33 +510,6 @@
   <a href="#recipes" title="Recipes" class="md-nav__link">
     Recipes
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#transcode-to-mp4x264aac" title="Transcode to mp4/x264/aac" class="md-nav__link">
-    Transcode to mp4/x264/aac
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transcode-to-webmvp9opus" title="Transcode to webm/vp9/opus" class="md-nav__link">
-    Transcode to webm/vp9/opus
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#video-clipping" title="Video clipping" class="md-nav__link">
-    Video clipping
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -589,30 +535,28 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-conversion-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-thumb-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Convert</h1>
+                  <h1>Thumbnail</h1>
                 
-                <p>The <mark>Video\ConversionService</mark> acts as a wrapper over ffmpeg and
-currently provides transcoding, transmuxing and clipping video features.  </p>
+                <p>The <mark>Video\ThumbService</mark> acts as a wrapper over ffmpeg and
+currently allows creation of video thumbnails.  </p>
 <h3 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConversionExceptionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ConversionService</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ThumbService</span><span class="p">,</span> <span class="nx">ThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConversionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$vts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThumbService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span>
-    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>       
-    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>                  
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>    
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+    <span class="nv">$vts</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
         <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
         <span class="nv">$params</span>
     <span class="p">);</span>    
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
@@ -623,9 +567,9 @@ currently provides transcoding, transmuxing and clipping video features.  </p>
 <h3 id="initialize">Initialize<a class="headerlink" href="#initialize" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConversionService</span><span class="p">(</span>    
+<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DetectionService</span><span class="p">(</span>    
     <span class="c1">// FFMpegConfigInterface</span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="nv">$binary</span> <span class="o">=</span> <span class="s1">&#39;ffmpeg&#39;</span><span class="p">,</span>  <span class="c1">// (?string) - path to ffmpeg binary </span>
@@ -639,41 +583,31 @@ currently provides transcoding, transmuxing and clipping video features.  </p>
 <span class="p">);</span>
 </pre></div>
 
-<details class="tip" open="open"><summary>Tip</summary><p>The <code>Video\ConversionServiceFactory</code> factory consumes a <code>Psr\Container\ContainerInterface</code>
-to create the service. I should be easy to register it. Afterwards it's possible to:  </p><div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Psr\Container\ContainerInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionServiceInterface</span><span class="p">;</span>
-<span class="sd">/**</span>
-<span class="sd"> * @var ContainerInterface         $aPsr11Container </span>
-<span class="sd"> * @var ConversionServiceInterface $videoConverter</span>
-<span class="sd"> */</span> 
-<span class="nv">$videoConverter</span> <span class="o">=</span> <span class="nv">$aPsr11Container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">ConversionServiceInterface</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-</pre></div>
-</details><h3 id="conversion-params">Conversion params<a class="headerlink" href="#conversion-params" title="Permanent link">&para;</a></h3>
+<h3 id="params">Params<a class="headerlink" href="#params" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionParams</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">,</span> <span class="nx">Filter</span><span class="p">};</span>
 
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span>
-    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>  
-    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>         
-    <span class="o">-&gt;</span><span class="na">withPreset</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;aac&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">);</span>            
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="na">withQualityScale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="nx">SeekTime</span><span class="o">::</span><span class="na">createFromHMS</span><span class="p">(</span><span class="s1">&#39;0:00:05.123&#39;</span><span class="p">))</span>
+    <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span><span class="k">new</span> <span class="nx">Filter\VideoFilterChain</span><span class="p">([</span>
+        <span class="k">new</span> <span class="nx">Filter\EmptyVideoFilter</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="nx">Filter\YadifVideoFilter</span><span class="p">()</span>
+    <span class="p">]));</span> 
 </pre></div>
 
-<details class="warning" open="open"><summary>Warning</summary><p><mark>ConversionParams</mark> exposes an <mark>immutable <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /></mark> style api <em>(<code>-&gt;withXXX()</code>, just like PSR-7 and others)</em>.
+<details class="warning" open="open"><summary>Warning</summary><p><mark>ThumbParams</mark> exposes an <mark>immutable <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /></mark> style api <em>(<code>-&gt;withXXX()</code>, just like PSR-7 and others)</em>.
 It means that the original params are never touched, the <code>withXXX()</code> methods always return a copy. 
 Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both exposes chainable methods
 and look similar... your primary reflexes might cause pain: </p><div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">());</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">());</span>
 
-<span class="nv">$newParams</span> <span class="o">=</span> <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="nb">date</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;thenexbigcodec&#39;</span> <span class="o">:</span> <span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
-                    <span class="o">-&gt;</span><span class="na">withNoOverwrite</span><span class="p">();</span>
+<span class="nv">$newParams</span> <span class="o">=</span> <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">withSomething</span><span class="p">(</span><span class="s1">&#39;cool&#39;</span><span class="p">)</span>
+                    <span class="o">-&gt;</span><span class="na">withSomethingElse</span><span class="p">(</span><span class="s1">&#39;cool&#39;</span><span class="p">);</span>
 
 <span class="c1">// The two next lines won&#39;t use the same params !!!</span>
-<span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span> 
-<span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
+<span class="nv">$vts</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span> 
+<span class="nv">$vts</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
 </pre></div>
 </details><h3 id="video-filters">Video filters<a class="headerlink" href="#video-filters" title="Permanent link">&para;</a></h3>
 <p>todo</p>
@@ -681,23 +615,30 @@ and look similar... your primary reflexes might cause pain: </p><div class="code
 <p>You can safely catch exceptions with the generic <code>Soluble\MediaTools\VideoException\ConversionExceptionInterface</code>,
 alternatively you can also :</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ConversionService</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ThumbService</span><span class="p">,</span> <span class="nx">ThumbParams</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
-<span class="sd">/** @var ConversionService $vcs */</span>
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;xxx&#39;</span><span class="p">);</span>     
+<span class="sd">/** @var ThumbService $vts */</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">());</span>     
 <span class="k">try</span> <span class="p">{</span>
 
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;o.mp4&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
-
-<span class="c1">// All exception below implements Ve\ConversionExceptionInterface</span>
-<span class="c1">// It&#39;s possible to get them all in once</span>
+    <span class="nv">$vts</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;out.jpg&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>    
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\MissingInputFileException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// &#39;i.mov does not exists</span>
 
-    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>    
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+
+<span class="c1">// All exception below implements Ve\ConversionExceptionInterface</span>
+<span class="c1">// It&#39;s possible to get them all in once</span>
+
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\MissingTimeException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Missing required time</span>
+
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span>
 
@@ -733,106 +674,7 @@ alternatively you can also :</p>
 </pre></div>
 
 <h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
-<h4 id="transcode-to-mp4x264aac">Transcode to <code>mp4/x264/aac</code><a class="headerlink" href="#transcode-to-mp4x264aac" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p>See the <a href="https://trac.ffmpeg.org/wiki/Encode/H.264">official H264</a> doc. </p>
-</blockquote>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">Exception</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionServiceInterface</span><span class="p">;</span>
-
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span>
-    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;aac&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">)</span>            
-    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>      <span class="c1">// Add streamable options (movflags &amp; faststart) </span>
-    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>               <span class="c1">// Level of compression: better size / less visual quality  </span>
-    <span class="o">-&gt;</span><span class="na">withPreset</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">);</span>       <span class="c1">// Optional: see presets           </span>
-
-<span class="k">try</span> <span class="p">{</span>
-
-    <span class="sd">/** @var ConversionServiceInterface $vcs */</span>
-
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
-        <span class="nv">$params</span>
-    <span class="p">);</span>
-
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// See chapters about exception !!! </span>
-
-<span class="p">}</span>
-</pre></div>
-
-<h4 id="transcode-to-webmvp9opus">Transcode to <code>webm/vp9/opus</code><a class="headerlink" href="#transcode-to-webmvp9opus" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p>See the official <a href="https://trac.ffmpeg.org/wiki/Encode/VP9">ffmpeg VP9 docs</a> 
-and have a look at the <a href="https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines">google vp9 VOD</a> guidelines</p>
-</blockquote>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">Exception</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ConversionServiceInterface</span><span class="p">;</span>
-
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span>
-    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libvpx-vp9&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withVideoBitrate</span><span class="p">(</span><span class="s1">&#39;750k&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withQuality</span><span class="p">(</span><span class="s1">&#39;good&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">33</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;libopus&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">)</span>
-    <span class="sd">/**</span>
-<span class="sd">     * It is recommended to allow up to 240 frames of video between keyframes (8 seconds for 30fps content).</span>
-<span class="sd">     * Keyframes are video frames which are self-sufficient; they don&#39;t rely upon any other frames to render</span>
-<span class="sd">     * but they tend to be larger than other frame types.</span>
-<span class="sd">     * For web and mobile playback, generous spacing between keyframes allows the encoder to choose the best</span>
-<span class="sd">     * placement of keyframes to maximize quality.</span>
-<span class="sd">     */</span>
-    <span class="o">-&gt;</span><span class="na">withKeyframeSpacing</span><span class="p">(</span><span class="mi">240</span><span class="p">)</span>
-    <span class="c1">// Most of the current VP9 decoders use tile-based, multi-threaded decoding.</span>
-    <span class="c1">// In order for the decoders to take advantage of multiple cores,</span>
-    <span class="c1">// the encoder must set tile-columns and frame-parallel.</span>
-    <span class="o">-&gt;</span><span class="na">withTileColumns</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withFrameParallel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withSpeed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1">// Optional: Use videoprobe to be sure of color conversions if any needed</span>
-    <span class="c1">// -&gt;withPixFmt(&#39;yuv420p&#39;) </span>
-    <span class="o">-&gt;</span><span class="na">withOutputFormat</span><span class="p">(</span><span class="s1">&#39;webm&#39;</span><span class="p">);</span>
-
-
-<span class="k">try</span> <span class="p">{</span>
-
-    <span class="sd">/** @var ConversionServiceInterface $vcs */</span>
-
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span> 
-        <span class="nv">$params</span>
-    <span class="p">);</span>
-
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see chapter about exceptions        </span>
-<span class="p">}</span> 
-</pre></div>
-
-<h4 id="video-clipping">Video clipping<a class="headerlink" href="#video-clipping" title="Permanent link">&para;</a></h4>
-<blockquote>
-<p>See the official <a href="https://trac.ffmpeg.org/wiki/Seeking">ffmpeg docs</a> </p>
-</blockquote>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">Exception</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
-
-<span class="nv">$convertParams</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">withSeekStart</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">10.242</span><span class="p">))</span> <span class="c1">// 10 sec, 242 milli</span>
-                <span class="o">-&gt;</span><span class="na">withSeekEnd</span><span class="p">(</span><span class="nx">SeekTime</span><span class="o">::</span><span class="na">createFromHMS</span><span class="p">(</span><span class="s1">&#39;12:52.015&#39;</span><span class="p">));</span> <span class="c1">// 12 mins, 52 secs...                </span>
-
-<span class="k">try</span> <span class="p">{</span>
-    <span class="sd">/** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */</span>
-    <span class="nv">$videoConverter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;/path/inputFile.mp4&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> <span class="nv">$convertParams</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see chapter about exceptions        </span>
-<span class="p">}</span>
-</pre></div>
+<p>todo</p>
                 
                   
                     <h2 id="__source">Source</h2>
@@ -842,8 +684,8 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
                     
                     
                     
-                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionService.php" title="Video/ConversionService.php" class="md-source-file">
-                      Video/ConversionService.php
+                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbService.php" title="Video/ThumbService.php" class="md-source-file">
+                      Video/ThumbService.php
                     </a>
                   
                 
@@ -864,7 +706,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../video-info-service/" title="Get info" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../video-conversion-service/" title="Convert" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -873,19 +715,19 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Get info
+                Convert
               </span>
             </div>
           </a>
         
         
-          <a href="../video-thumb-service/" title="Thumbnail" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../video-detection-service/" title="Detect" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Thumbnail
+                Detect
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
