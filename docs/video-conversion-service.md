@@ -2,7 +2,8 @@ hero: Video conversion service
 path: blob/master/src
 source: Video/ConversionService.php
 
-The [Video\Conversionservice]() deals with transcoding, transmuxing...
+The ==Video\ConversionService== acts as a wrapper over ffmpeg and
+currently provides transcoding, transmuxing and clipping video features.  
 
 ### At a glance
 
@@ -35,10 +36,11 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\ConversionService;
 
 $vcs = new ConversionService(    
+    // FFMpegConfigInterface
     new FFMpegConfig(
         $binary = 'ffmpeg',  // (?string) - path to ffmpeg binary 
         $threads = null,     // (?int)    - ffmpeg default threads (null: single-thread)
@@ -46,48 +48,15 @@ $vcs = new ConversionService(
         $idleTimeout = null, // (?float)  - max idle time in seconds for ffmpeg process
         $env = []            // (array)   - additional environment variables               
     ),
-     
-    $logger = null // (?\Psr\Log\LoggerInterface) - Default to `\Psr\Log\NullLogger`.  
+    // ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
+    $logger = null   
 );
 ```
 
-### Conversion params
-
-
-```php
-<?php
-use Soluble\MediaTools\Video\ConversionParams;
-
-$params = (new ConversionParams())
-    // FFMpeg
-    ->withVideoCodec('libx264')
-    ->withStreamable(true)  
-    ->withCrf(24)         
-    ->withPreset('fast')
-    ->withAudioCodec('aac')
-    ->withAudioBitrate('128k');            
-
-```
- 
-
-???+ tip    
-     🇧🇪🇧:brain: :butterfly: :heart: :smile:`ConversionParams` offers an ==immutable== interface :heart: :smile:   
-     ☂️🍓🥩🍢🍻🤾‍♂️🥌  
-
-
-#### Video filters
-
-x²
-### Exception
-
-### Recipes
-
-!!! info
-    The following examples assumes that the `Video\ConvertServiceInterface` 
-    is already configured *(generally the services will be available through
-    a psr-11 compatible container or through framework integration... 
-    See [configuration](#configuration) section for more info)*
-          
+???+ tip 
+    The `Video\ConversionServiceFactory` factory consumes a `Psr\Container\ContainerInterface`
+    to create the service. I should be easy to register it. Afterwards it's possible to:  
+    
     ```php
     <?php
     use Psr\Container\ContainerInterface;
@@ -98,6 +67,104 @@ x²
      */ 
     $videoConverter = $aPsr11Container->get(ConversionServiceInterface::class);
     ```
+
+
+### Conversion params
+
+
+```php
+<?php
+use Soluble\MediaTools\Video\ConversionParams;
+
+$params = (new ConversionParams())
+    ->withVideoCodec('libx264')
+    ->withStreamable(true)  
+    ->withCrf(24)         
+    ->withPreset('fast')
+    ->withAudioCodec('aac')
+    ->withAudioBitrate('128k');            
+
+```
+ 
+
+???+ warning
+    ==ConversionParams== exposes an ==immutable :heart:== style api *(`->withXXX()`, just like PSR-7 and others)*.
+    It means that the original params are never touched, the `withXXX()` methods always return a copy. 
+    Please be aware of it especially if you're used to ~==fluent==~ interfaces as both exposes chainable methods
+    and look similar... your primary reflexes might cause pain: 
+    
+            
+    ```php 
+    <?php
+    $params = (new ConversionParams());
+    
+    $newParams = $params->withVideoCodec(date('Y') ? 'thenexbigcodec' : 'libx264')
+                        ->withNoOverwrite();
+    
+    // The two next lines won't use the same params !!!
+    $vcs->convert('i.mov', 'output', $params); 
+    $vcs->convert('i.mov', 'output', $newParams);     
+    
+    ```
+
+
+#### Video filters
+
+<todo>
+
+### Exception
+
+
+```php
+<?php
+use Soluble\MediaTools\Video\{ConversionService, ConversionParams};
+use Soluble\MediaTools\Video\Exception as VE;
+
+/** @var ConversionService $vcs */
+$params = (new ConversionParams())->withVideoCodec('xxx');     
+try {
+    $vcs->convert('i.mov', 'o.mp4', $params);
+} catch(VE\MissingInputFileException $e) {
+    
+    // 'i.mov does not exists
+    
+    echo $e->getMessage();
+            
+} catch(
+    
+    // The following 3 exeptions are linked to process
+    // failure 'ffmpeg exit code != 0) and implements
+    //
+    // - `VE\ConversionProcessExceptionInterface`
+    //        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    
+    //
+    // in case you want to catch them all-in-once
+    
+      VE\ProcessFailedException       
+    | VE\ProcessSignaledException
+    | VE\ProcessTimedOutException $e) 
+{
+    
+    echo $e->getMessage();
+    
+    // Because they implement ProcessExceptionInterface
+    // we can get a reference to the executed (symfony) process:
+    
+    $process = $e->getProcess();
+    echo $process->getExitCode();
+    echo $process->getErrorOutput();
+    
+} catch(VE\ConversionExceptionInterface $e) {
+    
+    // Other exceptions can be
+    //
+    // - VE\RuntimeException
+    // - VE\InvalidParamException (should not happen)
+}
+       
+``` 
+
+### Recipes
 
 #### Transcode to `mp4/x264/aac`
 
