@@ -10,15 +10,23 @@ repo_url: 'https://github.com/soluble-io/soluble-mediatools'
 # Copyright
 copyright: 'Copyright &copy; 2018 Sébastien Vanvelthem'
 
+strict: true
+
 docs_dir: docs
 site_dir: build/docs
 
 pages:
-    - { 'Introduction': index.md }
-    - { 'Video': [
-          { 'VideoConversion': video-conversion-service.md  }
-        ]
-      }
+    - { 'Intro': index.md }
+    - Video services:
+      - 'Get info': 'video-info-service.md'
+      - 'Convert': 'video-conversion-service.md'
+      - 'Thumbnail': 'video-thumb-service.md'
+      - 'Detect': 'video-detection-service.md'
+    - About:
+      - 'License': 'about/license.md'
+
+
+
 
 
 theme:
@@ -33,7 +41,7 @@ theme:
   logo:
     icon: 'play_circle_outline'
   feature:
-    tabs: true
+    tabs: false
 
 # Customization
 extra:

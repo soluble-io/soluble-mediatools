@@ -71,13 +71,13 @@ $params = (new ConversionParams())
  
 
 ???+ tip    
-     `ConversionParams` offers an ==immutable== interface :heart: :smile: 
+     🇧🇪🇧:brain: :butterfly: :heart: :smile:`ConversionParams` offers an ==immutable== interface :heart: :smile:   
      ☂️🍓🥩🍢🍻🤾‍♂️🥌  
 
 
 #### Video filters
 
-
+x²
 ### Exception
 
 ### Recipes

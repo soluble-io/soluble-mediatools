@@ -7,6 +7,27 @@ a.md-logo
 span.md-header-nav__title {
     padding-left: 0.1rem;
 }
+
+/**
+ * Change the height (space)
+ */
+
+.md-content__inner:before {
+
+    height: 0.1rem; /* was 0.8rem */
+    /**
+    display: block;
+    content: "";
+    */
+}
+
+/**
+ * Removes the first h1
+ */
+.md-content__inner h1:first-of-type {
+    display: none;
+}
+
 .md-typeset h1 {
     margin: 0 0 0 0;
 }
@@ -15,6 +36,10 @@ span.md-header-nav__title {
     margin: 1rem 0 1.6rem;
 }
 
+
+/**
+ * Change the default hero template
+ */
 .md-header, .md-hero {
     background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);
 }
