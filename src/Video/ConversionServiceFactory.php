@@ -7,6 +7,7 @@ namespace Soluble\MediaTools\Video;
 use Psr\Container\ContainerInterface;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Config\LoggerConfigInterface;
 
 class ConversionServiceFactory
@@ -20,7 +21,7 @@ class ConversionServiceFactory
         }
 
         return new ConversionService(
-            $container->get(FFMpegConfig::class),
+            $container->get(FFMpegConfigInterface::class),
             $logger
         );
     }
