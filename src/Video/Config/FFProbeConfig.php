@@ -9,7 +9,6 @@ use Soluble\MediaTools\Video\ProcessParams;
 
 class FFProbeConfig implements FFProbeConfigInterface
 {
-    public const DEFAULT_BINARY       = 'ffmpeg';
     public const DEFAULT_TIMEOUT      = null;
     public const DEFAULT_IDLE_TIMEOUT = null;
     public const DEFAULT_ENV          = [];
@@ -21,23 +20,29 @@ class FFProbeConfig implements FFProbeConfigInterface
     protected $processParams;
 
     /**
-     * @param string                    $ffprobeBinary FFProbeBinary, by default ffprobe
+     * @param string                    $ffprobeBinary FFProbeBinary, if null: 'ffprobe' on linux, 'ffmprobe.exe' on windows
      * @param float|null                $timeout       max allowed time (in seconds) for conversion, null for no timeout
      * @param float|null                $idleTimeout   max allowed idle time (in seconds) for conversion, null for no timeout
      * @param array<string, string|int> $env           An array of additional env vars to set when running the ffprobe process
      */
     public function __construct(
-        string $ffprobeBinary = self::DEFAULT_BINARY,
+        ?string $ffprobeBinary = null,
         ?float $timeout = self::DEFAULT_TIMEOUT,
         ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
-        $this->binary        = $ffprobeBinary;
+        $this->binary = $ffprobeBinary ?: self::getPlatformDefaultBinary();
+
         $this->processParams = new ProcessParams(
             $timeout,
             $idleTimeout,
             $env
         );
+    }
+
+    public static function getPlatformDefaultBinary(): string
+    {
+        return ('\\' === DIRECTORY_SEPARATOR) ? 'ffprobe.exe' : 'ffprobe';
     }
 
     public function getBinary(): string

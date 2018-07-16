@@ -66,7 +66,7 @@ class FFProbeConfigFactoryTest extends TestCase
         ]);
 
         $config = (new FFProbeConfigFactory())->__invoke($container);
-        self::assertEquals(FFProbeConfig::DEFAULT_BINARY, $config->getBinary());
+        self::assertEquals(FFProbeConfig::getPlatformDefaultBinary(), $config->getBinary());
         self::assertEquals(FFProbeConfig::DEFAULT_TIMEOUT, $config->getProcessParams()->getTimeout());
         self::assertEquals(FFProbeConfig::DEFAULT_IDLE_TIMEOUT, $config->getProcessParams()->getIdleTimeout());
         self::assertEquals(FFProbeConfig::DEFAULT_ENV, $config->getProcessParams()->getEnv());

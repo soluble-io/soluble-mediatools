@@ -67,7 +67,7 @@ class FFMpegConfigFactoryTest extends TestCase
         ]);
 
         $config = (new FFMpegConfigFactory())->__invoke($container);
-        self::assertEquals(FFMpegConfig::DEFAULT_BINARY, $config->getBinary());
+        self::assertEquals(FFMpegConfig::getPlatformDefaultBinary(), $config->getBinary());
         self::assertEquals(FFMpegConfig::DEFAULT_THREADS, $config->getThreads());
         self::assertEquals(FFMpegConfig::DEFAULT_TIMEOUT, $config->getProcessParams()->getTimeout());
         self::assertEquals(FFMpegConfig::DEFAULT_IDLE_TIMEOUT, $config->getProcessParams()->getIdleTimeout());

@@ -53,7 +53,7 @@ class FFProbeConfigFactory
         $scr = new SafeConfigReader($config, $this->configKey ?? '');
 
         return new FFProbeConfig(
-            $scr->getString('ffprobe.binary', FFProbeConfig::DEFAULT_BINARY),
+            $scr->getNullableString('ffprobe.binary', null),
             $scr->getNullableFloat('ffprobe.timeout', FFProbeConfig::DEFAULT_TIMEOUT),
             $scr->getNullableFloat('ffprobe.idle_timeout', FFProbeConfig::DEFAULT_IDLE_TIMEOUT),
             $scr->getArray('ffprobe.env', FFProbeConfig::DEFAULT_ENV)

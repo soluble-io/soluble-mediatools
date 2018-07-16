@@ -53,7 +53,7 @@ class FFMpegConfigFactory
         $scr = new SafeConfigReader($config, $this->configKey ?? '');
 
         return new FFMpegConfig(
-            $scr->getString('ffmpeg.binary', FFMpegConfig::DEFAULT_BINARY),
+            $scr->getNullableString('ffmpeg.binary', null),
             $scr->getNullableInt('ffmpeg.threads', FFMpegConfig::DEFAULT_THREADS),
             $scr->getNullableFloat('ffmpeg.timeout', FFMpegConfig::DEFAULT_TIMEOUT),
             $scr->getNullableFloat('ffmpeg.idle_timeout', FFMpegConfig::DEFAULT_IDLE_TIMEOUT),
