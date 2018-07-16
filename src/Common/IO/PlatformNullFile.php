@@ -44,7 +44,7 @@ class PlatformNullFile
     }
 
     /**
-     * Return /dev/null on linux/unix/mac or NUL on windows
+     * Return /dev/null on linux/unix/mac or NUL on windows.
      */
     public function getNullFile(): string
     {
