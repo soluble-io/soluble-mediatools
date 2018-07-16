@@ -43,6 +43,9 @@ class PlatformNullFile
                     ? self::PLATFORM_WIN : self::PLATFORM_LINUX;
     }
 
+    /**
+     * Return /dev/null on linux/unix/mac or NUL on windows
+     */
     public function getNullFile(): string
     {
         switch ($this->platform) {
