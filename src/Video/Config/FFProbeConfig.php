@@ -31,7 +31,7 @@ class FFProbeConfig implements FFProbeConfigInterface
         ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
-        $this->binary = $ffprobeBinary ?: self::getPlatformDefaultBinary();
+        $this->binary = $ffprobeBinary ?? self::getPlatformDefaultBinary();
 
         $this->processParams = new ProcessParams(
             $timeout,
@@ -42,7 +42,7 @@ class FFProbeConfig implements FFProbeConfigInterface
 
     public static function getPlatformDefaultBinary(): string
     {
-        return ('\\' === DIRECTORY_SEPARATOR) ? 'ffprobe.exe' : 'ffprobe';
+        return DIRECTORY_SEPARATOR === '\\' ? 'ffprobe.exe' : 'ffprobe';
     }
 
     public function getBinary(): string

@@ -42,7 +42,7 @@ class FFMpegConfig implements FFMpegConfigInterface
         ?float $idleTimeout = self::DEFAULT_IDLE_TIMEOUT,
         array $env = self::DEFAULT_ENV
     ) {
-        $this->binary = $ffmpegBinary ?: self::getPlatformDefaultBinary();
+        $this->binary = $ffmpegBinary ?? self::getPlatformDefaultBinary();
 
         $this->threads     = $threads;
 
@@ -55,7 +55,7 @@ class FFMpegConfig implements FFMpegConfigInterface
 
     public static function getPlatformDefaultBinary(): string
     {
-        return ('\\' === DIRECTORY_SEPARATOR) ? 'ffmpeg.exe' : 'ffmpeg';
+        return (DIRECTORY_SEPARATOR === '\\') ? 'ffmpeg.exe' : 'ffmpeg';
     }
 
     public function getBinary(): string
