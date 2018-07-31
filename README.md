@@ -8,15 +8,24 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
+Toolbox for video/media conversions, thumbnailing, clipping, information... 
+
+Relies on ffmpeg and ffprobe for the hard work, exposes an easy and customizable API.    
+   
+   
 
 ## Status
 
-WIP at speed of light... documentation in progress: 
+
+NOT yet 1.0, but used in production. 
+
+Documentation in progress: 
 
 **https://soluble-io.github.io/soluble-mediatools/**
 
 ## Features
+
+
 
 > Video services:
 
@@ -39,7 +48,7 @@ WIP at speed of light... documentation in progress:
 ## Requirements
 
 - PHP 7.1+
-- FFmpeg 3.4+, 4.0+, see [install](#binaries). 
+- FFmpeg/FFProbe 3.4+, 4.0+, see [install](#binaries). 
  
   
 ## Coding standards and interop
