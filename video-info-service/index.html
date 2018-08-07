@@ -108,7 +108,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#at-a-glance" tabindex="1" class="md-skip">
+      <a href="../#overview" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -209,7 +209,7 @@
 
 <div class="md-hero md-hero--expand" data-md-component="hero">
   <div class="md-hero__inner md-grid">
-    Video info service
+    Video information/query service
   </div>
 </div>
         
@@ -318,29 +318,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#at-a-glance" title="At a glance" class="md-nav__link">
-    At a glance
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#initialize" title="Initialize" class="md-nav__link">
-    Initialize
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exception" title="Exception" class="md-nav__link">
-    Exception
+  <a href="#initialization" title="Initialization" class="md-nav__link">
+    Initialization
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#recipes" title="Recipes" class="md-nav__link">
-    Recipes
+  <a href="#exceptions" title="Exceptions" class="md-nav__link">
+    Exceptions
   </a>
   
 </li>
@@ -458,29 +458,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#at-a-glance" title="At a glance" class="md-nav__link">
-    At a glance
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#initialize" title="Initialize" class="md-nav__link">
-    Initialize
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exception" title="Exception" class="md-nav__link">
-    Exception
+  <a href="#initialization" title="Initialization" class="md-nav__link">
+    Initialization
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#recipes" title="Recipes" class="md-nav__link">
-    Recipes
+  <a href="#exceptions" title="Exceptions" class="md-nav__link">
+    Exceptions
   </a>
   
 </li>
@@ -512,10 +512,116 @@
                 
                   <h1>Information</h1>
                 
-                <h3 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">&para;</a></h3>
-<h3 id="initialize">Initialize<a class="headerlink" href="#initialize" title="Permanent link">&para;</a></h3>
-<h3 id="exception">Exception<a class="headerlink" href="#exception" title="Permanent link">&para;</a></h3>
-<h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
+                <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>The <mark>Video\InfoService</mark> acts as a wrapper over ffprobe and return information about a video file.</p>
+<p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
+component and attempt to make debugging easier with clean exceptions. You can also inject any psr-3 compatible 
+logger if you don't want to log issues by yourself.    </p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\InfoService</span><span class="p">;</span>
+
+<span class="nv">$infoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InfoService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoService</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// see below for exceptions</span>
+<span class="p">}</span>
+
+<span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+<span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+<span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+<span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
+
+<span class="c1">// Or alternatively</span>
+<span class="p">[</span><span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="nv">$width</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span> <span class="o">=&gt;</span> <span class="nv">$height</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDimensions</span><span class="p">();</span>
+</pre></div>
+
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<p>You'll need to have ffprobe installed on your system.</p>
+<h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoService.php">Video\InfoService</a> 
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php"><code>FFProbeConfig</code></a> 
+object as first parameter. 
+This is where you set the location of the ffprobe binary, the number of threads you allow for conversions
+and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFProbeConfig</span><span class="p">,</span> <span class="nx">FFProbeConfigInterface</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\InfoService</span><span class="p">;</span>
+
+<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InfoService</span><span class="p">(</span>    
+    <span class="c1">// @param FFProbeConfigInterface </span>
+    <span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span>
+        <span class="c1">// (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)</span>
+        <span class="nv">$binary</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+        <span class="c1">// (?float)  - max time in seconds for ffprobe process (null: disable)</span>
+        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="c1">// (?float)  - max idle time in seconds for ffprobe process</span>
+        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="c1">// (array)   - additional environment variables</span>
+        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>                           
+    <span class="p">),</span>
+    <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
+    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>   
+<span class="p">);</span>
+</pre></div>
+
+<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
+Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoServiceFactory.php"><code>Video\InfoServiceFactory</code></a>
+and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php"><code>FFProbeConfigFactory</code></a> to get an example based on a psr-11 compatible container.
+See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
+<p>All info exceptions implements <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoExceptionInterface.php"><code>InfoExceptionInterface</code></a> interface.</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\InfoService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
+
+<span class="sd">/** @var InfoService $vis */</span>
+<span class="k">try</span> <span class="p">{</span>
+
+    <span class="nv">$vis</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mov&#39;</span><span class="p">);</span>
+
+<span class="c1">// All exception below implements VE\InfoExceptionInterface</span>
+
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\MissingInputFileException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// &#39;video.mov does not exists</span>
+
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>    
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span>
+
+    <span class="c1">// The following 3 exceptions are linked to process</span>
+    <span class="c1">// failure &#39;ffmpeg exit code != 0) and implements</span>
+    <span class="c1">//</span>
+    <span class="c1">// - `VE\ConversionProcessExceptionInterface`</span>
+    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    </span>
+    <span class="c1">//</span>
+    <span class="c1">// you can catch all them at once or separately:</span>
+
+      <span class="nx">VE\ProcessFailedException</span>       
+    <span class="o">|</span> <span class="nx">VE\ProcessSignaledException</span>
+    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span> 
+<span class="p">{</span>
+
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+
+    <span class="c1">// Because they implement ProcessExceptionInterface</span>
+    <span class="c1">// we can get a reference to the executed (symfony) process:</span>
+
+    <span class="nv">$process</span> <span class="o">=</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getProcess</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getExitCode</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getErrorOutput</span><span class="p">();</span>
+
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Other exceptions can be</span>
+    <span class="c1">//</span>
+    <span class="c1">// - VE\RuntimeException</span>
+    <span class="c1">// - VE\InvalidParamException (should not happen)</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                     <h2 id="__source">Source</h2>

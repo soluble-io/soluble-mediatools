@@ -41,7 +41,7 @@ span.md-header-nav__title {
  * Change the default hero template
  */
 .md-header, .md-hero {
-    /*background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);*/
+    background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);
 }
 
 
