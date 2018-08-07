@@ -6,11 +6,16 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
+Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. 
+
+## Status
+
+Not yet 1.0 but what is documented works pretty well ;)
+
 
 ???+ Info "Note for developers"
     
-    - Mediatools is opensource PHP 7.1+ project and :heart: pull requests and contributors.     
+    - Mediatools is [opensource](https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md) PHP 7.1+ project and :heart: pull requests and [contributors](https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md).     
     
     - Mediatools will preferably use PSR standards. It currently allows injection of 
       any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
@@ -35,11 +40,85 @@ Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps a
     - Information and thumbnail services can be used in realtime but conversions should be 
       used with a job queue.     
 
-### Requirements
+## Basic code example
+
+> Look at the specific service documentation for more info.
+
+```php
+<?php
+
+use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
+use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
+use Soluble\MediaTools\Video\{InfoService, ThumbService, ThumbParams, ConversionService, ConversionParams};
+use Soluble\MediaTools\Video\Filter;
+
+$file = '/path/video.mp4';
+
+// QUERYING
+
+$infoService = new InfoService(new FFProbeConfig('/path/to/ffprobe'));
+
+try {
+    $videoInfo = $infoService->getInfo($file);
+} catch (InfoExceptionInterface $e) {
+    // see the chapter about exceptions
+}
+
+echo $videoInfo->getWidth();
+
+// CONVERSION
+
+$conversionService = new ConversionService(new FFMpegConfig('/path/to/ffmpeg'));
+
+try {
+    $conversionService->convert(
+        $file, 
+        '/path/output.mp4',
+        (new ConversionParams())
+             ->withVideoCodec('libx264')    
+             ->withStreamable(true)
+             ->withCrf(24)
+             ->withVideoFilter(
+                 new Filter\Hqdn3DVideoFilter()
+             )
+            
+    );
+} catch (ConversionExceptionInterface $e) {
+    // see the chapter about exceptions
+}
+
+// THUMBNAILING
+
+
+$thumbService = new ThumbService(new FFMpegConfig('/path/to/ffmpeg'));
+
+
+try {
+    $thumbService->makeThumbnail(
+            $file, 
+            '/path/outputFile.jpg', 
+            (new ThumbParams())
+                 ->withTime(1.123)
+                 ->withQualityScale(5)
+                 ->withVideoFilter(
+                     new Filter\NlmeansVideoFilter()
+                 )
+        );
+} catch (ConversionExceptionInterface $e) {
+    
+}
+
+```
+
+## Requirements
 
 A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 
-### Installation
+> For linux, you can easily download statically compiled binaries [here](https://johnvansickle.com/ffmpeg/), 
+> alternatively have a look to the [travis install script](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) too.
+
+
+## Installation
 
 Installation in your project
 
@@ -47,29 +126,18 @@ Installation in your project
 $ composer require soluble/mediatools
 ``` 
 
-### Status
-
-Not yet 1.0 but what is documented works well ;)
 
 ## Features
 
 > Video services:
 
-- [X] `Video\ConversionService`.
-  - [X] Transcoding, transmuxing, compression (audio/video)     
-  - [X] Video Filters (Chainable filters)      
-      - [X] Deinterlace (`YadifVideoFilter`)
-      - [X] Denoise (`Hqdn3dVideoFilter`, `NlmeansVideoFilter`)
-      - [ ] Video scaling (todo)
-  - [X] Video clipping (seekstart - seekend)                  
-  - [ ] Option to enable multipass transcoding (todo)
-- [X] `Video\InfoService` 
-  - [X] Basic information like duration, frames....
-- [X] `Video\ThumbService`
-  - [X] Basic thumbnail creation
-- [X] `Video\DetectionService`.
-  - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
+- [X] [Video\ConversionService](/video-conversion-service) for conversions, transcoding,
+  video filters (deinterlace, denoise), audio conversions, video clipping...
+- [X] [Video\InfoService](/video-info-service) to query video metadata (dimensions, frames...) 
+- [X] [Video\ThumbService](/video-thumb-service) to make thumbnails of a video.
+- [X] [Video\DetectionService](/video-detection-service ) analyze video stream and use inference to detected [interlacement](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* or [progressive](https://en.wikipedia.org/wiki/Progressive_scan) enconding in videos. More to come.  
 
+## Alternative(s)
 
-
+- https://github.com/PHP-FFMpeg/PHP-FFMpeg
 
