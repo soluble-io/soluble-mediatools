@@ -8,6 +8,49 @@
 
 Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps around ffmpeg and ffprobe. 
 
+???+ Info "Note for developers"
+    
+    - Mediatools is opensource PHP 7.1+ project and :heart: pull requests and contributors.     
+    
+    - Mediatools will preferably use PSR standards. It currently allows injection of 
+      any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
+      (PSR-7 for video thumbnailing is under consideration).     
+    
+    - Mediatools likes chainability when possible, but completely forbid the use of fluent interfaces in favour
+      of immutable api (like PSR-7).  
+    
+    - Customization can generally be done easily as the project try to respect subsitution 
+      principles as much as possible. In most cases, you can swap implementations as you like.
+      
+    - Mediatools versions adheres to [semantic versioning](http://semver.org/). 
+      No bc-break outside of major version releases and we keep a [changelog](https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md).  
+      
+    - Quality assurance is guaranteed through unit and integration/functional tests, phpstan and
+      and some php-cs sniffs. Travis is used as continuous integration server.  
+        
+    - The soluble-mediatools is currently released as a monolithic repository, but once more
+      diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
+      can be easily split into multiple repositories without affecting existing projects.
+      
+    - Information and thumbnail services can be used in realtime but conversions should be 
+      used with a job queue.     
+
+### Requirements
+
+A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
+
+### Installation
+
+Installation in your project
+
+```bash
+$ composer require soluble/mediatools
+``` 
+
+### Status
+
+Not yet 1.0 but what is documented works well ;)
+
 ## Features
 
 > Video services:
@@ -28,11 +71,5 @@ Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps a
   - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
 
 
-### Requirements
 
-You'll need to have ffmpeg installed on your system and a PHP version >= 7.1 then add the project to your dependencies:
-
-```bash
-$ composer require soluble/mediatools
-```
 
