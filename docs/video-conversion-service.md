@@ -213,12 +213,15 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withOverwrite()`             | -y                     |            | by default. overwrite if file exists |
 | `withNoOverwrite()`           |                        |            | throw exception if output exists     |
 
-- Generic methods:
+- Other methods:
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
 | `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php)  | 
 | `withoutParam(string)`            | Without the specified parameter |
+| `getParam(string $param): mixed`  | Return the param is exists      |
+| `hasParam(string $param): bool`   | Whether the param has been set  |
+| `toArray(): array`                | Return the object as array      |
 
 
 > To get the latest list of built-ins, see the 
@@ -228,13 +231,19 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 #### Filters
 
-Video filters can be set to the ConversionParams through the `withVideoFilter()` method:
+Video filters can be set to the ConversionParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
 
 ```php
 <?php
-s
+$params = (new ConversionParams())
+    ->withVideoFilter(
+        // A denoise filter
+        new Hqdn3DVideoFilter()
+    );
 
 ```
+
+If you need to chain multiple filters, you can use the 
   
 ??? Question "Is the order of parameters, filters... important ?" 
     Generally FFMpeg will evaluate the parameters in the order they appear... 
