@@ -82,7 +82,7 @@ $conversionService->convert(
 
 FFmpeg's command line arguments can quickly become confusing, especially when they have multiple aliases.... 
 The [`Video\ConversionParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParams.php) 
-expose an ==immutable== interface and attempt to make conversion params as readable as possible. 
+expose an ==immutable== interface and attempt to make conversion params as readable as possible: 
    
 
 ```php
@@ -98,7 +98,6 @@ $params = (new ConversionParams())
     ->withAudioBitrate('128k');            
 
 ```
-
 
 ???+ warning
     ==ConversionParams== exposes an ==immutable :heart:== style api *(`->withXXX()`, like PSR-7 for example)*.
@@ -144,6 +143,9 @@ Video options:
 | `withQuality(string)`         | -quality ◌             | good,medium… |  |
 | `withPreset(string)`          | -preset ◌              | fast…        |  |
 | `withTune(string)`            | -tune ◌                | film…        |  |
+| `withVideoQualityScale(int)`  | -qscale:v ◌            |              |  |
+
+
 
 Audio options:
 
@@ -157,9 +159,9 @@ Seeking/clipping options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
-| `withSeekStart(SeekTime)`     | -ss ◌                  | 0:00:00.1  | see [SeekTime](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/SeekTime.php)  |
-| `withSeekEnd(SeekTime)`       | -to ◌                  | 0:02:30    |                              |
-| `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Clip to the first ◌ frames   |
+| `withSeekStart(SeekTime)`     | -ss ◌                  | [`SeekTime::createFromHms('0:00:01.9')`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/SeekTime.php) |   |
+| `withSeekEnd(SeekTime)`       | -to ◌                  | `new SeekTime(120.456)`                |                              |
+| `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Only ◌ frames   |
 
 
 General conversion options:
@@ -171,7 +173,10 @@ General conversion options:
 | `withOutputFormat(string)`    | -format ◌              | mp4,webm…  | file extension *(if not provided)*   |
 | `withOverwrite()`             | -y                     |            | by default. overwrite if file exists |
 | `withNoOverwrite()`           |                        |            | throw exception if output exists     |
+| `withNoOverwrite()`           |                        |            | throw exception if output exists     |
 
+
+In some circumstances (deserialization...) you may want to 
 
 
 ### Video filters
