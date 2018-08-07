@@ -3,9 +3,9 @@ path: blob/master/src
 source: Video/ConversionService.php
 
 The ==Video\ConversionService== acts as a wrapper over ffmpeg and
-currently provides transcoding, transmuxing and clipping video features.  
+helps with video conversions, clipping... 
 
-### At a glance
+### Overview
 
 ```php
 <?php
@@ -16,8 +16,8 @@ use Soluble\MediaTools\Video\{ConversionService, ConversionParams};
 $vcs = new ConversionService(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new ConversionParams())
-    ->withVideoCodec('libx264')
-    ->withStreamable(true)       
+    ->withVideoCodec('libx264')    
+    ->withStreamable(true)
     ->withCrf(24);                  
     
 try {    
@@ -34,43 +34,56 @@ try {
 
 ### Initialize
 
+The [Video\ConversionService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionService.php) requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
+This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
+and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
+
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\ConversionService;
 
 $vcs = new ConversionService(    
-    // FFMpegConfigInterface
+    // @param FFMpegConfigInterface 
     new FFMpegConfig(
-        $binary = 'ffmpeg',  // (?string) - path to ffmpeg binary 
+        $binary = null,      // (?string) - path to ffmpeg binary (default: 'ffmpeg' or 'ffmpeg.exe' on Windows)  
         $threads = null,     // (?int)    - ffmpeg default threads (null: single-thread)
         $timeout = null,     // (?float)  - max time in seconds for ffmpeg process (null: disable) 
         $idleTimeout = null, // (?float)  - max idle time in seconds for ffmpeg process
         $env = []            // (array)   - additional environment variables               
     ),
-    // ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
+    // @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
     $logger = null   
 );
 ```
 
 ???+ tip 
-    The `Video\ConversionServiceFactory` factory consumes a `Psr\Container\ContainerInterface`
-    to create the service. I should be easy to register it. Afterwards it's possible to:  
-    
-    ```php
-    <?php
-    use Psr\Container\ContainerInterface;
-    use Soluble\MediaTools\Video\ConversionServiceInterface;
-    /**
-     * @var ContainerInterface         $aPsr11Container 
-     * @var ConversionServiceInterface $videoConverter
-     */ 
-    $videoConverter = $aPsr11Container->get(ConversionServiceInterface::class);
-    ```
+    It's a good idea to register services in a container. Depending on available 
+    framework integrations, you may have a look to the [`Video\ConversionServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionServiceFactory.php)
+    to get an example based on a psr-11 compatible container.
+          
 
 
-### Conversion params
+### Conversion 
 
+The `Video\ConversionService` offers two methods, the first one `->convert()` allows 
+
+```php
+<?php
+$conversionService->convert(
+    '/path/inputFile.mov', 
+    '/path/outputFile.mp4', 
+    (new ConversionParams())->withVideoCodec('libx264')
+);           
+``` 
+
+#### ConversionParams
+
+
+FFmpeg's command line arguments can quickly become confusing, especially when they have multiple aliases.... 
+The [`Video\ConversionParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParams.php) 
+expose an ==immutable== interface and attempt to make conversion params as readable as possible. 
+   
 
 ```php
 <?php
@@ -84,22 +97,23 @@ $params = (new ConversionParams())
     ->withAudioCodec('aac')
     ->withAudioBitrate('128k');            
 
+
 ```
- 
+
 
 ???+ warning
-    ==ConversionParams== exposes an ==immutable :heart:== style api *(`->withXXX()`, just like PSR-7 and others)*.
-    It means that the original params are never touched, the `withXXX()` methods always return a copy. 
-    Please be aware of it especially if you're used to ~==fluent==~ interfaces as both exposes chainable methods
-    and look similar... your primary reflexes might cause pain: 
+    ==ConversionParams== exposes an ==immutable :heart:== style api *(`->withXXX()`, like PSR-7 for example)*.
+    It means that the original params are never touched, the `withXXX()` methods will return a newly 
+    created object. Please be aware of it especially if you're used to ~==fluent==~ interfaces as both expose 
+    chainable methods... your primary reflexes might cause pain: 
     
             
     ```php 
     <?php
     $params = (new ConversionParams());
     
-    $newParams = $params->withVideoCodec(date('Y') ? 'thenexbigcodec' : 'libx264')
-                        ->withNoOverwrite();
+    $newParams = $params->withVideoCodec('libx264')
+                        ->withCrf(33);
     
     // The two next lines won't use the same params !!!
     $vcs->convert('i.mov', 'output', $params); 
@@ -108,13 +122,66 @@ $params = (new ConversionParams())
     ```
 
 
+#### Built-in params
+
+ConversionParams offers some built-in methods to ffmpeg. To get the latest list of built-ins, see the 
+[ConversionParamsInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php) and 
+[FFMpegAdapter](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php) sources.
+
+Video options:
+
+| Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
+| ----------------------------- | ---------------------- | ---------- | ---------------------------- |
+| `withVideoCodec(string)`      | -c:v ◌                 | libx264…   | any supported ffmpeg codec   |
+| `withVideoBitrate(string)`    | -b:v ◌                 | 750k,2M…   | constant bit rate            |
+| `withVideoMinBitrate(string)` | -minrate ◌             | 750k,2M…   | min variable bitrate         |
+| `withVideoMaxBitrate(string)` | -maxrate ◌             | 750k,2M…   | max variable bitrate         |
+| `withCrf(int)`                | -crf ◌                 | 32,…       | constant rate compression    |
+| `withStreamable()`            | -movflags +faststart   |            | *mp4 container only*         |
+| `withTileColumns(int)`        | -tile-columns ◌        | 10…        | *vp9 related*                |
+| `withKeyframeSpacing(int)`    | -g ◌                   | 240…       | *vp9 related*                |
+| `withFrameParallel(int)`      | -frame-parallel ◌      | 2…         | *vp9 related*                |
+| `withPixFmt(string)`          | -pix_fmt ◌             | yuv420p    | Default '*no change*'        |
+| `withQuality(string)`         | -quality ◌             | good,medium… |  |
+| `withPreset(string)`          | -preset ◌              | fast…        |  |
+| `withTune(string)`            | -tune ◌                | film…        |  |
+
+Audio options
+
+| Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
+| ----------------------------- | ---------------------- | ---------- | ---------------------------- |
+| `withAudioCodec(string)`      | -c:a ◌                 | aac,mp3…   | *webm* requires vorbis/opus  |
+| `withAudioBitrate(string)`    | -b:a ◌                 | 128k…      |                              |  
+| `withNoAudio()`               | -an                    |            | removes all audio tracks     |
+
+Seeking/clipping options
+
+| Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
+| ----------------------------- | ---------------------- | ---------- | ---------------------------- |
+| `withSeekStart(SeekTime)`     | -ss ◌                  | 0:00:00.1  |                              |
+| `withSeekEnd(SeekTime)`       | -to ◌                  | 0:02:30    |                              |
+| `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Clip to the first ◌ frames   |
+
+
+General conversion options
+
+| Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                            |
+| ----------------------------- | ---------------------- | ---------- | ---------------------------------- |
+| `withSpeed(int)`              | -speed ◌               | 1,2,3…     | *for vp9 or multipass*             |
+| `withThreads(int)`            | -threads ◌             | 0,1,2…     | by default, use FFMpegConfig       |
+| `withOutputFormat(string)`    | -format ◌              | mp4,webm…  | file extension *(if not provided)* |
+
+
+
+
+
 ### Video filters
 
 todo
 
 ### Exception
 
-You can safely catch exceptions with the generic `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,
+All conversion exceptions implements `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,  interface.,
 alternatively you can also :
 
 ```php
