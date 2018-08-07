@@ -157,7 +157,7 @@ Seeking/clipping options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
-| `withSeekStart(SeekTime)`     | -ss ◌                  | 0:00:00.1  |                              |
+| `withSeekStart(SeekTime)`     | -ss ◌                  | 0:00:00.1  | see [SeekTime](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/SeekTime.php)  |
 | `withSeekEnd(SeekTime)`       | -to ◌                  | 0:02:30    |                              |
 | `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Clip to the first ◌ frames   |
 
