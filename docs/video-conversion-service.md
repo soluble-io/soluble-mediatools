@@ -51,7 +51,7 @@ The [Video\ConversionService](https://github.com/soluble-io/soluble-mediatools/b
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
 
-```php hl_lines="6 8 10 12 14 16 19"
+```php 
 <?php
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\ConversionService;
