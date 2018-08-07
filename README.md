@@ -8,7 +8,9 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. 
+Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. Relies on symfony/process
+under the hood and generally likes PSR (psr-log, psr-container), php 7.1 strict mode and ensure that substitution is 
+possible when you need to customize (The 'S' of SOLID). 
       
 ## Status
 
