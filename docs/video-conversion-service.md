@@ -2,15 +2,17 @@ hero: Video conversion service
 path: blob/master/src
 source: Video/ConversionService.php
 
-The ==Video\ConversionService== acts as a wrapper over ffmpeg and
-helps with video conversions, clipping, filters... 
-It relies on the reliable [symfony/process](https://symfony.com/doc/current/components/process.html) 
-component, exposes an immutable api for conversion parameters and makes debugging
-easier with clean exceptions. You can also inject any psr-3 compatible logger.    
-  
 ### Overview
 
-```php
+The ==Video\ConversionService== acts as a wrapper over ffmpeg and
+helps with video conversions, clipping, filters... 
+It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
+component, exposes an immutable api for conversion parameters and attempt to make debugging
+easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
+to log issues by yourself.    
+  
+
+```php hl_lines="8 9 10 11 14 15 16 17 18"
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
@@ -35,13 +37,21 @@ try {
        
 ``` 
 
-### Initialize
+### Requirements
+
+You'll need to have ffmpeg installed on your system and a PHP version >= 7.1 then add the project to your dependencies:
+
+```bash
+$ composer require soluble/mediatools
+```
+
+### Initialization
 
 The [Video\ConversionService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionService.php) requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
 
-```php
+```php hl_lines="6 8 10 12 14 16 19"
 <?php
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\ConversionService;
@@ -49,27 +59,34 @@ use Soluble\MediaTools\Video\ConversionService;
 $vcs = new ConversionService(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
-        $binary = null,      // (?string) - path to ffmpeg binary (default: 'ffmpeg' or 'ffmpeg.exe' on Windows)  
-        $threads = null,     // (?int)    - ffmpeg default threads (null: single-thread)
-        $timeout = null,     // (?float)  - max time in seconds for ffmpeg process (null: disable) 
-        $idleTimeout = null, // (?float)  - max idle time in seconds for ffmpeg process
-        $env = []            // (array)   - additional environment variables               
+        // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
+        $binary = null,
+        // (?int)    - ffmpeg default threads (null: single-thread)
+        $threads = null,
+        // (?float)  - max time in seconds for ffmpeg process (null: disable)
+        $timeout = null, 
+        // (?float)  - max idle time in seconds for ffmpeg process
+        $idleTimeout = null, 
+        // (array)   - additional environment variables
+        $env = []                           
     ),
     // @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
     $logger = null   
 );
 ```
 
-???+ tip 
-    It's a good idea to register services in a container. Depending on available 
-    framework integrations, you may have a look to the [`Video\ConversionServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionServiceFactory.php)
-    to get an example based on a psr-11 compatible container.
-          
+??? tip "Tip: initialize in a container (psr-11)" 
+    It's a good idea to register services in a container. 
+    Depending on available framework integrations, you may have a look to the [`Video\ConversionServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionServiceFactory.php)
+    and/or [`FFMpegConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php) to get an example based on a psr-11 compatible container.
+    See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
+               
+### Usage
 
-
-### Conversion 
-
-The `Video\ConversionService` offers two methods, the first one `->convert()` allows 
+#### Conversion
+ 
+The `Video\ConversionService` offers a quick and simple `convert()` method in which you specify the input/output files
+as well as the conversion params. 
 
 ```php
 <?php
@@ -80,14 +97,37 @@ $conversionService->convert(
 );           
 ``` 
 
-#### ConversionParams
+*The `convert()` method will automatically set the process timeouts, logger... as specified during 
+service initialization.* 
 
+??? question "What if I need more control over the process ? (advanced usage)"
+    You can use the `Video\ConversionService::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
+    to get more control on the conversion process. 
+    ```php 
+    <?php
+    $process = $conversionService->getSymfonyProcess(
+        '/path/inputFile.mov', 
+         '/path/outputFile.mp4', 
+          (new ConversionParams())->withVideoCodec('libx264')              
+    );
+    
+    $process->start();
 
-FFmpeg's command line arguments can quickly become confusing, especially when they have multiple aliases.... 
+    foreach ($process as $type => $data) {
+        if ($process::OUT === $type) {
+            echo "\nRead from stdout: ".$data;
+        } else { // $process::ERR === $type
+            echo "\nRead from stderr: ".$data;
+        }
+    }        
+    ```
+    Have a look to the [symfony/process documentation](https://symfony.com/doc/current/components/process.html) for more recipes. 
+
+#### Parameters
+ 
 The [`Video\ConversionParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParams.php) 
-expose an ==immutable== interface and attempt to make conversion params as readable as possible: 
+exposes an immutable api that attempt to mimic ffmpeg params.  
    
-
 ```php
 <?php
 use Soluble\MediaTools\Video\ConversionParams;
@@ -102,34 +142,32 @@ $params = (new ConversionParams())
 
 ```
 
-???+ warning
-    ==ConversionParams== exposes an ==immutable :heart:== style api *(`->withXXX()`, like PSR-7 for example)*.
-    It means that the original params are never touched, the `withXXX()` methods will return a newly 
-    created object. Please be aware of it especially if you're used to ~==fluent==~ interfaces as both expose 
+??? question "Immutable api, what does it change for me ? (vs fluent)"
+    ConversionParams exposes an ==immutable== style api *(`->withXXX()`, like PSR-7 for example)*.
+    It means that the original object is never touched, the `withXXX()` methods will return a newly 
+    created object. 
+    
+    Please be aware of it especially if you're used to ~==fluent==~ interfaces as both expose 
     chainable methods... your primary reflexes might cause pain: 
     
             
-    ```php 
+    ```php hl_lines="6 9"
     <?php
     $params = (new ConversionParams());
     
-    $newParams = $params->withVideoCodec('libx264')
-                        ->withCrf(33);
+    $newParams = $params->withVideoCodec('libx264');
     
-    // The two next lines won't use the same params !!!
-    $vcs->convert('i.mov', 'output', $params); 
+    // $params used here are empty (incorrect usage)
+    $vcs->convert('i.mov', 'output', $params);
+    
+    // $newParams have been initialized with video codec (correct)
     $vcs->convert('i.mov', 'output', $newParams);     
     
     ```
 
+Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information. 
 
-#### Built-in params
-
-ConversionParams offers some built-in methods to ffmpeg. To get the latest list of built-ins, see the 
-[ConversionParamsInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php) and 
-[FFMpegAdapter](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php) sources.
-
-Video options:
+- Video options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
@@ -148,8 +186,7 @@ Video options:
 | `withTune(string)`            | -tune ◌                | film…        |  |
 | `withVideoQualityScale(int)`  | -qscale:v ◌            |              |  |
 
-
-Audio options:
+- Audio options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
@@ -157,7 +194,7 @@ Audio options:
 | `withAudioBitrate(string)`    | -b:a ◌                 | 128k…      |                              |  
 | `withNoAudio()`               | -an                    |            | removes all audio tracks     |
 
-Seeking/clipping options:
+- Seeking/clipping options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
@@ -166,31 +203,34 @@ Seeking/clipping options:
 | `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Only ◌ frames   |
 
 
-General conversion options:
+- General process options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                              |
 | ----------------------------- | ---------------------- | ---------- | ------------------------------------ |
 | `withSpeed(int)`              | -speed ◌               | 1,2,3…     | *for vp9 or multipass*               |
-| `withThreads(int)`            | -threads ◌             | 0,1,2…     | by default, use FFMpegConfig         |
+| `withThreads(int)`            | -threads ◌             | 0,1,2…     | by default uses FFMpegConfig         |
 | `withOutputFormat(string)`    | -format ◌              | mp4,webm…  | file extension *(if not provided)*   |
 | `withOverwrite()`             | -y                     |            | by default. overwrite if file exists |
 | `withNoOverwrite()`           |                        |            | throw exception if output exists     |
-| `withNoOverwrite()`           |                        |            | throw exception if output exists     |
 
-
-Generic methods
+- Generic methods:
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
 | `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php)  | 
-| `withoutParam(string)`            | To remove a 
+| `withoutParam(string)`            | Without the specified parameter |
 
 
-### Video filters
+> To get the latest list of built-ins, see the 
+> [ConversionParamsInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php) and 
+> [FFMpegAdapter](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php) sources.
 
-todo
 
-### Exception
+#### Filters
+
+FFMpeg uses 
+
+#### Exceptions
 
 All conversion exceptions implements `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,  interface.,
 alternatively you can also :
@@ -206,8 +246,7 @@ try {
     
     $vcs->convert('i.mov', 'o.mp4', $params);
     
-// All exception below implements Ve\ConversionExceptionInterface
-// It's possible to get them all in once
+// All exception below implements VE\ConversionExceptionInterface
         
 } catch(VE\MissingInputFileException $e) {
     
@@ -215,15 +254,15 @@ try {
     
     echo $e->getMessage();    
     
-} catch(
+} catch (
     
-    // The following 3 exeptions are linked to process
+    // The following 3 exceptions are linked to process
     // failure 'ffmpeg exit code != 0) and implements
     //
     // - `VE\ConversionProcessExceptionInterface`
     //        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    
     //
-    // in case you want to catch them all-in-once
+    // you can catch all them at once or separately:
     
       VE\ProcessFailedException       
     | VE\ProcessSignaledException
@@ -347,13 +386,17 @@ try {
 <?php
 use Soluble\MediaTools\Video\{Exception, ConversionParams, SeekTime};
 
-$convertParams = (new ConversionParams)
-                ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
-                ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
+$params = (new ConversionParams())
+          ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
+          ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
 
 try {
     /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
-    $videoConverter->convert('/path/inputFile.mp4', '/path/outputFile.mp4', $convertParams);
+    $videoConverter->convert(
+        '/path/inputFile.mp4', 
+        '/path/outputFile.mp4', 
+        $params
+    );
 } catch(Exception\ConversionExceptionInterface $e) {
     // see chapter about exceptions        
 }
