@@ -26,12 +26,11 @@ nav:
       - 'License': 'about/license.md'
 
 
-
 theme:
   name: 'material'
   language: 'en'
   palette:
-    primary: 'blue'
+    primary: 'deep-orange'
     accent: 'green'
   font:
     text: 'Roboto'
