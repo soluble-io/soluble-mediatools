@@ -15,7 +15,7 @@ strict: true
 docs_dir: docs
 site_dir: build/docs
 
-pages:
+nav:
     - { 'Intro': index.md }
     - Video services:
       - 'Information': 'video-info-service.md'
@@ -24,8 +24,6 @@ pages:
       - 'Detection': 'video-detection-service.md'
     - About:
       - 'License': 'about/license.md'
-
-
 
 
 
