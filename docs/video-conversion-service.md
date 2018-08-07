@@ -228,8 +228,21 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 #### Filters
 
-FFMpeg uses 
+Video filters can be set to the ConversionParams through the `withVideoFilter()` method:
 
+```php
+<?php
+s
+
+```
+  
+??? Question "Is the order of parameters, filters... important ?" 
+    Generally FFMpeg will evaluate the parameters in the order they appear... 
+    So if you're about to clip a video (from 1s to 3s) and use a denoise filter, 
+    setting the clipping params before the filter will generally be more performant
+    *(the denoise filter will only be applied on the clipped part of the video 
+    and not it's entire length)*.     
+       
 #### Exceptions
 
 All conversion exceptions implements `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,  interface.,
