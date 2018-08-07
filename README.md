@@ -15,11 +15,11 @@ possible when you need to customize (The 'S' of SOLID).
 ## Status
 
 Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional tests to ensure 
-a good experience. Oh and it ❤️ contributions !
+a good experience. But this project is young and will ❤️ to meet new contributors !
 
 ## Documentation 
 
-All is here: **https://soluble-io.github.io/soluble-mediatools/**
+All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://soluble-io.github.io/soluble-mediatools/)**
 
 ## A quick taste
 
