@@ -3,8 +3,11 @@ path: blob/master/src
 source: Video/ConversionService.php
 
 The ==Video\ConversionService== acts as a wrapper over ffmpeg and
-helps with video conversions, clipping... 
-
+helps with video conversions, clipping, filters... 
+It relies on the reliable [symfony/process](https://symfony.com/doc/current/components/process.html) 
+component, exposes an immutable api for conversion parameters and makes debugging
+easier with clean exceptions. You can also inject any psr-3 compatible logger.    
+  
 ### Overview
 
 ```php
@@ -146,7 +149,6 @@ Video options:
 | `withVideoQualityScale(int)`  | -qscale:v ◌            |              |  |
 
 
-
 Audio options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
@@ -176,7 +178,12 @@ General conversion options:
 | `withNoOverwrite()`           |                        |            | throw exception if output exists     |
 
 
-In some circumstances (deserialization...) you may want to 
+Generic methods
+
+| Method                            | Note(s)                              |
+| --------------------------------- | ------------------------------------ | 
+| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php)  | 
+| `withoutParam(string)`            | To remove a 
 
 
 ### Video filters
