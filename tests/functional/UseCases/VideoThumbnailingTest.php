@@ -54,8 +54,9 @@ class VideoThumbnailingTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            (new ThumbParams())->withSeekTime(new SeekTime(0.2))
+            (new ThumbParams())->withTime(0.2)
         );
+
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));
         unlink($outputFile);

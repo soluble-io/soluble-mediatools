@@ -44,6 +44,20 @@ class ThumbParamsTest extends TestCase
         self::assertFalse($params->hasParam(ThumbParams::PARAM_SEEK_TIME));
     }
 
+    public function testWithTime(): void
+    {
+        $params = (new ThumbParams())
+            ->withTime(1.423);
+
+        self::assertTrue($params->hasParam(ThumbParams::PARAM_SEEK_TIME));
+
+        /**
+         * @var SeekTime
+         */
+        $time = $params->getParam(ThumbParams::PARAM_SEEK_TIME);
+        self::assertEquals(1.423, $time->getTime());
+    }
+
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
         $injectedParams = new ThumbParams([

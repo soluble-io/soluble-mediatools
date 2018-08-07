@@ -25,6 +25,18 @@ class ThumbParams implements ThumbParamsInterface
         $this->params = $params;
     }
 
+    /**
+     * @param float $time time in seconds, decimals are milli
+     *
+     * @return ThumbParams
+     */
+    public function withTime(float $time): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_SEEK_TIME => new SeekTime($time),
+        ]));
+    }
+
     public function withSeekTime(SeekTime $seekTime): self
     {
         return new self(array_merge($this->params, [
@@ -127,8 +139,8 @@ class ThumbParams implements ThumbParamsInterface
     }
 
     /**
-     *
      * @return bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null
+     *
      * @throws UnsetParamException
      */
     public function getParam(string $paramName)
