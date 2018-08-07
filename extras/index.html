@@ -13,6 +13,8 @@
         <meta name="description" content="soluble-mediatools documentation">
       
       
+        <link rel="canonical" href="https://soluble-io.github.io/soluble-mediatools/extras/">
+      
       
         <meta name="author" content="Sébastien Vanvelthem">
       
@@ -35,18 +37,18 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="/soluble-mediatools/assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
     
     
       
-        <title>Mediatools</title>
+        <title>Extras - Mediatools</title>
       
     
     
-      <link rel="stylesheet" href="/soluble-mediatools/assets/stylesheets/application.451f80e5.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="/soluble-mediatools/assets/stylesheets/application-palette.22915126.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
       
       
         
@@ -55,7 +57,7 @@
       
     
     
-      <script src="/soluble-mediatools/assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -64,11 +66,11 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="/soluble-mediatools/assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
-      <link rel="stylesheet" href="/soluble-mediatools/assets/css/extra.css">
+      <link rel="stylesheet" href="../assets/css/extra.css">
     
-      <link rel="stylesheet" href="/soluble-mediatools/assets/css/monokai.css">
+      <link rel="stylesheet" href="../assets/css/monokai.css">
     
     
   </head>
@@ -106,6 +108,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="../#installation" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -128,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                
+                Extras
               </span>
             
           
@@ -245,7 +251,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/soluble-mediatools/." title="Intro" class="md-nav__link">
+    <a href=".." title="Intro" class="md-nav__link">
       Intro
     </a>
   </li>
@@ -276,7 +282,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/soluble-mediatools/video-info-service/" title="Information" class="md-nav__link">
+    <a href="../video-info-service/" title="Information" class="md-nav__link">
       Information
     </a>
   </li>
@@ -288,7 +294,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/soluble-mediatools/video-conversion-service/" title="Conversion" class="md-nav__link">
+    <a href="../video-conversion-service/" title="Conversion" class="md-nav__link">
       Conversion
     </a>
   </li>
@@ -300,7 +306,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/soluble-mediatools/video-thumb-service/" title="Thumbnailing" class="md-nav__link">
+    <a href="../video-thumb-service/" title="Thumbnailing" class="md-nav__link">
       Thumbnailing
     </a>
   </li>
@@ -312,7 +318,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/soluble-mediatools/video-detection-service/" title="Detection" class="md-nav__link">
+    <a href="../video-detection-service/" title="Detection" class="md-nav__link">
       Detection
     </a>
   </li>
@@ -348,7 +354,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/soluble-mediatools/about/license/" title="License" class="md-nav__link">
+    <a href="../about/license/" title="License" class="md-nav__link">
       License
     </a>
   </li>
@@ -366,12 +372,185 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binaries" title="Binaries" class="md-nav__link">
+    Binaries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psr-11container-way" title="PSR-11/container way" class="md-nav__link">
+    PSR-11/container way
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-config-file" title="Create a config file" class="md-nav__link">
+    Create a config file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" title="Registration" class="md-nav__link">
+    Registration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frameworks-integration" title="Framework(s) integration" class="md-nav__link">
+    Framework(s) integration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/extras.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Extras</h1>
+                
+                <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h3 id="binaries">Binaries<a class="headerlink" href="#binaries" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>This library relies on FFMpeg binaries </p>
+<ul>
+<li><strong><a href="https://ffmpeg.org/ffmpeg.html">ffmpeg</a></strong> is required by <code>VideoConversionService</code>, <code>VideoDetectionService</code> and <code>VideoThumbService</code>.</li>
+<li><strong><a href="https://ffmpeg.org/ffprobe.html">ffprobe</a></strong> is required by <code>VideoInfoService</code>.</li>
+</ul>
+<p>Statically <a href="https://ffmpeg.org/download.html">compiled binaries</a> exists in case your OS does not provide them.</p>
+<p><em>Tip: For integration tests see our <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh">ffmpeg travis install</a> script</em>. </p>
+</blockquote>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="psr-11container-way">PSR-11/container way<a class="headerlink" href="#psr-11container-way" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Mediatools is PSR-11/container friendly and provides some ready to use factories.</p>
+</blockquote>
+<h4 id="create-a-config-file">Create a config file<a class="headerlink" href="#create-a-config-file" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> 
+<span class="k">return</span> <span class="p">[</span>
+    <span class="s1">&#39;soluble-mediatools&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
 
+        <span class="s1">&#39;ffmpeg.binary&#39;</span>         <span class="o">=&gt;</span> <span class="s1">&#39;ffmpeg&#39;</span><span class="p">,</span>   <span class="c1">// Or a complete path /opt/local/ffmpeg/bin/ffmpeg</span>
+        <span class="c1">//&#39;ffmpeg.threads&#39;        =&gt; null,       // &lt;null&gt;: single thread; &lt;0&gt;: number of cores, &lt;1+&gt;: number of threads</span>
+        <span class="c1">//&#39;ffmpeg.timeout&#39;        =&gt; null,       // &lt;null&gt;: no timeout, &lt;number&gt;: number of seconds before timing-out</span>
+        <span class="c1">//&#39;ffmpeg.idle_timeout&#39;   =&gt; null,       // &lt;null&gt;: no idle timeout, &lt;number&gt;: number of seconds of inactivity before timing-out</span>
+        <span class="c1">//&#39;ffmpeg.env&#39;            =&gt; [],         // An array of additional env vars to set when running the ffmpeg conversion process</span>
+
+
+        <span class="s1">&#39;ffprobe.binary&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;ffprobe&#39;</span><span class="p">,</span>  <span class="c1">// Or a complete path /opt/local/ffmpeg/bin/ffprobe</span>
+        <span class="c1">//&#39;ffprobe.timeout&#39;       =&gt; null,       // &lt;null&gt;: no timeout, &lt;number&gt;: number of seconds before timing-out</span>
+        <span class="c1">//&#39;ffprobe.idle_timeout&#39;  =&gt; null,       // &lt;null&gt;: no idle timeout, &lt;number&gt;: number of seconds of inactivity before timing-out</span>
+        <span class="c1">//&#39;ffprobe.env&#39;           =&gt; [],         // An array of additional env vars to set when running the ffprobe</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+</pre></div>
+
+<blockquote>
+<p>Tip: Have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">config/soluble-mediatools.config.php</a> file
+for most up-to-date info about defaults.</p>
+</blockquote>
+<h4 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">&para;</a></h4>
+<p>Require the config file and feed your container (example with zend-servicemanager)  </p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> 
+
+<span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceManager</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\ConfigProvider</span><span class="p">;</span>
+
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">require</span><span class="p">(</span><span class="s1">&#39;/path/config/soluble-mediatools.config.php&#39;</span><span class="p">);</span>
+
+<span class="c1">// Service manager</span>
+<span class="nv">$container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ServiceManager</span><span class="p">(</span>
+                <span class="nb">array_merge</span><span class="p">([</span>
+                    <span class="c1">// In Zend\ServiceManager configuration will be set</span>
+                    <span class="c1">// in &#39;services&#39;.&#39;config&#39;. </span>
+                    <span class="s1">&#39;services&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                        <span class="s1">&#39;config&#39;</span> <span class="o">=&gt;</span> <span class="nv">$config</span>
+                    <span class="p">]],</span>
+                    <span class="c1">// Here the factories</span>
+                    <span class="p">(</span><span class="k">new</span> <span class="nx">ConfigProvider</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">getDependencies</span><span class="p">()</span>
+             <span class="p">));</span>
+</pre></div>
+
+<blockquote>
+<p>Tip: Have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/ConfigProvider.php">ConfigProvider</a> class
+to get some ideas about registered factories / aliases</p>
+</blockquote>
+<h3 id="frameworks-integration">Framework(s) integration<a class="headerlink" href="#frameworks-integration" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>No framework integration have been done yet... Open a P/R or send us a link.</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> zend-expressive (wip) </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Laravel (todo)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Symfony (todo)
+</li>
+</ul>
+</blockquote>
+                
+                  
+                
+              
               
                 
 
@@ -402,7 +581,7 @@
       
         
   <div class="md-footer-social">
-    <link rel="stylesheet" href="/soluble-mediatools/assets/fonts/font-awesome.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
       <a href="https://github.com/soluble-io/soluble-mediatools" class="md-footer-social__link fa fa-github"></a>
     
@@ -415,9 +594,9 @@
       
     </div>
     
-      <script src="/soluble-mediatools/assets/javascripts/application.583bbe55.js"></script>
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
       
-      <script>app.initialize({version:"1.0",url:{base:"/soluble-mediatools"}})</script>
+      <script>app.initialize({version:"1.0",url:{base:".."}})</script>
       
     
     

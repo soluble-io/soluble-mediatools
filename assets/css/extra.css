@@ -41,19 +41,19 @@ span.md-header-nav__title {
  * Change the default hero template
  */
 .md-header, .md-hero {
-    background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);
+    /*background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);*/
 }
 
 
 [data-md-color-primary=light-green] .md-header, [data-md-color-primary=light-green] .md-hero {
-    background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);
+   /* background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);*/
 }
 
 
 .md-hero--expand .md-hero__inner {
     margin-bottom: 0;
     margin-top: 0;
-    background: rgba(0,0,0, 0.9);
+    /*background: rgba(0,0,0, 0.9);*/
     /*background: linear-gradient(to left, rgba(0,0,0, 0.1), #00bcd4 50%, #eee 75%, #333 75%);*/
     /*background: linear-gradient(13deg, rgba(0,0,0, 0.2), rgba(0,0,0, 0.1) 60%, rgba(0,0,0, 0.2));*/
     padding-top: 2.2rem;

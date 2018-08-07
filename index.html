@@ -37,8 +37,8 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.2">
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
     
     
       
@@ -46,18 +46,18 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.ba0fd1a6.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
       
       
         
         
-        <meta name="theme-color" content="#2196f3">
+        <meta name="theme-color" content="#ff7043">
       
     
     
-      <script src="./assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -66,18 +66,18 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="./assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
     
-      <link rel="stylesheet" href="./assets/css/extra.css">
+      <link rel="stylesheet" href="assets/css/extra.css">
     
-      <link rel="stylesheet" href="./assets/css/monokai.css">
+      <link rel="stylesheet" href="assets/css/monokai.css">
     
     
   </head>
   
     
     
-    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="green">
+    <body dir="ltr" data-md-color-primary="deep-orange" data-md-color-accent="green">
   
     <svg class="md-svg">
       <defs>
@@ -213,11 +213,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="https://soluble-io.github.io/soluble-mediatools" title="Mediatools" class="md-nav__button md-logo">
       
         <i class="md-icon">play_circle_outline</i>
       
-    </span>
+    </a>
     Mediatools
   </label>
   
@@ -278,12 +278,18 @@
     Features
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#requirements" title="Requirements" class="md-nav__link">
     Requirements
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -429,12 +435,18 @@
     Features
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#requirements" title="Requirements" class="md-nav__link">
     Requirements
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -489,11 +501,10 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>Video\DetectionService</code>.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Infer/detect <a href="https://en.wikipedia.org/wiki/Interlaced_video">interlaced</a> <em>(BFF, TFF)</em> vs <a href="https://en.wikipedia.org/wiki/Progressive_scan">progressive</a> encoded videos.  </li>
 </ul>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
-<ul>
-<li>PHP 7.1+</li>
-<li>FFmpeg 3.4+, 4.0+, see <a href="#binaries">install</a>. </li>
-</ul>
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<p>You'll need to have ffmpeg installed on your system and a PHP version &gt;= 7.1 then add the project to your dependencies:</p>
+<div class="codehilite"><pre><span></span>$ composer require soluble/mediatools
+</pre></div>
                 
                   
                 
@@ -562,9 +573,9 @@
       
     </div>
     
-      <script src="./assets/javascripts/application.a59e2a89.js"></script>
+      <script src="assets/javascripts/application.583bbe55.js"></script>
       
-      <script>app.initialize({version:"0.17.5",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0",url:{base:"."}})</script>
       
     
     
