@@ -13,11 +13,21 @@ class SeekTime implements FFMpegCLIValueInterface
     protected $time;
 
     /**
-     * @param float $seconds seconds and optional milliseconds as
+     * @param float $seconds seconds and optional milliseconds as decimals
      */
     public function __construct(float $seconds)
     {
         $this->time = $seconds;
+    }
+
+    /**
+     * @param string $hmsmTime 'HOURS:MM:SS.MILLISECONDS' like in '01:23:45.678'
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function createFromHMS(string $hmsmTime): self
+    {
+        return new self(self::convertHMSmToSeconds($hmsmTime));
     }
 
     /**
@@ -95,16 +105,6 @@ class SeekTime implements FFMpegCLIValueInterface
     public function getTime(): float
     {
         return $this->time;
-    }
-
-    /**
-     * @param string $hmsmTime 'HOURS:MM:SS.MILLISECONDS' like in '01:23:45.678'
-     *
-     * @throws InvalidArgumentException
-     */
-    public static function createFromHMS(string $hmsmTime): self
-    {
-        return new self(self::convertHMSmToSeconds($hmsmTime));
     }
 
     public function getFFmpegCLIValue(): string
