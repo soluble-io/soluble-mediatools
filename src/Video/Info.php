@@ -54,12 +54,24 @@ class Info implements InfoInterface
 
     public function getDimensions(): array
     {
+        return [
+            'width'  => $this->getWidth(),
+            'height' => $this->getHeight(),
+        ];
+    }
+
+    public function getWidth(): int
+    {
         $videoStream = $this->getVideoStreamInfo();
 
-        return [
-            'width'  => (int) ($videoStream['width'] ?? 0),
-            'height' => (int) ($videoStream['height'] ?? 0),
-        ];
+        return (int) ($videoStream['width'] ?? 0);
+    }
+
+    public function getHeight(): int
+    {
+        $videoStream = $this->getVideoStreamInfo();
+
+        return (int) ($videoStream['height'] ?? 0);
     }
 
     public function getNbFrames(): int
