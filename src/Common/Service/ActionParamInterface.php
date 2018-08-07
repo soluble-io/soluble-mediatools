@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Service;
 
+use Soluble\MediaTools\Video\Exception\UnsetParamException;
+
 interface ActionParamInterface
 {
     /**
@@ -19,11 +21,11 @@ interface ActionParamInterface
     public function isParamValid(string $paramName): bool;
 
     /**
-     * @param mixed $defaultValue if param does not exists set this one
-     *
      * @return mixed
+     *
+     * @throws UnsetParamException
      */
-    public function getParam(string $paramName, $defaultValue = null);
+    public function getParam(string $paramName);
 
     public function hasParam(string $paramName): bool;
 }

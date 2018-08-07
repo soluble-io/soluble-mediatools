@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.2 ()
+
+### Fixed
+
+- `ConversionParams::getParam()` now throws an `UnsetParamException` when the parameter was not set.
+
 ## 0.6.1 (2018-07-12)
 
 ### Added
