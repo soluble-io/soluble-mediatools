@@ -5,12 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.6.2 ()
+## 0.6.2 (2018-08-07)
 
 ### Added
 
-- Convernience method: `ThumbParams::withTime(float $time)` (will set to SeekTime).
+- Convenience method: `ThumbParams::withTime(float $time)` (will set to SeekTime).
+- New methods for video info : `Info::getWidth()`, `Info:getHeight()`
 
+### Updated
+
+- A lot of missing documentation
 
 ### Fixed
 
