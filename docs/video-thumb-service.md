@@ -305,10 +305,3 @@ try {
 }
        
 ``` 
-
-### Recipes
-
-#### Make mutiple thumbnails
-
-<todo>
-
