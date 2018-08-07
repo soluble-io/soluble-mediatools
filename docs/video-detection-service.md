@@ -2,10 +2,90 @@ hero: Video detection service
 path: blob/master/src
 source: Video/DetectionService.php
 
-The ==Video\DetectionService== will analyze a video stream and currently
-detects/infer interlaced videos. It acts as a wrapper over ffmpeg.   
 
-### At a glance
+### Overview
+
+The ==Video\DetectionService== acts as a wrapper over ffmpeg and will analyze a video stream. 
+It does not query video metadata (like ffprobe or the `Video\InfoService`) but really
+reads the video to infer some characteristics (currently only interlacement detection is implemented...). 
+
+It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
+component, exposes an immutable api for conversion parameters and attempt to make debugging
+easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
+to log issues by yourself.    
+
+   
+```php
+<?php
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
+use Soluble\MediaTools\Video\DetectionService;
+
+$vds = new DetectionService(new FFMpegConfig('/path/to/ffmpeg'));
+
+    
+try {    
+    $interlaceGuess = $vds->detectInterlacement(
+        '/path/input.mov',
+        // Optional:
+        //   $maxFramesToAnalyze, default: 1000
+        $maxFramesToAnalyze = 200
+    );
+    
+} catch(DetectionExceptionInterface $e) {
+    // See chapter about exception !!!    
+}
+
+$interlaced = $interlaceGuess->isInterlaced(
+    // Optional: 
+    //  $threshold, default 0.25 (if >=25% interlaced frames, then true) 
+    0.25
+);
+
+``` 
+
+### Initialization
+
+The [Video\DetectionService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionService.php) 
+requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
+This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
+and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
+
+```php
+<?php
+use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
+use Soluble\MediaTools\Video\DetectionService;
+
+$vcs = new DetectionService(    
+    // @param FFMpegConfigInterface 
+    new FFMpegConfig(
+        // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
+        $binary = null,
+        // (?int)    - ffmpeg default threads (null: single-thread)
+        $threads = null,
+        // (?float)  - max time in seconds for ffmpeg process (null: disable)
+        $timeout = null, 
+        // (?float)  - max idle time in seconds for ffmpeg process
+        $idleTimeout = null, 
+        // (array)   - additional environment variables
+        $env = []                           
+    ),
+    // @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
+    $logger = null   
+);
+```
+
+??? tip "Tip: initialize in a container (psr-11)" 
+    It's a good idea to register services in a container. 
+    Depending on available framework integrations, you may have a look to the [`Video\DetectionServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionServiceFactory.php)
+    and/or [`FFMpegConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php) to get an example based on a psr-11 compatible container.
+    See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
+
+
+### Usage
+
+#### Interlacement detection
+
 
 ```php
 <?php
@@ -36,29 +116,12 @@ $interlaced = $interlaceGuess->isInterlaced(
 
 ``` 
 
-### Initialize
 
-```php
-<?php
-use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
-use Soluble\MediaTools\Video\DetectionService;
+#### Exceptions
 
-$vcs = new DetectionService(    
-    // FFMpegConfigInterface
-    new FFMpegConfig(
-        $binary = 'ffmpeg',  // (?string) - path to ffmpeg binary 
-        $threads = null,     // (?int)    - ffmpeg default threads (null: single-thread)
-        $timeout = null,     // (?float)  - max time in seconds for ffmpeg process (null: disable) 
-        $idleTimeout = null, // (?float)  - max idle time in seconds for ffmpeg process
-        $env = []            // (array)   - additional environment variables               
-    ),
-    // ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
-    $logger = null   
-);
-```
+You can safely catch exceptions with the generic `Soluble\MediaTools\Video\Exception\ExceptionInterface`,
+alternatively you can also :
 
-
-### Exception
 
 
 ```php
@@ -70,7 +133,7 @@ use Soluble\MediaTools\Video\Exception as VE;
      
 try {
     $interlaceGuess = $vds->detectInterlacement(
-        '/path/input.mov',
+        '/path/input.mov'
     );
 
 } catch(VE\MissingInputFileException $e) {
@@ -112,7 +175,3 @@ try {
 }
        
 ``` 
-
-### Recipes
-
-todo full example detection + deint + denoise
