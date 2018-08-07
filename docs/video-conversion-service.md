@@ -97,7 +97,6 @@ $params = (new ConversionParams())
     ->withAudioCodec('aac')
     ->withAudioBitrate('128k');            
 
-
 ```
 
 
@@ -146,7 +145,7 @@ Video options:
 | `withPreset(string)`          | -preset ◌              | fast…        |  |
 | `withTune(string)`            | -tune ◌                | film…        |  |
 
-Audio options
+Audio options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
@@ -154,7 +153,7 @@ Audio options
 | `withAudioBitrate(string)`    | -b:a ◌                 | 128k…      |                              |  
 | `withNoAudio()`               | -an                    |            | removes all audio tracks     |
 
-Seeking/clipping options
+Seeking/clipping options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
@@ -163,15 +162,15 @@ Seeking/clipping options
 | `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Clip to the first ◌ frames   |
 
 
-General conversion options
+General conversion options:
 
-| Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                            |
-| ----------------------------- | ---------------------- | ---------- | ---------------------------------- |
-| `withSpeed(int)`              | -speed ◌               | 1,2,3…     | *for vp9 or multipass*             |
-| `withThreads(int)`            | -threads ◌             | 0,1,2…     | by default, use FFMpegConfig       |
-| `withOutputFormat(string)`    | -format ◌              | mp4,webm…  | file extension *(if not provided)* |
-
-
+| Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                              |
+| ----------------------------- | ---------------------- | ---------- | ------------------------------------ |
+| `withSpeed(int)`              | -speed ◌               | 1,2,3…     | *for vp9 or multipass*               |
+| `withThreads(int)`            | -threads ◌             | 0,1,2…     | by default, use FFMpegConfig         |
+| `withOutputFormat(string)`    | -format ◌              | mp4,webm…  | file extension *(if not provided)*   |
+| `withOverwrite()`             | -y                     |            | by default. overwrite if file exists |
+| `withNoOverwrite()`           |                        |            | throw exception if output exists     |
 
 
 
