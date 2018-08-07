@@ -18,10 +18,10 @@ site_dir: build/docs
 pages:
     - { 'Intro': index.md }
     - Video services:
-      - 'Get info': 'video-info-service.md'
-      - 'Convert': 'video-conversion-service.md'
-      - 'Thumbnail': 'video-thumb-service.md'
-      - 'Detect': 'video-detection-service.md'
+      - 'Information': 'video-info-service.md'
+      - 'Conversion': 'video-conversion-service.md'
+      - 'Thumbnailing': 'video-thumb-service.md'
+      - 'Detection': 'video-detection-service.md'
     - About:
       - 'License': 'about/license.md'
 
