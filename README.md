@@ -15,7 +15,7 @@ possible when you need to customize (The 'S' of SOLID).
 ## Status
 
 Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional tests to ensure 
-a good experience.
+a good experience. Oh and it ❤️ contributions !
 
 ## Documentation 
 
