@@ -217,11 +217,11 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
-| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php)  | 
-| `withoutParam(string)`            | Without the specified parameter |
-| `getParam(string $param): mixed`  | Return the param is exists      |
-| `hasParam(string $param): bool`   | Whether the param has been set  |
-| `toArray(): array`                | Return the object as array      |
+| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php).  | 
+| `withoutParam(string)`            | Without the specified parameter. |
+| `getParam(string $param): mixed`  | Return the param calue or throw UnsetParamExeption if not set.      |
+| `hasParam(string $param): bool`   | Whether the param has been set.  |
+| `toArray(): array`                | Return the object as array.      |
 
 
 > To get the latest list of built-ins, see the 
@@ -235,15 +235,50 @@ Video filters can be set to the ConversionParams through the `withVideoFilter(Vi
 
 ```php
 <?php
+use Soluble\MediaTools\Video\Filter;
+
 $params = (new ConversionParams())
     ->withVideoFilter(
         // A denoise filter
-        new Hqdn3DVideoFilter()
+        new Filter\Hqdn3DVideoFilter()
     );
 
 ```
 
-If you need to chain multiple filters, you can use the 
+If you need to chain multiple filters, you can use the [`VideoFilterChain`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/VideoFilterChain.php) object:
+
+```php
+<?php
+use Soluble\MediaTools\Video\Filter;
+
+// from the constructor
+$filters = new Filter\VideoFilterChain([    
+    new Filter\YadifVideoFilter(),
+    new Filter\Hqdn3DVideoFilter() 
+]);
+
+// Alternatively, use ->addFilter method
+$filters->addFilter(new Filter\NlmeansVideoFilter());
+
+$params = (new ConversionParams())
+    ->withVideoFilter($filters);
+
+// ....
+
+```
+ 
+Currently there's only few built-in filters available:
+
+| Filter                   |Note(s)                               |
+| ------------------------ | ------------------------------------ | 
+| [`YadifVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php)       | Deinterlacer  | 
+| [`Hqdn3DVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php)       | Basic denoiser  | 
+| [`NlmeansFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php)       | Very slow but good denoiser  | 
+ 
+> But it's quite easy to add yours, simply implements the [FFMpegVideoFilterInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Type/FFMpegVideoFilterInterface.php).
+> We :heart: pull request, so don't forget to share :)
+  
+  
   
 ??? Question "Is the order of parameters, filters... important ?" 
     Generally FFMpeg will evaluate the parameters in the order they appear... 
