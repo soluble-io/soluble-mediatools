@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.6.2 ()
 
+### Added
+
+- Convernience method: `ThumbParams::withTime(float $time)` (will set to SeekTime).
+
+
 ### Fixed
 
 - `ConversionParams::getParam()` now throws an `UnsetParamException` when the parameter was not set.
+- `ThumbParams::getParam()` now throws an `UnsetParamException` when the parameter was not set.
 
 ## 0.6.1 (2018-07-12)
 

@@ -28,8 +28,11 @@ Toolbox for video conversions, transcoding, transmuxing, thumbnailing... wraps a
   - [X] Infer/detect [interlaced](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* vs [progressive](https://en.wikipedia.org/wiki/Progressive_scan) encoded videos.  
 
 
-## Requirements
+### Requirements
 
-- PHP 7.1+
-- FFmpeg 3.4+, 4.0+, see [install](#binaries). 
- 
+You'll need to have ffmpeg installed on your system and a PHP version >= 7.1 then add the project to your dependencies:
+
+```bash
+$ composer require soluble/mediatools
+```
+
