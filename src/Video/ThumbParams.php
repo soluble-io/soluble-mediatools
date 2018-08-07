@@ -6,6 +6,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
 class ThumbParams implements ThumbParamsInterface
@@ -126,13 +127,20 @@ class ThumbParams implements ThumbParamsInterface
     }
 
     /**
-     * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null $defaultValue if param does not exists set this one
      *
      * @return bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null
+     * @throws UnsetParamException
      */
-    public function getParam(string $paramName, $defaultValue = null)
+    public function getParam(string $paramName)
     {
-        return $this->params[$paramName] ?? $defaultValue;
+        if (!$this->hasParam($paramName)) {
+            throw new UnsetParamException(sprintf(
+                'Cannot get param \'%s\', it has not been set',
+                $paramName
+            ));
+        }
+
+        return $this->params[$paramName];
     }
 
     public function hasParam(string $paramName): bool
