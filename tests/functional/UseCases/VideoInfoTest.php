@@ -7,6 +7,8 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\InfoServiceInterface;
 
 class VideoInfoTest extends TestCase
@@ -40,6 +42,26 @@ class VideoInfoTest extends TestCase
 
         self::assertEquals(realpath($this->videoFile), realpath($videoInfo->getFile()));
         self::assertEquals(1113, $videoInfo->getNbFrames());
+        self::assertEquals(320, $videoInfo->getWidth());
+        self::assertEquals(180, $videoInfo->getHeight());
+        self::assertEquals(['width' => 320, 'height' => 180], $videoInfo->getDimensions());
+
+        ['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
+
+        self::assertEquals(320, $width);
+        self::assertEquals(180, $height);
+    }
+
+    public function testGetMediaInfoThrowsProcessFailedException(): void
+    {
+        self::expectException(ProcessFailedException::class);
+        $this->infoService->getInfo("{$this->baseDir}/data/not_a_video_file.mov");
+    }
+
+    public function testGetMediaInfoThrowsMissingInputFileException(): void
+    {
+        self::expectException(MissingInputFileException::class);
+        $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 
     public function testGetMediaInfoThrowsFileNotFoundException(): void
