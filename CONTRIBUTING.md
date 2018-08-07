@@ -50,5 +50,11 @@ You can serve the doc:
 $ mkdocs serve --dev-addr localhost:8081
 ```
 
+To publish the doc to github:
+
+```shell
+$ mkdocs gh-deploy
+```
+
    
 
