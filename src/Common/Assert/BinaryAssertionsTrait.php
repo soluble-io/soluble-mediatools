@@ -13,7 +13,7 @@ trait BinaryAssertionsTrait
      *
      * @throws MissingBinaryException
      */
-    public function ensureIsExecutable(string $binaryFile): void
+    protected function ensureBinaryAvailable(string $binaryFile): void
     {
         // Case of binary (no path given), we cannot tell
         if (basename($binaryFile) === $binaryFile) {
