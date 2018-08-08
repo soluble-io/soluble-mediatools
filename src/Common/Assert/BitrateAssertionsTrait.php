@@ -16,7 +16,12 @@ trait BitrateAssertionsTrait
     protected function ensureValidBitRateUnit(string $bitrate): void
     {
         if (preg_match('/^\d+(k|M)?$/i', $bitrate) !== 1) {
-            throw new InvalidArgumentException(sprintf('"%s"', $bitrate));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid bitrate given: "%s" (int(K|M)?)',
+                    $bitrate
+                )
+            );
         }
     }
 }
