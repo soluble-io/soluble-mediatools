@@ -10,7 +10,7 @@
 
 Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. Relies on symfony/process
 under the hood and generally likes PSR (psr-log, psr-container), php 7.1 strict mode and ensure that substitution is 
-possible when you need to customize (L in SOLID). 
+possible when you need to customize (SOLID friendly). 
       
 ## Status
 
