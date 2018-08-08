@@ -543,7 +543,7 @@
 It does not query video metadata (like ffprobe or the <code>Video\InfoService</code>) but really
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). </p>
 <p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
-component, exposes an immutable api for conversion parameters and attempt to make debugging
+component and attempt to make debugging
 easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
 to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
