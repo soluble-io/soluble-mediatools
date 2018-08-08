@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\IO;
 
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
+
 class PlatformNullFile
 {
     public const PLATFORM_LINUX = 'LINUX';
@@ -20,7 +22,7 @@ class PlatformNullFile
     /**
      * @param null|string $platform if null platform will be autodetected
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(?string $platform = null)
     {
@@ -28,7 +30,7 @@ class PlatformNullFile
             $platform = self::getCurrentPlatform();
         } else {
             if (!in_array(mb_strtoupper($platform), self::SUPPORTED_PLATFORMS, true)) {
-                throw new \InvalidArgumentException(sprintf(
+                throw new InvalidArgumentException(sprintf(
                     'Platform \'%s\' is not supported',
                     $platform
                 ));
