@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Requirment of 'ext-mbstring' in composer.json. 
+- Missing requirement of 'ext-mbstring' in composer.json. 
 
 ### Fixed
 
