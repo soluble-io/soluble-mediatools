@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video\Adapter;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
@@ -144,5 +145,35 @@ class FFMpegAdapterTest extends TestCase
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
         self::assertEquals('-vf filter_1', $args[ConversionParamsInterface::PARAM_VIDEO_FILTER]);
+    }
+
+    public function testGetCliCommand(): void
+    {
+        $params = (new ConversionParams())
+            ->withCrf(32)
+            ->withVideoCodec('h264');
+
+        $cmd = $this->ffmpegAdapter->getCliCommand(
+            $this->ffmpegAdapter->getMappedConversionParams($params),
+            '/test/video.mp4',
+            '/test/output.mp4'
+        );
+
+        self::assertContains('ffmpeg -i \'/test/video.mp4\' -crf 32 -c:v h264 -y \'/test/output.mp4\'', $cmd);
+    }
+
+    public function testGetCliCommandWrongOutputFileThrowsInvalidArgumentException(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+
+        $params = (new ConversionParams())
+            ->withCrf(32)
+            ->withVideoCodec('h264');
+
+        $this->ffmpegAdapter->getCliCommand(
+                    $this->ffmpegAdapter->getMappedConversionParams($params),
+                    '/test/video.mp4',
+                    ['invalid_output_file']
+            );
     }
 }

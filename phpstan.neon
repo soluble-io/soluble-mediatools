@@ -10,12 +10,13 @@ parameters:
 	    # Because I could not find a way to make phpstan not report
 	    # errors when trying to produce them, understand who understand
 		- tests/unit/Video/Filter/VideoFilterChainTest.php
+		- tests/unit/Video/Adapter/FFMpegAdapterTest.php
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
 	    # With PHPStan 0.10 .... don't like this one so much
 		- '#Strict comparison using !== between null and null will always evaluate to false.#'
 		- '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
-		# For phpunit
+		# For convenience whe faking assertions
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
 
 
