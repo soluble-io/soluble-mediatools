@@ -1,10 +1,10 @@
 #
 # Dependencies for documentation
 #
-mkdocs>=1.0.0
+mkdocs>=1.0
 Pygments>=2.2
 pymdown-extensions>=4.11
-mkdocs-material>=2.9.2
+mkdocs-material>=3.0.0
 
 # Temporary fix for build errors on Travis
 tornado<5
