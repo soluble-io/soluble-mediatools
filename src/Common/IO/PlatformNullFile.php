@@ -27,7 +27,7 @@ class PlatformNullFile
         if ($platform === null) {
             $platform = self::getCurrentPlatform();
         } else {
-            if (in_array(mb_strtoupper($platform), self::SUPPORTED_PLATFORMS, true)) {
+            if (!in_array(mb_strtoupper($platform), self::SUPPORTED_PLATFORMS, true)) {
                 throw new \InvalidArgumentException(sprintf(
                     'Platform \'%s\' is not supported',
                     $platform
