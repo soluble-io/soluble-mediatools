@@ -54,8 +54,8 @@ class ThumbParamsTest extends TestCase
     public function testHasParam(): void
     {
         $params = (new ThumbParams())
-                    ->withOutputFormat('png')
-                    ->withQualityScale(1);
+            ->withOutputFormat('png')
+            ->withQualityScale(1);
 
         self::assertTrue($params->hasParam(ThumbParams::PARAM_QUALITY_SCALE));
         self::assertFalse($params->hasParam(ThumbParams::PARAM_SEEK_TIME));

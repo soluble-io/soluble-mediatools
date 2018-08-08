@@ -32,7 +32,7 @@ class FFMpegConfigFactory
     /**
      * @throws InvalidConfigException
      */
-    public function __invoke(ContainerInterface $container): FFMpegConfig
+    public function __invoke(ContainerInterface $container): FFMpegConfigInterface
     {
         try {
             $containerConfig = $container->get($this->entryName);

@@ -32,7 +32,7 @@ class FFProbeConfigFactory
     /**
      * @throws InvalidConfigException
      */
-    public function __invoke(ContainerInterface $container): FFProbeConfig
+    public function __invoke(ContainerInterface $container): FFProbeConfigInterface
     {
         try {
             $containerConfig = $container->get($this->entryName);
