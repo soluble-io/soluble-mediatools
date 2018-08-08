@@ -18,6 +18,12 @@ is possible when you need to customize (SOLID friendly).
 Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional 
 tests to ensure a smooth experience. But this project is young and would ❤️ to meet new contributors !
 
+## Roadmap
+
+It's an attempt to make a swiss-army knife for medias managment in PHP, 
+need to implement more services: image optimization, subtitle conversions... polish the API... 
+ 
+
 ## Documentation 
 
 All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://soluble-io.github.io/soluble-mediatools/)**
