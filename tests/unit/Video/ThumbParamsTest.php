@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbParams;
+use Soluble\MediaTools\Video\ThumbParamsInterface;
 
 class ThumbParamsTest extends TestCase
 {
@@ -56,6 +58,25 @@ class ThumbParamsTest extends TestCase
          */
         $time = $params->getParam(ThumbParams::PARAM_SEEK_TIME);
         self::assertEquals(1.423, $time->getTime());
+    }
+
+    public function testGetParamThrowsUnsetParamException(): void
+    {
+        self::expectException(UnsetParamException::class);
+
+        $params = (new ThumbParams())->withTime(10);
+
+        $params->getParam(ThumbParamsInterface::PARAM_QUALITY_SCALE);
+    }
+
+    public function testWithBuiltInParam(): void
+    {
+        $params = (new ThumbParams())
+            ->withBuiltInParam(ThumbParamsInterface::PARAM_QUALITY_SCALE, 5);
+
+        self::assertEquals([
+            ThumbParamsInterface::PARAM_QUALITY_SCALE      => 5,
+        ], $params->toArray());
     }
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void

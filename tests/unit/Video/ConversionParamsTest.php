@@ -133,6 +133,16 @@ class ConversionParamsTest extends TestCase
         ], $params->toArray());
     }
 
+    public function testWithBuiltInParam(): void
+    {
+        $params = (new ConversionParams())
+                    ->withBuiltInParam(ConversionParams::PARAM_TILE_COLUMNS, 12);
+
+        self::assertEquals([
+            ConversionParamsInterface::PARAM_TILE_COLUMNS      => 12,
+        ], $params->toArray());
+    }
+
     public function testWithVideoFilter(): void
     {
         $filter1 = new class() implements VideoFilterInterface {
