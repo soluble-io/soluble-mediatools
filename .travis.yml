@@ -55,8 +55,8 @@ jobs:
     - stage: Make doc
       php: 7.2
       script:
-        - sudo pip install --upgrade pip
-        - sudo pip install -r ./requirements.txt
+        - sudo -H pip install --upgrade pip
+        - sudo -H pip install -r ./requirements.txt
         - mkdocs build
     - stage: Mutation (unit tests only)
       php: 7.2
