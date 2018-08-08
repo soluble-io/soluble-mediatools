@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\ConversionParamsInterface;
+use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
 
@@ -150,6 +151,15 @@ class ConversionParamsTest extends TestCase
             ->withVideoFilter($filter1);
 
         self::assertSame($filter1, $params->getParam(ConversionParamsInterface::PARAM_VIDEO_FILTER));
+    }
+
+    public function testGetParamThrowsUnsetParamException(): void
+    {
+        self::expectException(UnsetParamException::class);
+
+        $params = (new ConversionParams())->withTileColumns(10);
+
+        $params->getParam(ConversionParams::PARAM_AUDIO_BITRATE);
     }
 
     public function testUnsupportedParamThrowsInvalidArgumentException(): void

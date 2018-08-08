@@ -60,8 +60,6 @@ class SeekTimeTest extends TestCase
         SeekTime::convertSecondsToHMSs(-10.2);
     }
 
-
-
     public function testConvertHMSToSecondsThrowsException1(): void
     {
         self::expectException(InvalidArgumentException::class);
@@ -75,6 +73,4 @@ class SeekTimeTest extends TestCase
 
         SeekTime::convertHMSmToSeconds('12:60:59.123');
     }
-
-
 }
