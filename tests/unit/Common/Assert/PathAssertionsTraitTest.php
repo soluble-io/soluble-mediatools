@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace MediaToolsTest\Common\Assert;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Common\Assert\BitrateAssertionsTrait;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
-use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 
 class PathAssertionsTraitTest extends TestCase
 {
