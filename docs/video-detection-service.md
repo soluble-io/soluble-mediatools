@@ -10,7 +10,7 @@ It does not query video metadata (like ffprobe or the `Video\InfoService`) but r
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). 
 
 It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
-component, exposes an immutable api for conversion parameters and attempt to make debugging
+component and attempt to make debugging
 easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
 to log issues by yourself.    
 
