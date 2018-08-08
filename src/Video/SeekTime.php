@@ -47,7 +47,7 @@ class SeekTime implements FFMpegCLIValueInterface
             $hours,
         ] = array_merge(array_reverse(explode(':', $hmsmTime)), [0, 0, 0]);
 
-        if (!is_numeric($secondsWithMilli) || $secondsWithMilli < 0 || $secondsWithMilli >= 61.0) {
+        if (!is_numeric($secondsWithMilli) || $secondsWithMilli < 0 || $secondsWithMilli >= 60.0) {
             throw new InvalidArgumentException(sprintf(
                 'Seconds \'%s\' are incorrect in \'%s\'',
                 $secondsWithMilli,
@@ -55,7 +55,7 @@ class SeekTime implements FFMpegCLIValueInterface
             ));
         }
 
-        if (!is_numeric($minutes) || $minutes < 0 || $minutes > 60.0) {
+        if (!is_numeric($minutes) || $minutes < 0 || $minutes >= 60.0) {
             throw new InvalidArgumentException(sprintf(
                 'Minutes \'%s\' are incorrect in \'%s\'',
                 $minutes,

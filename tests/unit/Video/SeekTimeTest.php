@@ -53,10 +53,28 @@ class SeekTimeTest extends TestCase
         self::assertEquals('0:01:02.234', SeekTime::convertSecondsToHMSs(62.234));
     }
 
-    public function testConvertHMSToSecondsThrowsException(): void
+    public function testConvertSecondsToHmsThrowsException(): void
     {
         self::expectException(InvalidArgumentException::class);
 
         SeekTime::convertSecondsToHMSs(-10.2);
     }
+
+
+
+    public function testConvertHMSToSecondsThrowsException1(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+
+        SeekTime::convertHMSmToSeconds('12:45:60.123');
+    }
+
+    public function testConvertHMSToSecondsThrowsException2(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+
+        SeekTime::convertHMSmToSeconds('12:60:59.123');
+    }
+
+
 }
