@@ -16,6 +16,7 @@ class SafeConfigReaderTest extends TestCase
             'stringKey' => 'hello',
             'boolKey'   => true,
             'intKey'    => 1,
+            'floatKey'  => 1.1,
             'arrayKey'  => ['cool' => 'test'],
         ];
 
@@ -24,11 +25,13 @@ class SafeConfigReaderTest extends TestCase
         self::assertEquals(['cool' => 'test'], $scr->getArray('arrayKey'));
         self::assertEquals('hello', $scr->getString('stringKey'));
         self::assertEquals(1, $scr->getInt('intKey'));
+        self::assertEquals(1.1, $scr->getFloat('floatKey'));
         self::assertTrue($scr->getBool('boolKey'));
 
         self::assertEquals(['cool' => 'test'], $scr->getNullableArray('arrayKey'));
         self::assertEquals('hello', $scr->getNullableString('stringKey'));
         self::assertEquals(1, $scr->getNullableInt('intKey'));
+        self::assertEquals(1.1, $scr->getNullableFloat('floatKey'));
         self::assertTrue($scr->getNullableBool('boolKey'));
     }
 
@@ -56,6 +59,16 @@ class SafeConfigReaderTest extends TestCase
         self::assertNull($scr->getNullableString('stringKey'));
         self::assertNull($scr->getNullableInt('intKey'));
         self::assertNull($scr->getNullableBool('boolKey'));
+    }
+
+    public function ensureKeyExists(): void {
+
+        self::expectException(InvalidConfigException::class);
+
+        $scr = new SafeConfigReader([]);
+        $scr->ensureKeyExists('cool');
+
+
     }
 
     public function testDefaultValuesAreReturnedWhenNoConfig(): void
