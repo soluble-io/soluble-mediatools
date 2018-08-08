@@ -25,6 +25,20 @@ class ThumbParamsTest extends TestCase
         self::assertCount(1, $newParams->toArray());
     }
 
+    public function testOverwriteParams(): void
+    {
+        $params = (new ThumbParams())
+            ->withNoOverwrite();
+
+        self::assertTrue($params->hasParam(ThumbParams::PARAM_OVERWRITE));
+        self::assertFalse($params->getParam(ThumbParams::PARAM_OVERWRITE));
+
+        $params = $params->withOverwrite();
+
+        self::assertTrue($params->hasParam(ThumbParams::PARAM_OVERWRITE));
+        self::assertTrue($params->getParam(ThumbParams::PARAM_OVERWRITE));
+    }
+
     public function testWithoutParam(): void
     {
         $params = (new ThumbParams())
@@ -40,10 +54,12 @@ class ThumbParamsTest extends TestCase
     public function testHasParam(): void
     {
         $params = (new ThumbParams())
+                    ->withOutputFormat('png')
                     ->withQualityScale(1);
 
         self::assertTrue($params->hasParam(ThumbParams::PARAM_QUALITY_SCALE));
         self::assertFalse($params->hasParam(ThumbParams::PARAM_SEEK_TIME));
+        self::assertSame('png', $params->getParam(ThumbParams::PARAM_OUTPUT_FORMAT));
     }
 
     public function testWithTime(): void
