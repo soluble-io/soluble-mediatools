@@ -7,15 +7,19 @@
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
 Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. 
+Relies on [symfony/process](https://symfony.com/doc/current/components/process.html) under the hood and
+generally likes PSR (psr-log, psr-container), tastes php 7.1 in strict mode, prefer immutability over fluent 
+interfaces and ensure that substitution is possible when you need to customize (SOLID friendly). 
 
 ## Status
 
-Not yet 1.0 but what is documented works pretty well ;)
+Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional 
+tests to ensure a smooth experience. But this project is young and would ❤️ to meet new contributors !
 
 
 ???+ Info "Note for developers"
     
-    - Mediatools is [opensource](https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md) PHP 7.1+ project and :heart: pull requests and [contributors](https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md).     
+    - Mediatools is an [opensource](https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md) PHP 7.1+ library and :heart: pull requests and [contributors](https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md).     
     
     - Mediatools will preferably use PSR standards. It currently allows injection of 
       any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
@@ -30,15 +34,16 @@ Not yet 1.0 but what is documented works pretty well ;)
     - Mediatools versions adheres to [semantic versioning](http://semver.org/). 
       No bc-break outside of major version releases and we keep a [changelog](https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md).  
       
-    - Quality assurance is guaranteed through unit and integration/functional tests, phpstan and
-      and some php-cs sniffs. Travis is used as continuous integration server.  
+    - Quality assurance is guaranteed through unit and integration/functional tests, 
+      [phpstan](https://github.com/phpstan/phpstan) and some php-cs sniffs. 
+      Travis is used as continuous integration server.  
         
-    - The soluble-mediatools is currently released as a monolithic repository, but once more
+    - Mediatools is currently released as a monolithic repository, but once more
       diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
       can be easily split into multiple repositories without affecting existing projects.
       
-    - Information and thumbnail services can be used in realtime but conversions should be 
-      used with a job queue.     
+    - Note that information and thumbnail services can be used in realtime but conversions should be 
+      used with a job queue. Conversions are heavy.    
 
 ## Basic code example
 
