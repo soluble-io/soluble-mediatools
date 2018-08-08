@@ -522,19 +522,24 @@
 <a href="https://packagist.org/packages/soluble/mediatools"><img alt="Latest Stable Version" src="https://poser.pugx.org/soluble/mediatools/v/stable.svg" /></a>
 <a href="https://packagist.org/packages/soluble/mediatools"><img alt="Total Downloads" src="https://poser.pugx.org/soluble/mediatools/downloads.png" /></a>
 <a href="https://packagist.org/packages/soluble/mediatools"><img alt="License" src="https://poser.pugx.org/soluble/mediatools/license.png" /></a></p>
-<p>Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. </p>
+<p>Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. 
+Relies on <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> under the hood and
+generally likes PSR (psr-log, psr-container), tastes php 7.1 in strict mode, prefer immutability over fluent 
+interfaces and ensure that substitution is possible when you need to customize (SOLID friendly). </p>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
-<p>Not yet 1.0 but what is documented works pretty well ;)</p>
-<details class="info" open="open"><summary>Note for developers</summary><ul><li><p>Mediatools is <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md">opensource</a> PHP 7.1+ project and <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> pull requests and <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md">contributors</a>.     </p></li><li><p>Mediatools will preferably use PSR standards. It currently allows injection of 
+<p>Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional 
+tests to ensure a smooth experience. But this project is young and would ❤️ to meet new contributors !</p>
+<details class="info" open="open"><summary>Note for developers</summary><ul><li><p>Mediatools is an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md">opensource</a> PHP 7.1+ library and <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> pull requests and <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md">contributors</a>.     </p></li><li><p>Mediatools will preferably use PSR standards. It currently allows injection of 
   any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
   (PSR-7 for video thumbnailing is under consideration).     </p></li><li><p>Mediatools likes chainability when possible, but completely forbid the use of fluent interfaces in favour
   of immutable api (like PSR-7).  </p></li><li><p>Customization can generally be done easily as the project try to respect subsitution 
   principles as much as possible. In most cases, you can swap implementations as you like.</p></li><li><p>Mediatools versions adheres to <a href="http://semver.org/">semantic versioning</a>. 
-  No bc-break outside of major version releases and we keep a <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md">changelog</a>.  </p></li><li><p>Quality assurance is guaranteed through unit and integration/functional tests, phpstan and
-  and some php-cs sniffs. Travis is used as continuous integration server.  </p></li><li><p>The soluble-mediatools is currently released as a monolithic repository, but once more
+  No bc-break outside of major version releases and we keep a <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md">changelog</a>.  </p></li><li><p>Quality assurance is guaranteed through unit and integration/functional tests, 
+  <a href="https://github.com/phpstan/phpstan">phpstan</a> and some php-cs sniffs. 
+  Travis is used as continuous integration server.  </p></li><li><p>Mediatools is currently released as a monolithic repository, but once more
   diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
-  can be easily split into multiple repositories without affecting existing projects.</p></li><li><p>Information and thumbnail services can be used in realtime but conversions should be 
-  used with a job queue.     </p></li></ul></details><h2 id="basic-code-example">Basic code example<a class="headerlink" href="#basic-code-example" title="Permanent link">&para;</a></h2>
+  can be easily split into multiple repositories without affecting existing projects.</p></li><li><p>Note that information and thumbnail services can be used in realtime but conversions should be 
+  used with a job queue. Conversions are heavy.    </p></li></ul></details><h2 id="basic-code-example">Basic code example<a class="headerlink" href="#basic-code-example" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>Look at the specific service documentation for more info.</p>
 </blockquote>
