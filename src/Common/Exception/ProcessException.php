@@ -12,7 +12,14 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
     /** @var Process */
     protected $process;
 
-    public function __construct(Process $process, SPException\RuntimeException $previousException)
+    /**
+     * ProcessException constructor.
+     *
+     * @param Process                      $process
+     * @param SPException\RuntimeException $previousException
+     * @param string|null                  $message           if not set will use the previousException message
+     */
+    public function __construct(Process $process, SPException\RuntimeException $previousException, string $message = null)
     {
         if ($previousException instanceof SPException\ProcessFailedException ||
             $previousException instanceof SPException\ProcessTimedOutException ||
@@ -23,9 +30,11 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
             $code = 1;
         }
 
+        $msg = $message ?? $previousException->getMessage();
+
         parent::__construct(
-            $previousException->getMessage(),
-            $code,
+            $msg,
+            $code ?? 1,
             $previousException
         );
 
@@ -40,7 +49,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
         return $this->process;
     }
 
-    public function geErrorOutput(): string
+    public function getErrorOutput(): string
     {
         return $this->process->getErrorOutput();
     }
