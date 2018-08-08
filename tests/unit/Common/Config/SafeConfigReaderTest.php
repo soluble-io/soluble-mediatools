@@ -64,11 +64,13 @@ class SafeConfigReaderTest extends TestCase
         self::assertNull($scr->getNullableBool('boolKey'));
     }
 
-    public function ensureKeyExists(): void
+    public function testEnsureKeyExists(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $scr = new SafeConfigReader(['test' => 1]);
+        $scr->ensureKeyExists('test');
+        self::assertTrue(true);
 
-        $scr = new SafeConfigReader([]);
+        self::expectException(InvalidConfigException::class);
         $scr->ensureKeyExists('cool');
     }
 
@@ -138,6 +140,8 @@ class SafeConfigReaderTest extends TestCase
             'stringKey' => [],
             'boolKey'   => 'hello',
             'intKey'    => 'MyGod',
+            'floatKey'  => 'Pouf',
+            'floatInt'  => 1,
             'arrayKey'  => true,
         ];
 
@@ -147,7 +151,6 @@ class SafeConfigReaderTest extends TestCase
         self::assertTrue($scr->keyExists('arrayKey'));
         try {
             $scr->getArray('arrayKey');
-            $scr->getNullableArray('arrayKey');
             self::fail('Default cannot be taken if the config key exists and is null');
         } catch (InvalidConfigException $e) {
         }
@@ -155,7 +158,6 @@ class SafeConfigReaderTest extends TestCase
         self::assertTrue($scr->keyExists('boolKey'));
         try {
             $scr->getBool('boolKey');
-            $scr->getNullableBool('boolKey');
             self::fail('Default cannot be taken if the config key exists and is null');
         } catch (InvalidConfigException $e) {
         }
@@ -163,7 +165,20 @@ class SafeConfigReaderTest extends TestCase
         self::assertTrue($scr->keyExists('intKey'));
         try {
             $scr->getInt('intKey');
-            $scr->getNullableInt('intKey');
+            self::fail('Default cannot be taken if the config key exists and is null');
+        } catch (InvalidConfigException $e) {
+        }
+
+        self::assertTrue($scr->keyExists('floatKey'));
+        try {
+            $scr->getFloat('floatKey');
+            self::fail('Default cannot be taken if the config key exists and is null');
+        } catch (InvalidConfigException $e) {
+        }
+
+        self::assertTrue($scr->keyExists('floatInt'));
+        try {
+            $scr->getFloat('floatInt', null, false);
             self::fail('Default cannot be taken if the config key exists and is null');
         } catch (InvalidConfigException $e) {
         }
