@@ -10,12 +10,12 @@
 
 Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around ffmpeg and ffprobe. Relies on symfony/process
 under the hood and generally likes PSR (psr-log, psr-container), php 7.1 strict mode and ensure that substitution is 
-possible when you need to customize (The 'S' of SOLID). 
+possible when you need to customize (L in SOLID). 
       
 ## Status
 
 Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional tests to ensure 
-a good experience. But this project is young and will ❤️ to meet new contributors !
+a good experience. But this project is young and would ❤️ to meet new contributors !
 
 ## Documentation 
 
@@ -23,7 +23,7 @@ All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://solubl
 
 ## A quick taste
 
-> Check the [doc](https://soluble-io.github.io/soluble-mediatools/) to get a better idea !!!
+> Check the [doc](https://soluble-io.github.io/soluble-mediatools/) to get a more detailed overview !!!
 
 ```php
 <?php
