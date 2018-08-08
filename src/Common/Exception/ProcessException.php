@@ -13,11 +13,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
     protected $process;
 
     /**
-     * ProcessException constructor.
-     *
-     * @param Process                      $process
-     * @param SPException\RuntimeException $previousException
-     * @param string|null                  $message           if not set will use the previousException message
+     * @param string|null $message if not set will use the previousException message
      */
     public function __construct(Process $process, SPException\RuntimeException $previousException, string $message = null)
     {
