@@ -18,7 +18,7 @@ site_dir: build/docs
 nav:
     - { 'Intro': index.md }
     - Video services:
-      - 'Information': 'video-info-service.md'
+      - 'Querying': 'video-info-service.md'
       - 'Conversion': 'video-conversion-service.md'
       - 'Thumbnailing': 'video-thumb-service.md'
       - 'Detection': 'video-detection-service.md'
