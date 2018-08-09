@@ -23,8 +23,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 > Search and replace `InfoService` to `VideoQuery`.
 > Search and replace `Info` to `VideoInfo`.
+> Search and replace `->getInfo(` to `->query(`.
 
 - [BC-BREAK] Renamed `InfoService` to `VideoQuery`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `InfoService::getInfo()` to `VideoQuery::query()`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+
 - [BC-BREAK] Renamed `InfoServiceInterface` to `VideoQueryInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
 - [BC-BREAK] Renamed `InfoServiceFactory` to `VideoQueryFactory`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
 - [BC-BREAK] Renamed `Info` to `VideoInfo`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
