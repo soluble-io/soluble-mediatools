@@ -17,7 +17,7 @@ interface VideoConverterInterface
      *
      * @see https://symfony.com/doc/current/components/process.html
      */
-    public function getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process;
+    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process;
 
     /**
      * Run a conversion, throw exception on error.
@@ -27,5 +27,5 @@ interface VideoConverterInterface
      *
      * @throws ConversionExceptionInterface When inputFile does not exists
      */
-    public function convert(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void;
+    public function convert(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void;
 }

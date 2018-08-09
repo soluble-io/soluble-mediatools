@@ -108,7 +108,7 @@ $vts->makeThumbnail(
 service initialization.* 
 
 ??? question "What if I need more control over the process ? (advanced usage)"
-    You can use the `Video\VideoThumbGenerator::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
+    You can use the `Video\VideoThumbGenerator::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
     to get more control on the conversion process. 
     ```php 
     <?php
@@ -211,7 +211,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 #### Filters
 
-Video filters can be set to the ConversionParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
+Video filters can be set to the VideoConvertParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
 
 ```php
 <?php

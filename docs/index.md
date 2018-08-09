@@ -54,7 +54,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
 use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
-use Soluble\MediaTools\Video\{VideoInfoReader, VideoThumbGenerator, VideoThumbParams, VideoConverter, ConversionParams};
+use Soluble\MediaTools\Video\{VideoInfoReader, VideoThumbGenerator, VideoThumbParams, VideoConverter, VideoConvertParams};
 use Soluble\MediaTools\Video\Filter;
 
 $file = '/path/video.mp4';
@@ -79,7 +79,7 @@ try {
     $conversionService->convert(
         $file, 
         '/path/output.mp4',
-        (new ConversionParams())
+        (new VideoConvertParams())
              ->withVideoCodec('libx264')    
              ->withStreamable(true)
              ->withCrf(24)

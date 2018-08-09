@@ -37,7 +37,7 @@ class VideoQueryTest extends TestCase
 
     public function testGetInfo(): void
     {
-        $videoInfo = $this->infoService->query($this->videoFile);
+        $videoInfo = $this->infoService->getInfo($this->videoFile);
         self::assertEquals(61.533000, $videoInfo->getDuration());
 
         self::assertEquals(realpath($this->videoFile), realpath($videoInfo->getFile()));
@@ -55,18 +55,18 @@ class VideoQueryTest extends TestCase
     public function testGetMediaInfoThrowsProcessFailedException(): void
     {
         self::expectException(ProcessFailedException::class);
-        $this->infoService->query("{$this->baseDir}/data/not_a_video_file.mov");
+        $this->infoService->getInfo("{$this->baseDir}/data/not_a_video_file.mov");
     }
 
     public function testGetMediaInfoThrowsMissingInputFileException(): void
     {
         self::expectException(MissingInputFileException::class);
-        $this->infoService->query('/path/path/does_not_exist.mp4');
+        $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 
     public function testGetMediaInfoThrowsFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);
-        $this->infoService->query('/path/path/does_not_exist.mp4');
+        $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 }

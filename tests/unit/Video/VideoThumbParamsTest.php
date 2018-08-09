@@ -10,7 +10,7 @@ use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoThumbParams;
 use Soluble\MediaTools\Video\VideoThumbParamsInterface;
 
-class ThumbParamsTest extends TestCase
+class VideoThumbParamsTest extends TestCase
 {
     public function setUp(): void
     {

@@ -9,7 +9,7 @@ use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\ConversionParamsInterface;
+use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
 class FFMpegAdapter implements ConverterAdapterInterface
 {
@@ -27,79 +27,79 @@ class FFMpegAdapter implements ConverterAdapterInterface
     public function getParamsOptions(): array
     {
         return [
-            ConversionParamsInterface::PARAM_OUTPUT_FORMAT => [
+            VideoConvertParamsInterface::PARAM_OUTPUT_FORMAT => [
                 'pattern' => '-f %s',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_CODEC => [
+            VideoConvertParamsInterface::PARAM_VIDEO_CODEC => [
                 'pattern' => '-c:v %s',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_BITRATE => [
+            VideoConvertParamsInterface::PARAM_VIDEO_BITRATE => [
                 'pattern' => '-b:v %s',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_MIN_BITRATE => [
+            VideoConvertParamsInterface::PARAM_VIDEO_MIN_BITRATE => [
                 'pattern' => '-minrate %s',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => [
+            VideoConvertParamsInterface::PARAM_VIDEO_MAX_BITRATE => [
                 'pattern' => '-maxrate %s',
             ],
-            ConversionParamsInterface::PARAM_AUDIO_CODEC => [
+            VideoConvertParamsInterface::PARAM_AUDIO_CODEC => [
                 'pattern' => '-c:a %s',
             ],
-            ConversionParamsInterface::PARAM_AUDIO_BITRATE => [
+            VideoConvertParamsInterface::PARAM_AUDIO_BITRATE => [
                 'pattern' => '-b:a %s',
             ],
-            ConversionParamsInterface::PARAM_PIX_FMT => [
+            VideoConvertParamsInterface::PARAM_PIX_FMT => [
                 'pattern' => '-pix_fmt %s',
             ],
-            ConversionParamsInterface::PARAM_PRESET => [
+            VideoConvertParamsInterface::PARAM_PRESET => [
                 'pattern' => '-preset %s',
             ],
-            ConversionParamsInterface::PARAM_SPEED => [
+            VideoConvertParamsInterface::PARAM_SPEED => [
                 'pattern' => '-speed %d',
             ],
-            ConversionParamsInterface::PARAM_THREADS => [
+            VideoConvertParamsInterface::PARAM_THREADS => [
                 'pattern' => '-threads %d',
             ],
-            ConversionParamsInterface::PARAM_KEYFRAME_SPACING => [
+            VideoConvertParamsInterface::PARAM_KEYFRAME_SPACING => [
                 'pattern' => '-g %d',
             ],
-            ConversionParamsInterface::PARAM_QUALITY => [
+            VideoConvertParamsInterface::PARAM_QUALITY => [
                 'pattern' => '-quality %s',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_QUALITY_SCALE => [
+            VideoConvertParamsInterface::PARAM_VIDEO_QUALITY_SCALE => [
                 'pattern' => '-qscale:v %d',
             ],
-            ConversionParamsInterface::PARAM_CRF => [
+            VideoConvertParamsInterface::PARAM_CRF => [
                 'pattern' => '-crf %d',
             ],
-            ConversionParamsInterface::PARAM_STREAMABLE => [
+            VideoConvertParamsInterface::PARAM_STREAMABLE => [
                 'pattern' => '-movflags +faststart',
             ],
-            ConversionParamsInterface::PARAM_FRAME_PARALLEL => [
+            VideoConvertParamsInterface::PARAM_FRAME_PARALLEL => [
                 'pattern' => '-frame-parallel %s',
             ],
-            ConversionParamsInterface::PARAM_TILE_COLUMNS => [
+            VideoConvertParamsInterface::PARAM_TILE_COLUMNS => [
                 'pattern' => '-tile-columns %s',
             ],
-            ConversionParamsInterface::PARAM_TUNE => [
+            VideoConvertParamsInterface::PARAM_TUNE => [
                 'pattern' => '-tune %s',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_FILTER => [
+            VideoConvertParamsInterface::PARAM_VIDEO_FILTER => [
                 'pattern' => '-vf %s',
             ],
-            ConversionParamsInterface::PARAM_OVERWRITE => [
+            VideoConvertParamsInterface::PARAM_OVERWRITE => [
                 'pattern' => '-y',
             ],
-            ConversionParamsInterface::PARAM_VIDEO_FRAMES => [
+            VideoConvertParamsInterface::PARAM_VIDEO_FRAMES => [
                 'pattern' => '-frames:v %d',
             ],
-            ConversionParamsInterface::PARAM_NOAUDIO => [
+            VideoConvertParamsInterface::PARAM_NOAUDIO => [
                 'pattern' => '-an',
             ],
-            ConversionParamsInterface::PARAM_SEEK_START => [
+            VideoConvertParamsInterface::PARAM_SEEK_START => [
                 'pattern' => '-ss %s',
             ],
-            ConversionParamsInterface::PARAM_SEEK_END => [
+            VideoConvertParamsInterface::PARAM_SEEK_END => [
                 'pattern' => '-to %s',
             ],
         ];
@@ -111,13 +111,13 @@ class FFMpegAdapter implements ConverterAdapterInterface
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
      */
-    public function getMappedConversionParams(ConversionParamsInterface $conversionParams): array
+    public function getMappedConversionParams(VideoConvertParamsInterface $conversionParams): array
     {
         $args             = [];
         $supportedOptions = $this->getParamsOptions();
 
         // Add default overwrite option if not set
-        $overwriteParam = ConversionParamsInterface::PARAM_OVERWRITE;
+        $overwriteParam = VideoConvertParamsInterface::PARAM_OVERWRITE;
         if (!$conversionParams->hasParam($overwriteParam)) {
             $conversionParams = $conversionParams->withBuiltInParam(
                 $overwriteParam,

@@ -14,22 +14,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 #### Conversion 
 
 > Search and replace `ConversionService` to `VideoConverter`.
+> Search and replace `ConversionParams` to `VideoConvertParams`.
 
 - [BC-BREAK] Renamed `ConversionService` to `VideoConverter`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
+- [BC-BREAK] Renamed `ConversionParams` to `VideoConvertParams`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
 - [BC-BREAK] Renamed `ConversionServiceInterface` to `VideoConverterInterface`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
 - [BC-BREAK] Renamed `ConversionServiceFactory` to `VideoConverterFactory`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
 
 #### VideoQuery
 
-> Search and replace `InfoService` to `VideoQuery`.
+> Search and replace `InfoService` to `VideoInfoReader`.
 > Search and replace `Info` to `VideoInfo`.
-> Search and replace `->getInfo(` to `->query(`.
 
-- [BC-BREAK] Renamed `InfoService` to `VideoQuery`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
-- [BC-BREAK] Renamed `InfoService::getInfo()` to `VideoQuery::query()`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
-
-- [BC-BREAK] Renamed `InfoServiceInterface` to `VideoQueryInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
-- [BC-BREAK] Renamed `InfoServiceFactory` to `VideoQueryFactory`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `InfoService` to `VideoInfoReader`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `InfoServiceInterface` to `VideoInfoReaderInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `InfoServiceFactory` to `VideoInfoReaderFactory`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
 - [BC-BREAK] Renamed `Info` to `VideoInfo`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
 - [BC-BREAK] Renamed `InfoInterface` to `VideoInfoInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
 
@@ -42,7 +41,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [BC-BREAK] Renamed `ThumbServiceInterface` to `VideoThumbGeneratorInterface`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
 - [BC-BREAK] Renamed `ThumbServiceFactory` to `VideoThumbGeneratorFactory`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
  
-
 #### Detection / Analyzer
 
 > Search and replace `DetectionService` to `VideoAnalyzer`.

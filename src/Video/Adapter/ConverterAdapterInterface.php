@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Adapter;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
-use Soluble\MediaTools\Video\ConversionParamsInterface;
+use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
 interface ConverterAdapterInterface
 {
@@ -17,7 +17,7 @@ interface ConverterAdapterInterface
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
      */
-    public function getMappedConversionParams(ConversionParamsInterface $conversionParams): array;
+    public function getMappedConversionParams(VideoConvertParamsInterface $conversionParams): array;
 
     /**
      * @param array                        $arguments

@@ -6,13 +6,13 @@ namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\VideoConvertParams;
+use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
-class ConversionParamsTest extends TestCase
+class VideoConvertParamsTest extends TestCase
 {
     public function setUp(): void
     {
@@ -20,7 +20,7 @@ class ConversionParamsTest extends TestCase
 
     public function testMustBeImmutable(): void
     {
-        $params = new ConversionParams();
+        $params = new VideoConvertParams();
         self::assertCount(0, $params->toArray());
         $newParams = $params->withThreads(1);
         self::assertCount(0, $params->toArray());
@@ -29,31 +29,31 @@ class ConversionParamsTest extends TestCase
 
     public function testWithoutParam(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
             ->withTileColumns(10)
             ->withThreads(10);
 
-        $newParams = $params->withoutParam(ConversionParams::PARAM_THREADS);
-        self::assertTrue($newParams->hasParam(ConversionParamsInterface::PARAM_TILE_COLUMNS));
-        self::assertFalse($newParams->hasParam(ConversionParamsInterface::PARAM_THREADS));
-        self::assertTrue($params->hasParam(ConversionParamsInterface::PARAM_THREADS));
+        $newParams = $params->withoutParam(VideoConvertParams::PARAM_THREADS);
+        self::assertTrue($newParams->hasParam(VideoConvertParamsInterface::PARAM_TILE_COLUMNS));
+        self::assertFalse($newParams->hasParam(VideoConvertParamsInterface::PARAM_THREADS));
+        self::assertTrue($params->hasParam(VideoConvertParamsInterface::PARAM_THREADS));
     }
 
     public function testHasParam(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
                   ->withTileColumns(10);
-        self::assertTrue($params->hasParam(ConversionParamsInterface::PARAM_TILE_COLUMNS));
-        self::assertFalse($params->hasParam(ConversionParamsInterface::PARAM_FRAME_PARALLEL));
+        self::assertTrue($params->hasParam(VideoConvertParamsInterface::PARAM_TILE_COLUMNS));
+        self::assertFalse($params->hasParam(VideoConvertParamsInterface::PARAM_FRAME_PARALLEL));
     }
 
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
-        $injectedParams = new ConversionParams([
-            ConversionParamsInterface::PARAM_TUNE => 'grain',
+        $injectedParams = new VideoConvertParams([
+            VideoConvertParamsInterface::PARAM_TUNE => 'grain',
         ]);
 
-        $withParams = (new ConversionParams())->withTune('grain');
+        $withParams = (new VideoConvertParams())->withTune('grain');
 
         self::assertSame($injectedParams->toArray(), $withParams->toArray());
     }
@@ -63,7 +63,7 @@ class ConversionParamsTest extends TestCase
         $seekTimeStart = new SeekTime(0.1);
         $seekTimeEnd   = new SeekTime(0.6);
 
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -89,30 +89,30 @@ class ConversionParamsTest extends TestCase
             ->withSeekEnd($seekTimeEnd);
 
         $expectedParams = [
-            ConversionParamsInterface::PARAM_TILE_COLUMNS      => 10,
-            ConversionParamsInterface::PARAM_THREADS           => 8,
-            ConversionParamsInterface::PARAM_SPEED             => 2,
-            ConversionParamsInterface::PARAM_KEYFRAME_SPACING  => 240,
-            ConversionParamsInterface::PARAM_CRF               => 32,
-            ConversionParamsInterface::PARAM_OUTPUT_FORMAT     => 'mp4',
-            ConversionParamsInterface::PARAM_VIDEO_MIN_BITRATE => '750k',
-            ConversionParamsInterface::PARAM_VIDEO_BITRATE     => '1M',
-            ConversionParamsInterface::PARAM_QUALITY           => 'good',
-            ConversionParamsInterface::PARAM_STREAMABLE        => true,
-            ConversionParamsInterface::PARAM_PIX_FMT           => 'yuv420p',
-            ConversionParamsInterface::PARAM_PRESET            => 'fast',
-            ConversionParamsInterface::PARAM_AUDIO_BITRATE     => '128k',
-            ConversionParamsInterface::PARAM_AUDIO_CODEC       => 'aac',
-            ConversionParamsInterface::PARAM_VIDEO_CODEC       => 'h264',
-            ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
-            ConversionParamsInterface::PARAM_FRAME_PARALLEL    => 2,
-            ConversionParamsInterface::PARAM_TUNE              => 'film',
-            ConversionParamsInterface::PARAM_OVERWRITE         => true,
-            ConversionParamsInterface::PARAM_NOAUDIO           => true,
-            ConversionParamsInterface::PARAM_VIDEO_FRAMES      => 1500,
+            VideoConvertParamsInterface::PARAM_TILE_COLUMNS      => 10,
+            VideoConvertParamsInterface::PARAM_THREADS           => 8,
+            VideoConvertParamsInterface::PARAM_SPEED             => 2,
+            VideoConvertParamsInterface::PARAM_KEYFRAME_SPACING  => 240,
+            VideoConvertParamsInterface::PARAM_CRF               => 32,
+            VideoConvertParamsInterface::PARAM_OUTPUT_FORMAT     => 'mp4',
+            VideoConvertParamsInterface::PARAM_VIDEO_MIN_BITRATE => '750k',
+            VideoConvertParamsInterface::PARAM_VIDEO_BITRATE     => '1M',
+            VideoConvertParamsInterface::PARAM_QUALITY           => 'good',
+            VideoConvertParamsInterface::PARAM_STREAMABLE        => true,
+            VideoConvertParamsInterface::PARAM_PIX_FMT           => 'yuv420p',
+            VideoConvertParamsInterface::PARAM_PRESET            => 'fast',
+            VideoConvertParamsInterface::PARAM_AUDIO_BITRATE     => '128k',
+            VideoConvertParamsInterface::PARAM_AUDIO_CODEC       => 'aac',
+            VideoConvertParamsInterface::PARAM_VIDEO_CODEC       => 'h264',
+            VideoConvertParamsInterface::PARAM_VIDEO_MAX_BITRATE => '2000000',
+            VideoConvertParamsInterface::PARAM_FRAME_PARALLEL    => 2,
+            VideoConvertParamsInterface::PARAM_TUNE              => 'film',
+            VideoConvertParamsInterface::PARAM_OVERWRITE         => true,
+            VideoConvertParamsInterface::PARAM_NOAUDIO           => true,
+            VideoConvertParamsInterface::PARAM_VIDEO_FRAMES      => 1500,
 
-            ConversionParamsInterface::PARAM_SEEK_START        => $seekTimeStart,
-            ConversionParamsInterface::PARAM_SEEK_END          => $seekTimeEnd,
+            VideoConvertParamsInterface::PARAM_SEEK_START        => $seekTimeStart,
+            VideoConvertParamsInterface::PARAM_SEEK_END          => $seekTimeEnd,
         ];
 
         self::assertEquals($expectedParams, $params->toArray());
@@ -124,22 +124,22 @@ class ConversionParamsTest extends TestCase
 
     public function testNewParamMustOverwritePreviousParam(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
             ->withTileColumns(10)
             ->withTileColumns(12);
 
         self::assertEquals([
-            ConversionParamsInterface::PARAM_TILE_COLUMNS      => 12,
+            VideoConvertParamsInterface::PARAM_TILE_COLUMNS      => 12,
         ], $params->toArray());
     }
 
     public function testWithBuiltInParam(): void
     {
-        $params = (new ConversionParams())
-                    ->withBuiltInParam(ConversionParams::PARAM_TILE_COLUMNS, 12);
+        $params = (new VideoConvertParams())
+                    ->withBuiltInParam(VideoConvertParams::PARAM_TILE_COLUMNS, 12);
 
         self::assertEquals([
-            ConversionParamsInterface::PARAM_TILE_COLUMNS      => 12,
+            VideoConvertParamsInterface::PARAM_TILE_COLUMNS      => 12,
         ], $params->toArray());
     }
 
@@ -157,30 +157,30 @@ class ConversionParamsTest extends TestCase
             }
         };
 
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
             ->withVideoFilter($filter1);
 
-        self::assertSame($filter1, $params->getParam(ConversionParamsInterface::PARAM_VIDEO_FILTER));
+        self::assertSame($filter1, $params->getParam(VideoConvertParamsInterface::PARAM_VIDEO_FILTER));
     }
 
     public function testGetParamThrowsUnsetParamException(): void
     {
         self::expectException(UnsetParamException::class);
 
-        $params = (new ConversionParams())->withTileColumns(10);
+        $params = (new VideoConvertParams())->withTileColumns(10);
 
-        $params->getParam(ConversionParams::PARAM_AUDIO_BITRATE);
+        $params->getParam(VideoConvertParams::PARAM_AUDIO_BITRATE);
     }
 
     public function testUnsupportedParamThrowsInvalidArgumentException(): void
     {
         self::expectException(InvalidArgumentException::class);
-        new ConversionParams(['UnsupportedOption' => 'cool']);
+        new VideoConvertParams(['UnsupportedOption' => 'cool']);
     }
 
     public function testInvalidBitRateThrowsInvalidArgumentException(): void
     {
-        $params = new ConversionParams();
+        $params = new VideoConvertParams();
 
         try {
             $params->withVideoBitrate('901w');

@@ -12,7 +12,6 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\DetectionProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidParamException;
@@ -20,6 +19,7 @@ use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Soluble\MediaTools\Video\Filter\IdetVideoFilter;
+use Soluble\MediaTools\Video\VideoConvertParams;
 use Symfony\Component\Process\Exception as SPException;
 
 class InterlaceDetect
@@ -46,7 +46,7 @@ class InterlaceDetect
     public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
     {
         $adapter = $this->ffmpegConfig->getAdapter();
-        $params  = (new ConversionParams())
+        $params  = (new VideoConvertParams())
             ->withVideoFilter(new IdetVideoFilter()) // detect interlaced frames :)
             ->withVideoFrames($maxFramesToAnalyze)
             ->withNoAudio() // speed up the thing

@@ -19,8 +19,8 @@ use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\VideoConverter;
+use Soluble\MediaTools\Video\VideoConvertParams;
 
 class VideoConversionErrorLoggingTest extends TestCase
 {
@@ -69,7 +69,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             $videoConvert->convert(
                 $this->videoFile,
                 $outputFile,
-                (new ConversionParams())->withVideoCodec('NOVALIDCODEC')
+                (new VideoConvertParams())->withVideoCodec('NOVALIDCODEC')
             );
             self::fail('this code cannot be reached');
         } catch (\Throwable $e) {
@@ -91,7 +91,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             $videoConvert->convert(
                 '/path_does_no_exists/path',
                 $outputFile,
-                (new ConversionParams())
+                (new VideoConvertParams())
             );
             self::fail('this code cannot be reached');
         } catch (\Throwable $e) {

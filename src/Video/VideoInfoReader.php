@@ -69,7 +69,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
      * @throws MissingInputFileException
      * @throws RuntimeException
      */
-    public function query(string $file): VideoInfo
+    public function getInfo(string $file): VideoInfo
     {
         try {
             try {

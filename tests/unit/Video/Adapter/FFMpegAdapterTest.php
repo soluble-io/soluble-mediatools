@@ -9,12 +9,12 @@ use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\ConversionParamsInterface;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\VideoConvertParams;
+use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
 class FFMpegAdapterTest extends TestCase
 {
@@ -33,7 +33,7 @@ class FFMpegAdapterTest extends TestCase
         $seekTimeStart = new SeekTime(0.1);
         $seekTimeEnd   = new SeekTime(0.6);
 
-        $conversionParams = (new ConversionParams())
+        $conversionParams = (new VideoConvertParams())
             ->withTileColumns(10)
             ->withThreads(8)
             ->withSpeed(2)
@@ -72,21 +72,21 @@ class FFMpegAdapterTest extends TestCase
 
     public function testOverwiteSupport(): void
     {
-        $conversionParams = (new ConversionParams());
+        $conversionParams = (new VideoConvertParams());
 
         self::assertEquals('-y', implode(
             ' ',
             $this->ffmpegAdapter->getMappedConversionParams($conversionParams)
         ));
 
-        $conversionParams = (new ConversionParams())->withOverwrite();
+        $conversionParams = (new VideoConvertParams())->withOverwrite();
 
         self::assertEquals('-y', implode(
             ' ',
             $this->ffmpegAdapter->getMappedConversionParams($conversionParams)
         ));
 
-        $conversionParams = (new ConversionParams())->withNoOverwrite();
+        $conversionParams = (new VideoConvertParams())->withNoOverwrite();
         $args             = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
         self::assertEquals('', implode(' ', $args));
     }
@@ -100,11 +100,11 @@ class FFMpegAdapterTest extends TestCase
             }
         };
 
-        $conversionParams = (new ConversionParams())
+        $conversionParams = (new VideoConvertParams())
             ->withVideoFilter($filter1);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
-        self::assertEquals('-vf filter_1', $args[ConversionParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertEquals('-vf filter_1', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testWithFFMpegVideoFilterChain(): void
@@ -127,11 +127,11 @@ class FFMpegAdapterTest extends TestCase
         $filterChain->addFilter($filter1);
         $filterChain->addFilter($filter2);
 
-        $conversionParams = (new ConversionParams())
+        $conversionParams = (new VideoConvertParams())
             ->withVideoFilter($filterChain);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
-        self::assertEquals('-vf filter_1,filter_2', $args[ConversionParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertEquals('-vf filter_1,filter_2', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testWithNonFFMpegVideoFilterMustThrowException(): void
@@ -140,16 +140,16 @@ class FFMpegAdapterTest extends TestCase
         $filter1 = new class() implements VideoFilterInterface {
         };
 
-        $conversionParams = (new ConversionParams())
+        $conversionParams = (new VideoConvertParams())
             ->withVideoFilter($filter1);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
-        self::assertEquals('-vf filter_1', $args[ConversionParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertEquals('-vf filter_1', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testGetCliCommand(): void
     {
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
             ->withCrf(32)
             ->withVideoCodec('h264');
 
@@ -166,7 +166,7 @@ class FFMpegAdapterTest extends TestCase
     {
         self::expectException(InvalidArgumentException::class);
 
-        $params = (new ConversionParams())
+        $params = (new VideoConvertParams())
             ->withCrf(32)
             ->withVideoCodec('h264');
 

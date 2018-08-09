@@ -67,7 +67,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             throw new MissingTimeException('Missing seekTime parameter');
         }
 
-        $conversionParams = (new ConversionParams());
+        $conversionParams = (new VideoConvertParams());
 
         if ($adapter->getDefaultThreads() !== null) {
             $conversionParams->withThreads($adapter->getDefaultThreads());

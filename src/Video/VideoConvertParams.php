@@ -10,7 +10,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
-class ConversionParams implements ConversionParamsInterface
+class VideoConvertParams implements VideoConvertParamsInterface
 {
     use BitrateAssertionsTrait;
 
@@ -295,7 +295,7 @@ class ConversionParams implements ConversionParamsInterface
      *
      * @return self (For static analysis the trick is to return 'self' instead of interface)
      */
-    public function withBuiltInParam(string $paramName, $paramValue): ConversionParamsInterface
+    public function withBuiltInParam(string $paramName, $paramValue): VideoConvertParamsInterface
     {
         return new self(array_merge($this->params, [
             $paramName => $paramValue,
@@ -305,7 +305,7 @@ class ConversionParams implements ConversionParamsInterface
     /**
      * @return self (For static analysis the trick is to return 'self' instead of interface)
      */
-    public function withoutParam(string $paramName): ConversionParamsInterface
+    public function withoutParam(string $paramName): VideoConvertParamsInterface
     {
         $ao = (new \ArrayObject($this->params));
         if ($ao->offsetExists($paramName)) {

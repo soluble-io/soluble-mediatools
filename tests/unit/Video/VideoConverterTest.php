@@ -7,7 +7,6 @@ namespace MediaToolsTest\Video;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\ConversionParams;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
@@ -16,6 +15,7 @@ use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoConverter;
 use Soluble\MediaTools\Video\VideoConverterInterface;
+use Soluble\MediaTools\Video\VideoConvertParams;
 
 class VideoConverterTest extends TestCase
 {
@@ -37,7 +37,7 @@ class VideoConverterTest extends TestCase
         $videoFilterChain->addFilter(new Hqdn3DVideoFilter());
         $videoFilterChain->addFilter(new NlmeansVideoFilter());
 
-        $convertParams = (new ConversionParams())
+        $convertParams = (new VideoConvertParams())
             ->withVideoCodec('libvpx-vp9')
             ->withCrf(32)
             ->withVideoBitrate('200k')
@@ -84,7 +84,7 @@ class VideoConverterTest extends TestCase
 
     public function testGetSymfonyProcessMustDefaultToConfigThreads(): void
     {
-        $convertParams = (new ConversionParams());
+        $convertParams = (new VideoConvertParams());
 
         $process = (new VideoConverter(
             new FFMpegConfig('ffmpeg', 3)

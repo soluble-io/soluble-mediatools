@@ -39,7 +39,7 @@ interface VideoThumbParamsInterface extends ActionParamInterface
     public function withBuiltInParam(string $paramName, $paramValue): self;
 
     /**
-     * Return ConversionParams without this one.
+     * Return VideoConvertParams without this one.
      */
     public function withoutParam(string $paramName): self;
 }

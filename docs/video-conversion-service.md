@@ -16,11 +16,11 @@ to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\{VideoConverter, ConversionParams};
+use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
 
 $vcs = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
     ->withVideoCodec('libx264')    
     ->withStreamable(true)
     ->withCrf(24);                  
@@ -89,7 +89,7 @@ as well as the conversion params.
 $conversionService->convert(
     '/path/inputFile.mov', 
     '/path/outputFile.mp4', 
-    (new ConversionParams())->withVideoCodec('libx264')
+    (new VideoConvertParams())->withVideoCodec('libx264')
 );           
 ``` 
 
@@ -97,14 +97,14 @@ $conversionService->convert(
 service initialization.* 
 
 ??? question "What if I need more control over the process ? (advanced usage)"
-    You can use the `Video\VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
+    You can use the `Video\VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
     to get more control on the conversion process. 
     ```php 
     <?php
     $process = $conversionService->getSymfonyProcess(
         '/path/inputFile.mov', 
          '/path/outputFile.mp4', 
-          (new ConversionParams())->withVideoCodec('libx264')              
+          (new VideoConvertParams())->withVideoCodec('libx264')              
     );
     
     $process->start();
@@ -121,14 +121,14 @@ service initialization.*
 
 #### Parameters
  
-The [`Video\ConversionParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParams.php) 
+The [`Video\VideoConvertParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParams.php) 
 exposes an immutable api that attempt to mimic ffmpeg params.  
    
 ```php
 <?php
-use Soluble\MediaTools\Video\ConversionParams;
+use Soluble\MediaTools\Video\VideoConvertParams;
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
     ->withVideoCodec('libx264')
     ->withStreamable(true)  
     ->withCrf(24)         
@@ -139,7 +139,7 @@ $params = (new ConversionParams())
 ```
 
 ??? question "Immutable api, what does it change for me ? (vs fluent)"
-    ConversionParams exposes an ==immutable== style api *(`->withXXX()`, like PSR-7 for example)*.
+    VideoConvertParams exposes an ==immutable== style api *(`->withXXX()`, like PSR-7 for example)*.
     It means that the original object is never touched, the `withXXX()` methods will return a newly 
     created object. 
     
@@ -149,7 +149,7 @@ $params = (new ConversionParams())
             
     ```php hl_lines="6 9"
     <?php
-    $params = (new ConversionParams());
+    $params = (new VideoConvertParams());
     
     $newParams = $params->withVideoCodec('libx264');
     
@@ -213,7 +213,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
-| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php).  | 
+| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php).  | 
 | `withoutParam(string)`            | Without the specified parameter. |
 | `getParam(string $param): mixed`  | Return the param calue or throw UnsetParamExeption if not set.      |
 | `hasParam(string $param): bool`   | Whether the param has been set.  |
@@ -221,19 +221,19 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 
 > To get the latest list of built-ins, see the 
-> [ConversionParamsInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionParamsInterface.php) and 
+> [VideoConvertParamsInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php) and 
 > [FFMpegAdapter](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php) sources.
 
 
 #### Filters
 
-Video filters can be set to the ConversionParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
+Video filters can be set to the VideoConvertParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
 
 ```php
 <?php
 use Soluble\MediaTools\Video\Filter;
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
     ->withVideoFilter(
         // A denoise filter
         new Filter\Hqdn3DVideoFilter()
@@ -256,7 +256,7 @@ $filters = new Filter\VideoFilterChain([
 // Alternatively, use ->addFilter method
 $filters->addFilter(new Filter\NlmeansVideoFilter());
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
     ->withVideoFilter($filters);
 
 // ....
@@ -290,11 +290,11 @@ alternatively you can also :
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{VideoConverter, ConversionParams};
+use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
 use Soluble\MediaTools\Video\Exception as VE;
 
 /** @var VideoConverter $vcs */
-$params = (new ConversionParams())->withVideoCodec('xxx');     
+$params = (new VideoConvertParams())->withVideoCodec('xxx');     
 try {
     
     $vcs->convert('i.mov', 'o.mp4', $params);
@@ -349,10 +349,10 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{Exception, ConversionParams};
+use Soluble\MediaTools\Video\{Exception, VideoConvertParams};
 use Soluble\MediaTools\Video\VideoConverterInterface;
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
     ->withVideoCodec('libx264')
     ->withAudioCodec('aac')
     ->withAudioBitrate('128k')            
@@ -385,10 +385,10 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{Exception, ConversionParams};
+use Soluble\MediaTools\Video\{Exception, VideoConvertParams};
 use Soluble\MediaTools\Video\VideoConverterInterface;
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
     ->withVideoCodec('libvpx-vp9')
     ->withVideoBitrate('750k')
     ->withQuality('good')
@@ -437,9 +437,9 @@ try {
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{Exception, ConversionParams, SeekTime};
+use Soluble\MediaTools\Video\{Exception, VideoConvertParams, SeekTime};
 
-$params = (new ConversionParams())
+$params = (new VideoConvertParams())
           ->withSeekStart(new SeekTime(10.242)) // 10 sec, 242 milli
           ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
 

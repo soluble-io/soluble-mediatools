@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Service\ActionParamInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
-interface ConversionParamsInterface extends ActionParamInterface
+interface VideoConvertParamsInterface extends ActionParamInterface
 {
     public const PARAM_VIDEO_CODEC         = 'VIDEO_CODEC';
     public const PARAM_VIDEO_BITRATE       = 'VIDEO_BITRATE';
@@ -85,7 +85,7 @@ interface ConversionParamsInterface extends ActionParamInterface
     public function withBuiltInParam(string $paramName, $paramValue): self;
 
     /**
-     * Return ConversionParams without this one.
+     * Return VideoConvertParams without this one.
      */
     public function withoutParam(string $paramName): self;
 }

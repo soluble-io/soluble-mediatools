@@ -52,14 +52,14 @@ class VideoConverter implements VideoConverterInterface
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
      */
-    public function getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process
+    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process
     {
         $adapter = $this->ffmpegConfig->getAdapter();
 
-        if (!$convertParams->hasParam(ConversionParamsInterface::PARAM_THREADS)
+        if (!$convertParams->hasParam(VideoConvertParamsInterface::PARAM_THREADS)
             && $adapter->getDefaultThreads() !== null) {
             $convertParams = $convertParams->withBuiltInParam(
-                ConversionParamsInterface::PARAM_THREADS,
+                VideoConvertParamsInterface::PARAM_THREADS,
                 $adapter->getDefaultThreads()
             );
         }
@@ -87,7 +87,7 @@ class VideoConverter implements VideoConverterInterface
      * @throws InvalidParamException
      * @throws RuntimeException
      */
-    public function convert(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
+    public function convert(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
             try {
@@ -126,7 +126,7 @@ class VideoConverter implements VideoConverterInterface
 
     /*
      * FOR LATER REFERENCE !!!
-    public function convertMultiPass(string $videoFile, string $outputFile, ConversionParams $convertParams, VideoFilterInterface $videoFilter=null): void {
+    public function convertMultiPass(string $videoFile, string $outputFile, VideoConvertParams $convertParams, VideoFilterInterface $videoFilter=null): void {
 
         $this->ensureFileExists($videoFile);
         if ($videoFilter === null) {
