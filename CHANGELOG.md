@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.0 (2018-08-XX)
+
+** WARNING THIS WILL BC-BREAK THINGS, NOT A 1.0 **
+
+### Added
+
+- Requirement of `symfony/polyfill-mbstring` to allow install on system without mbstring extension. 
+
 ## 0.6.3 (2018-08-08)
 
 ### Added
