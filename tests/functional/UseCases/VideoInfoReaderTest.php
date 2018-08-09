@@ -11,7 +11,7 @@ use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 
-class VideoQueryTest extends TestCase
+class VideoInfoReaderTest extends TestCase
 {
     use ServicesProviderTrait;
 
@@ -45,6 +45,8 @@ class VideoQueryTest extends TestCase
         self::assertEquals(320, $videoInfo->getWidth());
         self::assertEquals(180, $videoInfo->getHeight());
         self::assertEquals(['width' => 320, 'height' => 180], $videoInfo->getDimensions());
+        self::assertContains('mp4', $videoInfo->getFormatName());
+        self::assertEquals(2, $videoInfo->countStreams());
 
         ['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
 
