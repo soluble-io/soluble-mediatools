@@ -262,20 +262,8 @@
 
 
   <li class="md-nav__item">
-    <a href=".." title="Intro" class="md-nav__link">
-      Intro
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../video-info-service/" title="VideoInfoReader" class="md-nav__link">
-      VideoInfoReader
+    <a href=".." title="Overview" class="md-nav__link">
+      Overview
     </a>
   </li>
 
@@ -288,6 +276,18 @@
   <li class="md-nav__item">
     <a href="../video-conversion-service/" title="VideoConverter" class="md-nav__link">
       VideoConverter
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../video-info-service/" title="VideoInfoReader" class="md-nav__link">
+      VideoInfoReader
     </a>
   </li>
 
@@ -513,7 +513,7 @@
                   <h1>VideoAnalyzer</h1>
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
-<p>The <mark>Video\DetectionService</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
+<p>The <mark>Video\VideoAnalyzer</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the <code>Video\VideoInfoReader</code>) but really
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). </p>
 <p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
@@ -523,9 +523,9 @@ to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DetectionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 
 <span class="k">try</span> <span class="p">{</span>    
@@ -548,15 +548,15 @@ to log issues by yourself.    </p>
 </pre></div>
 
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionService.php">Video\DetectionService</a> 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php">Video\VideoAnalyzer</a> 
 requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DetectionService</span><span class="p">(</span>    
+<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span>    
     <span class="c1">// @param FFMpegConfigInterface </span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)</span>
@@ -576,16 +576,16 @@ and the various timeouts if needed. The second parameter can be used to inject a
 </pre></div>
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
-Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionServiceFactory.php"><code>Video\DetectionServiceFactory</code></a>
+Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzerFactory.php"><code>Video\VideoAnalyzerFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <h4 id="interlacement-detection">Interlacement detection<a class="headerlink" href="#interlacement-detection" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DetectionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 
 <span class="k">try</span> <span class="p">{</span>    
@@ -611,10 +611,10 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <p>You can safely catch exceptions with the generic <code>Soluble\MediaTools\Video\Exception\ExceptionInterface</code>,
 alternatively you can also :</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
-<span class="sd">/** @var DetectionService $vds */</span>
+<span class="sd">/** @var VideoAnalyzer $vds */</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$vds</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
@@ -668,8 +668,8 @@ alternatively you can also :</p>
                     
                     
                     
-                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionService.php" title="Video/DetectionService.php" class="md-source-file">
-                      Video/DetectionService.php
+                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php" title="Video/VideoAnalyzer.php" class="md-source-file">
+                      Video/VideoAnalyzer.php
                     </a>
                   
                 
