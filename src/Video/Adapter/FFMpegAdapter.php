@@ -21,11 +21,6 @@ class FFMpegAdapter implements ConverterAdapterInterface
         $this->ffmpegConfig = $ffmpegConfig;
     }
 
-    public function getDefaultThreads(): ?int
-    {
-        return $this->ffmpegConfig->getThreads();
-    }
-
     /**
      * @return array<string, array<string, string>>
      */
@@ -202,5 +197,10 @@ class FFMpegAdapter implements ConverterAdapterInterface
         ));
 
         return $ffmpegCmd;
+    }
+
+    public function getDefaultThreads(): ?int
+    {
+        return $this->ffmpegConfig->getThreads();
     }
 }

@@ -11,8 +11,6 @@ use Soluble\MediaTools\Video\ConversionParamsInterface;
 
 interface ConverterAdapterInterface
 {
-    public function getDefaultThreads(): ?int;
-
     /**
      * @return array<string, string>
      *
@@ -29,4 +27,6 @@ interface ConverterAdapterInterface
      * @return string
      */
     public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null): string;
+
+    public function getDefaultThreads(): ?int;
 }
