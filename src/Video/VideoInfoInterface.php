@@ -7,6 +7,16 @@ namespace Soluble\MediaTools\Video;
 interface VideoInfoInterface
 {
     /**
+     * Return the file container format name.
+     */
+    public function getFormatName(): string;
+
+    /**
+     * Return the number of streams.
+     */
+    public function countStreams(): int;
+
+    /**
      * Return original file path.
      */
     public function getFile(): string;

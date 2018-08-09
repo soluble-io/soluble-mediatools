@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.1 (UNRELEASED)
+
+## Added
+
+- `VideoInfo::getFormatName()` to get the format name(s).
+- `VideoInfo::countStreams()` to get the number of available streams.
+- `ext-json` added as requirement in composer.json
+
+
 ## 0.7.0 (2018-08-09)
 
 **WARNING THIS IS BC-BREAK RELEASE**

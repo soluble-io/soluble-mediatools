@@ -42,6 +42,16 @@ class VideoInfo implements VideoInfoInterface
         return $this->file;
     }
 
+    public function getFormatName(): string
+    {
+        return $this->metadata['format']['format_name'];
+    }
+
+    public function countStreams(): int
+    {
+        return $this->metadata['format']['nb_streams'];
+    }
+
     public function getMetadata(): array
     {
         return $this->metadata;
