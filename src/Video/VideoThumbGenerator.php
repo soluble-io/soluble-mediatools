@@ -14,15 +14,15 @@ use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\InvalidParamException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\MissingTimeException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
-use Soluble\MediaTools\Video\Exception\RuntimeException;
+use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
@@ -107,15 +107,15 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
     }
 
     /**
-     * @throws ConversionExceptionInterface        Base exception class for conversion exceptions
-     * @throws ConversionProcessExceptionInterface Base exception class for process conversion exceptions
-     * @throws MissingInputFileException
+     * @throws ConverterExceptionInterface        Base exception class for conversion exceptions
+     * @throws ConverterProcessExceptionInterface Base exception class for process conversion exceptions
+     * @throws MissingInputFileReaderException
      * @throws MissingTimeException
      * @throws ProcessTimedOutException
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
-     * @throws RuntimeException
-     * @throws InvalidParamException
+     * @throws RuntimeReaderException
+     * @throws InvalidParamReaderException
      */
     public function makeThumbnail(string $videoFile, string $thumbnailFile, VideoThumbParamsInterface $thumbParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
@@ -126,9 +126,9 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
                 $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
                 $process->mustRun($callback);
             } catch (FileNotFoundException $e) {
-                throw new MissingInputFileException($e->getMessage());
+                throw new MissingInputFileReaderException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-                throw new InvalidParamException($e->getMessage());
+                throw new InvalidParamReaderException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
                 throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessSignaledException $e) {
@@ -136,12 +136,12 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             } catch (SPException\ProcessFailedException $e) {
                 throw new ProcessFailedException($e->getProcess(), $e);
             } catch (SPException\RuntimeException $e) {
-                throw new RuntimeException($e->getMessage());
+                throw new RuntimeReaderException($e->getMessage());
             }
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));
             $this->logger->log(
-                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+                ($e instanceof MissingInputFileReaderException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
                     'Video thumbnailing failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
                     $exceptionNs[count($exceptionNs) - 1],

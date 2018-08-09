@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\Process\ProcessParams;
@@ -70,7 +70,7 @@ class VideoConverterTest extends TestCase
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
-        } catch (ConversionExceptionInterface $e) {
+        } catch (ConverterExceptionInterface $e) {
             self::fail(sprintf('Failed to convert video: %s', $e->getMessage()));
         }
 
@@ -111,7 +111,7 @@ class VideoConverterTest extends TestCase
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
-        } catch (ConversionExceptionInterface $e) {
+        } catch (ConverterExceptionInterface $e) {
             self::fail(sprintf('Failed to convert video: %s', $e->getMessage()));
         }
 
@@ -121,7 +121,7 @@ class VideoConverterTest extends TestCase
 
     public function testConvertMustThrowFileNotFoundException(): void
     {
-        self::expectException(MissingInputFileException::class);
+        self::expectException(MissingInputFileReaderException::class);
         $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConvertParams());
     }
 

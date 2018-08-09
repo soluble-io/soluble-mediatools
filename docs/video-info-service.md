@@ -13,14 +13,14 @@ logger if you don't want to log issues by yourself.
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\FFProbeConfig;
-use Soluble\MediaTools\Video\Exception\InfoExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
 use Soluble\MediaTools\Video\VideoInfoReader;
 
 $infoService = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
     $videoInfo = $infoService->getInfo('/path/video.mp4');
-} catch (InfoExceptionInterface $e) {
+} catch (InfoReaderExceptionInterface $e) {
     // see below for exceptions
 }
 
@@ -77,7 +77,7 @@ $vcs = new VideoInfoReader(
        
 ### Exceptions
 
-All info exceptions implements [`InfoExceptionInterface`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoExceptionInterface.php) interface.
+All info exceptions implements [`InfoReaderExceptionInterface`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoReaderExceptionInterface.php) interface.
 
 
 ```php
@@ -90,7 +90,7 @@ try {
     
     $vis->getInfo('/path/video.mov');
     
-// All exception below implements VE\InfoExceptionInterface
+// All exception below implements VE\InfoReaderExceptionInterface
         
 } catch(VE\MissingInputFileException $e) {
     
@@ -122,7 +122,7 @@ try {
     echo $process->getExitCode();
     echo $process->getErrorOutput();
     
-} catch(VE\ConversionExceptionInterface $e) {
+} catch(VE\ConverterExceptionInterface $e) {
     
     // Other exceptions can be
     //

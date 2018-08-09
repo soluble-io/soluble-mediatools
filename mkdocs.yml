@@ -17,11 +17,10 @@ site_dir: build/docs
 
 nav:
     - { 'Intro': index.md }
-    - Video services:
-      - 'Querying': 'video-info-service.md'
-      - 'Conversion': 'video-conversion-service.md'
-      - 'Thumbnailing': 'video-thumb-service.md'
-      - 'Detection': 'video-detection-service.md'
+    - 'VideoInfoReader': 'video-info-service.md'
+    - 'VideoConverter': 'video-conversion-service.md'
+    - 'VideoThumbnailGenerator': 'video-thumb-service.md'
+    - 'VideoAnalyzer': 'video-detection-service.md'
     - About:
       - 'License': 'about/license.md'
 

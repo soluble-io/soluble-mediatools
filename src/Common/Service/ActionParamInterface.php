@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Service;
 
-use Soluble\MediaTools\Video\Exception\UnsetParamException;
+use Soluble\MediaTools\Video\Exception\UnsetParamReaderException;
 
 interface ActionParamInterface
 {
@@ -23,7 +23,7 @@ interface ActionParamInterface
     /**
      * @return mixed
      *
-     * @throws UnsetParamException
+     * @throws UnsetParamReaderException
      */
     public function getParam(string $paramName);
 

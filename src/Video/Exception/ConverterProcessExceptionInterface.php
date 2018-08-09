@@ -6,6 +6,6 @@ namespace Soluble\MediaTools\Video\Exception;
 
 use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
 
-interface InfoProcessExceptionInterface extends ProcessExceptionInterface, InfoExceptionInterface
+interface ConverterProcessExceptionInterface extends ProcessExceptionInterface, ConverterExceptionInterface
 {
 }

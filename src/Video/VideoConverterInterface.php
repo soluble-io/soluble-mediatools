@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Symfony\Component\Process\Process;
 
 interface VideoConverterInterface
@@ -25,7 +25,7 @@ interface VideoConverterInterface
      * @param callable|null $callback A PHP callback to run whenever there is some
      *                                tmp available on STDOUT or STDERR
      *
-     * @throws ConversionExceptionInterface When inputFile does not exists
+     * @throws ConverterExceptionInterface When inputFile does not exists
      */
     public function convert(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void;
 }

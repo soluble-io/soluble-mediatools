@@ -18,7 +18,7 @@ to log issues by yourself.
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\DetectionService;
 
 $vds = new DetectionService(new FFMpegConfig('/path/to/ffmpeg'));
@@ -32,7 +32,7 @@ try {
         $maxFramesToAnalyze = 200
     );
     
-} catch(DetectionExceptionInterface $e) {
+} catch(AnalyzerExceptionInterface $e) {
     // See chapter about exception !!!    
 }
 
@@ -90,7 +90,7 @@ $vcs = new DetectionService(
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\DetectionService;
 
 $vds = new DetectionService(new FFMpegConfig('/path/to/ffmpeg'));
@@ -104,7 +104,7 @@ try {
         $maxFramesToAnalyze = 200
     );
     
-} catch(DetectionExceptionInterface $e) {
+} catch(AnalyzerExceptionInterface $e) {
     // See chapter about exception !!!    
 }
 
@@ -166,7 +166,7 @@ try {
     echo $process->getExitCode();
     echo $process->getErrorOutput();
     
-} catch(VE\ConversionExceptionInterface $e) {
+} catch(VE\ConverterExceptionInterface $e) {
     
     // Other exceptions can be
     //

@@ -14,14 +14,14 @@ use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\Exception\ConversionProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\InvalidParamException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
-use Soluble\MediaTools\Video\Exception\RuntimeException;
+use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
@@ -78,14 +78,14 @@ class VideoConverter implements VideoConverterInterface
      * @param callable|null $callback A PHP callback to run whenever there is some
      *                                tmp available on STDOUT or STDERR
      *
-     * @throws ConversionExceptionInterface        Base exception class for conversion exceptions
-     * @throws ConversionProcessExceptionInterface Base exception class for process conversion exceptions
-     * @throws MissingInputFileException
+     * @throws ConverterExceptionInterface        Base exception class for conversion exceptions
+     * @throws ConverterProcessExceptionInterface Base exception class for process conversion exceptions
+     * @throws MissingInputFileReaderException
      * @throws ProcessTimedOutException
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
-     * @throws InvalidParamException
-     * @throws RuntimeException
+     * @throws InvalidParamReaderException
+     * @throws RuntimeReaderException
      */
     public function convert(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
@@ -95,9 +95,9 @@ class VideoConverter implements VideoConverterInterface
                 $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
                 $process->mustRun($callback);
             } catch (FileNotFoundException $e) {
-                throw new MissingInputFileException($e->getMessage());
+                throw new MissingInputFileReaderException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-                throw new InvalidParamException($e->getMessage());
+                throw new InvalidParamReaderException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
                 throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessSignaledException $e) {
@@ -105,12 +105,12 @@ class VideoConverter implements VideoConverterInterface
             } catch (SPException\ProcessFailedException $e) {
                 throw new ProcessFailedException($e->getProcess(), $e);
             } catch (SPException\RuntimeException $e) {
-                throw new RuntimeException($e->getMessage());
+                throw new RuntimeReaderException($e->getMessage());
             }
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));
             $this->logger->log(
-                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+                ($e instanceof MissingInputFileReaderException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
                     'Video conversion failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
                     $exceptionNs[count($exceptionNs) - 1],

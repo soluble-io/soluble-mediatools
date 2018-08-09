@@ -53,7 +53,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 <?php
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
-use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
+use Soluble\MediaTools\Video\Exception\{InfoReaderExceptionInterface, ConverterExceptionInterface};
 use Soluble\MediaTools\Video\{VideoInfoReader, VideoThumbGenerator, VideoThumbParams, VideoConverter, VideoConvertParams};
 use Soluble\MediaTools\Video\Filter;
 
@@ -65,7 +65,7 @@ $infoService = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
     $videoInfo = $infoService->getInfo($file);
-} catch (InfoExceptionInterface $e) {
+} catch (InfoReaderExceptionInterface $e) {
     // see the chapter about exceptions
 }
 
@@ -88,7 +88,7 @@ try {
              )
             
     );
-} catch (ConversionExceptionInterface $e) {
+} catch (ConverterExceptionInterface $e) {
     // see the chapter about exceptions
 }
 
@@ -109,7 +109,7 @@ try {
                      new Filter\NlmeansVideoFilter()
                  )
         );
-} catch (ConversionExceptionInterface $e) {
+} catch (ConverterExceptionInterface $e) {
     
 }
 

@@ -14,7 +14,7 @@ to log issues by yourself.
 ```php hl_lines="8 9 12 13 14 15 16"
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
 
 $vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
@@ -28,7 +28,7 @@ try {
         '/path/outputFile.jpg', 
         $params
     );    
-} catch(ConversionExceptionInterface $e) {
+} catch(ConverterExceptionInterface $e) {
     // See chapter about exception !!!    
 }
        
@@ -241,7 +241,7 @@ Currently there's only few built-in filters available:
 
 #### Exceptions
 
-You can safely catch exceptions with the generic `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,
+You can safely catch exceptions with the generic `Soluble\MediaTools\VideoException\ConverterExceptionInterface`,
 alternatively you can also :
 
 
@@ -262,7 +262,7 @@ try {
     
     echo $e->getMessage();
 
-// All exception below implements Ve\ConversionExceptionInterface
+// All exception below implements Ve\ConverterExceptionInterface
 // It's possible to get them all in once
     
 } catch(VE\MissingTimeException $e) {
@@ -296,7 +296,7 @@ try {
     echo $process->getExitCode();
     echo $process->getErrorOutput();
     
-} catch(VE\ConversionExceptionInterface $e) {
+} catch(VE\ConverterExceptionInterface $e) {
     
     // Other exceptions can be
     //

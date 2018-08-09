@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Video\Exception\UnsetParamException;
+use Soluble\MediaTools\Video\Exception\UnsetParamReaderException;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoThumbParams;
 use Soluble\MediaTools\Video\VideoThumbParamsInterface;
@@ -78,7 +78,7 @@ class VideoThumbParamsTest extends TestCase
 
     public function testGetParamThrowsUnsetParamException(): void
     {
-        self::expectException(UnsetParamException::class);
+        self::expectException(UnsetParamReaderException::class);
 
         $params = (new VideoThumbParams())->withTime(10);
 

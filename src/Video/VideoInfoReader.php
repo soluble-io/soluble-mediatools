@@ -12,11 +12,11 @@ use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
-use Soluble\MediaTools\Video\Exception\InfoExceptionInterface;
-use Soluble\MediaTools\Video\Exception\InfoProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\InfoProcessReaderExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
+use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
-use Soluble\MediaTools\Video\Exception\RuntimeException;
+use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
@@ -63,11 +63,11 @@ class VideoInfoReader implements VideoInfoReaderInterface
     }
 
     /**
-     * @throws InfoExceptionInterface
-     * @throws InfoProcessExceptionInterface
+     * @throws InfoReaderExceptionInterface
+     * @throws InfoProcessReaderExceptionInterface
      * @throws ProcessFailedException
-     * @throws MissingInputFileException
-     * @throws RuntimeException
+     * @throws MissingInputFileReaderException
+     * @throws RuntimeReaderException
      */
     public function getInfo(string $file): VideoInfo
     {
@@ -79,16 +79,16 @@ class VideoInfoReader implements VideoInfoReaderInterface
                 $process->mustRun();
                 $output = $process->getOutput();
             } catch (FileNotFoundException $e) {
-                throw new MissingInputFileException($e->getMessage());
+                throw new MissingInputFileReaderException($e->getMessage());
             } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
                 throw new ProcessFailedException($e->getProcess(), $e);
             } catch (SPException\RuntimeException $e) {
-                throw new RuntimeException($e->getMessage());
+                throw new RuntimeReaderException($e->getMessage());
             }
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));
             $this->logger->log(
-                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+                ($e instanceof MissingInputFileReaderException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
                     'Video info retrieval failed \'%s\' with \'%s\'. "%s(%s)"',
                     $exceptionNs[count($exceptionNs) - 1],

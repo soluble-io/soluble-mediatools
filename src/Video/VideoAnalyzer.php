@@ -10,11 +10,11 @@ use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
-use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
-use Soluble\MediaTools\Video\Exception\DetectionProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
+use Soluble\MediaTools\Video\Exception\AnalyzerProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
-use Soluble\MediaTools\Video\Exception\RuntimeException;
+use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 
 class VideoAnalyzer implements VideoAnalyzerInterface
 {
@@ -33,11 +33,11 @@ class VideoAnalyzer implements VideoAnalyzerInterface
     /**
      * @param int $maxFramesToAnalyze interlacement detection can be heavy, limit the number of frames to analyze
      *
-     * @throws DetectionExceptionInterface
-     * @throws DetectionProcessExceptionInterface
+     * @throws AnalyzerExceptionInterface
+     * @throws AnalyzerProcessExceptionInterface
      * @throws ProcessFailedException
-     * @throws MissingInputFileException
-     * @throws RuntimeException
+     * @throws MissingInputFileReaderException
+     * @throws RuntimeReaderException
      */
     public function detectInterlacement(string $file, int $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
     {

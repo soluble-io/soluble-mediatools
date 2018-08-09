@@ -12,12 +12,12 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
-use Soluble\MediaTools\Video\Exception\DetectionProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\InvalidParamException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileException;
+use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
+use Soluble\MediaTools\Video\Exception\AnalyzerProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
-use Soluble\MediaTools\Video\Exception\RuntimeException;
+use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Soluble\MediaTools\Video\Filter\IdetVideoFilter;
 use Soluble\MediaTools\Video\VideoConvertParams;
 use Symfony\Component\Process\Exception as SPException;
@@ -37,11 +37,11 @@ class InterlaceDetect
     }
 
     /**
-     * @throws DetectionExceptionInterface
-     * @throws DetectionProcessExceptionInterface
+     * @throws AnalyzerExceptionInterface
+     * @throws AnalyzerProcessExceptionInterface
      * @throws ProcessFailedException
-     * @throws MissingInputFileException
-     * @throws RuntimeException
+     * @throws MissingInputFileReaderException
+     * @throws RuntimeReaderException
      */
     public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
     {
@@ -64,13 +64,13 @@ class InterlaceDetect
             $process = (new ProcessFactory($ffmpegCmd, $pp))->__invoke();
             $process->mustRun();
         } catch (FileNotFoundException $e) {
-            throw new MissingInputFileException($e->getMessage());
+            throw new MissingInputFileReaderException($e->getMessage());
         } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-            throw new InvalidParamException($e->getMessage());
+            throw new InvalidParamReaderException($e->getMessage());
         } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
             throw new ProcessFailedException($e->getProcess(), $e);
         } catch (SPException\RuntimeException $e) {
-            throw new RuntimeException($e->getMessage());
+            throw new RuntimeReaderException($e->getMessage());
         }
 
         $stdErr = preg_split("/(\r\n|\n|\r)/", $process->getErrorOutput());

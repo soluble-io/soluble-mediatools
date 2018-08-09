@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Exception;
 
-class MissingTimeException extends InvalidArgumentException implements ConversionExceptionInterface
+class MissingTimeException extends InvalidArgumentException implements ConverterExceptionInterface
 {
 }

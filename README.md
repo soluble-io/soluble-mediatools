@@ -36,19 +36,19 @@ All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://solubl
 <?php
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
-use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
-use Soluble\MediaTools\Video\{InfoService, ThumbService, ThumbParams, ConversionService, ConversionParams};
+use Soluble\MediaTools\Video\Exception\{InfoReaderExceptionInterface, ConverterExceptionInterface};
+use Soluble\MediaTools\Video\{VideoInfoReader, VideoThumbGenerator, VideoThumbParams, VideoConverter, VideoConvertParams};
 use Soluble\MediaTools\Video\Filter;
 
 $file = '/path/video.mp4';
 
 // QUERYING
 
-$infoService = new InfoService(new FFProbeConfig('/path/to/ffprobe'));
+$infoService = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
     $videoInfo = $infoService->getInfo($file);
-} catch (InfoExceptionInterface $e) {
+} catch (InfoReaderExceptionInterface $e) {
     // see the chapter about exceptions
 }
 
@@ -56,13 +56,13 @@ echo $videoInfo->getWidth();
 
 // CONVERSION
 
-$conversionService = new ConversionService(new FFMpegConfig('/path/to/ffmpeg'));
+$conversionService = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
 
 try {
     $conversionService->convert(
         $file, 
         '/path/output.mp4',
-        (new ConversionParams())
+        (new VideoConvertParams())
              ->withVideoCodec('libx264')    
              ->withStreamable(true)
              ->withCrf(24)
@@ -71,26 +71,28 @@ try {
              )
             
     );
-} catch (ConversionExceptionInterface $e) {
+} catch (ConverterExceptionInterface $e) {
     // see the chapter about exceptions
 }
 
 // THUMBNAILING
 
-$thumbService = new ThumbService(new FFMpegConfig('/path/to/ffmpeg'));
+
+$thumbService = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
+
 
 try {
     $thumbService->makeThumbnail(
             $file, 
             '/path/outputFile.jpg', 
-            (new ThumbParams())
+            (new VideoThumbParams())
                  ->withTime(1.123)
                  ->withQualityScale(5)
                  ->withVideoFilter(
                      new Filter\NlmeansVideoFilter()
                  )
         );
-} catch (ConversionExceptionInterface $e) {
+} catch (ConverterExceptionInterface $e) {
     
 }
 

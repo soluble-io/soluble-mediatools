@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Assert\BitrateAssertionsTrait;
 use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Exception\UnsetParamException;
+use Soluble\MediaTools\Video\Exception\UnsetParamReaderException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
 class VideoConvertParams implements VideoConvertParamsInterface
@@ -333,12 +333,12 @@ class VideoConvertParams implements VideoConvertParamsInterface
     /**
      * @return bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface|null
      *
-     * @throws UnsetParamException
+     * @throws UnsetParamReaderException
      */
     public function getParam(string $paramName)
     {
         if (!$this->hasParam($paramName)) {
-            throw new UnsetParamException(sprintf(
+            throw new UnsetParamReaderException(sprintf(
                 'Cannot get param \'%s\', it has not been set',
                 $paramName
             ));

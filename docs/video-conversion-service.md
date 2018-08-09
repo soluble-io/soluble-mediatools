@@ -15,7 +15,7 @@ to log issues by yourself.
 ```php hl_lines="8 9 10 11 14 15 16 17 18"
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
 
 $vcs = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
@@ -31,7 +31,7 @@ try {
         '/path/outputFile.mp4', 
         $params
     );    
-} catch(ConversionExceptionInterface $e) {
+} catch(ConverterExceptionInterface $e) {
     // See chapter about exception !!!    
 }
        
@@ -285,7 +285,7 @@ Currently there's only few built-in filters available:
        
 #### Exceptions
 
-All conversion exceptions implements `Soluble\MediaTools\VideoException\ConversionExceptionInterface`,  interface.,
+All conversion exceptions implements `Soluble\MediaTools\VideoException\ConverterExceptionInterface`,  interface.,
 alternatively you can also :
 
 ```php
@@ -299,7 +299,7 @@ try {
     
     $vcs->convert('i.mov', 'o.mp4', $params);
     
-// All exception below implements VE\ConversionExceptionInterface
+// All exception below implements VE\ConverterExceptionInterface
         
 } catch(VE\MissingInputFileException $e) {
     
@@ -331,7 +331,7 @@ try {
     echo $process->getExitCode();
     echo $process->getErrorOutput();
     
-} catch(VE\ConversionExceptionInterface $e) {
+} catch(VE\ConverterExceptionInterface $e) {
     
     // Other exceptions can be
     //
@@ -370,7 +370,7 @@ try {
         $params
     );
     
-} catch(Exception\ConversionExceptionInterface $e) {
+} catch(Exception\ConverterExceptionInterface $e) {
     // See chapters about exception !!! 
    
 }
@@ -424,7 +424,7 @@ try {
         $params
     );
     
-} catch(Exception\ConversionExceptionInterface $e) {
+} catch(Exception\ConverterExceptionInterface $e) {
     // see chapter about exceptions        
 } 
 
@@ -450,7 +450,7 @@ try {
         '/path/outputFile.mp4', 
         $params
     );
-} catch(Exception\ConversionExceptionInterface $e) {
+} catch(Exception\ConverterExceptionInterface $e) {
     // see chapter about exceptions        
 }
 
