@@ -9,6 +9,7 @@ use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
@@ -91,10 +92,10 @@ class VideoConverter implements VideoConverterInterface
     {
         try {
             try {
-                $this->ensureFileExists($inputFile);
+                $this->ensureFileReadable($inputFile);
                 $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
                 $process->mustRun($callback);
-            } catch (FileNotFoundException $e) {
+            } catch (FileNotFoundException | FileNotReadableException $e) {
                 throw new MissingInputFileReaderException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
                 throw new InvalidParamReaderException($e->getMessage());

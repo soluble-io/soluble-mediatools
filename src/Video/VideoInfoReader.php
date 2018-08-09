@@ -9,6 +9,7 @@ use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
@@ -73,12 +74,12 @@ class VideoInfoReader implements VideoInfoReaderInterface
     {
         try {
             try {
-                $this->ensureFileExists($file);
+                $this->ensureFileReadable($file);
                 $process = $this->getSymfonyProcess($file);
 
                 $process->mustRun();
                 $output = $process->getOutput();
-            } catch (FileNotFoundException $e) {
+            } catch (FileNotFoundException | FileNotReadableException $e) {
                 throw new MissingInputFileReaderException($e->getMessage());
             } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
                 throw new ProcessFailedException($e->getProcess(), $e);

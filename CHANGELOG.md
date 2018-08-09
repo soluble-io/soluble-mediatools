@@ -5,12 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.7.1 (UNRELEASED)
+## 0.7.1 (2018-08-09)
 
 ### Added
 
 - `VideoInfo::getFormatName()` to get the format name(s).
 - `VideoInfo::countStreams()` to get the number of available streams.
+
+### Improved
+
+- Better error reporting when video file is not readable.
 
 ### Fixed 
 

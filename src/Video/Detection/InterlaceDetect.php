@@ -6,6 +6,7 @@ namespace Soluble\MediaTools\Video\Detection;
 
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
@@ -54,7 +55,7 @@ class InterlaceDetect
             ->withOverwrite();
 
         try {
-            $this->ensureFileExists($file);
+            $this->ensureFileReadable($file);
 
             $arguments = $adapter->getMappedConversionParams($params);
             $ffmpegCmd = $adapter->getCliCommand($arguments, $file, new PlatformNullFile());
@@ -63,7 +64,7 @@ class InterlaceDetect
 
             $process = (new ProcessFactory($ffmpegCmd, $pp))->__invoke();
             $process->mustRun();
-        } catch (FileNotFoundException $e) {
+        } catch (FileNotFoundException | FileNotReadableException $e) {
             throw new MissingInputFileReaderException($e->getMessage());
         } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
             throw new InvalidParamReaderException($e->getMessage());
