@@ -14,8 +14,8 @@ use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\Video\ThumbParams;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
+use Soluble\MediaTools\Video\VideoThumbParams;
 
 class VideoThumbGeneratorTest extends TestCase
 {
@@ -54,7 +54,7 @@ class VideoThumbGeneratorTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            (new ThumbParams())->withTime(0.2)
+            (new VideoThumbParams())->withTime(0.2)
         );
 
         self::assertFileExists($outputFile);
@@ -71,7 +71,7 @@ class VideoThumbGeneratorTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            (new ThumbParams())
+            (new VideoThumbParams())
                 ->withSeekTime(new SeekTime(0.25))
                 ->withVideoFilter(new VideoFilterChain([
                     new YadifVideoFilter(),
@@ -86,13 +86,13 @@ class VideoThumbGeneratorTest extends TestCase
     public function testMakeThumbnailThrowsMissingTimeException(): void
     {
         self::expectException(FileNotFoundException::class);
-        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new ThumbParams());
+        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new VideoThumbParams());
     }
 
     public function testMakeThumbnailThrowsFileNotFoundException(): void
     {
         self::expectException(FileNotFoundException::class);
-        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new ThumbParams());
+        $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new VideoThumbParams());
     }
 
     public function testMakeThumbnailMustThrowExceptionOnTimeout(): void
@@ -107,7 +107,7 @@ class VideoThumbGeneratorTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            (new ThumbParams())
+            (new VideoThumbParams())
                 ->withSeekTime(new SeekTime(0.25))
                 ->withVideoFilter(new VideoFilterChain([
                     new YadifVideoFilter(),

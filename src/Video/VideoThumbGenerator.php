@@ -59,11 +59,11 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
      * @throws UnsupportedParamValueException
      * @throws MissingTimeException
      */
-    public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ThumbParamsInterface $thumbParams, ?ProcessParamsInterface $processParams = null): Process
+    public function getSymfonyProcess(string $videoFile, string $thumbnailFile, VideoThumbParamsInterface $thumbParams, ?ProcessParamsInterface $processParams = null): Process
     {
         $adapter = $this->ffmpegConfig->getAdapter();
 
-        if (!$thumbParams->hasParam(ThumbParamsInterface::PARAM_SEEK_TIME)) {
+        if (!$thumbParams->hasParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)) {
             throw new MissingTimeException('Missing seekTime parameter');
         }
 
@@ -76,21 +76,21 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         // TIME must be the first !!!
 
         $conversionParams = $conversionParams->withSeekStart(
-            $thumbParams->getParam(ThumbParamsInterface::PARAM_SEEK_TIME)
+            $thumbParams->getParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)
         );
 
         // Only one frame
         $conversionParams = $conversionParams->withVideoFrames(1);
 
-        if ($thumbParams->hasParam(ThumbParamsInterface::PARAM_VIDEO_FILTER)) {
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)) {
             $conversionParams = $conversionParams->withVideoFilter(
-                $thumbParams->getParam(ThumbParamsInterface::PARAM_VIDEO_FILTER)
+                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)
             );
         }
 
-        if ($thumbParams->hasParam(ThumbParamsInterface::PARAM_QUALITY_SCALE)) {
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE)) {
             $conversionParams = $conversionParams->withVideoQualityScale(
-                $thumbParams->getParam(ThumbParamsInterface::PARAM_QUALITY_SCALE)
+                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE)
             );
         } else {
             $conversionParams = $conversionParams->withVideoQualityScale(
@@ -117,7 +117,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
      * @throws RuntimeException
      * @throws InvalidParamException
      */
-    public function makeThumbnail(string $videoFile, string $thumbnailFile, ThumbParamsInterface $thumbParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
+    public function makeThumbnail(string $videoFile, string $thumbnailFile, VideoThumbParamsInterface $thumbParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
             try {

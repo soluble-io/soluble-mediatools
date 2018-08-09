@@ -54,7 +54,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
 use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
-use Soluble\MediaTools\Video\{VideoQuery, VideoThumbGenerator, ThumbParams, VideoConverter, ConversionParams};
+use Soluble\MediaTools\Video\{VideoQuery, VideoThumbGenerator, VideoThumbParams, VideoConverter, ConversionParams};
 use Soluble\MediaTools\Video\Filter;
 
 $file = '/path/video.mp4';
@@ -102,7 +102,7 @@ try {
     $thumbService->makeThumbnail(
             $file, 
             '/path/outputFile.jpg', 
-            (new ThumbParams())
+            (new VideoThumbParams())
                  ->withTime(1.123)
                  ->withQualityScale(5)
                  ->withVideoFilter(

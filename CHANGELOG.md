@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 > Search and replace `ThumbService` to `VideoThumbGenerator`.
 
 - [BC-BREAK] Renamed `ThumbService` to `VideoThumbGenerator`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
+- [BC-BREAK] Renamed `ThumbParams` to `VideoThumbParams`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
 - [BC-BREAK] Renamed `ThumbServiceInterface` to `VideoThumbGeneratorInterface`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
 - [BC-BREAK] Renamed `ThumbServiceFactory` to `VideoThumbGeneratorFactory`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
  

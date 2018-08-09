@@ -15,11 +15,11 @@ to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\{VideoThumbGenerator, ThumbParams, SeekTime};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
 
 $vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
-$params = (new ThumbParams())
+$params = (new VideoThumbParams())
     ->withTime(1.25);
     
 try {    
@@ -89,11 +89,11 @@ as well as the thumb params.
 <?php
 
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\{VideoThumbGenerator, ThumbParams, SeekTime};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
 
 $vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
-$params = (new ThumbParams())
+$params = (new VideoThumbParams())
     ->withSeekTime(new SeekTime(1.25));
 
 $vts->makeThumbnail(
@@ -115,7 +115,7 @@ service initialization.*
     $process = $thumbService->getSymfonyProcess(
         '/path/inputFile.mov', 
         '/path/outputFile.jpg', 
-        (new ThumbParams())
+        (new VideoThumbParams())
             ->withTime(1.25)
     );
     
@@ -134,14 +134,14 @@ service initialization.*
 
 #### Parameters
  
-The [`Video\ThumbParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbParams.php) 
+The [`Video\VideoThumbParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbParams.php) 
 exposes an immutable api that attempt to mimic ffmpeg params.  
    
 ```php
 <?php
-use Soluble\MediaTools\Video\ThumbParams;
+use Soluble\MediaTools\Video\VideoThumbParams;
 
-$params = (new ThumbParams())
+$params = (new VideoThumbParams())
     ->withQualityScale(2)
     ->withTime(12.23);
     // alternatively
@@ -149,7 +149,7 @@ $params = (new ThumbParams())
 ```
 
 ??? question "Immutable api, what does it change for me ? (vs fluent)"
-    ThumbParams exposes an ==immutable== style api *(`->withXXX()`, like PSR-7 for example)*.
+    VideoThumbParams exposes an ==immutable== style api *(`->withXXX()`, like PSR-7 for example)*.
     It means that the original object is never touched, the `withXXX()` methods will return a newly 
     created object. 
     
@@ -159,7 +159,7 @@ $params = (new ThumbParams())
             
     ```php hl_lines="6 9"
     <?php
-    $params = (new ThumbParams());
+    $params = (new VideoThumbParams());
     
     $newParams = $params->withSeekTime(new SeekTime(1.1212));
     
@@ -200,7 +200,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
-| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbParamsInterface.php).  | 
+| `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbParamsInterface.php).  | 
 | `withoutParam(string)`            | Without the specified parameter. |
 | `getParam(string $param): mixed`  | Return the param calue or throw UnsetParamExeption if not set.      |
 | `hasParam(string $param): bool`   | Whether the param has been set.  |
@@ -215,10 +215,10 @@ Video filters can be set to the ConversionParams through the `withVideoFilter(Vi
 
 ```php
 <?php
-use Soluble\MediaTools\Video\ThumbParams;
+use Soluble\MediaTools\Video\VideoThumbParams;
 use Soluble\MediaTools\Video\Filter;
 
-$params = (new ThumbParams())
+$params = (new VideoThumbParams())
     ->withTime(1.123)
     ->withVideoFilter(new Filter\VideoFilterChain([
         new Filter\YadifVideoFilter(),
@@ -247,11 +247,11 @@ alternatively you can also :
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{VideoThumbGenerator, ThumbParams};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams};
 use Soluble\MediaTools\Video\Exception as VE;
 
 /** @var VideoThumbGenerator $vts */
-$params = (new ThumbParams());     
+$params = (new VideoThumbParams());     
 try {
 
     $vts->makeThumbnail('i.mov', 'out.jpg', $params);    

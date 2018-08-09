@@ -9,7 +9,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
-class ThumbParams implements ThumbParamsInterface
+class VideoThumbParams implements VideoThumbParamsInterface
 {
     /** @var array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> */
     protected $params = [];
@@ -28,7 +28,7 @@ class ThumbParams implements ThumbParamsInterface
     /**
      * @param float $time time in seconds, decimals are milli
      *
-     * @return ThumbParams
+     * @return VideoThumbParams
      */
     public function withTime(float $time): self
     {
@@ -103,7 +103,7 @@ class ThumbParams implements ThumbParamsInterface
      *
      * @return self (static analysis the trick is to return 'self' instead of interface)
      */
-    public function withBuiltInParam(string $paramName, $paramValue): ThumbParamsInterface
+    public function withBuiltInParam(string $paramName, $paramValue): VideoThumbParamsInterface
     {
         return new self(array_merge($this->params, [
             $paramName => $paramValue,
@@ -113,7 +113,7 @@ class ThumbParams implements ThumbParamsInterface
     /**
      * @return self (For static analysis the trick is to return 'self' instead of interface)
      */
-    public function withoutParam(string $paramName): ThumbParamsInterface
+    public function withoutParam(string $paramName): VideoThumbParamsInterface
     {
         $ao = (new \ArrayObject($this->params));
         if ($ao->offsetExists($paramName)) {

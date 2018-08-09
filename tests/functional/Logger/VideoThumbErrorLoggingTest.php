@@ -20,8 +20,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\SeekTime;
-use Soluble\MediaTools\Video\ThumbParams;
 use Soluble\MediaTools\Video\VideoThumbGenerator;
+use Soluble\MediaTools\Video\VideoThumbParams;
 
 class VideoThumbErrorLoggingTest extends TestCase
 {
@@ -70,7 +70,7 @@ class VideoThumbErrorLoggingTest extends TestCase
             $videoThumb->makeThumbnail(
                 $this->videoFile,
                 $outputFile,
-                (new ThumbParams())->withSeekTime(new SeekTime(10000000000000))
+                (new VideoThumbParams())->withSeekTime(new SeekTime(10000000000000))
             );
             self::fail('this code cannot be reached');
         } catch (\Throwable $e) {
@@ -92,7 +92,7 @@ class VideoThumbErrorLoggingTest extends TestCase
             $videoThumb->makeThumbnail(
                 '/path_does_no_exists/path',
                 $outputFile,
-                (new ThumbParams())->withSeekTime(new SeekTime(0.0))
+                (new VideoThumbParams())->withSeekTime(new SeekTime(0.0))
             );
             self::fail('this code cannot be reached');
         } catch (\Throwable $e) {

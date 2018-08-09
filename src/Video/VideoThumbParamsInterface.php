@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Service\ActionParamInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
-interface ThumbParamsInterface extends ActionParamInterface
+interface VideoThumbParamsInterface extends ActionParamInterface
 {
     public const PARAM_QUALITY_SCALE       = 'QUALITY_SCALE';
     public const PARAM_VIDEO_FILTER        = 'VIDEO_FILTER';
