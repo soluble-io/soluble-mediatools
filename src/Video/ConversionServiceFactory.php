@@ -11,7 +11,7 @@ use Soluble\MediaTools\Video\Config\LoggerConfigInterface;
 
 class ConversionServiceFactory
 {
-    public function __invoke(ContainerInterface $container): ConversionServiceInterface
+    public function __invoke(ContainerInterface $container): VideoConverterInterface
     {
         if ($container->has(LoggerConfigInterface::class)) {
             $logger = $container->get(LoggerConfigInterface::class)->getLogger();
@@ -19,7 +19,7 @@ class ConversionServiceFactory
             $logger = new NullLogger();
         }
 
-        return new ConversionService(
+        return new VideoConverter(
             $container->get(FFMpegConfigInterface::class),
             $logger
         );

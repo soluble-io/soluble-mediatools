@@ -10,8 +10,8 @@ use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\ConversionService as VideoConversionService;
-use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\VideoConverter as VideoConversionService;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
@@ -23,7 +23,7 @@ class VideoConversionTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /** @var ConversionServiceInterface */
+    /** @var VideoConverterInterface */
     protected $videoConvert;
 
     /** @var string */

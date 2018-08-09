@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\ConversionService;
+use Soluble\MediaTools\Video\VideoConverter;
 
 class VideoConversionErrorLoggingTest extends TestCase
 {
@@ -64,7 +64,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     public function testConversionProcessFailedMustBeLoggedAsError(): void
     {
         $outputFile   = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
-        $videoConvert = new ConversionService(new FFMpegConfig(), $this->logger);
+        $videoConvert = new VideoConverter(new FFMpegConfig(), $this->logger);
         try {
             $videoConvert->convert(
                 $this->videoFile,
@@ -86,7 +86,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     public function testConversionMissingInputFileMustBeLoggedAsWarning(): void
     {
         $outputFile   = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
-        $videoConvert = new ConversionService(new FFMpegConfig(), $this->logger);
+        $videoConvert = new VideoConverter(new FFMpegConfig(), $this->logger);
         try {
             $videoConvert->convert(
                 '/path_does_no_exists/path',

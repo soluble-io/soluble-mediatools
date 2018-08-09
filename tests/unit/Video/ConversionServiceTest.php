@@ -8,8 +8,8 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\ConversionService;
-use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\VideoConverter;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
@@ -21,7 +21,7 @@ class ConversionServiceTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /** @var ConversionServiceInterface */
+    /** @var VideoConverterInterface */
     protected $converter;
 
     public function setUp(): void
@@ -86,7 +86,7 @@ class ConversionServiceTest extends TestCase
     {
         $convertParams = (new ConversionParams());
 
-        $process = (new ConversionService(
+        $process = (new VideoConverter(
             new FFMpegConfig('ffmpeg', 3)
         ))->getSymfonyProcess(
             __FILE__,
@@ -100,7 +100,7 @@ class ConversionServiceTest extends TestCase
 
         // If null threads nothing must be set in cli
 
-        $process = (new ConversionService(
+        $process = (new VideoConverter(
             new FFMpegConfig('ffmpeg', null)
         ))->getSymfonyProcess(
             __FILE__,
