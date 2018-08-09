@@ -10,14 +10,14 @@ use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\VideoConverter as VideoConversionService;
-use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\ProcessParams;
 use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\VideoConverter as VideoConversionService;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 
 class VideoConversionTest extends TestCase
 {

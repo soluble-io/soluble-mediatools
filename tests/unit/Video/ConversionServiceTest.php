@@ -8,14 +8,14 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\ConversionParams;
-use Soluble\MediaTools\Video\VideoConverter;
-use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\VideoConverter;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 
 class ConversionServiceTest extends TestCase
 {

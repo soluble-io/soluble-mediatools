@@ -6,10 +6,10 @@ namespace MediaToolsTest\Util;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
-use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
 use Soluble\MediaTools\Video\InfoServiceInterface;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 use Zend\ServiceManager\ServiceManager;
 
 trait ServicesProviderTrait
