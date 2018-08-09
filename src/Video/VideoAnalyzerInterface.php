@@ -8,7 +8,7 @@ use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Soluble\MediaTools\Video\Exception\DetectionExceptionInterface;
 
-interface DetectionServiceInterface
+interface VideoAnalyzerInterface
 {
     /**
      * @param int $maxFramesToAnalyze interlacement detection can be heavy, limit the number of frames to analyze

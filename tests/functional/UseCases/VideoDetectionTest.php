@@ -8,13 +8,13 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
-use Soluble\MediaTools\Video\DetectionServiceInterface;
+use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 
 class VideoDetectionTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /** @var DetectionServiceInterface */
+    /** @var VideoAnalyzerInterface */
     protected $detectionService;
 
     /** @var string */

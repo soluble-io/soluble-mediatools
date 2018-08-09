@@ -6,7 +6,7 @@ namespace MediaToolsTest\Util;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
-use Soluble\MediaTools\Video\DetectionServiceInterface;
+use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoQueryInterface;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
@@ -33,9 +33,9 @@ trait ServicesProviderTrait
     /**
      * @throws \Exception
      */
-    public function getVideoDetectionService(): DetectionServiceInterface
+    public function getVideoDetectionService(): VideoAnalyzerInterface
     {
-        return $this->getConfiguredContainer()->get(DetectionServiceInterface::class);
+        return $this->getConfiguredContainer()->get(VideoAnalyzerInterface::class);
     }
 
     /**

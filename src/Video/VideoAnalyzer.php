@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeException;
 
-class DetectionService implements DetectionServiceInterface
+class VideoAnalyzer implements VideoAnalyzerInterface
 {
     /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
