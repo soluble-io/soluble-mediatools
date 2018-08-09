@@ -11,7 +11,7 @@ use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\VideoQueryInterface;
 
-class VideoInfoTest extends TestCase
+class VideoQueryTest extends TestCase
 {
     use ServicesProviderTrait;
 

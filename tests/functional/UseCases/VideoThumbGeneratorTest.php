@@ -17,7 +17,7 @@ use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbParams;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 
-class VideoThumbnailingTest extends TestCase
+class VideoThumbGeneratorTest extends TestCase
 {
     use ServicesProviderTrait;
 
