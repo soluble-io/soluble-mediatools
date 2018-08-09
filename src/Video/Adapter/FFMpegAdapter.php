@@ -30,7 +30,6 @@ class FFMpegAdapter implements ConverterAdapterInterface
             ConversionParamsInterface::PARAM_OUTPUT_FORMAT => [
                 'pattern' => '-f %s',
             ],
-
             ConversionParamsInterface::PARAM_VIDEO_CODEC => [
                 'pattern' => '-c:v %s',
             ],
@@ -101,11 +100,9 @@ class FFMpegAdapter implements ConverterAdapterInterface
             ConversionParamsInterface::PARAM_NOAUDIO => [
                 'pattern' => '-an',
             ],
-
             ConversionParamsInterface::PARAM_SEEK_START => [
                 'pattern' => '-ss %s',
             ],
-
             ConversionParamsInterface::PARAM_SEEK_END => [
                 'pattern' => '-to %s',
             ],
