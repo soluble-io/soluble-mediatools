@@ -1,8 +1,6 @@
 path: blob/master/src
 source: Video/VideoConverter.php
 
-### Overview
-
 The ==Video\VideoConverter== acts as a wrapper over ffmpeg and
 helps with video conversions, clipping, filters... 
 It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 

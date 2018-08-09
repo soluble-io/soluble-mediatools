@@ -1,8 +1,6 @@
 path: blob/master/src
 source: Video/VideoAnalyzer.php
 
-### Overview
-
 The ==Video\VideoAnalyzer== acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the `Video\VideoInfoReader`) but really
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). 
