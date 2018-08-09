@@ -42,7 +42,7 @@
     
     
       
-        <title>Detection - Mediatools</title>
+        <title>VideoAnalyzer - Mediatools</title>
       
     
     
@@ -134,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                Detection
+                VideoAnalyzer
               </span>
             
           
@@ -272,62 +272,41 @@
       
       
 
-  
 
+  <li class="md-nav__item">
+    <a href="../video-info-service/" title="VideoInfoReader" class="md-nav__link">
+      VideoInfoReader
+    </a>
+  </li>
 
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../video-conversion-service/" title="VideoConverter" class="md-nav__link">
+      VideoConverter
+    </a>
+  </li>
+
     
-    <label class="md-nav__link" for="nav-2">
-      Video services
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        Video services
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../video-info-service/" title="Querying" class="md-nav__link">
-      Querying
+    <a href="../video-thumb-service/" title="VideoThumbnailGenerator" class="md-nav__link">
+      VideoThumbnailGenerator
     </a>
   </li>
 
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../video-conversion-service/" title="Conversion" class="md-nav__link">
-      Conversion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../video-thumb-service/" title="Thumbnailing" class="md-nav__link">
-      Thumbnailing
-    </a>
-  </li>
-
-        
-          
-          
-          
+    
+      
+      
+      
 
   
 
@@ -338,11 +317,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Detection
+        VideoAnalyzer
       </label>
     
-    <a href="./" title="Detection" class="md-nav__link md-nav__link--active">
-      Detection
+    <a href="./" title="VideoAnalyzer" class="md-nav__link md-nav__link--active">
+      VideoAnalyzer
     </a>
     
       
@@ -410,11 +389,6 @@
     
   </li>
 
-        
-      </ul>
-    </nav>
-  </li>
-
     
       
       
@@ -423,13 +397,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-6">
       About
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-6">
         About
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -536,7 +510,7 @@
                   <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-detection-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Detection</h1>
+                  <h1>VideoAnalyzer</h1>
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
 <p>The <mark>Video\DetectionService</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
@@ -548,7 +522,7 @@ easier with clean exceptions. You can also inject any psr-3 compatible logger if
 to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\DetectionExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
 
 <span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DetectionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
@@ -562,7 +536,7 @@ to log issues by yourself.    </p>
         <span class="nv">$maxFramesToAnalyze</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="p">);</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">DetectionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">AnalyzerExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
 
@@ -608,7 +582,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <h4 id="interlacement-detection">Interlacement detection<a class="headerlink" href="#interlacement-detection" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\DetectionExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\DetectionService</span><span class="p">;</span>
 
 <span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DetectionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
@@ -622,7 +596,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
         <span class="nv">$maxFramesToAnalyze</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="p">);</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">DetectionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">AnalyzerExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
 
@@ -677,7 +651,7 @@ alternatively you can also :</p>
     <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getExitCode</span><span class="p">();</span>
     <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getErrorOutput</span><span class="p">();</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// Other exceptions can be</span>
     <span class="c1">//</span>
@@ -716,7 +690,7 @@ alternatively you can also :</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../video-thumb-service/" title="Thumbnailing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../video-thumb-service/" title="VideoThumbnailGenerator" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -725,7 +699,7 @@ alternatively you can also :</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Thumbnailing
+                VideoThumbnailGenerator
               </span>
             </div>
           </a>

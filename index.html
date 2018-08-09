@@ -331,70 +331,46 @@
       
 
 
-  <li class="md-nav__item md-nav__item--nested">
+  <li class="md-nav__item">
+    <a href="video-info-service/" title="VideoInfoReader" class="md-nav__link">
+      VideoInfoReader
+    </a>
+  </li>
+
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="video-conversion-service/" title="VideoConverter" class="md-nav__link">
+      VideoConverter
+    </a>
+  </li>
+
     
-    <label class="md-nav__link" for="nav-2">
-      Video services
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        Video services
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="video-info-service/" title="Querying" class="md-nav__link">
-      Querying
+    <a href="video-thumb-service/" title="VideoThumbnailGenerator" class="md-nav__link">
+      VideoThumbnailGenerator
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="video-conversion-service/" title="Conversion" class="md-nav__link">
-      Conversion
+    <a href="video-detection-service/" title="VideoAnalyzer" class="md-nav__link">
+      VideoAnalyzer
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="video-thumb-service/" title="Thumbnailing" class="md-nav__link">
-      Thumbnailing
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="video-detection-service/" title="Detection" class="md-nav__link">
-      Detection
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -405,13 +381,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-6">
       About
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-6">
         About
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -546,7 +522,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFProbeConfig</span><span class="p">,</span> <span class="nx">FFMpegConfig</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\</span><span class="p">{</span><span class="nx">InfoExceptionInterface</span><span class="p">,</span> <span class="nx">ConversionExceptionInterface</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\</span><span class="p">{</span><span class="nx">InfoReaderExceptionInterface</span><span class="p">,</span> <span class="nx">ConverterExceptionInterface</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoInfoReader</span><span class="p">,</span> <span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
 
@@ -558,7 +534,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoService</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// see the chapter about exceptions</span>
 <span class="p">}</span>
 
@@ -581,7 +557,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
              <span class="p">)</span>
 
     <span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// see the chapter about exceptions</span>
 <span class="p">}</span>
 
@@ -602,7 +578,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
                      <span class="k">new</span> <span class="nx">Filter\NlmeansVideoFilter</span><span class="p">()</span>
                  <span class="p">)</span>
         <span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
 <span class="p">}</span>
 </pre></div>
@@ -654,13 +630,13 @@ alternatively have a look to the <a href="https://github.com/soluble-io/soluble-
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="video-info-service/" title="Querying" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="video-info-service/" title="VideoInfoReader" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Querying
+                VideoInfoReader
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

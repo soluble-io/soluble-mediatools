@@ -42,7 +42,7 @@
     
     
       
-        <title>Conversion - Mediatools</title>
+        <title>VideoConverter - Mediatools</title>
       
     
     
@@ -134,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                Conversion
+                VideoConverter
               </span>
             
           
@@ -272,38 +272,17 @@
       
       
 
-  
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
-    
-    <label class="md-nav__link" for="nav-2">
-      Video services
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        Video services
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
 
   <li class="md-nav__item">
-    <a href="../video-info-service/" title="Querying" class="md-nav__link">
-      Querying
+    <a href="../video-info-service/" title="VideoInfoReader" class="md-nav__link">
+      VideoInfoReader
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
   
 
@@ -314,11 +293,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Conversion
+        VideoConverter
       </label>
     
-    <a href="./" title="Conversion" class="md-nav__link md-nav__link--active">
-      Conversion
+    <a href="./" title="VideoConverter" class="md-nav__link md-nav__link--active">
+      VideoConverter
     </a>
     
       
@@ -441,33 +420,28 @@
     
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../video-thumb-service/" title="Thumbnailing" class="md-nav__link">
-      Thumbnailing
+    <a href="../video-thumb-service/" title="VideoThumbnailGenerator" class="md-nav__link">
+      VideoThumbnailGenerator
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../video-detection-service/" title="Detection" class="md-nav__link">
-      Detection
+    <a href="../video-detection-service/" title="VideoAnalyzer" class="md-nav__link">
+      VideoAnalyzer
     </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -478,13 +452,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-6">
       About
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-6">
         About
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -646,7 +620,7 @@
                   <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-conversion-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Conversion</h1>
+                  <h1>VideoConverter</h1>
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
 <p>The <mark>Video\VideoConverter</mark> acts as a wrapper over ffmpeg and
@@ -657,7 +631,7 @@ easier with clean exceptions. You can also inject any psr-3 compatible logger if
 to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConversionExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
 
 <span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
@@ -673,7 +647,7 @@ to log issues by yourself.    </p>
 </span><span class="hll">        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
 </span><span class="hll">        <span class="nv">$params</span>
 </span><span class="hll">    <span class="p">);</span>    
-</span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
 </pre></div>
@@ -1084,7 +1058,7 @@ So if you're about to clip a video (from 1s to 3s) and use a denoise filter,
 setting the clipping params before the filter will generally be more performant
 <em>(the denoise filter will only be applied on the clipped part of the video 
 and not it's entire length)</em>.     </p></details><h4 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h4>
-<p>All conversion exceptions implements <code>Soluble\MediaTools\VideoException\ConversionExceptionInterface</code>,  interface.,
+<p>All conversion exceptions implements <code>Soluble\MediaTools\VideoException\ConverterExceptionInterface</code>,  interface.,
 alternatively you can also :</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
@@ -1096,7 +1070,7 @@ alternatively you can also :</p>
 
     <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;o.mp4&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 
-<span class="c1">// All exception below implements VE\ConversionExceptionInterface</span>
+<span class="c1">// All exception below implements VE\ConverterExceptionInterface</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\MissingInputFileException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
@@ -1128,7 +1102,7 @@ alternatively you can also :</p>
     <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getExitCode</span><span class="p">();</span>
     <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getErrorOutput</span><span class="p">();</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// Other exceptions can be</span>
     <span class="c1">//</span>
@@ -1164,7 +1138,7 @@ alternatively you can also :</p>
         <span class="nv">$params</span>
     <span class="p">);</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// See chapters about exception !!! </span>
 
 <span class="p">}</span>
@@ -1215,7 +1189,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
         <span class="nv">$params</span>
     <span class="p">);</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// see chapter about exceptions        </span>
 <span class="p">}</span> 
 </pre></div>
@@ -1238,7 +1212,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
         <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
         <span class="nv">$params</span>
     <span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// see chapter about exceptions        </span>
 <span class="p">}</span>
 </pre></div>
@@ -1273,7 +1247,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../video-info-service/" title="Querying" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../video-info-service/" title="VideoInfoReader" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1282,19 +1256,19 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Querying
+                VideoInfoReader
               </span>
             </div>
           </a>
         
         
-          <a href="../video-thumb-service/" title="Thumbnailing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../video-thumb-service/" title="VideoThumbnailGenerator" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Thumbnailing
+                VideoThumbnailGenerator
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -42,7 +42,7 @@
     
     
       
-        <title>Querying - Mediatools</title>
+        <title>VideoInfoReader - Mediatools</title>
       
     
     
@@ -134,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                Querying
+                VideoInfoReader
               </span>
             
           
@@ -275,38 +275,17 @@
   
 
 
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
-    
-    <label class="md-nav__link" for="nav-2">
-      Video services
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        Video services
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-  
-
-
   <li class="md-nav__item md-nav__item--active">
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Querying
+        VideoInfoReader
       </label>
     
-    <a href="./" title="Querying" class="md-nav__link md-nav__link--active">
-      Querying
+    <a href="./" title="VideoInfoReader" class="md-nav__link md-nav__link--active">
+      VideoInfoReader
     </a>
     
       
@@ -361,45 +340,40 @@
     
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../video-conversion-service/" title="Conversion" class="md-nav__link">
-      Conversion
+    <a href="../video-conversion-service/" title="VideoConverter" class="md-nav__link">
+      VideoConverter
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../video-thumb-service/" title="Thumbnailing" class="md-nav__link">
-      Thumbnailing
+    <a href="../video-thumb-service/" title="VideoThumbnailGenerator" class="md-nav__link">
+      VideoThumbnailGenerator
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../video-detection-service/" title="Detection" class="md-nav__link">
-      Detection
+    <a href="../video-detection-service/" title="VideoAnalyzer" class="md-nav__link">
+      VideoAnalyzer
     </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -410,13 +384,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-6">
       About
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-6">
         About
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -510,7 +484,7 @@
                   <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-info-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Querying</h1>
+                  <h1>VideoInfoReader</h1>
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
 <p>The <mark>Video\VideoInfoReader</mark> acts as a wrapper over ffprobe and return information about a video file.</p>
@@ -519,14 +493,14 @@ component and attempt to make debugging easier with clean exceptions. You can al
 logger if you don't want to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 
 <span class="nv">$infoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoService</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// see below for exceptions</span>
 <span class="p">}</span>
 
@@ -572,7 +546,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReaderFactory.php"><code>Video\VideoInfoReaderFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php"><code>FFProbeConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
-<p>All info exceptions implements <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoExceptionInterface.php"><code>InfoExceptionInterface</code></a> interface.</p>
+<p>All info exceptions implements <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoReaderExceptionInterface.php"><code>InfoReaderExceptionInterface</code></a> interface.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
@@ -582,7 +556,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 
     <span class="nv">$vis</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mov&#39;</span><span class="p">);</span>
 
-<span class="c1">// All exception below implements VE\InfoExceptionInterface</span>
+<span class="c1">// All exception below implements VE\InfoReaderExceptionInterface</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\MissingInputFileException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
@@ -614,7 +588,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
     <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getExitCode</span><span class="p">();</span>
     <span class="k">echo</span> <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">getErrorOutput</span><span class="p">();</span>
 
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConversionExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// Other exceptions can be</span>
     <span class="c1">//</span>
@@ -668,13 +642,13 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
           </a>
         
         
-          <a href="../video-conversion-service/" title="Conversion" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../video-conversion-service/" title="VideoConverter" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Conversion
+                VideoConverter
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
