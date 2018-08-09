@@ -7,15 +7,15 @@ namespace Soluble\MediaTools\Video\Config;
 use Soluble\MediaTools\Video\DetectionService;
 use Soluble\MediaTools\Video\DetectionServiceFactory;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Soluble\MediaTools\Video\VideoThumbGenerator;
-use Soluble\MediaTools\Video\VideoThumbGeneratorFactory;
-use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Soluble\MediaTools\Video\VideoConverter;
 use Soluble\MediaTools\Video\VideoConverterFactory;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoQuery;
 use Soluble\MediaTools\Video\VideoQueryFactory;
 use Soluble\MediaTools\Video\VideoQueryInterface;
+use Soluble\MediaTools\Video\VideoThumbGenerator;
+use Soluble\MediaTools\Video\VideoThumbGeneratorFactory;
+use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 
 class ConfigProvider
 {
@@ -53,9 +53,9 @@ class ConfigProvider
             FFProbeConfig::class          => FFProbeConfigInterface::class,
 
             // Services
-            VideoConverter::class         => VideoConverterInterface::class,
-            VideoQuery::class             => VideoQueryInterface::class,
-            DetectionService::class       => DetectionServiceInterface::class,
+            VideoConverter::class                => VideoConverterInterface::class,
+            VideoQuery::class                    => VideoQueryInterface::class,
+            DetectionService::class              => DetectionServiceInterface::class,
             VideoThumbGenerator::class           => VideoThumbGeneratorInterface::class,
         ];
     }
@@ -73,9 +73,9 @@ class ConfigProvider
             FFProbeConfigInterface::class  => FFProbeConfigFactory::class,
 
             // Services classes
-            VideoConverterInterface::class    => VideoConverterFactory::class,
-            VideoQueryInterface::class        => VideoQueryFactory::class,
-            DetectionServiceInterface::class  => DetectionServiceFactory::class,
+            VideoConverterInterface::class           => VideoConverterFactory::class,
+            VideoQueryInterface::class               => VideoQueryFactory::class,
+            DetectionServiceInterface::class         => DetectionServiceFactory::class,
             VideoThumbGeneratorInterface::class      => VideoThumbGeneratorFactory::class,
 
             // Logger

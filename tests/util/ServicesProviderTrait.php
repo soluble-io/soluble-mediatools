@@ -7,9 +7,9 @@ namespace MediaToolsTest\Util;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoQueryInterface;
+use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Zend\ServiceManager\ServiceManager;
 
 trait ServicesProviderTrait
