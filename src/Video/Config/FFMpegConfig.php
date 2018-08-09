@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Config;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Adapter\ConverterAdapterInterface;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
-use Soluble\MediaTools\Video\ProcessParams;
+use Soluble\MediaTools\Video\Process\ProcessParams;
 
 class FFMpegConfig implements FFMpegConfigInterface
 {

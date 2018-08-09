@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Config;
 
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
-use Soluble\MediaTools\Video\ProcessParams;
+use Soluble\MediaTools\Video\Process\ProcessParams;
 
 class FFProbeConfig implements FFProbeConfigInterface
 {

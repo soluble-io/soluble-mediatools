@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Common\Process;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Video\ProcessParams;
+use Soluble\MediaTools\Common\Process\ProcessParams;
 
 class ProcessParamsTest extends TestCase
 {

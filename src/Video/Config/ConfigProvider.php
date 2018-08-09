@@ -53,10 +53,10 @@ class ConfigProvider
             FFProbeConfig::class          => FFProbeConfigInterface::class,
 
             // Services
-            VideoConverter::class                => VideoConverterInterface::class,
+            VideoConverter::class                     => VideoConverterInterface::class,
             VideoInfoReader::class                    => VideoInfoReaderInterface::class,
-            VideoAnalyzer::class                 => VideoAnalyzerInterface::class,
-            VideoThumbGenerator::class           => VideoThumbGeneratorInterface::class,
+            VideoAnalyzer::class                      => VideoAnalyzerInterface::class,
+            VideoThumbGenerator::class                => VideoThumbGeneratorInterface::class,
         ];
     }
 
@@ -73,10 +73,10 @@ class ConfigProvider
             FFProbeConfigInterface::class  => FFProbeConfigFactory::class,
 
             // Services classes
-            VideoConverterInterface::class           => VideoConverterFactory::class,
+            VideoConverterInterface::class                => VideoConverterFactory::class,
             VideoInfoReaderInterface::class               => VideoInfoReaderFactory::class,
-            VideoAnalyzerInterface::class            => VideoAnalyzerFactory::class,
-            VideoThumbGeneratorInterface::class      => VideoThumbGeneratorFactory::class,
+            VideoAnalyzerInterface::class                 => VideoAnalyzerFactory::class,
+            VideoThumbGeneratorInterface::class           => VideoThumbGeneratorFactory::class,
 
             // Logger
             //LoggerConfigInterface::class    => <Factory to create / too much choice>
