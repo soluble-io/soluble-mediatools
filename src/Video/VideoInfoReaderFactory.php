@@ -9,9 +9,9 @@ use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Config\LoggerConfigInterface;
 
-class VideoQueryFactory
+class VideoInfoReaderFactory
 {
-    public function __invoke(ContainerInterface $container): VideoQueryInterface
+    public function __invoke(ContainerInterface $container): VideoInfoReaderInterface
     {
         if ($container->has(LoggerConfigInterface::class)) {
             $logger = $container->get(LoggerConfigInterface::class)->getLogger();
@@ -19,7 +19,7 @@ class VideoQueryFactory
             $logger = new NullLogger();
         }
 
-        return new VideoQuery(
+        return new VideoInfoReader(
             $container->get(FFProbeConfigInterface::class),
             $logger
         );

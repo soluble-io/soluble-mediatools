@@ -6,7 +6,7 @@ source: Video/DetectionService.php
 ### Overview
 
 The ==Video\DetectionService== acts as a wrapper over ffmpeg and will analyze a video stream. 
-It does not query video metadata (like ffprobe or the `Video\VideoQuery`) but really
+It does not query video metadata (like ffprobe or the `Video\VideoInfoReader`) but really
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). 
 
 It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 

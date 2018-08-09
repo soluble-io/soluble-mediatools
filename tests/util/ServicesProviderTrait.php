@@ -8,7 +8,7 @@ use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
 use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
-use Soluble\MediaTools\Video\VideoQueryInterface;
+use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Zend\ServiceManager\ServiceManager;
 
@@ -25,9 +25,9 @@ trait ServicesProviderTrait
     /**
      * @throws \Exception
      */
-    public function getVideoInfoService(): VideoQueryInterface
+    public function getVideoInfoService(): VideoInfoReaderInterface
     {
-        return $this->getConfiguredContainer()->get(VideoQueryInterface::class);
+        return $this->getConfiguredContainer()->get(VideoInfoReaderInterface::class);
     }
 
     /**

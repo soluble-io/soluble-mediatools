@@ -9,13 +9,13 @@ use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
-use Soluble\MediaTools\Video\VideoQueryInterface;
+use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 
 class VideoQueryTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /** @var VideoQueryInterface */
+    /** @var VideoInfoReaderInterface */
     protected $infoService;
 
     /** @var string */

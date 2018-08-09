@@ -10,9 +10,9 @@ use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 use Soluble\MediaTools\Video\VideoConverter;
 use Soluble\MediaTools\Video\VideoConverterFactory;
 use Soluble\MediaTools\Video\VideoConverterInterface;
-use Soluble\MediaTools\Video\VideoQuery;
-use Soluble\MediaTools\Video\VideoQueryFactory;
-use Soluble\MediaTools\Video\VideoQueryInterface;
+use Soluble\MediaTools\Video\VideoInfoReader;
+use Soluble\MediaTools\Video\VideoInfoReaderFactory;
+use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 use Soluble\MediaTools\Video\VideoThumbGenerator;
 use Soluble\MediaTools\Video\VideoThumbGeneratorFactory;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
@@ -54,7 +54,7 @@ class ConfigProvider
 
             // Services
             VideoConverter::class                => VideoConverterInterface::class,
-            VideoQuery::class                    => VideoQueryInterface::class,
+            VideoInfoReader::class                    => VideoInfoReaderInterface::class,
             VideoAnalyzer::class                 => VideoAnalyzerInterface::class,
             VideoThumbGenerator::class           => VideoThumbGeneratorInterface::class,
         ];
@@ -74,7 +74,7 @@ class ConfigProvider
 
             // Services classes
             VideoConverterInterface::class           => VideoConverterFactory::class,
-            VideoQueryInterface::class               => VideoQueryFactory::class,
+            VideoInfoReaderInterface::class               => VideoInfoReaderFactory::class,
             VideoAnalyzerInterface::class            => VideoAnalyzerFactory::class,
             VideoThumbGeneratorInterface::class      => VideoThumbGeneratorFactory::class,
 

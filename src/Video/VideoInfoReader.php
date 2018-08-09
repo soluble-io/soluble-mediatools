@@ -20,7 +20,7 @@ use Soluble\MediaTools\Video\Exception\RuntimeException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
-class VideoQuery implements VideoQueryInterface
+class VideoInfoReader implements VideoInfoReaderInterface
 {
     use PathAssertionsTrait;
 

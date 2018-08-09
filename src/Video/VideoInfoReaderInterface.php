@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-interface VideoQueryInterface
+interface VideoInfoReaderInterface
 {
     public function query(string $file): VideoInfo;
 }
