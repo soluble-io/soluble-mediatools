@@ -7,15 +7,15 @@ namespace Soluble\MediaTools\Video\Config;
 use Soluble\MediaTools\Video\DetectionService;
 use Soluble\MediaTools\Video\DetectionServiceFactory;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Soluble\MediaTools\Video\InfoService;
-use Soluble\MediaTools\Video\InfoServiceFactory;
-use Soluble\MediaTools\Video\InfoServiceInterface;
 use Soluble\MediaTools\Video\ThumbService;
 use Soluble\MediaTools\Video\ThumbServiceFactory;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Soluble\MediaTools\Video\VideoConverter;
 use Soluble\MediaTools\Video\VideoConverterFactory;
 use Soluble\MediaTools\Video\VideoConverterInterface;
+use Soluble\MediaTools\Video\VideoQuery;
+use Soluble\MediaTools\Video\VideoQueryFactory;
+use Soluble\MediaTools\Video\VideoQueryInterface;
 
 class ConfigProvider
 {
@@ -54,7 +54,7 @@ class ConfigProvider
 
             // Services
             VideoConverter::class         => VideoConverterInterface::class,
-            InfoService::class            => InfoServiceInterface::class,
+            VideoQuery::class             => VideoQueryInterface::class,
             DetectionService::class       => DetectionServiceInterface::class,
             ThumbService::class           => ThumbServiceInterface::class,
         ];
@@ -74,7 +74,7 @@ class ConfigProvider
 
             // Services classes
             VideoConverterInterface::class    => VideoConverterFactory::class,
-            InfoServiceInterface::class       => InfoServiceFactory::class,
+            VideoQueryInterface::class        => VideoQueryFactory::class,
             DetectionServiceInterface::class  => DetectionServiceFactory::class,
             ThumbServiceInterface::class      => ThumbServiceFactory::class,
 
