@@ -11,9 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### CHANGED
 
-- [BC-BREAK] Renamed `ConversionService` to `VideoConverter` [#1]()
-- [BC-BREAK] Renamed `ConversionServiceInterface` to `VideoConverterInterface` [#1]()
-- [BC-BREAK] Renamed `ConversionServiceFactory` to `VideoConverterFactory` [#1]()
+#### Conversion 
+
+- [BC-BREAK] Renamed `ConversionService` to `VideoConverter`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
+- [BC-BREAK] Renamed `ConversionServiceInterface` to `VideoConverterInterface`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
+- [BC-BREAK] Renamed `ConversionServiceFactory` to `VideoConverterFactory`, [#1](https://github.com/soluble-io/soluble-mediatools/issues/1)
+
+#### VideoQuery
+
+- [BC-BREAK] Renamed `InfoService` to `VideoQuery`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `InfoServiceInterface` to `VideoQueryInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `Info` to `VideoInfo`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
+- [BC-BREAK] Renamed `InfoInterface` to `VideoInfoInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
+
 
 ### Added
 
