@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.7.0 (2018-08-XX)
 
-** WARNING THIS WILL BC-BREAK THINGS, NOT A 1.0 **
+**WARNING THIS IS BC-BREAK RELEASE**
+
+### CHANGED
+
+- [BC-BREAK] Renamed `ConversionService` to `VideoConverter` [#1]()
+- [BC-BREAK] Renamed `ConversionServiceInterface` to `VideoConverterInterface` [#1]()
+- [BC-BREAK] Renamed `ConversionServiceFactory` to `VideoConverterFactory` [#1]()
 
 ### Added
 

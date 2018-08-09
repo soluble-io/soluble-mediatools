@@ -9,7 +9,7 @@ use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Config\LoggerConfigInterface;
 
-class ConversionServiceFactory
+class VideoConverterFactory
 {
     public function __invoke(ContainerInterface $container): VideoConverterInterface
     {
