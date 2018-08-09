@@ -1,10 +1,10 @@
 hero: Video conversion service
 path: blob/master/src
-source: Video/ConversionService.php
+source: Video/VideoConverter.php
 
 ### Overview
 
-The ==Video\ConversionService== acts as a wrapper over ffmpeg and
+The ==Video\VideoConverter== acts as a wrapper over ffmpeg and
 helps with video conversions, clipping, filters... 
 It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
 component, exposes an immutable api for conversion parameters and attempt to make debugging
@@ -16,9 +16,9 @@ to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\{ConversionService, ConversionParams};
+use Soluble\MediaTools\Video\{VideoConverter, ConversionParams};
 
-$vcs = new ConversionService(new FFMpegConfig('/path/to/ffmpeg'));
+$vcs = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new ConversionParams())
     ->withVideoCodec('libx264')    
@@ -43,16 +43,16 @@ You'll need to have ffmpeg installed on your system.
 
 ### Initialization
 
-The [Video\ConversionService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionService.php) requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
+The [Video\VideoConverter](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverter.php) requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
 
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
-use Soluble\MediaTools\Video\ConversionService;
+use Soluble\MediaTools\Video\VideoConverter;
 
-$vcs = new ConversionService(    
+$vcs = new VideoConverter(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
         // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
@@ -73,7 +73,7 @@ $vcs = new ConversionService(
 
 ??? tip "Tip: initialize in a container (psr-11)" 
     It's a good idea to register services in a container. 
-    Depending on available framework integrations, you may have a look to the [`Video\ConversionServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ConversionServiceFactory.php)
+    Depending on available framework integrations, you may have a look to the [`Video\VideoConverterFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverterFactory.php)
     and/or [`FFMpegConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php) to get an example based on a psr-11 compatible container.
     See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
                
@@ -81,7 +81,7 @@ $vcs = new ConversionService(
 
 #### Conversion
  
-The `Video\ConversionService` offers a quick and simple `convert()` method in which you specify the input/output files
+The `Video\VideoConverter` offers a quick and simple `convert()` method in which you specify the input/output files
 as well as the conversion params. 
 
 ```php
@@ -97,7 +97,7 @@ $conversionService->convert(
 service initialization.* 
 
 ??? question "What if I need more control over the process ? (advanced usage)"
-    You can use the `Video\ConversionService::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
+    You can use the `Video\VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
     to get more control on the conversion process. 
     ```php 
     <?php
@@ -290,10 +290,10 @@ alternatively you can also :
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{ConversionService, ConversionParams};
+use Soluble\MediaTools\Video\{VideoConverter, ConversionParams};
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var ConversionService $vcs */
+/** @var VideoConverter $vcs */
 $params = (new ConversionParams())->withVideoCodec('xxx');     
 try {
     
@@ -350,7 +350,7 @@ try {
 ```php
 <?php
 use Soluble\MediaTools\Video\{Exception, ConversionParams};
-use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 
 $params = (new ConversionParams())
     ->withVideoCodec('libx264')
@@ -362,7 +362,7 @@ $params = (new ConversionParams())
     
 try {
     
-    /** @var ConversionServiceInterface $vcs */
+    /** @var VideoConverterInterface $vcs */
     
     $vcs->convert(
         '/path/inputFile.mov', 
@@ -386,7 +386,7 @@ try {
 ```php
 <?php
 use Soluble\MediaTools\Video\{Exception, ConversionParams};
-use Soluble\MediaTools\Video\ConversionServiceInterface;
+use Soluble\MediaTools\Video\VideoConverterInterface;
 
 $params = (new ConversionParams())
     ->withVideoCodec('libvpx-vp9')
@@ -416,7 +416,7 @@ $params = (new ConversionParams())
 
 try {
     
-    /** @var ConversionServiceInterface $vcs */
+    /** @var VideoConverterInterface $vcs */
     
     $vcs->convert(
         '/path/inputFile.mov', 
@@ -444,7 +444,7 @@ $params = (new ConversionParams())
           ->withSeekEnd(SeekTime::createFromHMS('12:52.015')); // 12 mins, 52 secs...                
 
 try {
-    /** @var \Soluble\MediaTools\Video\ConversionServiceInterface $videoConverter */
+    /** @var \Soluble\MediaTools\Video\VideoConverterInterface $videoConverter */
     $videoConverter->convert(
         '/path/inputFile.mp4', 
         '/path/outputFile.mp4', 

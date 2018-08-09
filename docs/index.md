@@ -54,7 +54,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
 use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
-use Soluble\MediaTools\Video\{InfoService, ThumbService, ThumbParams, ConversionService, ConversionParams};
+use Soluble\MediaTools\Video\{InfoService, ThumbService, ThumbParams, VideoConverter, ConversionParams};
 use Soluble\MediaTools\Video\Filter;
 
 $file = '/path/video.mp4';
@@ -73,7 +73,7 @@ echo $videoInfo->getWidth();
 
 // CONVERSION
 
-$conversionService = new ConversionService(new FFMpegConfig('/path/to/ffmpeg'));
+$conversionService = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
 
 try {
     $conversionService->convert(
@@ -136,7 +136,7 @@ $ composer require soluble/mediatools
 
 > Video services:
 
-- [X] [Video\ConversionService](/video-conversion-service) for conversions, transcoding,
+- [X] [Video\VideoConverter](/video-conversion-service) for conversions, transcoding,
   video filters (deinterlace, denoise), audio conversions, video clipping...
 - [X] [Video\InfoService](/video-info-service) to query video metadata (dimensions, frames...) 
 - [X] [Video\ThumbService](/video-thumb-service) to make thumbnails of a video.
