@@ -10,7 +10,7 @@ use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 
-class VideoDetectionTest extends TestCase
+class VideoAnalyzerTest extends TestCase
 {
     use ServicesProviderTrait;
 
