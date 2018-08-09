@@ -17,7 +17,7 @@ use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoConverter;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 
-class ConversionServiceTest extends TestCase
+class VideoConverterTest extends TestCase
 {
     use ServicesProviderTrait;
 
