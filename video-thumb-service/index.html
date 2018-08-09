@@ -581,7 +581,7 @@
                   <h1>Thumbnailing</h1>
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
-<p>The <mark>Video\ThumbService</mark> acts as a wrapper over ffmpeg and
+<p>The <mark>Video\VideoThumbGenerator</mark> acts as a wrapper over ffmpeg and
 deal with video thumbnail creation. It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
 component, exposes an immutable api for thumbnailing parameters and attempt to make debugging
 easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
@@ -589,11 +589,11 @@ to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConversionExceptionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ThumbService</span><span class="p">,</span> <span class="nx">ThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
 
-<span class="nv">$vts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThumbService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$vts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
-<span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+<span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
 </span><span class="hll">    <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span>
 </span>
 <span class="k">try</span> <span class="p">{</span>    
@@ -610,15 +610,15 @@ to log issues by yourself.    </p>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg installed on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbService.php">Video\ThumbService</a>
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php">Video\VideoThumbGenerator</a>
 requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ThumbService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoThumbGenerator</span><span class="p">;</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThumbService</span><span class="p">(</span>    
+<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span>    
     <span class="c1">// @param FFMpegConfigInterface </span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)</span>
@@ -639,20 +639,20 @@ and the various timeouts if needed. The second parameter can be used to inject a
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
 Depending on available framework integrations, you may have a look to the 
-<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbServiceFactory.php"><code>Video\ThumbServiceFactory</code></a>
+<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php"><code>Video\VideoThumbGeneratorFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <h4 id="thumbnailing">Thumbnailing<a class="headerlink" href="#thumbnailing" title="Permanent link">&para;</a></h4>
-<p>The <code>Video\ThumbService</code> offers a quick and simple <code>makeThumbnail()</code> method in which you specify the input/output files
+<p>The <code>Video\VideoThumbGenerator</code> offers a quick and simple <code>makeThumbnail()</code> method in which you specify the input/output files
 as well as the thumb params. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ThumbService</span><span class="p">,</span> <span class="nx">ThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
 
-<span class="nv">$vts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThumbService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$vts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">));</span>
 
 <span class="nv">$vts</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
@@ -664,13 +664,13 @@ as well as the thumb params. </p>
 
 <p><em>The <code>makeThumbnail()</code> method will automatically set the process timeouts, logger... as specified during 
 service initialization.</em> </p>
-<details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>Video\ThumbService::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
+<details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>Video\VideoThumbGenerator::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
 to get more control on the conversion process. 
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$process</span> <span class="o">=</span> <span class="nv">$thumbService</span><span class="o">-&gt;</span><span class="na">getSymfonyProcess</span><span class="p">(</span>
     <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
-    <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+    <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
         <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">)</span>
 <span class="p">);</span>
 
@@ -685,23 +685,23 @@ to get more control on the conversion process.
 <span class="p">}</span>        
 </pre></div>
 Have a look to the <a href="https://symfony.com/doc/current/components/process.html">symfony/process documentation</a> for more recipes. </p></details><h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbParams.php"><code>Video\ThumbParams</code></a> 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbParams.php"><code>Video\VideoThumbParams</code></a> 
 exposes an immutable api that attempt to mimic ffmpeg params.  </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ThumbParams</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoThumbParams</span><span class="p">;</span>
 
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withQualityScale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">12.23</span><span class="p">);</span>
     <span class="c1">// alternatively</span>
     <span class="c1">//-&gt;withSeekTime(SeekTime::createFromHMS(&#39;0:00:12.23&#39;));</span>
 </pre></div>
 
-<details class="question"><summary>Immutable api, what does it change for me ? (vs fluent)</summary><p>ThumbParams exposes an <mark>immutable</mark> style api <em>(<code>-&gt;withXXX()</code>, like PSR-7 for example)</em>.
+<details class="question"><summary>Immutable api, what does it change for me ? (vs fluent)</summary><p>VideoThumbParams exposes an <mark>immutable</mark> style api <em>(<code>-&gt;withXXX()</code>, like PSR-7 for example)</em>.
 It means that the original object is never touched, the <code>withXXX()</code> methods will return a newly 
 created object. </p><p>Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both expose 
 chainable methods... your primary reflexes might cause pain: </p><div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">());</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">());</span>
 
 <span class="nv">$newParams</span> <span class="o">=</span> <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">1.1212</span><span class="p">));</span>
 
@@ -806,7 +806,7 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <tbody>
 <tr>
 <td><code>withBuiltInParam(string, mixed)</code></td>
-<td>With any supported built-in param, see <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbParamsInterface.php">constants</a>.</td>
+<td>With any supported built-in param, see <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbParamsInterface.php">constants</a>.</td>
 </tr>
 <tr>
 <td><code>withoutParam(string)</code></td>
@@ -827,12 +827,12 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 </tbody>
 </table>
 <h4 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h4>
-<p>Video filters can be set to the ConversionParams through the <code>withVideoFilter(VideoFilterInterface $videoFilter)</code> method:</p>
+<p>Video filters can be set to the VideoConvertParams through the <code>withVideoFilter(VideoFilterInterface $videoFilter)</code> method:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\ThumbParams</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoThumbParams</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
 
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.123</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span><span class="k">new</span> <span class="nx">Filter\VideoFilterChain</span><span class="p">([</span>
         <span class="k">new</span> <span class="nx">Filter\YadifVideoFilter</span><span class="p">(),</span>
@@ -871,11 +871,11 @@ We <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/ass
 <p>You can safely catch exceptions with the generic <code>Soluble\MediaTools\VideoException\ConversionExceptionInterface</code>,
 alternatively you can also :</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">ThumbService</span><span class="p">,</span> <span class="nx">ThumbParams</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
-<span class="sd">/** @var ThumbService $vts */</span>
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">());</span>     
+<span class="sd">/** @var VideoThumbGenerator $vts */</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">());</span>     
 <span class="k">try</span> <span class="p">{</span>
 
     <span class="nv">$vts</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;out.jpg&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>    
@@ -937,8 +937,8 @@ alternatively you can also :</p>
                     
                     
                     
-                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbService.php" title="Video/ThumbService.php" class="md-source-file">
-                      Video/ThumbService.php
+                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php" title="Video/VideoThumbGenerator.php" class="md-source-file">
+                      Video/VideoThumbGenerator.php
                     </a>
                   
                 

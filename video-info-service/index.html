@@ -513,16 +513,16 @@
                   <h1>Querying</h1>
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
-<p>The <mark>Video\InfoService</mark> acts as a wrapper over ffprobe and return information about a video file.</p>
+<p>The <mark>Video\VideoInfoReader</mark> acts as a wrapper over ffprobe and return information about a video file.</p>
 <p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
 component and attempt to make debugging easier with clean exceptions. You can also inject any psr-3 compatible 
 logger if you don't want to log issues by yourself.    </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoExceptionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\InfoService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 
-<span class="nv">$infoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InfoService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
+<span class="nv">$infoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoService</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
@@ -542,16 +542,16 @@ logger if you don't want to log issues by yourself.    </p>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffprobe installed on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoService.php">Video\InfoService</a> 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php">Video\VideoInfoReader</a> 
 requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php"><code>FFProbeConfig</code></a> 
 object as first parameter. 
 This is where you set the location of the ffprobe binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFProbeConfig</span><span class="p">,</span> <span class="nx">FFProbeConfigInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\InfoService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InfoService</span><span class="p">(</span>    
+<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span>    
     <span class="c1">// @param FFProbeConfigInterface </span>
     <span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)</span>
@@ -569,15 +569,15 @@ and the various timeouts if needed. The second parameter can be used to inject a
 </pre></div>
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
-Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoServiceFactory.php"><code>Video\InfoServiceFactory</code></a>
+Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReaderFactory.php"><code>Video\VideoInfoReaderFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php"><code>FFProbeConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
 <p>All info exceptions implements <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoExceptionInterface.php"><code>InfoExceptionInterface</code></a> interface.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\InfoService</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
-<span class="sd">/** @var InfoService $vis */</span>
+<span class="sd">/** @var VideoInfoReader $vis */</span>
 <span class="k">try</span> <span class="p">{</span>
 
     <span class="nv">$vis</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mov&#39;</span><span class="p">);</span>
@@ -631,8 +631,8 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
                     
                     
                     
-                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoService.php" title="Video/InfoService.php" class="md-source-file">
-                      Video/InfoService.php
+                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php" title="Video/VideoInfoReader.php" class="md-source-file">
+                      Video/VideoInfoReader.php
                     </a>
                   
                 

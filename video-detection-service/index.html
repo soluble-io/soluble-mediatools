@@ -540,7 +540,7 @@
                 
                 <h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
 <p>The <mark>Video\DetectionService</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
-It does not query video metadata (like ffprobe or the <code>Video\InfoService</code>) but really
+It does not query video metadata (like ffprobe or the <code>Video\VideoInfoReader</code>) but really
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). </p>
 <p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
 component and attempt to make debugging

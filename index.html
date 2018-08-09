@@ -547,14 +547,14 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFProbeConfig</span><span class="p">,</span> <span class="nx">FFMpegConfig</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\</span><span class="p">{</span><span class="nx">InfoExceptionInterface</span><span class="p">,</span> <span class="nx">ConversionExceptionInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">InfoService</span><span class="p">,</span> <span class="nx">ThumbService</span><span class="p">,</span> <span class="nx">ThumbParams</span><span class="p">,</span> <span class="nx">ConversionService</span><span class="p">,</span> <span class="nx">ConversionParams</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoInfoReader</span><span class="p">,</span> <span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
 
 <span class="nv">$file</span> <span class="o">=</span> <span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">;</span>
 
 <span class="c1">// QUERYING</span>
 
-<span class="nv">$infoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InfoService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
+<span class="nv">$infoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoService</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
@@ -566,13 +566,13 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 <span class="c1">// CONVERSION</span>
 
-<span class="nv">$conversionService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConversionService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$conversionService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
         <span class="nv">$file</span><span class="p">,</span> 
         <span class="s1">&#39;/path/output.mp4&#39;</span><span class="p">,</span>
-        <span class="p">(</span><span class="k">new</span> <span class="nx">ConversionParams</span><span class="p">())</span>
+        <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
              <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>    
              <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
              <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
@@ -588,14 +588,14 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 <span class="c1">// THUMBNAILING</span>
 
 
-<span class="nv">$thumbService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThumbService</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$thumbService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$thumbService</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
             <span class="nv">$file</span><span class="p">,</span> 
             <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
-            <span class="p">(</span><span class="k">new</span> <span class="nx">ThumbParams</span><span class="p">())</span>
+            <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
                  <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.123</span><span class="p">)</span>
                  <span class="o">-&gt;</span><span class="na">withQualityScale</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
                  <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
@@ -623,10 +623,10 @@ alternatively have a look to the <a href="https://github.com/soluble-io/soluble-
 <p>Video services:</p>
 </blockquote>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-conversion-service">Video\ConversionService</a> for conversions, transcoding,
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-conversion-service">Video\VideoConverter</a> for conversions, transcoding,
   video filters (deinterlace, denoise), audio conversions, video clipping...</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-info-service">Video\InfoService</a> to query video metadata (dimensions, frames...) </li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-thumb-service">Video\ThumbService</a> to make thumbnails of a video.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-info-service">Video\VideoInfoReader</a> to query video metadata (dimensions, frames...) </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-thumb-service">Video\VideoThumbGenerator</a> to make thumbnails of a video.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-detection-service">Video\DetectionService</a> analyze video stream and use inference to detected <a href="https://en.wikipedia.org/wiki/Interlaced_video">interlacement</a> <em>(BFF, TFF)</em> or <a href="https://en.wikipedia.org/wiki/Progressive_scan">progressive</a> enconding in videos. More to come.  </li>
 </ul>
 <h2 id="alternatives">Alternative(s)<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
