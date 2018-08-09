@@ -66,18 +66,15 @@ class FFMpegAdapter implements ConverterAdapterInterface
             ConversionParamsInterface::PARAM_QUALITY => [
                 'pattern' => '-quality %s',
             ],
-
             ConversionParamsInterface::PARAM_VIDEO_QUALITY_SCALE => [
                 'pattern' => '-qscale:v %d',
             ],
-
             ConversionParamsInterface::PARAM_CRF => [
                 'pattern' => '-crf %d',
             ],
             ConversionParamsInterface::PARAM_STREAMABLE => [
                 'pattern' => '-movflags +faststart',
             ],
-
             ConversionParamsInterface::PARAM_FRAME_PARALLEL => [
                 'pattern' => '-frame-parallel %s',
             ],
