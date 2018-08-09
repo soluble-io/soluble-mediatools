@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Config;
 
-use Soluble\MediaTools\Video\VideoConverterFactory;
 use Soluble\MediaTools\Video\DetectionService;
 use Soluble\MediaTools\Video\DetectionServiceFactory;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
@@ -15,6 +14,7 @@ use Soluble\MediaTools\Video\ThumbService;
 use Soluble\MediaTools\Video\ThumbServiceFactory;
 use Soluble\MediaTools\Video\ThumbServiceInterface;
 use Soluble\MediaTools\Video\VideoConverter;
+use Soluble\MediaTools\Video\VideoConverterFactory;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 
 class ConfigProvider
