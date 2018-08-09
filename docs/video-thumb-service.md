@@ -1,10 +1,10 @@
 hero: Video thumb service
 path: blob/master/src
-source: Video/ThumbService.php
+source: Video/VideoThumbGenerator.php
 
 ### Overview
 
-The ==Video\ThumbService== acts as a wrapper over ffmpeg and
+The ==Video\VideoThumbGenerator== acts as a wrapper over ffmpeg and
 deal with video thumbnail creation. It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
 component, exposes an immutable api for thumbnailing parameters and attempt to make debugging
 easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
@@ -15,9 +15,9 @@ to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConversionExceptionInterface;
-use Soluble\MediaTools\Video\{ThumbService, ThumbParams, SeekTime};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, ThumbParams, SeekTime};
 
-$vts = new ThumbService(new FFMpegConfig('/path/to/ffmpeg'));
+$vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new ThumbParams())
     ->withTime(1.25);
@@ -42,7 +42,7 @@ You'll need to have ffmpeg installed on your system.
 
 ### Initialization
 
-The [Video\ThumbService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbService.php)
+The [Video\VideoThumbGenerator](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php)
 requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
@@ -50,9 +50,9 @@ and the various timeouts if needed. The second parameter can be used to inject a
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
-use Soluble\MediaTools\Video\ThumbService;
+use Soluble\MediaTools\Video\VideoThumbGenerator;
 
-$vcs = new ThumbService(    
+$vcs = new VideoThumbGenerator(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
         // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
@@ -74,7 +74,7 @@ $vcs = new ThumbService(
 ??? tip "Tip: initialize in a container (psr-11)" 
     It's a good idea to register services in a container. 
     Depending on available framework integrations, you may have a look to the 
-    [`Video\ThumbServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/ThumbServiceFactory.php)
+    [`Video\VideoThumbGeneratorFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php)
     and/or [`FFMpegConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php) to get an example based on a psr-11 compatible container.
     See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
                
@@ -82,16 +82,16 @@ $vcs = new ThumbService(
 
 #### Thumbnailing
  
-The `Video\ThumbService` offers a quick and simple `makeThumbnail()` method in which you specify the input/output files
+The `Video\VideoThumbGenerator` offers a quick and simple `makeThumbnail()` method in which you specify the input/output files
 as well as the thumb params. 
 
 ```php
 <?php
 
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\{ThumbService, ThumbParams, SeekTime};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, ThumbParams, SeekTime};
 
-$vts = new ThumbService(new FFMpegConfig('/path/to/ffmpeg'));
+$vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new ThumbParams())
     ->withSeekTime(new SeekTime(1.25));
@@ -108,7 +108,7 @@ $vts->makeThumbnail(
 service initialization.* 
 
 ??? question "What if I need more control over the process ? (advanced usage)"
-    You can use the `Video\ThumbService::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
+    You can use the `Video\VideoThumbGenerator::getSymfonyProcess(string $inputFile, string $outputFile, ConversionParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process` 
     to get more control on the conversion process. 
     ```php 
     <?php
@@ -247,10 +247,10 @@ alternatively you can also :
 
 ```php
 <?php
-use Soluble\MediaTools\Video\{ThumbService, ThumbParams};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, ThumbParams};
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var ThumbService $vts */
+/** @var VideoThumbGenerator $vts */
 $params = (new ThumbParams());     
 try {
 

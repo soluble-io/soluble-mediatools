@@ -54,7 +54,7 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
 use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
-use Soluble\MediaTools\Video\{VideoQuery, ThumbService, ThumbParams, VideoConverter, ConversionParams};
+use Soluble\MediaTools\Video\{VideoQuery, VideoThumbGenerator, ThumbParams, VideoConverter, ConversionParams};
 use Soluble\MediaTools\Video\Filter;
 
 $file = '/path/video.mp4';
@@ -95,7 +95,7 @@ try {
 // THUMBNAILING
 
 
-$thumbService = new ThumbService(new FFMpegConfig('/path/to/ffmpeg'));
+$thumbService = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
 
 try {
@@ -139,7 +139,7 @@ $ composer require soluble/mediatools
 - [X] [Video\VideoConverter](/video-conversion-service) for conversions, transcoding,
   video filters (deinterlace, denoise), audio conversions, video clipping...
 - [X] [Video\VideoQuery](/video-info-service) to query video metadata (dimensions, frames...) 
-- [X] [Video\ThumbService](/video-thumb-service) to make thumbnails of a video.
+- [X] [Video\VideoThumbGenerator](/video-thumb-service) to make thumbnails of a video.
 - [X] [Video\DetectionService](/video-detection-service ) analyze video stream and use inference to detected [interlacement](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* or [progressive](https://en.wikipedia.org/wiki/Progressive_scan) enconding in videos. More to come.  
 
 ## Alternative(s)
