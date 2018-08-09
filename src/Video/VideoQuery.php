@@ -69,7 +69,7 @@ class VideoQuery implements VideoQueryInterface
      * @throws MissingInputFileException
      * @throws RuntimeException
      */
-    public function getInfo(string $file): Info
+    public function getInfo(string $file): VideoInfo
     {
         try {
             try {
@@ -100,6 +100,6 @@ class VideoQuery implements VideoQueryInterface
             throw $e;
         }
 
-        return Info::createFromFFProbeJson($file, $output);
+        return VideoInfo::createFromFFProbeJson($file, $output);
     }
 }
