@@ -54,14 +54,14 @@ tests to ensure a smooth experience. But this project is young and would ❤️ 
 
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
 use Soluble\MediaTools\Video\Exception\{InfoExceptionInterface, ConversionExceptionInterface};
-use Soluble\MediaTools\Video\{InfoService, ThumbService, ThumbParams, VideoConverter, ConversionParams};
+use Soluble\MediaTools\Video\{VideoQuery, ThumbService, ThumbParams, VideoConverter, ConversionParams};
 use Soluble\MediaTools\Video\Filter;
 
 $file = '/path/video.mp4';
 
 // QUERYING
 
-$infoService = new InfoService(new FFProbeConfig('/path/to/ffprobe'));
+$infoService = new VideoQuery(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
     $videoInfo = $infoService->getInfo($file);
@@ -138,7 +138,7 @@ $ composer require soluble/mediatools
 
 - [X] [Video\VideoConverter](/video-conversion-service) for conversions, transcoding,
   video filters (deinterlace, denoise), audio conversions, video clipping...
-- [X] [Video\InfoService](/video-info-service) to query video metadata (dimensions, frames...) 
+- [X] [Video\VideoQuery](/video-info-service) to query video metadata (dimensions, frames...) 
 - [X] [Video\ThumbService](/video-thumb-service) to make thumbnails of a video.
 - [X] [Video\DetectionService](/video-detection-service ) analyze video stream and use inference to detected [interlacement](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* or [progressive](https://en.wikipedia.org/wiki/Progressive_scan) enconding in videos. More to come.  
 

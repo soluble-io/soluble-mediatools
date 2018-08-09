@@ -1,10 +1,10 @@
 hero: Video information/query service
 path: blob/master/src
-source: Video/InfoService.php
+source: Video/VideoQuery.php
 
 ### Overview
 
-The ==Video\InfoService== acts as a wrapper over ffprobe and return information about a video file.
+The ==Video\VideoQuery== acts as a wrapper over ffprobe and return information about a video file.
 
 It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
 component and attempt to make debugging easier with clean exceptions. You can also inject any psr-3 compatible 
@@ -14,9 +14,9 @@ logger if you don't want to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFProbeConfig;
 use Soluble\MediaTools\Video\Exception\InfoExceptionInterface;
-use Soluble\MediaTools\Video\InfoService;
+use Soluble\MediaTools\Video\VideoQuery;
 
-$infoService = new InfoService(new FFProbeConfig('/path/to/ffprobe'));
+$infoService = new VideoQuery(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
     $videoInfo = $infoService->getInfo('/path/video.mp4');
@@ -40,7 +40,7 @@ You'll need to have ffprobe installed on your system.
 
 ### Initialization
 
-The [Video\InfoService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoService.php) 
+The [Video\VideoQuery](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoQuery.php) 
 requires an [`FFProbeConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php) 
 object as first parameter. 
 This is where you set the location of the ffprobe binary, the number of threads you allow for conversions
@@ -49,9 +49,9 @@ and the various timeouts if needed. The second parameter can be used to inject a
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFProbeConfigInterface};
-use Soluble\MediaTools\Video\InfoService;
+use Soluble\MediaTools\Video\VideoQuery;
 
-$vcs = new InfoService(    
+$vcs = new VideoQuery(    
     // @param FFProbeConfigInterface 
     new FFProbeConfig(
         // (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)
@@ -70,7 +70,7 @@ $vcs = new InfoService(
 
 ??? tip "Tip: initialize in a container (psr-11)" 
     It's a good idea to register services in a container. 
-    Depending on available framework integrations, you may have a look to the [`Video\InfoServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/InfoServiceFactory.php)
+    Depending on available framework integrations, you may have a look to the [`Video\VideoQueryFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoQueryFactory.php)
     and/or [`FFProbeConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php) to get an example based on a psr-11 compatible container.
     See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
                
@@ -82,10 +82,10 @@ All info exceptions implements [`InfoExceptionInterface`](https://github.com/sol
 
 ```php
 <?php
-use Soluble\MediaTools\Video\InfoService;
+use Soluble\MediaTools\Video\VideoQuery;
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var InfoService $vis */
+/** @var VideoQuery $vis */
 try {
     
     $vis->getInfo('/path/video.mov');
