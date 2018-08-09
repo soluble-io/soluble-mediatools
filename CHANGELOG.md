@@ -7,12 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.7.1 (UNRELEASED)
 
-## Added
+### Added
 
 - `VideoInfo::getFormatName()` to get the format name(s).
 - `VideoInfo::countStreams()` to get the number of available streams.
-- `ext-json` added as requirement in composer.json
 
+### Fixed 
+
+- `ext-json` added as requirement in composer.json
 
 ## 0.7.0 (2018-08-09)
 
