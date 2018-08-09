@@ -634,7 +634,7 @@ to log issues by yourself.    </p>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 <span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
 </span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>    
@@ -642,7 +642,7 @@ to log issues by yourself.    </p>
 </span><span class="hll">    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>                  
 </span>
 <span class="k">try</span> <span class="p">{</span>    
-<span class="hll">    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+<span class="hll">    <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
 </span><span class="hll">        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
 </span><span class="hll">        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
 </span><span class="hll">        <span class="nv">$params</span>
@@ -662,7 +662,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoConverter</span><span class="p">;</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span>    
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span>    
     <span class="c1">// @param FFMpegConfigInterface </span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)</span>
@@ -741,10 +741,10 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <span class="nv">$newParams</span> <span class="o">=</span> <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">);</span>
 
 <span class="hll"><span class="c1">// $params used here are empty (incorrect usage)</span>
-</span><span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+</span><span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 
 <span class="hll"><span class="c1">// $newParams have been initialized with video codec (correct)</span>
-</span><span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
+</span><span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
 </pre></div>
 </details><p>Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information. </p>
 <ul>
@@ -1064,11 +1064,11 @@ alternatively you can also :</p>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
-<span class="sd">/** @var VideoConverter $vcs */</span>
+<span class="sd">/** @var VideoConverter $converter */</span>
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;xxx&#39;</span><span class="p">);</span>     
 <span class="k">try</span> <span class="p">{</span>
 
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;o.mp4&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+    <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;o.mp4&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 
 <span class="c1">// All exception below implements VE\ConverterExceptionInterface</span>
 
@@ -1130,9 +1130,9 @@ alternatively you can also :</p>
 
 <span class="k">try</span> <span class="p">{</span>
 
-    <span class="sd">/** @var VideoConverterInterface $vcs */</span>
+    <span class="sd">/** @var VideoConverterInterface $converter */</span>
 
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+    <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
         <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
         <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
         <span class="nv">$params</span>
@@ -1181,9 +1181,9 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 
 <span class="k">try</span> <span class="p">{</span>
 
-    <span class="sd">/** @var VideoConverterInterface $vcs */</span>
+    <span class="sd">/** @var VideoConverterInterface $converter */</span>
 
-    <span class="nv">$vcs</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+    <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
         <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
         <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span> 
         <span class="nv">$params</span>

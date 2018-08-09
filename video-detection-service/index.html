@@ -525,11 +525,11 @@ to log issues by yourself.    </p>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 
 <span class="k">try</span> <span class="p">{</span>    
-    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$vds</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
+    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
         <span class="s1">&#39;/path/input.mov&#39;</span><span class="p">,</span>
         <span class="c1">// Optional:</span>
         <span class="c1">//   $maxFramesToAnalyze, default: 1000</span>
@@ -556,7 +556,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$vcs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span>    
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span>    
     <span class="c1">// @param FFMpegConfigInterface </span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)</span>
@@ -585,11 +585,11 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$vds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 
 <span class="k">try</span> <span class="p">{</span>    
-    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$vds</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
+    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
         <span class="s1">&#39;/path/input.mov&#39;</span><span class="p">,</span>
         <span class="c1">// Optional:</span>
         <span class="c1">//   $maxFramesToAnalyze, default: 1000</span>
@@ -614,10 +614,10 @@ alternatively you can also :</p>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
-<span class="sd">/** @var VideoAnalyzer $vds */</span>
+<span class="sd">/** @var VideoAnalyzer $analyzer */</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$vds</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
+    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
         <span class="s1">&#39;/path/input.mov&#39;</span>
     <span class="p">);</span>
 
