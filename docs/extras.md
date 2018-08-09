@@ -4,7 +4,7 @@
 
 > This library relies on FFMpeg binaries 
 >
-> - **[ffmpeg](https://ffmpeg.org/ffmpeg.html)** is required by `VideoConverter`, `VideoDetectionService` and `VideoVideoThumbGenerator`.
+> - **[ffmpeg](https://ffmpeg.org/ffmpeg.html)** is required by `VideoConverter`, `VideoDetectionService` and `VideoThumbGenerator`.
 > - **[ffprobe](https://ffmpeg.org/ffprobe.html)** is required by `VideoQuery`.
 >  
 > Statically [compiled binaries](https://ffmpeg.org/download.html) exists in case your OS does not provide them.
