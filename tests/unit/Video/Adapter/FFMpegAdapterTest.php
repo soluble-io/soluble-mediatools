@@ -171,9 +171,9 @@ class FFMpegAdapterTest extends TestCase
             ->withVideoCodec('h264');
 
         $this->ffmpegAdapter->getCliCommand(
-                    $this->ffmpegAdapter->getMappedConversionParams($params),
-                    '/test/video.mp4',
-                    ['invalid_output_file']
-            );
+            $this->ffmpegAdapter->getMappedConversionParams($params),
+            '/test/video.mp4',
+            ['invalid_output_file']
+        );
     }
 }
