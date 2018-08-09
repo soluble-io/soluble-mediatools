@@ -16,10 +16,10 @@ use Soluble\MediaTools\Video\Config\FFProbeConfig;
 use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
 use Soluble\MediaTools\Video\VideoInfoReader;
 
-$infoService = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
+$infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
-    $videoInfo = $infoService->getInfo('/path/video.mp4');
+    $videoInfo = $infoReader->getInfo('/path/video.mp4');
 } catch (InfoReaderExceptionInterface $e) {
     // see below for exceptions
 }
@@ -51,7 +51,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFProbeConfigInterface};
 use Soluble\MediaTools\Video\VideoInfoReader;
 
-$vcs = new VideoInfoReader(    
+$converter = new VideoInfoReader(    
     // @param FFProbeConfigInterface 
     new FFProbeConfig(
         // (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)

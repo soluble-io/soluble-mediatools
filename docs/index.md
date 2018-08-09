@@ -61,10 +61,10 @@ $file = '/path/video.mp4';
 
 // QUERYING
 
-$infoService = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
+$infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
 try {
-    $videoInfo = $infoService->getInfo($file);
+    $videoInfo = $infoReader->getInfo($file);
 } catch (InfoReaderExceptionInterface $e) {
     // see the chapter about exceptions
 }

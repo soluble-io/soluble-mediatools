@@ -21,11 +21,11 @@ use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\VideoAnalyzer;
 
-$vds = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
+$analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
 
     
 try {    
-    $interlaceGuess = $vds->detectInterlacement(
+    $interlaceGuess = $analyzer->detectInterlacement(
         '/path/input.mov',
         // Optional:
         //   $maxFramesToAnalyze, default: 1000
@@ -56,7 +56,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\VideoAnalyzer;
 
-$vcs = new VideoAnalyzer(    
+$converter = new VideoAnalyzer(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
         // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
@@ -93,11 +93,11 @@ use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\VideoAnalyzer;
 
-$vds = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
+$analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
 
     
 try {    
-    $interlaceGuess = $vds->detectInterlacement(
+    $interlaceGuess = $analyzer->detectInterlacement(
         '/path/input.mov',
         // Optional:
         //   $maxFramesToAnalyze, default: 1000
@@ -129,10 +129,10 @@ alternatively you can also :
 use Soluble\MediaTools\Video\VideoAnalyzer;
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var VideoAnalyzer $vds */
+/** @var VideoAnalyzer $analyzer */
      
 try {
-    $interlaceGuess = $vds->detectInterlacement(
+    $interlaceGuess = $analyzer->detectInterlacement(
         '/path/input.mov'
     );
 

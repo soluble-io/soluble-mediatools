@@ -17,13 +17,13 @@ use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
 
-$vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
+$generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new VideoThumbParams())
     ->withTime(1.25);
     
 try {    
-    $vts->makeThumbnail(
+    $generator->makeThumbnail(
         '/path/inputFile.mov', 
         '/path/outputFile.jpg', 
         $params
@@ -52,7 +52,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\VideoThumbGenerator;
 
-$vcs = new VideoThumbGenerator(    
+$converter = new VideoThumbGenerator(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
         // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
@@ -91,12 +91,12 @@ as well as the thumb params.
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
 
-$vts = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
+$generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new VideoThumbParams())
     ->withSeekTime(new SeekTime(1.25));
 
-$vts->makeThumbnail(
+$generator->makeThumbnail(
     '/path/inputFile.mov', 
     '/path/outputFile.jpg',
     $params 
@@ -164,10 +164,10 @@ $params = (new VideoThumbParams())
     $newParams = $params->withSeekTime(new SeekTime(1.1212));
     
     // $params does not contain SeekTime (incorrect usage)
-    $vts->convert('i.mov', 'output.jpg', $params);
+    $generator->convert('i.mov', 'output.jpg', $params);
     
     // $newParams contains SeekTime (correct)
-    $vts->convert('i.mov', 'output.jpg', $newParams);     
+    $generator->convert('i.mov', 'output.jpg', $newParams);     
     
     ```
 
@@ -250,11 +250,11 @@ alternatively you can also :
 use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams};
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var VideoThumbGenerator $vts */
+/** @var VideoThumbGenerator $generator */
 $params = (new VideoThumbParams());     
 try {
 
-    $vts->makeThumbnail('i.mov', 'out.jpg', $params);    
+    $generator->makeThumbnail('i.mov', 'out.jpg', $params);    
     
 } catch(VE\MissingInputFileException $e) {
     

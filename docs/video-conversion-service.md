@@ -18,7 +18,7 @@ use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
 
-$vcs = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
+$converter = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new VideoConvertParams())
     ->withVideoCodec('libx264')    
@@ -26,7 +26,7 @@ $params = (new VideoConvertParams())
     ->withCrf(24);                  
     
 try {    
-    $vcs->convert(
+    $converter->convert(
         '/path/inputFile.mov', 
         '/path/outputFile.mp4', 
         $params
@@ -52,7 +52,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
 use Soluble\MediaTools\Video\VideoConverter;
 
-$vcs = new VideoConverter(    
+$converter = new VideoConverter(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
         // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
@@ -154,10 +154,10 @@ $params = (new VideoConvertParams())
     $newParams = $params->withVideoCodec('libx264');
     
     // $params used here are empty (incorrect usage)
-    $vcs->convert('i.mov', 'output', $params);
+    $converter->convert('i.mov', 'output', $params);
     
     // $newParams have been initialized with video codec (correct)
-    $vcs->convert('i.mov', 'output', $newParams);     
+    $converter->convert('i.mov', 'output', $newParams);     
     
     ```
 
@@ -293,11 +293,11 @@ alternatively you can also :
 use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var VideoConverter $vcs */
+/** @var VideoConverter $converter */
 $params = (new VideoConvertParams())->withVideoCodec('xxx');     
 try {
     
-    $vcs->convert('i.mov', 'o.mp4', $params);
+    $converter->convert('i.mov', 'o.mp4', $params);
     
 // All exception below implements VE\ConverterExceptionInterface
         
@@ -362,9 +362,9 @@ $params = (new VideoConvertParams())
     
 try {
     
-    /** @var VideoConverterInterface $vcs */
+    /** @var VideoConverterInterface $converter */
     
-    $vcs->convert(
+    $converter->convert(
         '/path/inputFile.mov', 
         '/path/outputFile.mp4', 
         $params
@@ -416,9 +416,9 @@ $params = (new VideoConvertParams())
 
 try {
     
-    /** @var VideoConverterInterface $vcs */
+    /** @var VideoConverterInterface $converter */
     
-    $vcs->convert(
+    $converter->convert(
         '/path/inputFile.mov', 
         '/path/outputFile.webm', 
         $params
