@@ -42,7 +42,6 @@ class FFMpegAdapter implements ConverterAdapterInterface
             ConversionParamsInterface::PARAM_VIDEO_MAX_BITRATE => [
                 'pattern' => '-maxrate %s',
             ],
-
             ConversionParamsInterface::PARAM_AUDIO_CODEC => [
                 'pattern' => '-c:a %s',
             ],
