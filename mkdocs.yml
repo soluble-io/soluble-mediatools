@@ -16,14 +16,13 @@ docs_dir: docs
 site_dir: build/docs
 
 nav:
-    - { 'Intro': index.md }
-    - 'VideoInfoReader': 'video-info-service.md'
+    - { 'Overview': index.md }
     - 'VideoConverter': 'video-conversion-service.md'
+    - 'VideoInfoReader': 'video-info-service.md'
     - 'VideoThumbnailGenerator': 'video-thumb-service.md'
     - 'VideoAnalyzer': 'video-detection-service.md'
     - About:
       - 'License': 'about/license.md'
-
 
 theme:
   name: 'material'
