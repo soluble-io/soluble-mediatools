@@ -69,7 +69,7 @@ class VideoQuery implements VideoQueryInterface
      * @throws MissingInputFileException
      * @throws RuntimeException
      */
-    public function getInfo(string $file): VideoInfo
+    public function query(string $file): VideoInfo
     {
         try {
             try {

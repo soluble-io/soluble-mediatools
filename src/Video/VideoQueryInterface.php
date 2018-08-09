@@ -6,5 +6,5 @@ namespace Soluble\MediaTools\Video;
 
 interface VideoQueryInterface
 {
-    public function getInfo(string $file): VideoInfo;
+    public function query(string $file): VideoInfo;
 }
