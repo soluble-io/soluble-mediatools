@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Symfony\Component\Process\Process;
 
-interface ThumbServiceInterface
+interface VideoThumbGeneratorInterface
 {
     public function getSymfonyProcess(string $videoFile, string $thumbnailFile, ThumbParamsInterface $thumbParams, ?ProcessParamsInterface $processParam = null): Process;
 

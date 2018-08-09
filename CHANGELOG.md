@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [BC-BREAK] Renamed `InfoInterface` to `VideoInfoInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
 
 
+#### Thumbnail
+
+- 
+
 ### Added
 
 - Requirement of `symfony/polyfill-mbstring` to allow install on system without mbstring extension. 

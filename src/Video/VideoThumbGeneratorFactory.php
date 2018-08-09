@@ -9,9 +9,9 @@ use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Config\LoggerConfigInterface;
 
-class ThumbServiceFactory
+class VideoThumbGeneratorFactory
 {
-    public function __invoke(ContainerInterface $container): ThumbServiceInterface
+    public function __invoke(ContainerInterface $container): VideoThumbGeneratorInterface
     {
         if ($container->has(LoggerConfigInterface::class)) {
             $logger = $container->get(LoggerConfigInterface::class)->getLogger();
@@ -19,7 +19,7 @@ class ThumbServiceFactory
             $logger = new NullLogger();
         }
 
-        return new ThumbService(
+        return new VideoThumbGenerator(
             $container->get(FFMpegConfigInterface::class),
             $logger
         );

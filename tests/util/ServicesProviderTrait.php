@@ -7,7 +7,7 @@ namespace MediaToolsTest\Util;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
 use Soluble\MediaTools\Video\DetectionServiceInterface;
-use Soluble\MediaTools\Video\ThumbServiceInterface;
+use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoQueryInterface;
 use Zend\ServiceManager\ServiceManager;
@@ -41,9 +41,9 @@ trait ServicesProviderTrait
     /**
      * @throws \Exception
      */
-    public function getVideoThumbService(): ThumbServiceInterface
+    public function getVideoThumbService(): VideoThumbGeneratorInterface
     {
-        return $this->getConfiguredContainer()->get(ThumbServiceInterface::class);
+        return $this->getConfiguredContainer()->get(VideoThumbGeneratorInterface::class);
     }
 
     /**

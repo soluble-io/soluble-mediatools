@@ -15,13 +15,13 @@ use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbParams;
-use Soluble\MediaTools\Video\ThumbServiceInterface;
+use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 
 class VideoThumbnailingTest extends TestCase
 {
     use ServicesProviderTrait;
 
-    /** @var ThumbServiceInterface */
+    /** @var VideoThumbGeneratorInterface */
     protected $thumbService;
 
     /** @var string */

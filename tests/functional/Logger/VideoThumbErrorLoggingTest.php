@@ -21,7 +21,7 @@ use Psr\Log\LogLevel;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\ThumbParams;
-use Soluble\MediaTools\Video\ThumbService;
+use Soluble\MediaTools\Video\VideoThumbGenerator;
 
 class VideoThumbErrorLoggingTest extends TestCase
 {
@@ -65,7 +65,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     public function testThumbProcessFailedMustBeLoggedAsError(): void
     {
         $outputFile = "{$this->outputDir}/tmp.jpg";
-        $videoThumb = new ThumbService(new FFMpegConfig(), $this->logger);
+        $videoThumb = new VideoThumbGenerator(new FFMpegConfig(), $this->logger);
         try {
             $videoThumb->makeThumbnail(
                 $this->videoFile,
@@ -87,7 +87,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     public function testConversionMissingInputFileMustBeLoggedAsWarning(): void
     {
         $outputFile = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
-        $videoThumb = new ThumbService(new FFMpegConfig(), $this->logger);
+        $videoThumb = new VideoThumbGenerator(new FFMpegConfig(), $this->logger);
         try {
             $videoThumb->makeThumbnail(
                 '/path_does_no_exists/path',
