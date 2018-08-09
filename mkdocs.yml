@@ -16,11 +16,12 @@ docs_dir: docs
 site_dir: build/docs
 
 nav:
-    - { 'Overview': index.md }
-    - 'VideoConverter': 'video-conversion-service.md'
-    - 'VideoInfoReader': 'video-info-service.md'
-    - 'VideoThumbnailGenerator': 'video-thumb-service.md'
-    - 'VideoAnalyzer': 'video-detection-service.md'
+    - { 'Home': index.md }
+    - Video tools:
+      - 'Converter': 'video-conversion-service.md'
+      - 'InfoReader': 'video-info-service.md'
+      - 'ThumbnailGenerator': 'video-thumb-service.md'
+      - 'Analyzer': 'video-detection-service.md'
     - About:
       - 'License': 'about/license.md'
 
@@ -36,7 +37,7 @@ theme:
   logo:
     icon: 'play_circle_outline'
   feature:
-    tabs: false
+    tabs: true
 
 # Customization
 extra:

@@ -1,7 +1,5 @@
-hero: Video detection service
 path: blob/master/src
 source: Video/VideoAnalyzer.php
-
 
 ### Overview
 

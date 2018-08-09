@@ -1,4 +1,3 @@
-hero: Video conversion service
 path: blob/master/src
 source: Video/VideoConverter.php
 

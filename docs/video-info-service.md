@@ -1,4 +1,3 @@
-hero: Video information/query service
 path: blob/master/src
 source: Video/VideoInfoReader.php
 

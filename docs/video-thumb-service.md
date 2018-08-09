@@ -1,4 +1,3 @@
-hero: Video thumb service
 path: blob/master/src
 source: Video/VideoThumbGenerator.php
 
