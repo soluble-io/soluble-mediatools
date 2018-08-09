@@ -140,7 +140,7 @@ $ composer require soluble/mediatools
   video filters (deinterlace, denoise), audio conversions, video clipping...
 - [X] [Video\VideoInfoReader](/video-info-service) to query video metadata (dimensions, frames...) 
 - [X] [Video\VideoThumbGenerator](/video-thumb-service) to make thumbnails of a video.
-- [X] [Video\DetectionService](/video-detection-service ) analyze video stream and use inference to detected [interlacement](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* or [progressive](https://en.wikipedia.org/wiki/Progressive_scan) enconding in videos. More to come.  
+- [X] [Video\VideoAnalyzer](/video-detection-service ) analyze video stream and use inference to detected [interlacement](https://en.wikipedia.org/wiki/Interlaced_video) *(BFF, TFF)* or [progressive](https://en.wikipedia.org/wiki/Progressive_scan) enconding in videos. More to come.  
 
 ## Alternative(s)
 

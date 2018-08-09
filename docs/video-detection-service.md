@@ -1,11 +1,11 @@
 hero: Video detection service
 path: blob/master/src
-source: Video/DetectionService.php
+source: Video/VideoAnalyzer.php
 
 
 ### Overview
 
-The ==Video\DetectionService== acts as a wrapper over ffmpeg and will analyze a video stream. 
+The ==Video\VideoAnalyzer== acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the `Video\VideoInfoReader`) but really
 reads the video to infer some characteristics (currently only interlacement detection is implemented...). 
 
@@ -19,9 +19,9 @@ to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
-use Soluble\MediaTools\Video\DetectionService;
+use Soluble\MediaTools\Video\VideoAnalyzer;
 
-$vds = new DetectionService(new FFMpegConfig('/path/to/ffmpeg'));
+$vds = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
 
     
 try {    
@@ -46,7 +46,7 @@ $interlaced = $interlaceGuess->isInterlaced(
 
 ### Initialization
 
-The [Video\DetectionService](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionService.php) 
+The [Video\VideoAnalyzer](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php) 
 requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
@@ -54,9 +54,9 @@ and the various timeouts if needed. The second parameter can be used to inject a
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\{FFMpegConfig, FFMpegConfigInterface};
-use Soluble\MediaTools\Video\DetectionService;
+use Soluble\MediaTools\Video\VideoAnalyzer;
 
-$vcs = new DetectionService(    
+$vcs = new VideoAnalyzer(    
     // @param FFMpegConfigInterface 
     new FFMpegConfig(
         // (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)
@@ -77,7 +77,7 @@ $vcs = new DetectionService(
 
 ??? tip "Tip: initialize in a container (psr-11)" 
     It's a good idea to register services in a container. 
-    Depending on available framework integrations, you may have a look to the [`Video\DetectionServiceFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/DetectionServiceFactory.php)
+    Depending on available framework integrations, you may have a look to the [`Video\VideoAnalyzerFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzerFactory.php)
     and/or [`FFMpegConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php) to get an example based on a psr-11 compatible container.
     See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
 
@@ -91,9 +91,9 @@ $vcs = new DetectionService(
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
-use Soluble\MediaTools\Video\DetectionService;
+use Soluble\MediaTools\Video\VideoAnalyzer;
 
-$vds = new DetectionService(new FFMpegConfig('/path/to/ffmpeg'));
+$vds = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
 
     
 try {    
@@ -126,10 +126,10 @@ alternatively you can also :
 
 ```php
 <?php
-use Soluble\MediaTools\Video\DetectionService;
+use Soluble\MediaTools\Video\VideoAnalyzer;
 use Soluble\MediaTools\Video\Exception as VE;
 
-/** @var DetectionService $vds */
+/** @var VideoAnalyzer $vds */
      
 try {
     $interlaceGuess = $vds->detectInterlacement(
