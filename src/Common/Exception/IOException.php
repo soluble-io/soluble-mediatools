@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Exception;
 
-class FileNotReadableException extends IOException
+class IOException extends RuntimeException implements IOExceptionInterface
 {
 }
