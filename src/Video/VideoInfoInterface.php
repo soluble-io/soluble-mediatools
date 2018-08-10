@@ -7,6 +7,11 @@ namespace Soluble\MediaTools\Video;
 interface VideoInfoInterface
 {
     /**
+     * Return the filesize.
+     */
+    public function getFileSize(): int;
+
+    /**
      * Return the file container format name.
      */
     public function getFormatName(): string;

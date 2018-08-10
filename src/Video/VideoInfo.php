@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
 
 class VideoInfo implements VideoInfoInterface
@@ -40,6 +41,22 @@ class VideoInfo implements VideoInfoInterface
     public function getFile(): string
     {
         return $this->file;
+    }
+
+    /**
+     * @throws IOException
+     */
+    public function getFileSize(): int
+    {
+        $size = @filesize($this->file);
+        if ($size === false) {
+            throw new IOException(sprintf(
+                'Cannot get filesize of file %s',
+                $this->file
+            ));
+        }
+
+        return $size;
     }
 
     public function getFormatName(): string
