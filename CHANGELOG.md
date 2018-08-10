@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.2 (Unreleased)
+
+### Added
+
+- `VideoInfo::getFileSize()` to get the filesize in bytes.
+- `Common\Exception\IOException` and `IOExceptionInterface` for generic file/io exception 
+
+### Changed
+
+- `FileNotFoundException`, `FileNotReadableException` now extends `IOException`
+
 ## 0.7.1 (2018-08-09)
 
 ### Added
