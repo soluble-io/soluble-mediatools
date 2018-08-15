@@ -453,3 +453,60 @@ try {
 
 ``` 
 
+
+#### Multipass encoding
+
+```php
+<?php
+use Soluble\MediaTools\Video\{VideoConvertParams, VideoConvertParamsInterface};
+use Soluble\MediaTools\Common\IO\PlatformNullFile;
+
+// Where to store the result of first pass analysis
+
+$logFile = tempnam(sys_get_temp_dir(), 'ffmpeg-passlog');
+
+$pass1Params = (new VideoConvertParams())    
+    ->withVideoCodec('libvpx-vp9')
+    ->withVideoBitrate('1M') 
+    ->withVideoMaxBitrate('1500k') 
+    ->withVideoMinBitrate('750k')
+    ->withKeyframeSpacing(240)
+    ->withTileColumns(1)
+    ->withFrameParallel(1)    
+    // Set the ffmpeg logfile 
+    ->withPassLogFile($logFile)
+    // Speed in first pass can be faster
+    ->withSpeed(4)
+    // Audio does not need to be analyzed
+    ->withNoAudio()
+    // Because we will pipe it to /dev/null
+    // we need to specify container
+    ->withOutputFormat('webm');
+
+
+// PASS 1 Conversion
+$this->videoConvert->convert(
+        '/tmp/input.mov',
+        // Note the null file here !
+        (new PlatformNullFile())->getNullFile(),
+        $pass1Params
+);
+
+// Let's init pass 2 params from pass 1
+$pass2Params = $pass1Params    
+    // reinit audio    
+    ->withoutParam(VideoConvertParamsInterface::PARAM_NOAUDIO)    
+    ->withAudioCodec('libopus')
+    ->withAudioBitrate('256k')
+    // Speed in second pass must be slower
+    ->withSpeed(1);
+    
+
+$this->videoConvert->convert(
+    '/tmp/input.mov',
+    '/tmp/output.webm',
+    $pass2Params
+);
+
+```
+

@@ -7,6 +7,7 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
+use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
@@ -18,6 +19,7 @@ use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoConverter as VideoConversionService;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoConvertParams;
+use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
 class VideoConverterTest extends TestCase
 {
@@ -78,9 +80,9 @@ class VideoConverterTest extends TestCase
         unlink($outputFile);
     }
 
-    public function testWithMoreOptions(): void
+    public function testConvertVP9SinglePass(): void
     {
-        $outputFile = "{$this->outputDir}/testFullOptions.tmp.webm";
+        $outputFile = "{$this->outputDir}/testConvertVP9SinglePass.webm";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
@@ -117,6 +119,63 @@ class VideoConverterTest extends TestCase
 
         self::assertFileExists($outputFile);
         unlink($outputFile);
+    }
+
+    public function testConvertVP9MultiPass(): void
+    {
+        $outputFile = "{$this->outputDir}/testConvertVP9Multipass.webm";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $logFile = tempnam($this->outputDir, 'ffmpeg-passlog');
+        if ($logFile === false) {
+            self::markTestIncomplete('Cannot get a temp file');
+        }
+
+        $pass1Params = (new VideoConvertParams())
+            ->withPassLogFile($logFile)
+            ->withVideoCodec('libvpx-vp9')
+            ->withVideoBitrate('200k') // target bitrate
+            ->withVideoMaxBitrate('250k') // max bitrate
+            ->withVideoMinBitrate('150k') // min bitrate
+            ->withVideoFilter(new YadifVideoFilter())
+            ->withThreads(0) // 0 means threads = number of cores
+            ->withSpeed(4)
+            ->withNoAudio()
+            ->withKeyframeSpacing(240)
+            ->withTileColumns(1)
+            ->withFrameParallel(1)
+            ->withPixFmt('yuv420p')
+            // Will speed up - takes only 2 seconds
+            ->withSeekStart(new SeekTime(1))
+            ->withSeekEnd(new SeekTime(3))
+            ->withOutputFormat('webm');
+
+        $this->videoConvert->convert(
+            $this->videoFile,
+                (new PlatformNullFile())->getNullFile(),
+                $pass1Params
+        );
+
+        self::assertFileExists($logFile);
+
+        $pass2Params = $pass1Params
+            ->withoutParam(VideoConvertParamsInterface::PARAM_NOAUDIO)
+            ->withSpeed(1)
+            ->withAudioCodec('libopus')
+            ->withAudioBitrate('96k');
+
+        $this->videoConvert->convert(
+            $this->videoFile,
+            $outputFile,
+            $pass2Params
+        );
+
+        unlink($logFile);
+        self::assertFileExists($outputFile);
+        //unlink($outputFile);
     }
 
     public function testConvertMustThrowFileNotFoundException(): void
