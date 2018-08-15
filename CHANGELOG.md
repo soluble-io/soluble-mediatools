@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - `VideoConvertParams::withConvertParams(VideoConvertParamsInterface $extraParams)` convenience method to add/merge new params.
 
+### Documentation
+
+- Added doc for `VideoConvertParams::withConvertParams(VideoConvertParamsInterface $extraParams)`.
+
 ## 0.7.2 (2018-08-15)
 
 ### Added
