@@ -6,6 +6,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Service\ActionParamInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\UnsetParamReaderException;
 
 interface VideoConvertParamsInterface extends ActionParamInterface
 {
@@ -93,4 +94,27 @@ interface VideoConvertParamsInterface extends ActionParamInterface
      * Return VideoConvertParams without this one.
      */
     public function withoutParam(string $paramName): self;
+
+    /**
+     * Return the internal array holding params.
+     *
+     * @return array<string,mixed>
+     */
+    public function toArray(): array;
+
+    /**
+     * Return a param, throw an exception if the param has not been defined yet.
+     *
+     * @return mixed
+     *
+     * @throws UnsetParamReaderException
+     */
+    public function getParam(string $paramName);
+
+    /**
+     * Return a new object with (extra) params added (they will be merged).
+     *
+     * @return VideoConvertParamsInterface
+     */
+    public function withConvertParams(self $extraParams): self;
 }

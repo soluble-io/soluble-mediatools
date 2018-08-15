@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.3 (2018-08-15)
+
+### Added 
+
+- `VideoConvertParams::withConvertParams(VideoConvertParamsInterface $extraParams)` convenience method to add/merge new params.
+
 ## 0.7.2 (2018-08-15)
 
 ### Added
 
-- `VideoConvertParams::setPassLogFile()` to permit multipass encoding. 
+- `VideoConvertParams::setPassLogFile(string $file)` to permit multipass encoding. 
 - `VideoInfo::getFileSize()` to get the filesize in bytes.
 - `Common\Exception\IOException` and `IOExceptionInterface` for generic file/io exception 
 

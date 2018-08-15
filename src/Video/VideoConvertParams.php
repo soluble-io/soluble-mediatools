@@ -363,6 +363,16 @@ class VideoConvertParams implements VideoConvertParamsInterface
     }
 
     /**
+     * @return VideoConvertParams
+     */
+    public function withConvertParams(VideoConvertParamsInterface $extraParams): VideoConvertParamsInterface
+    {
+        return new self(
+            array_merge($this->toArray(), $extraParams->toArray())
+        );
+    }
+
+    /**
      * Ensure that all params are supported.
      *
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params

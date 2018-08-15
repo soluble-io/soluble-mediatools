@@ -210,6 +210,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
+| `withConvertParam(VideoConvertParamInterface)` | With extra `VideoConvertParams` (merged)  | 
 | `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php).  | 
 | `withoutParam(string)`            | Without the specified parameter. |
 | `getParam(string $param): mixed`  | Return the param calue or throw UnsetParamExeption if not set.      |

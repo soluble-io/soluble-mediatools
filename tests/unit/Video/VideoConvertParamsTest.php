@@ -47,6 +47,28 @@ class VideoConvertParamsTest extends TestCase
         self::assertFalse($params->hasParam(VideoConvertParamsInterface::PARAM_FRAME_PARALLEL));
     }
 
+    public function testWithConvertParams(): void
+    {
+        $params1 = (new VideoConvertParams())
+            ->withTileColumns(10);
+
+        self::assertEquals(
+            10,
+            (new VideoConvertParams())
+                ->withConvertParams($params1)
+                ->getParam(VideoConvertParamsInterface::PARAM_TILE_COLUMNS)
+        );
+
+        $params2 = (new VideoConvertParams())
+            ->withTileColumns(30);
+
+        self::assertEquals(
+            30,
+                $params1->withConvertParams($params2)
+                        ->getParam(VideoConvertParamsInterface::PARAM_TILE_COLUMNS)
+        );
+    }
+
     public function testWithParamsMustBeIdenticalToConstrutorInject(): void
     {
         $injectedParams = new VideoConvertParams([
