@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+      <meta name="generator" content="mkdocs-1.0.1, mkdocs-material-3.0.3">
     
     
       
@@ -438,6 +438,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#multipass-encoding" title="Multipass encoding" class="md-nav__link">
+    Multipass encoding
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -635,6 +642,13 @@
           <li class="md-nav__item">
   <a href="#video-clipping" title="Video clipping" class="md-nav__link">
     Video clipping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipass-encoding" title="Multipass encoding" class="md-nav__link">
+    Multipass encoding
   </a>
   
 </li>
@@ -1264,6 +1278,59 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <span class="c1">// see chapter about exceptions        </span>
 <span class="p">}</span>
 </pre></div>
+
+<h4 id="multipass-encoding">Multipass encoding<a class="headerlink" href="#multipass-encoding" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoConvertParams</span><span class="p">,</span> <span class="nx">VideoConvertParamsInterface</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Common\IO\PlatformNullFile</span><span class="p">;</span>
+
+<span class="c1">// Where to store the result of first pass analysis</span>
+
+<span class="nv">$logFile</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">&#39;ffmpeg-passlog&#39;</span><span class="p">);</span>
+
+<span class="nv">$pass1Params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>    
+    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libvpx-vp9&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withVideoBitrate</span><span class="p">(</span><span class="s1">&#39;1M&#39;</span><span class="p">)</span> 
+    <span class="o">-&gt;</span><span class="na">withVideoMaxBitrate</span><span class="p">(</span><span class="s1">&#39;1500k&#39;</span><span class="p">)</span> 
+    <span class="o">-&gt;</span><span class="na">withVideoMinBitrate</span><span class="p">(</span><span class="s1">&#39;750k&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withKeyframeSpacing</span><span class="p">(</span><span class="mi">240</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withTileColumns</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withFrameParallel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    
+    <span class="c1">// Set the ffmpeg logfile </span>
+    <span class="o">-&gt;</span><span class="na">withPassLogFile</span><span class="p">(</span><span class="nv">$logFile</span><span class="p">)</span>
+    <span class="c1">// Speed in first pass can be faster</span>
+    <span class="o">-&gt;</span><span class="na">withSpeed</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="c1">// Audio does not need to be analyzed</span>
+    <span class="o">-&gt;</span><span class="na">withNoAudio</span><span class="p">()</span>
+    <span class="c1">// Because we will pipe it to /dev/null</span>
+    <span class="c1">// we need to specify container</span>
+    <span class="o">-&gt;</span><span class="na">withOutputFormat</span><span class="p">(</span><span class="s1">&#39;webm&#39;</span><span class="p">);</span>
+
+
+<span class="c1">// PASS 1 Conversion</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">videoConvert</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+        <span class="s1">&#39;/tmp/input.mov&#39;</span><span class="p">,</span>
+        <span class="c1">// Note the null file here !</span>
+        <span class="p">(</span><span class="k">new</span> <span class="nx">PlatformNullFile</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">getNullFile</span><span class="p">(),</span>
+        <span class="nv">$pass1Params</span>
+<span class="p">);</span>
+
+<span class="c1">// Let&#39;s init pass 2 params from pass 1</span>
+<span class="nv">$pass2Params</span> <span class="o">=</span> <span class="nv">$pass1Params</span>    
+    <span class="c1">// reinit audio    </span>
+    <span class="o">-&gt;</span><span class="na">withoutParam</span><span class="p">(</span><span class="nx">VideoConvertParamsInterface</span><span class="o">::</span><span class="na">PARAM_NOAUDIO</span><span class="p">)</span>    
+    <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;libopus&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;256k&#39;</span><span class="p">)</span>
+    <span class="c1">// Speed in second pass must be slower</span>
+    <span class="o">-&gt;</span><span class="na">withSpeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">videoConvert</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+    <span class="s1">&#39;/tmp/input.mov&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/tmp/output.webm&#39;</span><span class="p">,</span>
+    <span class="nv">$pass2Params</span>
+<span class="p">);</span>
+</pre></div>
                 
                   
                     <h2 id="__source">Source</h2>
@@ -1359,7 +1426,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     
       <script src="../assets/javascripts/application.583bbe55.js"></script>
       
-      <script>app.initialize({version:"1.0",url:{base:".."}})</script>
+      <script>app.initialize({version:"1.0.1",url:{base:".."}})</script>
       
     
     
