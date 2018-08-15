@@ -289,6 +289,16 @@ class VideoConvertParams implements VideoConvertParamsInterface
     }
 
     /**
+     * Set the passlogfile (only makes sense for multipass conversions).
+     */
+    public function withPassLogFile(string $passLogFile): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_PASSLOGFILE => $passLogFile,
+        ]));
+    }
+
+    /**
      * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface $paramValue
      *
      * @throws InvalidArgumentException in case of unsupported builtin param
@@ -364,7 +374,7 @@ class VideoConvertParams implements VideoConvertParamsInterface
         foreach ($params as $paramName => $paramValue) {
             if (!$this->isParamValid($paramName)) {
                 throw new InvalidArgumentException(
-                    sprintf('Unsupported param "%s" given.', $paramName)
+                    sprintf('Unsupported built-in param "%s" given.', $paramName)
                 );
             }
         }

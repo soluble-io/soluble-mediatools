@@ -102,6 +102,9 @@ class FFMpegAdapter implements ConverterAdapterInterface
             VideoConvertParamsInterface::PARAM_SEEK_END => [
                 'pattern' => '-to %s',
             ],
+            VideoConvertParamsInterface::PARAM_PASSLOGFILE => [
+                'pattern' => '-passlogfile %s',
+            ],
         ];
     }
 

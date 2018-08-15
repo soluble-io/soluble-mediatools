@@ -9,14 +9,13 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
 interface VideoConvertParamsInterface extends ActionParamInterface
 {
+    // VIDEO constants
     public const PARAM_VIDEO_CODEC         = 'VIDEO_CODEC';
     public const PARAM_VIDEO_BITRATE       = 'VIDEO_BITRATE';
     public const PARAM_VIDEO_MIN_BITRATE   = 'VIDEO_MIN_BITRATE';
     public const PARAM_VIDEO_MAX_BITRATE   = 'VIDEO_MAX_BITRATE';
     public const PARAM_VIDEO_QUALITY_SCALE = 'VIDEO_QUALITY_SCALE';
     public const PARAM_VIDEO_FILTER        = 'VIDEO_FILTER';
-    public const PARAM_AUDIO_CODEC         = 'AUDIO_CODEC';
-    public const PARAM_AUDIO_BITRATE       = 'AUDIO_BITRATE';
     public const PARAM_CRF                 = 'CRF';
     public const PARAM_PIX_FMT             = 'PIX_FMT';
     public const PARAM_PRESET              = 'PRESET';
@@ -25,20 +24,25 @@ interface VideoConvertParamsInterface extends ActionParamInterface
     public const PARAM_QUALITY             = 'QUALITY';
     public const PARAM_FRAME_PARALLEL      = 'FRAME_PARALLEL';
     public const PARAM_TILE_COLUMNS        = 'TILE_COLUMNS';
+    public const PARAM_KEYFRAME_SPACING    = 'KEYFRAME_SPACING';
+    public const PARAM_VIDEO_FRAMES        = 'VIDEO_FRAMES';
 
+    // Audio family constants
+    public const PARAM_AUDIO_CODEC         = 'AUDIO_CODEC';
+    public const PARAM_AUDIO_BITRATE       = 'AUDIO_BITRATE';
+    public const PARAM_NOAUDIO             = 'NOAUDIO';
+
+    // Timeslice options
     public const PARAM_SEEK_START        = 'SEEK_START';
     public const PARAM_SEEK_END          = 'SEEK_END';
 
-    // Only for vp9
+    // Encoder options
     public const PARAM_SPEED             = 'SPEED';
+    public const PARAM_PASSLOGFILE       = 'PASSLOGFILE';
     public const PARAM_THREADS           = 'THREADS';
-    public const PARAM_KEYFRAME_SPACING  = 'KEYFRAME_SPACING';
 
     // File Options
-    public const PARAM_OVERWRITE        = 'OVERWRITE';
-
-    public const PARAM_NOAUDIO             = 'NOAUDIO';
-    public const PARAM_VIDEO_FRAMES        = 'VIDEO_FRAMES';
+    public const PARAM_OVERWRITE           = 'OVERWRITE';
     public const PARAM_OUTPUT_FORMAT       = 'OUTPUT_FORMAT';
 
     /**
@@ -72,6 +76,7 @@ interface VideoConvertParamsInterface extends ActionParamInterface
         self::PARAM_VIDEO_FRAMES,
         self::PARAM_SEEK_START,
         self::PARAM_SEEK_END,
+        self::PARAM_PASSLOGFILE,
     ];
 
     /**
