@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- `VideoConvertParams::setPassLogFile()`. 
+- `VideoConvertParams::setPassLogFile()` to permit multipass encoding. 
 - `VideoInfo::getFileSize()` to get the filesize in bytes.
 - `Common\Exception\IOException` and `IOExceptionInterface` for generic file/io exception 
 
 ### Changed
 
 - `FileNotFoundException`, `FileNotReadableException` now extends `IOException`
+
+### Documentation
+
+- Added example recipe for multipass transcoding
 
 ## 0.7.1 (2018-08-09)
 
