@@ -39,12 +39,13 @@ interface VideoConvertParamsInterface extends ActionParamInterface
 
     // Encoder options
     public const PARAM_SPEED             = 'SPEED';
+    public const PARAM_PASS              = 'PASS';
     public const PARAM_PASSLOGFILE       = 'PASSLOGFILE';
     public const PARAM_THREADS           = 'THREADS';
 
     // File Options
-    public const PARAM_OVERWRITE           = 'OVERWRITE';
-    public const PARAM_OUTPUT_FORMAT       = 'OUTPUT_FORMAT';
+    public const PARAM_OVERWRITE         = 'OVERWRITE';
+    public const PARAM_OUTPUT_FORMAT     = 'OUTPUT_FORMAT';
 
     /**
      * Built-in params.
@@ -78,6 +79,7 @@ interface VideoConvertParamsInterface extends ActionParamInterface
         self::PARAM_SEEK_START,
         self::PARAM_SEEK_END,
         self::PARAM_PASSLOGFILE,
+        self::PARAM_PASS,
     ];
 
     /**

@@ -289,6 +289,16 @@ class VideoConvertParams implements VideoConvertParamsInterface
     }
 
     /**
+     * Set the pass number.
+     */
+    public function withPass(int $passNumber): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_PASS => $passNumber,
+        ]));
+    }
+
+    /**
      * Set the passlogfile (only makes sense for multipass conversions).
      */
     public function withPassLogFile(string $passLogFile): self

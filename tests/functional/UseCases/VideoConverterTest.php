@@ -136,6 +136,7 @@ class VideoConverterTest extends TestCase
 
         $pass1Params = (new VideoConvertParams())
             ->withPassLogFile($logFile)
+            ->withPass(1)
             ->withVideoCodec('libvpx-vp9')
             ->withVideoBitrate('200k') // target bitrate
             ->withVideoMaxBitrate('250k') // max bitrate
@@ -164,6 +165,7 @@ class VideoConverterTest extends TestCase
         $pass2Params = $pass1Params
             ->withoutParam(VideoConvertParamsInterface::PARAM_NOAUDIO)
             ->withSpeed(1)
+            ->withPass(2)
             ->withAudioCodec('libopus')
             ->withAudioBitrate('96k');
 
