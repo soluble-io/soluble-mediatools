@@ -1020,6 +1020,33 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 </tbody>
 </table>
 <ul>
+<li>Multipass related</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>FFmpeg arg(s)</th>
+<th>Example(s)</th>
+<th>Note(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>withPassLogFile(string)</code></td>
+<td>-passlogfile ◌</td>
+<td></td>
+<td>Ex: <code>tempnam(sys_get_temp_dir(), 'ffmpeg-log')</code></td>
+</tr>
+<tr>
+<td><code>withPass(int)</code></td>
+<td>-pass ◌</td>
+<td>1 or 2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li>Other methods:</li>
 </ul>
 <table>
@@ -1032,7 +1059,7 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <tbody>
 <tr>
 <td><code>withConvertParam(VideoConvertParamInterface)</code></td>
-<td>With extra <code>VideoConvertParams</code> (merged)</td>
+<td>With extra <code>VideoConvertParams</code> (will be merged)</td>
 </tr>
 <tr>
 <td><code>withBuiltInParam(string, mixed)</code></td>
@@ -1300,6 +1327,8 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <span class="o">-&gt;</span><span class="na">withKeyframeSpacing</span><span class="p">(</span><span class="mi">240</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withTileColumns</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withFrameParallel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    
+    <span class="c1">// Set the pass number</span>
+    <span class="o">-&gt;</span><span class="na">withPass</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1">// Set the ffmpeg logfile </span>
     <span class="o">-&gt;</span><span class="na">withPassLogFile</span><span class="p">(</span><span class="nv">$logFile</span><span class="p">)</span>
     <span class="c1">// Speed in first pass can be faster</span>
@@ -1325,6 +1354,8 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <span class="o">-&gt;</span><span class="na">withoutParam</span><span class="p">(</span><span class="nx">VideoConvertParamsInterface</span><span class="o">::</span><span class="na">PARAM_NOAUDIO</span><span class="p">)</span>    
     <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;libopus&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;256k&#39;</span><span class="p">)</span>
+    <span class="c1">// Reset the pass number</span>
+    <span class="o">-&gt;</span><span class="na">withPass</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="c1">// Speed in second pass must be slower</span>
     <span class="o">-&gt;</span><span class="na">withSpeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
