@@ -211,7 +211,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                        | FFmpeg arg(s)          | Example(s)   | Note(s)                                     |
 | ----------------------------- | ---------------------- | ------------ | ------------------------------------------- |
-| `withPassLogFile(string)`     | -passlogfile ◌         |              | Ex: `tempnam(sys_get_temp_dir(), 'ffmpeg-log')` |
+| `withPassLogFile(string)`     | -passlogfile ◌         |              | Ex: `tempnam(sys_get_temp_dir(), 'ffmpeg-log') . '.log` |
 | `withPass(int)`               | -pass ◌                | 1 or 2       |                                             |
 
 - Other methods:
@@ -472,7 +472,7 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 
 // Where to store the result of first pass analysis
 
-$logFile = tempnam(sys_get_temp_dir(), 'ffmpeg-passlog');
+$logFile = tempnam(sys_get_temp_dir(), 'ffmpeg-passlog') . '.log';
 
 $pass1Params = (new VideoConvertParams())    
     ->withVideoCodec('libvpx-vp9')
