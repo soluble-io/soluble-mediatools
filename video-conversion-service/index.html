@@ -860,24 +860,6 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td><em>mp4 container only</em></td>
 </tr>
 <tr>
-<td><code>withTileColumns(int)</code></td>
-<td>-tile-columns ◌</td>
-<td>10…</td>
-<td><em>vp9 related</em></td>
-</tr>
-<tr>
-<td><code>withKeyframeSpacing(int)</code></td>
-<td>-g ◌</td>
-<td>240…</td>
-<td><em>vp9 related</em></td>
-</tr>
-<tr>
-<td><code>withFrameParallel(int)</code></td>
-<td>-frame-parallel ◌</td>
-<td>2…</td>
-<td><em>vp9 related</em></td>
-</tr>
-<tr>
 <td><code>withPixFmt(string)</code></td>
 <td>-pix_fmt ◌</td>
 <td>yuv420p</td>
@@ -906,6 +888,36 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td>-qscale:v ◌</td>
 <td></td>
 <td></td>
+</tr>
+<tr>
+<td><code>withTileColumns(int)</code></td>
+<td>-tile-columns ◌</td>
+<td>10…</td>
+<td><em>vp9 related</em></td>
+</tr>
+<tr>
+<td><code>withKeyframeSpacing(int)</code></td>
+<td>-g ◌</td>
+<td>240…</td>
+<td><em>vp9 related</em></td>
+</tr>
+<tr>
+<td><code>withFrameParallel(int)</code></td>
+<td>-frame-parallel ◌</td>
+<td>2…</td>
+<td><em>vp9 related</em></td>
+</tr>
+<tr>
+<td><code>withLagInFrames(int)</code></td>
+<td>-lag-in-frames ◌</td>
+<td>25</td>
+<td>vp9, use with <code>autoAltRef</code></td>
+</tr>
+<tr>
+<td><code>withAutoAltRef(int)</code></td>
+<td>-auto-alt-ref ◌</td>
+<td>1</td>
+<td>vp9, use with <code>lagInFrames</code></td>
 </tr>
 </tbody>
 </table>
@@ -1037,7 +1049,7 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td><code>withPassLogFile(string)</code></td>
 <td>-passlogfile ◌</td>
 <td></td>
-<td>Ex: <code>tempnam(sys_get_temp_dir(), 'ffmpeg-log') . '.log</code></td>
+<td>Ex: `tempnam(sys_get_temp_dir(), 'ffmpeg-log')</td>
 </tr>
 <tr>
 <td><code>withPass(int)</code></td>
@@ -1318,7 +1330,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 
 <span class="c1">// Where to store the result of first pass analysis</span>
 
-<span class="nv">$logFile</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">&#39;ffmpeg-passlog&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;.log&#39;</span><span class="p">;</span>
+<span class="nv">$logFile</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">&#39;ffmpeg-passlog&#39;</span><span class="p">);</span>
 
 <span class="nv">$pass1Params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>    
     <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libvpx-vp9&#39;</span><span class="p">)</span>
