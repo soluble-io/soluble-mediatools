@@ -753,6 +753,7 @@ as well as the conversion params. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
     <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+     <span class="c1">// Output file will be automatically &#39;shell&#39; escaped,</span>
     <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
     <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
 <span class="p">);</span>           
@@ -1343,8 +1344,9 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 <span class="c1">// PASS 1 Conversion</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">videoConvert</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
         <span class="s1">&#39;/tmp/input.mov&#39;</span><span class="p">,</span>
-        <span class="c1">// Note the null file here !</span>
-        <span class="p">(</span><span class="k">new</span> <span class="nx">PlatformNullFile</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">getNullFile</span><span class="p">(),</span>
+        <span class="c1">// In first pass we don&#39;t need to output the conversion result</span>
+        <span class="c1">// let&#39;s put in /dev/null. </span>
+        <span class="k">new</span> <span class="nx">PlatformNullFile</span><span class="p">(),</span>
         <span class="nv">$pass1Params</span>
 <span class="p">);</span>
 
