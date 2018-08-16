@@ -179,8 +179,8 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withTileColumns(int)`        | -tile-columns ◌        | 10…        | *vp9 related*                |
 | `withKeyframeSpacing(int)`    | -g ◌                   | 240…       | *vp9 related*                |
 | `withFrameParallel(int)`      | -frame-parallel ◌      | 2…         | *vp9 related*                |
-| `withLafInFrames(int)`        | -lag-in-frames ◌       | 25         | vp9, to use with `autoAltRef` |
-| `withAutoAltRef(int)`         | -auto-alt-ref ◌        | 1          | vp9, to use with `lagInFrames` |
+| `withLagInFrames(int)`        | -lag-in-frames ◌       | 25         | vp9, use with `autoAltRef`   |
+| `withAutoAltRef(int)`         | -auto-alt-ref ◌        | 1          | vp9, use with `lagInFrames`  |
 
 
 - Audio options:
