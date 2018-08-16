@@ -289,6 +289,26 @@ class VideoConvertParams implements VideoConvertParamsInterface
     }
 
     /**
+     * Setting auto-alt-ref and lag-in-frames >= 12 will turn on VP9's alt-ref frames, a VP9 feature that enhances quality.
+     */
+    public function withAutoAltRef(int $autoAltRef): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_AUTO_ALT_REF => $autoAltRef,
+        ]));
+    }
+
+    /**
+     * Setting auto-alt-ref and lag-in-frames >= 12 will turn on VP9's alt-ref frames, a VP9 feature that enhances quality.
+     */
+    public function withLagInFrames(int $lagInFrames): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_LAG_IN_FRAMES => $lagInFrames,
+        ]));
+    }
+
+    /**
      * Set the pass number.
      */
     public function withPass(int $passNumber): self

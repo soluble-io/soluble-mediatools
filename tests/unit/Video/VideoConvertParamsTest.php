@@ -110,7 +110,9 @@ class VideoConvertParamsTest extends TestCase
             ->withSeekStart($seekTimeStart)
             ->withSeekEnd($seekTimeEnd)
             ->withPassLogFile('/tmp/ffmpeg-pass.log')
-            ->withPass(2);
+            ->withPass(2)
+            ->withAutoAltRef(1)
+            ->withLagInFrames(25);
 
         $expectedParams = [
             VideoConvertParamsInterface::PARAM_TILE_COLUMNS      => 10,
@@ -140,6 +142,8 @@ class VideoConvertParamsTest extends TestCase
 
             VideoConvertParamsInterface::PARAM_PASSLOGFILE       => '/tmp/ffmpeg-pass.log',
             VideoConvertParamsInterface::PARAM_PASS              => 2,
+            VideoConvertParamsInterface::PARAM_AUTO_ALT_REF      => 1,
+            VideoConvertParamsInterface::PARAM_LAG_IN_FRAMES     => 25,
         ];
 
         self::assertEquals($expectedParams, $params->toArray());

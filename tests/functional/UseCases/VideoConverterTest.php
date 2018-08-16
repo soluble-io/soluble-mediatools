@@ -167,6 +167,8 @@ class VideoConverterTest extends TestCase
             ->withoutParam(VideoConvertParamsInterface::PARAM_NOAUDIO)
             ->withSpeed(1)
             ->withPass(2)
+            ->withAutoAltRef(1)
+            ->withLagInFrames(25)
             ->withAudioCodec('libopus')
             ->withAudioBitrate('96k');
 

@@ -171,14 +171,17 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withVideoMaxBitrate(string)` | -maxrate ◌             | 750k,2M…   | max variable bitrate         |
 | `withCrf(int)`                | -crf ◌                 | 32,…       | constant rate compression    |
 | `withStreamable()`            | -movflags +faststart   |            | *mp4 container only*         |
-| `withTileColumns(int)`        | -tile-columns ◌        | 10…        | *vp9 related*                |
-| `withKeyframeSpacing(int)`    | -g ◌                   | 240…       | *vp9 related*                |
-| `withFrameParallel(int)`      | -frame-parallel ◌      | 2…         | *vp9 related*                |
 | `withPixFmt(string)`          | -pix_fmt ◌             | yuv420p    | Default '*no change*'        |
 | `withQuality(string)`         | -quality ◌             | good,medium… |  |
 | `withPreset(string)`          | -preset ◌              | fast…        |  |
 | `withTune(string)`            | -tune ◌                | film…        |  |
 | `withVideoQualityScale(int)`  | -qscale:v ◌            |              |  |
+| `withTileColumns(int)`        | -tile-columns ◌        | 10…        | *vp9 related*                |
+| `withKeyframeSpacing(int)`    | -g ◌                   | 240…       | *vp9 related*                |
+| `withFrameParallel(int)`      | -frame-parallel ◌      | 2…         | *vp9 related*                |
+| `withLafInFrames(int)`        | -lag-in-frames ◌       | 25         | vp9, to use with `autoAltRef` |
+| `withAutoAltRef(int)`         | -auto-alt-ref ◌        | 1          | vp9, to use with `lagInFrames` |
+
 
 - Audio options:
 
@@ -211,7 +214,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                        | FFmpeg arg(s)          | Example(s)   | Note(s)                                     |
 | ----------------------------- | ---------------------- | ------------ | ------------------------------------------- |
-| `withPassLogFile(string)`     | -passlogfile ◌         |              | Ex: `tempnam(sys_get_temp_dir(), 'ffmpeg-log') . '.log` |
+| `withPassLogFile(string)`     | -passlogfile ◌         |              | Ex: `tempnam(sys_get_temp_dir(), 'ffmpeg-log') |
 | `withPass(int)`               | -pass ◌                | 1 or 2       |                                             |
 
 - Other methods:
@@ -472,7 +475,7 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 
 // Where to store the result of first pass analysis
 
-$logFile = tempnam(sys_get_temp_dir(), 'ffmpeg-passlog') . '.log';
+$logFile = tempnam(sys_get_temp_dir(), 'ffmpeg-passlog');
 
 $pass1Params = (new VideoConvertParams())    
     ->withVideoCodec('libvpx-vp9')

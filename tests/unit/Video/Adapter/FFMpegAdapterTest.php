@@ -59,14 +59,16 @@ class FFMpegAdapterTest extends TestCase
             ->withSeekEnd($seekTimeEnd)
             ->withVideoQualityScale(1)
             ->withPassLogFile('/tmp/ffmpeg-pass.log')
-            ->withPass(1);
+            ->withPass(1)
+            ->withAutoAltRef(1)
+            ->withLagInFrames(25);
 
         $expectedCli = '-tile-columns 10 -threads 8 -speed 2 -g 240 -crf 32 -f mp4 ' .
                '-minrate 750k -b:v 1M -quality good -movflags +faststart -pix_fmt yuv420p ' .
                '-preset fast -b:a 128k -c:a aac -c:v h264 -maxrate 2000000 ' .
                '-frame-parallel 2 -tune film -y -an -frames:v 1500 ' .
                '-ss 0:00:00.1 -to 0:00:00.6 -qscale:v 1 -passlogfile /tmp/ffmpeg-pass.log ' .
-               '-pass 1';
+               '-pass 1 -auto-alt-ref 1 -lag-in-frames 25';
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
 

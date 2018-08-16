@@ -108,6 +108,12 @@ class FFMpegAdapter implements ConverterAdapterInterface
             VideoConvertParamsInterface::PARAM_PASS => [
                 'pattern' => '-pass %s',
             ],
+            VideoConvertParamsInterface::PARAM_AUTO_ALT_REF => [
+                'pattern' => '-auto-alt-ref %s',
+            ],
+            VideoConvertParamsInterface::PARAM_LAG_IN_FRAMES => [
+                'pattern' => '-lag-in-frames %s',
+            ],
         ];
     }
 

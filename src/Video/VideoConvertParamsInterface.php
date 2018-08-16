@@ -27,6 +27,8 @@ interface VideoConvertParamsInterface extends ActionParamInterface
     public const PARAM_TILE_COLUMNS        = 'TILE_COLUMNS';
     public const PARAM_KEYFRAME_SPACING    = 'KEYFRAME_SPACING';
     public const PARAM_VIDEO_FRAMES        = 'VIDEO_FRAMES';
+    public const PARAM_AUTO_ALT_REF        = 'AUTO_ALT_REF';
+    public const PARAM_LAG_IN_FRAMES       = 'LAG_IN_FRAMES';
 
     // Audio family constants
     public const PARAM_AUDIO_CODEC         = 'AUDIO_CODEC';
@@ -80,6 +82,8 @@ interface VideoConvertParamsInterface extends ActionParamInterface
         self::PARAM_SEEK_END,
         self::PARAM_PASSLOGFILE,
         self::PARAM_PASS,
+        self::PARAM_LAG_IN_FRAMES,
+        self::PARAM_AUTO_ALT_REF
     ];
 
     /**
