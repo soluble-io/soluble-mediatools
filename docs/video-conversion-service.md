@@ -206,11 +206,18 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withOverwrite()`             | -y                     |            | by default. overwrite if file exists |
 | `withNoOverwrite()`           |                        |            | throw exception if output exists     |
 
+- Multipass related
+
+| Method                        | FFmpeg arg(s)          | Example(s)   | Note(s)                                     |
+| ----------------------------- | ---------------------- | ------------ | ------------------------------------------- |
+| `withPassLogFile(string)`     | -passlogfile ◌         |              | Ex: `tempnam(sys_get_temp_dir(), 'ffmpeg-log')` |
+| `withPass(int)`               | -pass ◌                | 1 or 2       |                                             |
+
 - Other methods:
 
 | Method                            | Note(s)                              |
 | --------------------------------- | ------------------------------------ | 
-| `withConvertParam(VideoConvertParamInterface)` | With extra `VideoConvertParams` (merged)  | 
+| `withConvertParam(VideoConvertParamInterface)` | With extra `VideoConvertParams` (will be merged)  | 
 | `withBuiltInParam(string, mixed)` | With any supported built-in param, see [constants](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php).  | 
 | `withoutParam(string)`            | Without the specified parameter. |
 | `getParam(string $param): mixed`  | Return the param calue or throw UnsetParamExeption if not set.      |
@@ -474,6 +481,8 @@ $pass1Params = (new VideoConvertParams())
     ->withKeyframeSpacing(240)
     ->withTileColumns(1)
     ->withFrameParallel(1)    
+    // Set the pass number
+    ->withPass(1)
     // Set the ffmpeg logfile 
     ->withPassLogFile($logFile)
     // Speed in first pass can be faster
@@ -499,6 +508,8 @@ $pass2Params = $pass1Params
     ->withoutParam(VideoConvertParamsInterface::PARAM_NOAUDIO)    
     ->withAudioCodec('libopus')
     ->withAudioBitrate('256k')
+    // Reset the pass number
+    ->withPass(2)
     // Speed in second pass must be slower
     ->withSpeed(1);
     

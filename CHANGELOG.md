@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Documentation
 
-- Multipass example fixed using `VideoConvertParams::withPass()`.
+- Added multipass params, example fixed using `VideoConvertParams::withPass()`.
 
 
 ## 0.7.3 (2018-08-15)
