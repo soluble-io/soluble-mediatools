@@ -1037,7 +1037,7 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td><code>withPassLogFile(string)</code></td>
 <td>-passlogfile ◌</td>
 <td></td>
-<td>Ex: <code>tempnam(sys_get_temp_dir(), 'ffmpeg-log')</code></td>
+<td>Ex: <code>tempnam(sys_get_temp_dir(), 'ffmpeg-log') . '.log</code></td>
 </tr>
 <tr>
 <td><code>withPass(int)</code></td>
@@ -1318,7 +1318,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 
 <span class="c1">// Where to store the result of first pass analysis</span>
 
-<span class="nv">$logFile</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">&#39;ffmpeg-passlog&#39;</span><span class="p">);</span>
+<span class="nv">$logFile</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">&#39;ffmpeg-passlog&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;.log&#39;</span><span class="p">;</span>
 
 <span class="nv">$pass1Params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>    
     <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libvpx-vp9&#39;</span><span class="p">)</span>
