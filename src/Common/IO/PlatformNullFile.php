@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Common\IO;
 
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 
-class PlatformNullFile
+class PlatformNullFile implements UnescapedFileInterface
 {
     public const PLATFORM_LINUX = 'LINUX';
     public const PLATFORM_WIN   = 'WINDOWS';
@@ -48,9 +48,11 @@ class PlatformNullFile
     /**
      * Return /dev/null on linux/unix/mac or NUL on windows.
      */
-    public function getNullFile(): string
+    public function getNullFile(?string $platform = null): string
     {
-        switch ($this->platform) {
+        $platform = $platform ?? $this->platform;
+
+        switch ($platform) {
             case self::PLATFORM_WIN:
                 return 'NUL';
             // All others for now
@@ -58,5 +60,10 @@ class PlatformNullFile
             default:
                 return '/dev/null';
         }
+    }
+
+    public function getFile(): string
+    {
+        return $this->getNullFile();
     }
 }

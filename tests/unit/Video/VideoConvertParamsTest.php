@@ -64,8 +64,8 @@ class VideoConvertParamsTest extends TestCase
 
         self::assertEquals(
             30,
-                $params1->withConvertParams($params2)
-                        ->getParam(VideoConvertParamsInterface::PARAM_TILE_COLUMNS)
+            $params1->withConvertParams($params2)
+                ->getParam(VideoConvertParamsInterface::PARAM_TILE_COLUMNS)
         );
     }
 

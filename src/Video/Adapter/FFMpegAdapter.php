@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Adapter;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
-use Soluble\MediaTools\Common\IO\PlatformNullFile;
+use Soluble\MediaTools\Common\IO\UnescapedFileInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
@@ -163,9 +163,9 @@ class FFMpegAdapter implements ConverterAdapterInterface
     }
 
     /**
-     * @param array<int|string, string>    $arguments
-     * @param string|null                  $inputFile  if <null> will not prepend '-i inputFile' in args
-     * @param null|string|PlatformNullFile $outputFile
+     * @param array<int|string, string>          $arguments
+     * @param string|null                        $inputFile  if <null> will not prepend '-i inputFile' in args
+     * @param null|string|UnescapedFileInterface $outputFile
      *
      * @throws InvalidArgumentException
      */
@@ -176,8 +176,8 @@ class FFMpegAdapter implements ConverterAdapterInterface
                         : '';
 
         $outputArg = '';
-        if ($outputFile instanceof PlatformNullFile) {
-            $outputArg = $outputFile->getNullFile();
+        if ($outputFile instanceof UnescapedFileInterface) {
+            $outputArg = $outputFile->getFile();
         } elseif (is_string($outputFile)) {
             $outputArg = sprintf('%s', escapeshellarg($outputFile));
         } elseif ($outputFile !== null) {

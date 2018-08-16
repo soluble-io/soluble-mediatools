@@ -6,7 +6,9 @@ namespace MediaToolsTest\Video;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Common\IO\UnescapedFileInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
@@ -80,6 +82,42 @@ class VideoConverterTest extends TestCase
         self::assertContains(' -f webm ', $cmdLine);
         self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
         self::assertContains(' -frames:v 200 ', $cmdLine);
+        self::assertContains(escapeshellarg('/path/output'), $cmdLine);
+    }
+
+    public function testGetSymfonyProcessMustThrowExceptionOnWrongOutput(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+        $convertParams = (new VideoConvertParams());
+
+        $process = (new VideoConverter(
+            new FFMpegConfig('ffmpeg')
+        ))->getSymfonyProcess(
+            __FILE__,
+            ['invalid array'],
+            $convertParams
+        );
+    }
+
+    public function testGetSymfonyProcessWithUnescapedFile(): void
+    {
+        $convertParams = (new VideoConvertParams());
+
+        $process = (new VideoConverter(
+            new FFMpegConfig('ffmpeg')
+        ))->getSymfonyProcess(
+            __FILE__,
+            new class() implements UnescapedFileInterface {
+                public function getFile(): string
+                {
+                    return '/a n/un \'escaped/file';
+                }
+            },
+            $convertParams
+        );
+
+        $cmdLine = $process->getCommandLine();
+        self::assertContains(' /a n/un \'escaped/file', $cmdLine);
     }
 
     public function testGetSymfonyProcessMustDefaultToConfigThreads(): void

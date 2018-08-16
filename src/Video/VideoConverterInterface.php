@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Soluble\MediaTools\Common\IO\UnescapedFileInterface;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Symfony\Component\Process\Process;
 
 interface VideoConverterInterface
@@ -15,17 +17,22 @@ interface VideoConverterInterface
      * to `run()` or `start()` programmatically. Useful if you want to make
      * things your way...
      *
+     * @param null|string|UnescapedFileInterface $outputFile
+     *
+     * @throws InvalidArgumentException
+     *
      * @see https://symfony.com/doc/current/components/process.html
      */
-    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process;
+    public function getSymfonyProcess(string $inputFile, $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process;
 
     /**
      * Run a conversion, throw exception on error.
      *
-     * @param callable|null $callback A PHP callback to run whenever there is some
-     *                                tmp available on STDOUT or STDERR
+     * @param null|string|UnescapedFileInterface $outputFile
+     * @param callable|null                      $callback   A PHP callback to run whenever there is some
+     *                                                       tmp available on STDOUT or STDERR
      *
      * @throws ConverterExceptionInterface When inputFile does not exists
      */
-    public function convert(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void;
+    public function convert(string $inputFile, $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void;
 }

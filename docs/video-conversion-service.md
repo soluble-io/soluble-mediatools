@@ -85,6 +85,7 @@ as well as the conversion params.
 <?php
 $conversionService->convert(
     '/path/inputFile.mov', 
+     // Output file will be automatically 'shell' escaped,
     '/path/outputFile.mp4', 
     (new VideoConvertParams())->withVideoCodec('libx264')
 );           
@@ -497,8 +498,9 @@ $pass1Params = (new VideoConvertParams())
 // PASS 1 Conversion
 $this->videoConvert->convert(
         '/tmp/input.mov',
-        // Note the null file here !
-        (new PlatformNullFile())->getNullFile(),
+        // In first pass we don't need to output the conversion result
+        // let's put in /dev/null. 
+        new PlatformNullFile(),
         $pass1Params
 );
 

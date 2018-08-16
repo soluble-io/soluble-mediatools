@@ -8,15 +8,14 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
-use Soluble\MediaTools\Common\Exception\FileNotFoundException;
-use Soluble\MediaTools\Common\Exception\FileNotReadableException;
-use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
-use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
+use Soluble\MediaTools\Common\Exception as CommonException;
+use Soluble\MediaTools\Common\IO\UnescapedFileInterface;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
@@ -48,12 +47,15 @@ class VideoConverter implements VideoConverterInterface
      * to `run()` or `start()` programmatically. Useful if you want to make
      * things async...
      *
+     * @param null|string|UnescapedFileInterface $outputFile
+     *
      * @see https://symfony.com/doc/current/components/process.html
      *
-     * @throws UnsupportedParamException
-     * @throws UnsupportedParamValueException
+     * @throws CommonException\UnsupportedParamException
+     * @throws CommonException\UnsupportedParamValueException
+     * @throws InvalidArgumentException
      */
-    public function getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process
+    public function getSymfonyProcess(string $inputFile, $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process
     {
         $adapter = $this->ffmpegConfig->getAdapter();
 
@@ -66,7 +68,12 @@ class VideoConverter implements VideoConverterInterface
         }
 
         $arguments = $adapter->getMappedConversionParams($convertParams);
-        $ffmpegCmd = $adapter->getCliCommand($arguments, $inputFile, $outputFile);
+
+        try {
+            $ffmpegCmd = $adapter->getCliCommand($arguments, $inputFile, $outputFile);
+        } catch (CommonException\InvalidArgumentException $e) {
+            throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+        }
 
         $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
 
@@ -76,8 +83,9 @@ class VideoConverter implements VideoConverterInterface
     /**
      * Run a conversion, throw exception on error.
      *
-     * @param callable|null $callback A PHP callback to run whenever there is some
-     *                                tmp available on STDOUT or STDERR
+     * @param null|string|UnescapedFileInterface $outputFile
+     * @param callable|null                      $callback   A PHP callback to run whenever there is some
+     *                                                       tmp available on STDOUT or STDERR
      *
      * @throws ConverterExceptionInterface        Base exception class for conversion exceptions
      * @throws ConverterProcessExceptionInterface Base exception class for process conversion exceptions
@@ -88,16 +96,16 @@ class VideoConverter implements VideoConverterInterface
      * @throws InvalidParamReaderException
      * @throws RuntimeReaderException
      */
-    public function convert(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
+    public function convert(string $inputFile, $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
         try {
             try {
                 $this->ensureFileReadable($inputFile);
                 $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
                 $process->mustRun($callback);
-            } catch (FileNotFoundException | FileNotReadableException $e) {
+            } catch (CommonException\FileNotFoundException | CommonException\FileNotReadableException $e) {
                 throw new MissingInputFileReaderException($e->getMessage());
-            } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
+            } catch (CommonException\UnsupportedParamValueException | CommonException\UnsupportedParamException $e) {
                 throw new InvalidParamReaderException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
                 throw new ProcessTimedOutException($e->getProcess(), $e);
@@ -118,7 +126,7 @@ class VideoConverter implements VideoConverterInterface
                     __METHOD__,
                     $e->getMessage(),
                     $inputFile,
-                    $outputFile
+                    $outputFile instanceof UnescapedFileInterface ? $outputFile->getFile() : $outputFile
                 )
             );
             throw $e;

@@ -11,6 +11,7 @@ parameters:
 	    # errors when trying to produce them, understand who understand
 		- tests/unit/Video/Filter/VideoFilterChainTest.php
 		- tests/unit/Video/Adapter/FFMpegAdapterTest.php
+		- tests/unit/Video/VideoConverterTest.php
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
 	    # With PHPStan 0.10 .... don't like this one so much

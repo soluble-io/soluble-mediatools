@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.5 (2018-08-16)
+
+### Added 
+
+- `UnescapedFileInterface` to allow setting outputfile without escaping.
+- `PlatformNullFile()` can be set as `$outputFile` in `VideoConvert`.
+
 ## 0.7.4 (2018-08-16)
 
 ### Added 
@@ -14,7 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Documentation
 
 - Added multipass params, example fixed using `VideoConvertParams::withPass()`.
-
 
 ## 0.7.3 (2018-08-15)
 

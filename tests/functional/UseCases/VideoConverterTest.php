@@ -12,6 +12,7 @@ use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\Process\ProcessParams;
@@ -156,8 +157,8 @@ class VideoConverterTest extends TestCase
 
         $this->videoConvert->convert(
             $this->videoFile,
-                (new PlatformNullFile())->getNullFile(),
-                $pass1Params
+            new PlatformNullFile(),
+            $pass1Params
         );
 
         self::assertFileExists($logFile);
@@ -178,6 +179,35 @@ class VideoConverterTest extends TestCase
         unlink($logFile);
         self::assertFileExists($outputFile);
         //unlink($outputFile);
+    }
+
+    public function testConvertWithWrongPassWillError(): void
+    {
+        self::expectException(ProcessFailedException::class);
+        self::expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
+
+        $outputFile = "{$this->outputDir}/testConvertVP9Multipass.webm";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $logFile = tempnam($this->outputDir, 'ffmpeg-passlog');
+        if ($logFile === false) {
+            self::markTestIncomplete('Cannot get a temp file');
+        }
+
+        $params = (new VideoConvertParams())
+            ->withPassLogFile($logFile)
+            ->withPass(2)
+            ->withVideoCodec('libvpx-vp9')
+            ->withOutputFormat('webm');
+
+        $this->videoConvert->convert(
+            $this->videoFile,
+            new PlatformNullFile(),
+            $params
+        );
     }
 
     public function testConvertMustThrowFileNotFoundException(): void
