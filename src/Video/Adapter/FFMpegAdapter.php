@@ -169,13 +169,13 @@ class FFMpegAdapter implements ConverterAdapterInterface
     }
 
     /**
-     * @param array<int|string, string>          $arguments
-     * @param string|null                        $inputFile  if <null> will not prepend '-i inputFile' in args
+     * @param array<string,string>               $arguments        args that will be added
+     * @param null|string                        $inputFile
      * @param null|string|UnescapedFileInterface $outputFile
-     *
+     * @param array<string,string>               $prependArguments args that must be added at the beginning of the command
      * @throws InvalidArgumentException
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null): string
+    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments=[]): string
     {
         $inputArg = ($inputFile !== null && $inputFile !== '')
                         ? sprintf('-i %s', escapeshellarg($inputFile))
@@ -193,13 +193,18 @@ class FFMpegAdapter implements ConverterAdapterInterface
             ));
         }
 
-        $ffmpegCmd = trim(sprintf(
-            '%s %s %s %s',
-            $this->ffmpegConfig->getBinary(),
-            $inputArg,
-            implode(' ', $arguments),
-            $outputArg
-        ));
+        $ffmpegCmd = preg_replace(
+            '/(\ ){2,}/',
+            ' ',
+            trim(sprintf(
+                '%s %s %s %s %s',
+                $this->ffmpegConfig->getBinary(),
+                implode(' ', $prependArguments),
+                $inputArg,
+                implode(' ', $arguments),
+                $outputArg
+            ))
+        );
 
         return $ffmpegCmd;
     }

@@ -20,13 +20,14 @@ interface ConverterAdapterInterface
     public function getMappedConversionParams(VideoConvertParamsInterface $conversionParams): array;
 
     /**
-     * @param array                              $arguments
+     * @param array<string,string>               $arguments        args that will be added
      * @param null|string                        $inputFile
      * @param null|string|UnescapedFileInterface $outputFile
+     * @param array<string,string>               $prependArguments args that must be added at the beginning of the command
      *
      * @return string
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null): string;
+    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments=[]): string;
 
     public function getDefaultThreads(): ?int;
 }
