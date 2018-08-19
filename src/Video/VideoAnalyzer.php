@@ -12,7 +12,7 @@ use Soluble\MediaTools\Video\Detection\InterlaceDetect;
 use Soluble\MediaTools\Video\Detection\InterlaceDetectGuess;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\Exception\AnalyzerProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 
@@ -36,7 +36,7 @@ class VideoAnalyzer implements VideoAnalyzerInterface
      * @throws AnalyzerExceptionInterface
      * @throws AnalyzerProcessExceptionInterface
      * @throws ProcessFailedException
-     * @throws MissingInputFileReaderException
+     * @throws MissingInputFileException
      * @throws RuntimeReaderException
      */
     public function detectInterlacement(string $file, int $maxFramesToAnalyze = InterlaceDetect::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
