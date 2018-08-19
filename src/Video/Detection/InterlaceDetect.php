@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\Exception\AnalyzerProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Soluble\MediaTools\Video\Filter\IdetVideoFilter;
@@ -41,7 +41,7 @@ class InterlaceDetect
      * @throws AnalyzerExceptionInterface
      * @throws AnalyzerProcessExceptionInterface
      * @throws ProcessFailedException
-     * @throws MissingInputFileReaderException
+     * @throws MissingInputFileException
      * @throws RuntimeReaderException
      */
     public function guessInterlacing(string $file, int $maxFramesToAnalyze = self::DEFAULT_INTERLACE_MAX_FRAMES, ?ProcessParamsInterface $processParams = null): InterlaceDetectGuess
@@ -65,7 +65,7 @@ class InterlaceDetect
             $process = (new ProcessFactory($ffmpegCmd, $pp))->__invoke();
             $process->mustRun();
         } catch (FileNotFoundException | FileNotReadableException $e) {
-            throw new MissingInputFileReaderException($e->getMessage());
+            throw new MissingInputFileException($e->getMessage());
         } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
             throw new InvalidParamReaderException($e->getMessage());
         } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
