@@ -14,11 +14,14 @@ class YadifVideoFilter implements FFMpegVideoFilterInterface, VideoDeinterlacerI
     public const DEFAULT_DEINT  = 0;
 
     /** @var array<string, int> */
-    protected $options = [
+    protected $defaultOptions = [
         'mode'   => self::DEFAULT_MODE,
         'parity' => self::DEFAULT_PARITY,
         'deint'  => self::DEFAULT_DEINT,
     ];
+
+    /** @var array<string, int> */
+    protected $options = [];
 
     /**
      * @param int $mode   The interlacing mode to adopt (0, send_frame Output one frame for each frame)
@@ -27,11 +30,11 @@ class YadifVideoFilter implements FFMpegVideoFilterInterface, VideoDeinterlacerI
      */
     public function __construct(int $mode = self::DEFAULT_MODE, int $parity = self::DEFAULT_PARITY, int $deint = self::DEFAULT_DEINT)
     {
-        $this->options = [
+        $this->options = array_merge($this->defaultOptions, [
             'mode'   => $mode,
             'parity' => $parity,
             'deint'  => $deint,
-        ];
+        ]);
     }
 
     public function getFFmpegCLIValue(): string
