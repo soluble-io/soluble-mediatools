@@ -15,7 +15,7 @@ use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Exception\InfoProcessReaderExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Symfony\Component\Process\Exception as SPException;
@@ -67,7 +67,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
      * @throws InfoReaderExceptionInterface
      * @throws InfoProcessReaderExceptionInterface
      * @throws ProcessFailedException
-     * @throws MissingInputFileReaderException
+     * @throws MissingInputFileException
      * @throws RuntimeReaderException
      */
     public function getInfo(string $file): VideoInfo
@@ -80,7 +80,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
                 $process->mustRun();
                 $output = $process->getOutput();
             } catch (FileNotFoundException | FileNotReadableException $e) {
-                throw new MissingInputFileReaderException($e->getMessage());
+                throw new MissingInputFileException($e->getMessage());
             } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
                 throw new ProcessFailedException($e->getProcess(), $e);
             } catch (SPException\RuntimeException $e) {
@@ -89,7 +89,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));
             $this->logger->log(
-                ($e instanceof MissingInputFileReaderException) ? LogLevel::WARNING : LogLevel::ERROR,
+                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
                     'Video info retrieval failed \'%s\' with \'%s\'. "%s(%s)"',
                     $exceptionNs[count($exceptionNs) - 1],

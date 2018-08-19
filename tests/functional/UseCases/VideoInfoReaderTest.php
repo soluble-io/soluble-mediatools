@@ -7,7 +7,7 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 
@@ -62,7 +62,7 @@ class VideoInfoReaderTest extends TestCase
 
     public function testGetMediaInfoThrowsMissingInputFileException(): void
     {
-        self::expectException(MissingInputFileReaderException::class);
+        self::expectException(MissingInputFileException::class);
         $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 
