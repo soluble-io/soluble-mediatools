@@ -188,7 +188,7 @@ class VideoConverterTest extends TestCase
         self::expectException(ProcessFailedException::class);
         self::expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
 
-        $outputFile = "{$this->outputDir}/testConvertVP9Multipass.webm";
+        $outputFile = "{$this->outputDir}/testConvertWithWrongPassWillError.webm";
 
         if (file_exists($outputFile)) {
             unlink($outputFile);
@@ -211,6 +211,64 @@ class VideoConverterTest extends TestCase
             $params
         );
     }
+
+    public function testConvertWithInvalidPassLogFileWillError(): void
+    {
+
+        $outputFile = "{$this->outputDir}/testConvertWithInvalidPassLogFileWillError.webm";
+
+        self::expectException(ProcessFailedException::class);
+        self::expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
+
+        $logFile = $this->outputDir . '/testConvertWithInvalidLogFile-ffmpeg-passlog';
+        if (file_exists($logFile)) {
+            unlink($logFile);
+        }
+
+        $pass1Params = (new VideoConvertParams())
+            ->withPassLogFile($logFile)
+            ->withPass(1)
+            ->withVideoCodec('libvpx-vp9')
+            ->withVideoBitrate('200k') // target bitrate
+            ->withVideoMaxBitrate('250k') // max bitrate
+            ->withVideoMinBitrate('150k') // min bitrate
+            ->withVideoFilter(new YadifVideoFilter())
+            ->withThreads(0) // 0 means threads = number of cores
+            ->withSpeed(4)
+            ->withNoAudio()
+            ->withKeyframeSpacing(240)
+            ->withTileColumns(1)
+            ->withFrameParallel(1)
+            ->withPixFmt('yuv420p')
+            // Will speed up - takes only 2 seconds
+            ->withSeekStart(new SeekTime(1))
+            ->withSeekEnd(new SeekTime(3))
+            ->withOutputFormat('webm');
+
+        $this->videoConvert->convert(
+            $this->videoFile,
+            new PlatformNullFile(),
+            $pass1Params
+        );
+
+        $pass2Params = $pass1Params
+            ->withoutParam(VideoConvertParamsInterface::PARAM_NOAUDIO)
+            ->withPassLogFile($logFile . '.incorrect.log')
+            ->withSpeed(1)
+            ->withPass(2)
+            ->withAutoAltRef(1)
+            ->withLagInFrames(25)
+            ->withAudioCodec('libopus')
+            ->withAudioBitrate('96k');
+
+        $this->videoConvert->convert(
+            $this->videoFile,
+            $outputFile,
+            $pass2Params
+        );
+
+    }
+
 
     public function testConvertMustThrowFileNotFoundException(): void
     {

@@ -85,7 +85,7 @@ class FFMpegAdapter implements ConverterAdapterInterface
                 'pattern' => '-tune %s',
             ],
             VideoConvertParamsInterface::PARAM_VIDEO_FILTER => [
-                'pattern' => '-vf %s',
+                'pattern' => '-filter:v %s',
             ],
             VideoConvertParamsInterface::PARAM_OVERWRITE => [
                 'pattern' => '-y',

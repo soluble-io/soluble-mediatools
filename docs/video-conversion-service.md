@@ -182,7 +182,6 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withLagInFrames(int)`        | -lag-in-frames ◌       | 25         | vp9, use with `autoAltRef`   |
 | `withAutoAltRef(int)`         | -auto-alt-ref ◌        | 1          | vp9, use with `lagInFrames`  |
 
-
 - Audio options:
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
@@ -198,6 +197,12 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withSeekStart(SeekTime)`     | -ss ◌                  | [`SeekTime::createFromHms('0:00:01.9')`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/SeekTime.php) |   |
 | `withSeekEnd(SeekTime)`       | -to ◌                  | `new SeekTime(120.456)`                |                              |
 | `withVideoFrames(int)`        | -frames:v ◌            | 1000…      | Only ◌ frames   |
+
+- Filter related: 
+
+| Method                              | FFmpeg arg(s)  | Example(s) | Note(s)                      |
+| ----------------------------------- | -------------- | ---------- | ---------------------------- |
+| `withFilter(VideoFilterInterface)`  | -filter:v ◌    |            | See doc section about filters|
 
 
 - General process options:
@@ -237,6 +242,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 #### Filters
 
 Video filters can be set to the VideoConvertParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
+
 
 ```php
 <?php

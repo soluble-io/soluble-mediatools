@@ -109,7 +109,7 @@ class FFMpegAdapterTest extends TestCase
             ->withVideoFilter($filter1);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
-        self::assertEquals('-vf filter_1', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertEquals('-filter:v filter_1', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testWithFFMpegVideoFilterChain(): void
@@ -136,7 +136,7 @@ class FFMpegAdapterTest extends TestCase
             ->withVideoFilter($filterChain);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
-        self::assertEquals('-vf filter_1,filter_2', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertEquals('-filter:v filter_1,filter_2', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testWithNonFFMpegVideoFilterMustThrowException(): void
@@ -149,7 +149,7 @@ class FFMpegAdapterTest extends TestCase
             ->withVideoFilter($filter1);
 
         $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
-        self::assertEquals('-vf filter_1', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
+        self::assertEquals('-filter:v filter_1', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
     public function testGetCliCommand(): void

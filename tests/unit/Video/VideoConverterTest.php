@@ -72,7 +72,7 @@ class VideoConverterTest extends TestCase
         self::assertContains(' -minrate 150k ', $cmdLine);
         self::assertContains(' -c:a libopus ', $cmdLine);
         self::assertContains(' -b:a 96k ', $cmdLine);
-        self::assertContains(' -vf yadif=mode=0:parity=-1:deint=0,hqdn3d,nlmeans ', $cmdLine);
+        self::assertContains(' -filter:v yadif=mode=0:parity=-1:deint=0,hqdn3d,nlmeans ', $cmdLine);
         self::assertContains(' -threads 12 ', $cmdLine);
         self::assertContains(' -speed 8 ', $cmdLine);
         self::assertContains(' -g 240 ', $cmdLine);
