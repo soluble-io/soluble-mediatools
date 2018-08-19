@@ -25,7 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - `VideoConvertParams::withAutoAltRef()` and `withLagInFrames()` to optimize vp9.
 
-
 ## 0.7.5 (2018-08-16)
 
 ### Added 
