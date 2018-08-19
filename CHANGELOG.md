@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.7.7 (2018-08-19)
 
+### Added 
+
+- Added `ScaleFilter` for scaling videos. 
+
+### Improved
+
+- Thumbnail generation is now more performant *(seek time `-ss` is now before the `-i input file` option)*
+
 ### Changed
 
 - Internal: `FFmpegAdapter` now uses `-filter:v` instead of `-vf` for clarity.
