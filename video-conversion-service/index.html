@@ -432,6 +432,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#video-scaling" title="Video scaling" class="md-nav__link">
+    Video scaling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#video-clipping" title="Video clipping" class="md-nav__link">
     Video clipping
   </a>
@@ -635,6 +642,13 @@
           <li class="md-nav__item">
   <a href="#transcode-to-webmvp9opus" title="Transcode to webm/vp9/opus" class="md-nav__link">
     Transcode to webm/vp9/opus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-scaling" title="Video scaling" class="md-nav__link">
+    Video scaling
   </a>
   
 </li>
@@ -988,6 +1002,27 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 </tbody>
 </table>
 <ul>
+<li>Filter related: </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>FFmpeg arg(s)</th>
+<th>Example(s)</th>
+<th>Note(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>withFilter(VideoFilterInterface)</code></td>
+<td>-filter:v ◌</td>
+<td></td>
+<td>See doc section about filters</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li>General process options:</li>
 </ul>
 <table>
@@ -1150,8 +1185,12 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td>Basic denoiser</td>
 </tr>
 <tr>
-<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php"><code>NlmeansFilter</code></a></td>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php"><code>NlmeansVideoFilter</code></a></td>
 <td>Very slow but good denoiser</td>
+</tr>
+<tr>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php"><code>ScaleFilter</code></a></td>
+<td>Scaleing filter</td>
 </tr>
 </tbody>
 </table>
@@ -1298,6 +1337,38 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// see chapter about exceptions        </span>
 <span class="p">}</span> 
+</pre></div>
+
+<h4 id="video-scaling">Video scaling<a class="headerlink" href="#video-scaling" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>See also <a href="https://trac.ffmpeg.org/wiki/Scaling">ffmpeg doc</a></p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">Exception</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter\ScaleFilter</span><span class="p">;</span>
+
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
+          <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
+                <span class="k">new</span> <span class="nx">ScaleFilter</span><span class="p">(</span>
+                    <span class="c1">// $width:  as an int or any ffmpeg supported placeholder: iw*0.5, ...</span>
+                    <span class="mi">800</span><span class="p">,</span>
+                    <span class="c1">// $height:  as an int or any ffmpeg supported placeholder: ih*0.5, ...</span>
+                    <span class="s1">&#39;ih*0.5&#39;</span><span class="p">,</span>
+                    <span class="c1">// $aspect_ratio_mode (increase or decrease)</span>
+                    <span class="nx">ScaleFilter</span><span class="o">::</span><span class="na">OPTION_ASPECT_RATIO_INCREASE</span>
+                <span class="p">)</span> 
+          <span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="sd">/** @var \Soluble\MediaTools\Video\VideoConverterInterface $videoConverter */</span>
+    <span class="nv">$videoConverter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+        <span class="s1">&#39;/path/inputFile.mp4&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+        <span class="nv">$params</span>
+    <span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// see chapter about exceptions        </span>
+<span class="p">}</span>
 </pre></div>
 
 <h4 id="video-clipping">Video clipping<a class="headerlink" href="#video-clipping" title="Permanent link">&para;</a></h4>
