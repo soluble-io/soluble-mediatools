@@ -11,9 +11,10 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
+use Soluble\MediaTools\Video\Filter\ScaleFilter;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\Process\ProcessParams;
 use Soluble\MediaTools\Video\SeekTime;
@@ -66,10 +67,47 @@ class VideoConverterTest extends TestCase
             // Will speed up test
             ->withSeekStart(new SeekTime(1))
             ->withSeekEnd(new SeekTime(1.2))
+            ->withVideoFilter(new ScaleFilter(
+                320,
+                200,
+                ScaleFilter::OPTION_ASPECT_RATIO_DECREASE
+            ))
             ->withCrf(20);
 
         self::assertFileExists($this->videoFile);
         self::assertFileNotExists($outputFile);
+
+        try {
+            $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
+        } catch (ConverterExceptionInterface $e) {
+            self::fail(sprintf('Failed to convert video: %s', $e->getMessage()));
+        }
+
+        self::assertFileExists($outputFile);
+        unlink($outputFile);
+    }
+
+    public function testScaling(): void
+    {
+        $outputFile = "{$this->outputDir}/testScaling.tmp.mp4";
+
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $convertParams = (new VideoConvertParams())
+            ->withVideoCodec('libx264')
+            ->withPreset('ultrafast')
+            ->withTune('animation')
+            ->withOverwrite()
+            // Will speed up test
+            ->withSeekStart(new SeekTime(1))
+            ->withSeekEnd(new SeekTime(1.2))
+            ->withVideoFilter(new ScaleFilter(
+                'iw*.5',
+                'ih*.5'
+            ))
+            ->withCrf(20);
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
@@ -214,7 +252,6 @@ class VideoConverterTest extends TestCase
 
     public function testConvertWithInvalidPassLogFileWillError(): void
     {
-
         $outputFile = "{$this->outputDir}/testConvertWithInvalidPassLogFileWillError.webm";
 
         self::expectException(ProcessFailedException::class);
@@ -266,13 +303,11 @@ class VideoConverterTest extends TestCase
             $outputFile,
             $pass2Params
         );
-
     }
-
 
     public function testConvertMustThrowFileNotFoundException(): void
     {
-        self::expectException(MissingInputFileReaderException::class);
+        self::expectException(MissingInputFileException::class);
         $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConvertParams());
     }
 
