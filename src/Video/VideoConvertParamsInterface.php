@@ -83,7 +83,7 @@ interface VideoConvertParamsInterface extends ActionParamInterface
         self::PARAM_PASSLOGFILE,
         self::PARAM_PASS,
         self::PARAM_LAG_IN_FRAMES,
-        self::PARAM_AUTO_ALT_REF
+        self::PARAM_AUTO_ALT_REF,
     ];
 
     /**
