@@ -53,7 +53,7 @@ jobs:
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Make doc
-      php: 7.2
+      language: python
       script:
         - sudo -H pip install --upgrade pip
         - sudo -H pip install -r ./requirements.txt
