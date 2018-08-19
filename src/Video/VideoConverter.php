@@ -17,7 +17,7 @@ use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
@@ -89,7 +89,7 @@ class VideoConverter implements VideoConverterInterface
      *
      * @throws ConverterExceptionInterface        Base exception class for conversion exceptions
      * @throws ConverterProcessExceptionInterface Base exception class for process conversion exceptions
-     * @throws MissingInputFileReaderException
+     * @throws MissingInputFileException
      * @throws ProcessTimedOutException
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
@@ -104,7 +104,7 @@ class VideoConverter implements VideoConverterInterface
                 $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
                 $process->mustRun($callback);
             } catch (CommonException\FileNotFoundException | CommonException\FileNotReadableException $e) {
-                throw new MissingInputFileReaderException($e->getMessage());
+                throw new MissingInputFileException($e->getMessage());
             } catch (CommonException\UnsupportedParamValueException | CommonException\UnsupportedParamException $e) {
                 throw new InvalidParamReaderException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
@@ -119,7 +119,7 @@ class VideoConverter implements VideoConverterInterface
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));
             $this->logger->log(
-                ($e instanceof MissingInputFileReaderException) ? LogLevel::WARNING : LogLevel::ERROR,
+                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
                     'Video conversion failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
                     $exceptionNs[count($exceptionNs) - 1],
