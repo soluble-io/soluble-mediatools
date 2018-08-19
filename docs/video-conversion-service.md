@@ -284,7 +284,9 @@ Currently there's only few built-in filters available:
 | ------------------------ | ------------------------------------ | 
 | [`YadifVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php)       | Deinterlacer  | 
 | [`Hqdn3DVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php)       | Basic denoiser  | 
-| [`NlmeansFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php)       | Very slow but good denoiser  | 
+| [`NlmeansVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php)       | Very slow but good denoiser  | 
+| [`ScaleFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php)       | Scaleing filter  |
+
  
 > But it's quite easy to add yours, simply implements the [FFMpegVideoFilterInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Type/FFMpegVideoFilterInterface.php).
 > We :heart: pull request, so don't forget to share :)
@@ -444,6 +446,39 @@ try {
 } 
 
 ``` 
+
+#### Video scaling
+
+> See also [ffmpeg doc](https://trac.ffmpeg.org/wiki/Scaling)
+
+```php
+<?php
+use Soluble\MediaTools\Video\{Exception, VideoConvertParams, SeekTime};
+use Soluble\MediaTools\Video\Filter\ScaleFilter;
+
+$params = (new VideoConvertParams())
+          ->withVideoFilter(
+                new ScaleFilter(
+                    // $width:  as an int or any ffmpeg supported placeholder: iw*0.5, ...
+                    800,
+                    // $height:  as an int or any ffmpeg supported placeholder: ih*0.5, ...
+                    'ih*0.5',
+                    // $aspect_ratio_mode (increase or decrease)
+                    ScaleFilter::OPTION_ASPECT_RATIO_INCREASE
+                ) 
+          );
+                          
+try {
+    /** @var \Soluble\MediaTools\Video\VideoConverterInterface $videoConverter */
+    $videoConverter->convert(
+        '/path/inputFile.mp4', 
+        '/path/outputFile.mp4', 
+        $params
+    );
+} catch(Exception\ConverterExceptionInterface $e) {
+    // see chapter about exceptions        
+}
+```
 
 #### Video clipping
 
