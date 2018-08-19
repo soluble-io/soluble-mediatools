@@ -18,7 +18,7 @@ use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
-use Soluble\MediaTools\Video\Exception\MissingInputFileReaderException;
+use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\MissingTimeException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
@@ -68,17 +68,17 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             throw new MissingTimeException('Missing seekTime parameter');
         }
 
+        // TIME params are separated from the rest, so we can inject them
+        // before input file
+        $timeParams = (new VideoConvertParams())->withSeekStart(
+            $thumbParams->getParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)
+        );
+
         $conversionParams = (new VideoConvertParams());
 
         if ($adapter->getDefaultThreads() !== null) {
             $conversionParams->withThreads($adapter->getDefaultThreads());
         }
-
-        // TIME must be the first !!!
-
-        $conversionParams = $conversionParams->withSeekStart(
-            $thumbParams->getParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)
-        );
 
         // Only one frame
         $conversionParams = $conversionParams->withVideoFrames(1);
@@ -100,7 +100,13 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         }
 
         $arguments = $adapter->getMappedConversionParams($conversionParams);
-        $ffmpegCmd = $adapter->getCliCommand($arguments, $videoFile, $thumbnailFile);
+
+        $ffmpegCmd = $adapter->getCliCommand(
+            $arguments,
+            $videoFile,
+            $thumbnailFile,
+            $adapter->getMappedConversionParams($timeParams)
+        );
 
         $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
 
@@ -110,7 +116,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
     /**
      * @throws ConverterExceptionInterface        Base exception class for conversion exceptions
      * @throws ConverterProcessExceptionInterface Base exception class for process conversion exceptions
-     * @throws MissingInputFileReaderException
+     * @throws MissingInputFileException
      * @throws MissingTimeException
      * @throws ProcessTimedOutException
      * @throws ProcessFailedException
@@ -127,7 +133,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
                 $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
                 $process->mustRun($callback);
             } catch (FileNotFoundException | FileNotReadableException $e) {
-                throw new MissingInputFileReaderException($e->getMessage());
+                throw new MissingInputFileException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
                 throw new InvalidParamReaderException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
@@ -142,7 +148,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));
             $this->logger->log(
-                ($e instanceof MissingInputFileReaderException) ? LogLevel::WARNING : LogLevel::ERROR,
+                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
                     'Video thumbnailing failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
                     $exceptionNs[count($exceptionNs) - 1],
