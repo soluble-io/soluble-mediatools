@@ -98,7 +98,17 @@ class VideoConvertParams implements VideoConvertParamsInterface
     }
 
     /**
-     * Set compression level (Constant Rate Factor).
+     * The Constant Rate Factor (CRF) setting for the x264, x265 and vp9.
+     *
+     * encoders.
+     *
+     * - h264: You can set the values between 0 and 51, where lower values would result in better quality,
+     *         at the expense of higher file sizes. Higher values mean more compression,
+     *         but at some point you will notice the quality degradation.
+     *         For x264, sane values are between 18 and 28. The default is 23, so you can use this as a starting point.
+     *
+     * - vp9:  The CRF value can be from 0–63. Lower values mean better quality. Recommended values range from 15–35,
+     *         with 31 being recommended for 1080p HD video
      */
     public function withCrf(int $crf): self
     {
