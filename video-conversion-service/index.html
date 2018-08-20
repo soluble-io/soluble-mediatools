@@ -1378,10 +1378,14 @@ for the x264, x265 and vp9 encoders.</p><ul><li><p><strong>h26x:</strong> You ca
         at the expense of higher file sizes. Higher values mean more compression,
         but at some point you will notice the quality degradation.
         For x264, sane values are between 18 and 28. The default is 23, so you can use this as a starting point.</p></li><li><p><strong>vpx:</strong>  The CRF value can be from 0–63. Lower values mean better quality. Recommended values range from 15–35,
-        with 31 being recommended for 1080p HD video</p></li></ul><blockquote><p><em>Please also be sure to understand what rate control mode 
+        with 31 being recommended for 1080p HD video</p></li></ul><blockquote><p><em>Please also be sure to understand what rate control modes are 
 (you can see <a href="https://slhck.info/video/2017/03/01/rate-control.html">here</a> 
-and <a href="https://slhck.info/video/2017/02/24/crf-guide.html">here</a> are and how to choose them.</em>  </p></blockquote></details><h4 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h4>
-<p>Conversions are heavy dudes, increase the FfmpegConfig threads parameter and try till you're happy.</p>
+and <a href="https://slhck.info/video/2017/02/24/crf-guide.html">here</a> and how to choose the one you need.</em>  </p></blockquote></details><h4 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h4>
+<p>Conversions are heavy dudes, things that can help:</p>
+<ul>
+<li>Increasing the FfmpegConfig threads parameter can help for some tasks.</li>
+<li>Order of parameters can help. i.e: if you need to clip, makes it before applying filters. </li>
+</ul>
 <h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
 <h4 id="transcode-to-mp4x264aac">Transcode to <code>mp4/x264/aac</code><a class="headerlink" href="#transcode-to-mp4x264aac" title="Permanent link">&para;</a></h4>
 <blockquote>
