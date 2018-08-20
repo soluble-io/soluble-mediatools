@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.8 (2018-xx-xx)
+
+### Added
+
+
+
+### Documentation
+
+- Added recipe for conversion with interlace detection
+- Added chapter about compression (cbr, vbr)
+
 ## 0.7.7 (2018-08-19)
 
 ### Added 
