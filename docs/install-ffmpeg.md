@@ -1,6 +1,4 @@
-# Install
-
-## FFMpeg
+## FFMpeg installation
 
 ### Linux
 
