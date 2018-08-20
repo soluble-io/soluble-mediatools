@@ -106,7 +106,7 @@ service initialization.*
     );
     
     $process->start();
-
+    
     foreach ($process as $type => $data) {
         if ($process::OUT === $type) {
             echo "\nRead from stdout: ".$data;
@@ -117,6 +117,7 @@ service initialization.*
     ```
     Have a look to the [symfony/process documentation](https://symfony.com/doc/current/components/process.html) for more recipes. 
 
+       
 #### Parameters
  
 The [`Video\VideoConvertParams`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParams.php) 
@@ -169,7 +170,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 | `withVideoBitrate(string)`    | -b:v ◌                 | 750k,2M…   | constant bit rate            |
 | `withVideoMinBitrate(string)` | -minrate ◌             | 750k,2M…   | min variable bitrate         |
 | `withVideoMaxBitrate(string)` | -maxrate ◌             | 750k,2M…   | max variable bitrate         |
-| `withCrf(int)`                | -crf ◌                 | 32,…       | constant rate compression    |
+| `withCrf(int)`                | -crf ◌                 | 32,…       | constant rate factor         |
 | `withStreamable()`            | -movflags +faststart   |            | *mp4 container only*         |
 | `withPixFmt(string)`          | -pix_fmt ◌             | yuv420p    | Default '*no change*'        |
 | `withQuality(string)`         | -quality ◌             | good,medium… |  |
@@ -237,6 +238,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 > To get the latest list of built-ins, see the 
 > [VideoConvertParamsInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php) and 
 > [FFMpegAdapter](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php) sources.
+
 
 
 #### Filters
@@ -357,6 +359,58 @@ try {
 }
        
 ``` 
+
+### Notes
+
+#### Compression
+
+Achieving a good level of compression while preserving quality is not that easy.  
+
+Compression techniques will depend on the codec (h264, av1, vp9), the purpose (archive, streaming, vod...) 
+and the size *(and fps)* of the original content. The mediatools `VideoConverter` is agnostic
+and does not offer any help, you'll need to set up your own set of parameters.   
+
+There's a lot of ffmpeg recipes on internet that you can easily port, some interesting sources:
+
+- FFMpeg [VP9 encoding](https://trac.ffmpeg.org/wiki/Encode/VP9)
+- FFMpeg [H.264 encoding](https://trac.ffmpeg.org/wiki/Encode/H.264)
+- Google [VOD VP9 setting](https://developers.google.com/media/vp9/settings/vod/) 
+
+ 
+???+ tip "Variable or Constant Bitrate ?  Or both ?"
+    
+    > *tl;dr*: VBR and CBR can be set together to ensure max quality within a target bitrate (streamability++).    
+        
+    **Variable Bitrate**
+
+    Variable bitrate (VBR) ensure that you’d achieve the lowest possible file size at the highest possible 
+    quality under the given constraints.  
+    
+    Use the `VideoConvertParams::withBitrate()`, `withMaxBitrate()` and `withMinBitrate()` methods
+    to set what you want to achieve. But be warned bitrates must not be set blindly, to be effective 
+    they must be choosen in respect to video dimensions and fps. See [VOD VP9 setting](https://developers.google.com/media/vp9/settings/vod/). 
+        
+    **Constant Bitrate**
+    
+    The `VideoConvertParams::withCrf()` will set the Constant Rate Factor (CRF) setting 
+    for the x264, x265 and vp9 encoders.
+    
+    - **h26x:** You can set the values between 0 and 51, where lower values would result in better quality,
+            at the expense of higher file sizes. Higher values mean more compression,
+            but at some point you will notice the quality degradation.
+            For x264, sane values are between 18 and 28. The default is 23, so you can use this as a starting point.
+    
+    - **vpx:**  The CRF value can be from 0–63. Lower values mean better quality. Recommended values range from 15–35,
+            with 31 being recommended for 1080p HD video
+            
+    > *Please also be sure to understand what rate control mode 
+    > (you can see [here](https://slhck.info/video/2017/03/01/rate-control.html) 
+    > and [here](https://slhck.info/video/2017/02/24/crf-guide.html) are and how to choose them.*  
+        
+
+#### Performance
+
+Conversions are heavy dudes, increase the FfmpegConfig threads parameter and try till you're happy.
 
 ### Recipes
 
