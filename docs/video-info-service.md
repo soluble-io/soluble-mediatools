@@ -29,8 +29,7 @@ $height   = $videoInfo->getHeight();
 
 ### Requirements
 
-You'll need to have [ffprobe](/install-ffmpeg) installed on your system.
-
+You'll need to have fprobe [installed](./install-ffmpeg.md) on your system.
 
 ### Initialization
 
