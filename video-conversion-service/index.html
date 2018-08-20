@@ -410,6 +410,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#notes" title="Notes" class="md-nav__link">
+    Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compression" title="Compression" class="md-nav__link">
+    Compression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" title="Performance" class="md-nav__link">
+    Performance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#recipes" title="Recipes" class="md-nav__link">
     Recipes
   </a>
@@ -615,6 +642,33 @@
           <li class="md-nav__item">
   <a href="#exceptions" title="Exceptions" class="md-nav__link">
     Exceptions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" title="Notes" class="md-nav__link">
+    Notes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compression" title="Compression" class="md-nav__link">
+    Compression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" title="Performance" class="md-nav__link">
+    Performance
   </a>
   
 </li>
@@ -865,7 +919,7 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td><code>withCrf(int)</code></td>
 <td>-crf ◌</td>
 <td>32,…</td>
-<td>constant rate compression</td>
+<td>constant rate factor</td>
 </tr>
 <tr>
 <td><code>withStreamable()</code></td>
@@ -1256,6 +1310,30 @@ alternatively you can also :</p>
 <span class="p">}</span>
 </pre></div>
 
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<h4 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h4>
+<p>Achieving a good level of compression while preserving quality is not that easy.  </p>
+<p>Compression techniques will depend on the codec (h264, av1, vp9), the purpose (archive, streaming, vod...) 
+and the size <em>(and fps)</em> of the original content. The mediatools <code>VideoConverter</code> is agnostic
+and does not offer any help, you'll need to set up your own set of parameters.   </p>
+<p>There's a lot of ffmpeg recipes on internet that you can easily port, some interesting sources:</p>
+<ul>
+<li>FFMpeg <a href="https://trac.ffmpeg.org/wiki/Encode/VP9">VP9 encoding</a></li>
+<li>FFMpeg <a href="https://trac.ffmpeg.org/wiki/Encode/H.264">H.264 encoding</a></li>
+<li>Google <a href="https://developers.google.com/media/vp9/settings/vod/">VOD VP9 setting</a> </li>
+</ul>
+<details class="tip" open="open"><summary>Variable or Constant Bitrate ?  Or both ?</summary><blockquote><p><em>tl;dr</em>: VBR and CBR can be set together to ensure max quality within a target bitrate (streamability++).    </p></blockquote><p><strong>Variable Bitrate</strong></p><p>Variable bitrate (VBR) ensure that you’d achieve the lowest possible file size at the highest possible 
+quality under the given constraints.  </p><p>Use the <code>VideoConvertParams::withBitrate()</code>, <code>withMaxBitrate()</code> and <code>withMinBitrate()</code> methods
+to set what you want to achieve. But be warned bitrates must not be set blindly, to be effective 
+they must be choosen in respect to video dimensions and fps. See <a href="https://developers.google.com/media/vp9/settings/vod/">VOD VP9 setting</a>. </p><p><strong>Constant Bitrate</strong></p><p>The <code>VideoConvertParams::withCrf()</code> will set the Constant Rate Factor (CRF) setting 
+for the x264, x265 and vp9 encoders.</p><ul><li><p><strong>h26x:</strong> You can set the values between 0 and 51, where lower values would result in better quality,
+        at the expense of higher file sizes. Higher values mean more compression,
+        but at some point you will notice the quality degradation.
+        For x264, sane values are between 18 and 28. The default is 23, so you can use this as a starting point.</p></li><li><p><strong>vpx:</strong>  The CRF value can be from 0–63. Lower values mean better quality. Recommended values range from 15–35,
+        with 31 being recommended for 1080p HD video</p></li></ul><blockquote><p><em>Please also be sure to understand what rate control mode 
+(you can see <a href="https://slhck.info/video/2017/03/01/rate-control.html">here</a> 
+and <a href="https://slhck.info/video/2017/02/24/crf-guide.html">here</a> are and how to choose them.</em>  </p></blockquote></details><h4 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h4>
+<p>Conversions are heavy dudes, increase the FfmpegConfig threads parameter and try till you're happy.</p>
 <h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
 <h4 id="transcode-to-mp4x264aac">Transcode to <code>mp4/x264/aac</code><a class="headerlink" href="#transcode-to-mp4x264aac" title="Permanent link">&para;</a></h4>
 <blockquote>

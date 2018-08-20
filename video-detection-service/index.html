@@ -424,6 +424,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#recipes" title="Recipes" class="md-nav__link">
+    Recipes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convert-with-deinterlace-detection" title="Convert with deinterlace detection" class="md-nav__link">
+    Convert with deinterlace detection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
         <li class="md-nav__item">
           <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
@@ -525,6 +545,26 @@
           <li class="md-nav__item">
   <a href="#exceptions" title="Exceptions" class="md-nav__link">
     Exceptions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recipes" title="Recipes" class="md-nav__link">
+    Recipes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convert-with-deinterlace-detection" title="Convert with deinterlace detection" class="md-nav__link">
+    Convert with deinterlace detection
   </a>
   
 </li>
@@ -641,7 +681,8 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
         <span class="s1">&#39;/path/input.mov&#39;</span><span class="p">,</span>
         <span class="c1">// Optional:</span>
         <span class="c1">//   $maxFramesToAnalyze, default: 1000</span>
-        <span class="nv">$maxFramesToAnalyze</span> <span class="o">=</span> <span class="mi">200</span>
+        <span class="c1">//   (at 25fps -&gt; 40 seconds) </span>
+        <span class="nv">$maxFramesToAnalyze</span> <span class="o">=</span> <span class="mi">1000</span>
     <span class="p">);</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">AnalyzerExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
@@ -706,6 +747,49 @@ alternatively you can also :</p>
     <span class="c1">// - VE\RuntimeException</span>
     <span class="c1">// - VE\InvalidParamException (should not happen)</span>
 <span class="p">}</span>
+</pre></div>
+
+<h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
+<h4 id="convert-with-deinterlace-detection">Convert with deinterlace detection<a class="headerlink" href="#convert-with-deinterlace-detection" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter\</span><span class="p">{</span><span class="nx">VideoFilterChain</span><span class="p">,</span> <span class="nx">Hqdn3DVideoFilter</span><span class="p">,</span> <span class="nx">YadifVideoFilter</span><span class="p">};</span>
+
+<span class="sd">/** @var VideoAnalyzer $analyzer */</span>
+
+<span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
+            <span class="s1">&#39;/path/input_video.mov&#39;</span><span class="p">,</span>
+            <span class="c1">// $max_frames_to_analyze:</span>
+            <span class="c1">//  - Less is faster... but let&#39;s assume some older</span>
+            <span class="c1">//    videos starts with black screen... 1500 at </span>
+            <span class="c1">//    25fps = 60 seconds</span>
+            <span class="mi">1500</span>
+<span class="p">);</span>
+
+<span class="nv">$convertParams</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">\Soluble\MediaTools\Video\VideoConvertParams</span><span class="p">())</span>
+                    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libvpx-vp9&#39;</span><span class="p">)</span>
+                    <span class="o">-&gt;</span><span class="na">withVideoBitrate</span><span class="p">(</span><span class="s1">&#39;750k&#39;</span><span class="p">);</span>
+
+<span class="c1">// Add the deint and denoise filters only if 40% frames have been</span>
+<span class="c1">// detected as interlaced</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$interlaceGuess</span><span class="o">-&gt;</span><span class="na">isInterlaced</span><span class="p">(</span><span class="nv">$threshold</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$convertParams</span> <span class="o">=</span> <span class="nv">$convertParams</span><span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
+        <span class="k">new</span> <span class="nx">VideoFilterChain</span><span class="p">([</span>
+            <span class="c1">// This will deinterlace</span>
+            <span class="k">new</span> <span class="nx">YadifVideoFilter</span><span class="p">(),</span>
+            <span class="c1">// This will slightly denoise </span>
+            <span class="k">new</span> <span class="nx">Hqdn3DVideoFilter</span><span class="p">()</span>
+        <span class="p">])</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span> 
+    <span class="nv">$convertParams</span>
+<span class="p">);</span>
 </pre></div>
                 
                   
