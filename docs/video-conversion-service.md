@@ -401,14 +401,17 @@ There's a lot of ffmpeg recipes on internet that you can easily port, some inter
     - **vpx:**  The CRF value can be from 0–63. Lower values mean better quality. Recommended values range from 15–35,
             with 31 being recommended for 1080p HD video
             
-    > *Please also be sure to understand what rate control mode 
+    > *Please also be sure to understand what rate control modes are 
     > (you can see [here](https://slhck.info/video/2017/03/01/rate-control.html) 
-    > and [here](https://slhck.info/video/2017/02/24/crf-guide.html) are and how to choose them.*  
+    > and [here](https://slhck.info/video/2017/02/24/crf-guide.html) and how to choose the one you need.*  
         
 
 #### Performance
 
-Conversions are heavy dudes, increase the FfmpegConfig threads parameter and try till you're happy.
+Conversions are heavy dudes, things that can help:
+ 
+- Increasing the FfmpegConfig threads parameter can help for some tasks.
+- Order of parameters can help. i.e: if you need to clip, makes it before applying filters. 
 
 ### Recipes
 
