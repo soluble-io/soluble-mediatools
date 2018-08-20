@@ -16,7 +16,7 @@ with clear exception messages and ensure that substitution is possible when you 
 
 Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.
 
-      
+     
 ## Status
 
 Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional 
