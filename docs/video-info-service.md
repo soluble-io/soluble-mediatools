@@ -1,7 +1,7 @@
 path: blob/master/src
 source: Video/VideoInfoReader.php
 
-The ==Video\VideoInfoReader== service acts as a wrapper over **ffprobe** and return information about a video file.
+The ==VideoInfoReader service== acts as a wrapper over **ffprobe** and return information about a video file.
   
 ```php
 <?php
@@ -33,7 +33,7 @@ You'll need to have fprobe [installed](./install-ffmpeg.md) on your system.
 
 ### Initialization
 
-The [Video\VideoInfoReader](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php) 
+[VideoInfoReader](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php) 
 requires an [`FFProbeConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php) 
 object as first parameter. 
 This is where you set the location of the ffprobe binary, the number of threads you allow for conversions

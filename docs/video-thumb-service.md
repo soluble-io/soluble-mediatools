@@ -1,7 +1,7 @@
 path: blob/master/src
 source: Video/VideoThumbGenerator.php
 
-The ==Video\VideoThumbGenerator== service acts as a wrapper over ffmpeg and
+The ==VideoThumbGenerator service== acts as a wrapper over ffmpeg and
 deal with video thumbnail creation. 
 
 It exposes an immutable api for thumbnail generation parameters and attempt to make 
@@ -40,8 +40,9 @@ You'll need to have ffmpeg [installed](./install-ffmpeg.md) on your system.
 
 ### Initialization
 
-The [Video\VideoThumbGenerator](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php)
-requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
+The [VideoThumbGenerator](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php)
+requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) 
+object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
 
@@ -72,7 +73,7 @@ $converter = new VideoThumbGenerator(
 ??? tip "Tip: initialize in a container (psr-11)" 
     It's a good idea to register services in a container. 
     Depending on available framework integrations, you may have a look to the 
-    [`Video\VideoThumbGeneratorFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php)
+    [`VideoThumbGeneratorFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php)
     and/or [`FFMpegConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php) to get an example based on a psr-11 compatible container.
     See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
                
@@ -80,8 +81,8 @@ $converter = new VideoThumbGenerator(
 
 #### Thumbnailing
  
-The `Video\VideoThumbGenerator` offers a quick and simple `makeThumbnail()` method in which you specify the input/output files
-as well as the thumb params. 
+Typically you'll use the `VideoThumbGenerator::makeThumbnail()` method in which you specify the input/output files
+as well as the thumbnail params. 
 
 ```php
 <?php

@@ -1,7 +1,7 @@
 path: blob/master/src
 source: Video/VideoAnalyzer.php
 
-The ==Video\VideoAnalyzer== service acts as a wrapper over ffmpeg and will analyze a video stream. 
+The ==VideoAnalyzer service== acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the `Video\VideoInfoReader`) but really
 reads the video to infer some characteristics (currently only interlace detection is implemented...). 
 
@@ -41,7 +41,7 @@ You'll need to have ffmpeg [installed](./install-ffmpeg.md) on your system.
 
 ### Initialization
 
-The [Video\VideoAnalyzer](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php) 
+The [VideoAnalyzer](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php) 
 requires an [`FFMpegConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php) object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible ==logger==. 
@@ -90,7 +90,6 @@ use Soluble\MediaTools\Video\VideoAnalyzer;
 
 $analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
 
-    
 try {    
     $interlaceGuess = $analyzer->detectInterlacement(
         '/path/input.mov',
