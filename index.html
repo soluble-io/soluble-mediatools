@@ -340,9 +340,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-code-example" title="Basic code example" class="md-nav__link">
-    Basic code example
+  <a href="#implemented-services" title="Implemented services" class="md-nav__link">
+    Implemented services
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#videovideoconverter" title="Video\VideoConverter" class="md-nav__link">
+    Video\VideoConverter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#videoinforeader" title="VideoInfoReader" class="md-nav__link">
+    VideoInfoReader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#videothumbgenerator" title="VideoThumbGenerator" class="md-nav__link">
+    VideoThumbGenerator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#videoanalyzer" title="VideoAnalyzer" class="md-nav__link">
+    VideoAnalyzer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -361,8 +395,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" title="Features" class="md-nav__link">
-    Features
+  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
+    Project philosophy
   </a>
   
 </li>
@@ -555,9 +589,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-code-example" title="Basic code example" class="md-nav__link">
-    Basic code example
+  <a href="#implemented-services" title="Implemented services" class="md-nav__link">
+    Implemented services
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#videovideoconverter" title="Video\VideoConverter" class="md-nav__link">
+    Video\VideoConverter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#videoinforeader" title="VideoInfoReader" class="md-nav__link">
+    VideoInfoReader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#videothumbgenerator" title="VideoThumbGenerator" class="md-nav__link">
+    VideoThumbGenerator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#videoanalyzer" title="VideoAnalyzer" class="md-nav__link">
+    VideoAnalyzer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -576,8 +644,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" title="Features" class="md-nav__link">
-    Features
+  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
+    Project philosophy
   </a>
   
 </li>
@@ -623,84 +691,116 @@ with clear exception messages and ensure that substitution is possible when you 
 <em>(SOLID friendly)</em>.   </p>
 <p>Under the hood, it relies on the battle-tested <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a>, its only dependency.</p>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
-<p>Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional 
+<p>Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
 tests to ensure a smooth experience. But <strong>this project is young</strong> and would ❤️ to meet new contributors !</p>
-<details class="info" open="open"><summary>Note for developers</summary><ul><li><p>Mediatools is an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md">opensource</a> PHP 7.1+ library and <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> pull requests and <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md">contributors</a>.     </p></li><li><p>Mediatools will preferably use PSR standards. It currently allows injection of 
-  any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
-  (PSR-7 for video thumbnailing is under consideration).     </p></li><li><p>Mediatools likes chainability when possible, but completely forbid the use of fluent interfaces in favour
-  of immutable api (like PSR-7).  </p></li><li><p>Customization can generally be done easily as the project try to respect subsitution 
-  principles as much as possible. In most cases, you can swap implementations as you like.</p></li><li><p>Mediatools versions adheres to <a href="http://semver.org/">semantic versioning</a>. 
-  No bc-break outside of major version releases and we keep a <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md">changelog</a>.  </p></li><li><p>Quality assurance is guaranteed through unit and integration/functional tests, 
-  <a href="https://github.com/phpstan/phpstan">phpstan</a> and some php-cs sniffs. 
-  Travis is used as continuous integration server.  </p></li><li><p>Mediatools is currently released as a monolithic repository, but once more
-  diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
-  can be easily split into multiple repositories without affecting existing projects.</p></li><li><p>Note that information and thumbnail services can be used in realtime but conversions should be 
-  used with a job queue. Conversions are heavy.    </p></li></ul></details><h2 id="basic-code-example">Basic code example<a class="headerlink" href="#basic-code-example" title="Permanent link">&para;</a></h2>
+<h2 id="implemented-services">Implemented services<a class="headerlink" href="#implemented-services" title="Permanent link">&para;</a></h2>
+<h3 id="videovideoconverter">Video\VideoConverter<a class="headerlink" href="#videovideoconverter" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>Look at the specific service documentation for more info.</p>
+<p>Full doc: <a href="video-conversion-service/">here</a></p>
 </blockquote>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
 
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFProbeConfig</span><span class="p">,</span> <span class="nx">FFMpegConfig</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\</span><span class="p">{</span><span class="nx">InfoReaderExceptionInterface</span><span class="p">,</span> <span class="nx">ConverterExceptionInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoInfoReader</span><span class="p">,</span> <span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">VideoConverter</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
-<span class="nv">$file</span> <span class="o">=</span> <span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">;</span>
+<span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>    
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>                  
+</span>
+<span class="k">try</span> <span class="p">{</span>    
+<span class="hll">    <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+</span><span class="hll">        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+</span><span class="hll">        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+</span><span class="hll">        <span class="nv">$params</span>
+</span><span class="hll">    <span class="p">);</span>    
+</span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// See chapter about exception !!!    </span>
+<span class="p">}</span>
+</pre></div>
 
-<span class="c1">// QUERYING</span>
+<h3 id="videoinforeader">VideoInfoReader<a class="headerlink" href="#videoinforeader" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Full doc: <a href="video-info-service/">here</a></p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 
 <span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
+    <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see the chapter about exceptions</span>
+    <span class="c1">// see below for exceptions</span>
 <span class="p">}</span>
 
-<span class="k">echo</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+<span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+<span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+<span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+<span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
 
-<span class="c1">// CONVERSION</span>
+<span class="c1">// Or alternatively</span>
+<span class="p">[</span><span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="nv">$width</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span> <span class="o">=&gt;</span> <span class="nv">$height</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDimensions</span><span class="p">();</span>
+</pre></div>
 
-<span class="nv">$conversionService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+<h3 id="videothumbgenerator">VideoThumbGenerator<a class="headerlink" href="#videothumbgenerator" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Full doc: <a href="video-thumb-service/">here</a></p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
 
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="nv">$file</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/output.mp4&#39;</span><span class="p">,</span>
-        <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
-             <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>    
-             <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
-             <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
-             <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
-                 <span class="k">new</span> <span class="nx">Filter\Hqdn3DVideoFilter</span><span class="p">()</span>
-             <span class="p">)</span>
+<span class="nv">$generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
+<span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span>
+</span>
+<span class="k">try</span> <span class="p">{</span>    
+<span class="hll">    <span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
+</span><span class="hll">        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+</span><span class="hll">        <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
+</span><span class="hll">        <span class="nv">$params</span>
+</span><span class="hll">    <span class="p">);</span>    
+</span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// See chapter about exception !!!    </span>
+<span class="p">}</span>
+</pre></div>
+
+<h3 id="videoanalyzer">VideoAnalyzer<a class="headerlink" href="#videoanalyzer" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Full doc: <a href="video-detection-service/">here</a></p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
+
+<span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+
+
+<span class="k">try</span> <span class="p">{</span>    
+    <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
+        <span class="s1">&#39;/path/input.mov&#39;</span><span class="p">,</span>
+        <span class="c1">// Optional:</span>
+        <span class="c1">//   $maxFramesToAnalyze, default: 1000</span>
+        <span class="nv">$maxFramesToAnalyze</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see the chapter about exceptions</span>
+
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">AnalyzerExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
 
-<span class="c1">// THUMBNAILING</span>
-
-
-<span class="nv">$thumbService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
-
-
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$thumbService</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
-            <span class="nv">$file</span><span class="p">,</span> 
-            <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
-            <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
-                 <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.123</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">withQualityScale</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
-                     <span class="k">new</span> <span class="nx">Filter\NlmeansVideoFilter</span><span class="p">()</span>
-                 <span class="p">)</span>
-        <span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-
-<span class="p">}</span>
+<span class="nv">$interlaced</span> <span class="o">=</span> <span class="nv">$interlaceGuess</span><span class="o">-&gt;</span><span class="na">isInterlaced</span><span class="p">(</span>
+    <span class="c1">// Optional: </span>
+    <span class="c1">//  $threshold, default 0.25 (if &gt;=25% interlaced frames, then true) </span>
+    <span class="mf">0.25</span>
+<span class="p">);</span>
 </pre></div>
 
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
@@ -714,18 +814,18 @@ alternatively have a look to the <a href="https://github.com/soluble-io/soluble-
 <div class="codehilite"><pre><span></span>$ composer require soluble/mediatools
 </pre></div>
 
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>Video services:</p>
-</blockquote>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-conversion-service">Video\VideoConverter</a> for conversions, transcoding,
-  video filters (deinterlace, denoise), audio conversions, video clipping...</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-info-service">Video\VideoInfoReader</a> to query video metadata (dimensions, frames...) </li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-thumb-service">Video\VideoThumbGenerator</a> to make thumbnails of a video.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="/video-detection-service">Video\VideoAnalyzer</a> analyze video stream and use inference to detected <a href="https://en.wikipedia.org/wiki/Interlaced_video">interlacement</a> <em>(BFF, TFF)</em> or <a href="https://en.wikipedia.org/wiki/Progressive_scan">progressive</a> enconding in videos. More to come.  </li>
-</ul>
-<h2 id="alternatives">Alternative(s)<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
+<h2 id="project-philosophy">Project philosophy<a class="headerlink" href="#project-philosophy" title="Permanent link">&para;</a></h2>
+<details class="info" open="open"><summary>Note for developers</summary><ul><li><p>Mediatools is an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md">opensource</a> PHP 7.1+ library and <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> pull requests and <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md">contributors</a>.     </p></li><li><p>Mediatools will preferably use PSR standards. It currently allows injection of 
+  any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
+  (PSR-7 for video thumbnailing is under consideration).     </p></li><li><p>Mediatools likes chainability when possible, but completely forbid the use of fluent interfaces in favour
+  of immutable api (like PSR-7).  </p></li><li><p>Customization can generally be done easily as the project try to respect subsitution 
+  principles as much as possible. In most cases, you can swap implementations as you like.</p></li><li><p>Mediatools versions adheres to <a href="http://semver.org/">semantic versioning</a>. 
+  No bc-break outside of major version releases and we keep a <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md">changelog</a>.  </p></li><li><p>Quality assurance is guaranteed through unit and integration/functional tests, 
+  <a href="https://github.com/phpstan/phpstan">phpstan</a> and some php-cs sniffs. 
+  Travis is used as continuous integration server.  </p></li><li><p>Mediatools is currently released as a monolithic repository, but once more
+  diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
+  can be easily split into multiple repositories without affecting existing projects.</p></li><li><p>Note that information and thumbnail services can be used in realtime but conversions should be 
+  used with a job queue. Conversions are heavy.    </p></li></ul></details><h2 id="alternatives">Alternative(s)<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://github.com/PHP-FFMpeg/PHP-FFMpeg">https://github.com/PHP-FFMpeg/PHP-FFMpeg</a></li>
 </ul>
