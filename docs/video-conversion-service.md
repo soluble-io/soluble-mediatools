@@ -1,11 +1,13 @@
 path: blob/master/src
 source: Video/VideoConverter.php
 
-The ==Video\VideoConverter== acts as a wrapper over ffmpeg and
-helps with video conversions, clipping, filters... It relies on the symfony/process 
-component, exposes an immutable api for conversion parameters and attempt to make 
-debugging easier with clean exceptions. 
-You can also inject any psr-3 compatible logger if you don't want to log issues by yourself.   
+The ==Video\VideoConverter== service acts as a wrapper over ffmpeg and
+helps with video conversions, clipping, filters, scaling... 
+
+It exposes an immutable api for conversion parameters and attempt to make 
+debugging easier with clean exceptions. You can also inject any psr-3 compatible 
+logger if you don't want to log issues by yourself.
+   
 
 ```php hl_lines="8 9 10 11 14 15 16 17 18"
 <?php

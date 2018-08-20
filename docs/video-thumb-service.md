@@ -1,11 +1,12 @@
 path: blob/master/src
 source: Video/VideoThumbGenerator.php
 
-The ==Video\VideoThumbGenerator== acts as a wrapper over ffmpeg and
-deal with video thumbnail creation. It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
-component, exposes an immutable api for thumbnailing parameters and attempt to make debugging
-easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
-to log issues by yourself.    
+The ==Video\VideoThumbGenerator== service acts as a wrapper over ffmpeg and
+deal with video thumbnail creation. 
+
+It exposes an immutable api for thumbnail generation parameters and attempt to make 
+debugging easier with clean exceptions. You can also inject any psr-3 compatible 
+logger if you don't want to log issues by yourself.
     
 
 ```php hl_lines="8 9 12 13 14 15 16"

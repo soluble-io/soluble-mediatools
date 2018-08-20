@@ -1,14 +1,9 @@
 path: blob/master/src
 source: Video/VideoAnalyzer.php
 
-The ==Video\VideoAnalyzer== acts as a wrapper over ffmpeg and will analyze a video stream. 
+The ==Video\VideoAnalyzer== service acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the `Video\VideoInfoReader`) but really
-reads the video to infer some characteristics (currently only interlacement detection is implemented...). 
-
-It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
-component and attempt to make debugging
-easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
-to log issues by yourself.    
+reads the video to infer some characteristics (currently only interlace detection is implemented...). 
 
    
 ```php

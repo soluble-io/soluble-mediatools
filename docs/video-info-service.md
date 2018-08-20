@@ -1,11 +1,7 @@
 path: blob/master/src
 source: Video/VideoInfoReader.php
 
-The ==Video\VideoInfoReader== acts as a wrapper over ffprobe and return information about a video file.
-
-It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
-component and attempt to make debugging easier with clean exceptions. You can also inject any psr-3 compatible 
-logger if you don't want to log issues by yourself.    
+The ==Video\VideoInfoReader== service acts as a wrapper over **ffprobe** and return information about a video file.
   
 ```php
 <?php
