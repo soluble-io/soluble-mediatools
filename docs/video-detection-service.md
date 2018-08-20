@@ -40,6 +40,10 @@ $interlaced = $interlaceGuess->isInterlaced(
 
 ``` 
 
+### Requirements
+
+You'll need to have [ffmpeg](/install-ffmpeg) installed on your system.
+
 ### Initialization
 
 The [Video\VideoAnalyzer](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php) 

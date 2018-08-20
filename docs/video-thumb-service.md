@@ -35,7 +35,7 @@ try {
 
 ### Requirements
 
-You'll need to have ffmpeg installed on your system.
+You'll need to have [ffmpeg](/install-ffmpeg) installed on your system.
 
 ### Initialization
 

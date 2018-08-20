@@ -22,6 +22,8 @@ nav:
       - 'InfoReader': 'video-info-service.md'
       - 'ThumbnailGenerator': 'video-thumb-service.md'
       - 'Analyzer': 'video-detection-service.md'
+    - Installation:
+      - 'FFMpeg': 'install-ffmpeg.md'
     - About:
       - 'License': 'about/license.md'
 

@@ -2,12 +2,10 @@ path: blob/master/src
 source: Video/VideoConverter.php
 
 The ==Video\VideoConverter== acts as a wrapper over ffmpeg and
-helps with video conversions, clipping, filters... 
-It relies on the [symfony/process](https://symfony.com/doc/current/components/process.html) 
-component, exposes an immutable api for conversion parameters and attempt to make debugging
-easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
-to log issues by yourself.    
-  
+helps with video conversions, clipping, filters... It relies on the symfony/process 
+component, exposes an immutable api for conversion parameters and attempt to make 
+debugging easier with clean exceptions. 
+You can also inject any psr-3 compatible logger if you don't want to log issues by yourself.   
 
 ```php hl_lines="8 9 10 11 14 15 16 17 18"
 <?php
@@ -36,7 +34,7 @@ try {
 
 ### Requirements
 
-You'll need to have ffmpeg installed on your system.
+You'll need to have [ffmpeg](/install-ffmpeg) installed on your system.
 
 ### Initialization
 

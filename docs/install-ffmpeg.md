@@ -4,7 +4,8 @@
 
 ### Linux
 
-> Most distributions offers ffmpeg in their repositories.  
+> Most distributions offers ffmpeg in their repositories. If you're not happy with
+> their version, use a static build instead.
 
 #### Distribution based
 
@@ -16,5 +17,10 @@ $ sudo apt install ffmpeg
 
 #### Static builds
 
-> For linux, you can easily download ffmpeg/ffprobe statically compiled binaries [here](https://johnvansickle.com/ffmpeg/), 
-> alternatively have a look to the [travis install script](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) too.
+For linux, you can easily download ffmpeg/ffprobe statically compiled binaries at
+
+- [https://johnvansickle.com/ffmpeg/](https://johnvansickle.com/ffmpeg/)
+
+#### Travis/CI notes 
+
+As an example look to the [travis install script](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh).
