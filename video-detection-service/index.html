@@ -664,13 +664,9 @@
                 
                   <h1>Analyzer</h1>
                 
-                <p>The <mark>Video\VideoAnalyzer</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
+                <p>The <mark>Video\VideoAnalyzer</mark> service acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the <code>Video\VideoInfoReader</code>) but really
-reads the video to infer some characteristics (currently only interlacement detection is implemented...). </p>
-<p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
-component and attempt to make debugging
-easier with clean exceptions. You can also inject any psr-3 compatible logger if you don't want 
-to log issues by yourself.    </p>
+reads the video to infer some characteristics (currently only interlace detection is implemented...). </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>

@@ -802,11 +802,11 @@
                 
                   <h1>Converter</h1>
                 
-                <p>The <mark>Video\VideoConverter</mark> acts as a wrapper over ffmpeg and
-helps with video conversions, clipping, filters... It relies on the symfony/process 
-component, exposes an immutable api for conversion parameters and attempt to make 
-debugging easier with clean exceptions. 
-You can also inject any psr-3 compatible logger if you don't want to log issues by yourself.   </p>
+                <p>The <mark>Video\VideoConverter</mark> service acts as a wrapper over ffmpeg and
+helps with video conversions, clipping, filters, scaling... </p>
+<p>It exposes an immutable api for conversion parameters and attempt to make 
+debugging easier with clean exceptions. You can also inject any psr-3 compatible 
+logger if you don't want to log issues by yourself.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>

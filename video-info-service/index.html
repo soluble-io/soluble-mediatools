@@ -584,10 +584,7 @@
                 
                   <h1>InfoReader</h1>
                 
-                <p>The <mark>Video\VideoInfoReader</mark> acts as a wrapper over ffprobe and return information about a video file.</p>
-<p>It relies on the <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a> 
-component and attempt to make debugging easier with clean exceptions. You can also inject any psr-3 compatible 
-logger if you don't want to log issues by yourself.    </p>
+                <p>The <mark>Video\VideoInfoReader</mark> service acts as a wrapper over <strong>ffprobe</strong> and return information about a video file.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
