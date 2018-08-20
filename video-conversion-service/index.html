@@ -802,7 +802,7 @@
                 
                   <h1>Converter</h1>
                 
-                <p>The <mark>Video\VideoConverter</mark> service acts as a wrapper over ffmpeg and
+                <p>The <mark>VideoConverter service</mark> acts as a wrapper over ffmpeg and
 helps with video conversions, clipping, filters, scaling... </p>
 <p>It exposes an immutable api for conversion parameters and attempt to make 
 debugging easier with clean exceptions. You can also inject any psr-3 compatible 
@@ -833,7 +833,9 @@ logger if you don't want to log issues by yourself.</p>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg <a href="../install-ffmpeg/">installed</a> on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverter.php">Video\VideoConverter</a> requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter. 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverter.php">VideoConverter</a> 
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> 
+object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
@@ -860,11 +862,11 @@ and the various timeouts if needed. The second parameter can be used to inject a
 </pre></div>
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
-Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverterFactory.php"><code>Video\VideoConverterFactory</code></a>
+Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverterFactory.php"><code>VideoConverterFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <h4 id="conversion">Conversion<a class="headerlink" href="#conversion" title="Permanent link">&para;</a></h4>
-<p>The <code>Video\VideoConverter</code> offers a quick and simple <code>convert()</code> method in which you specify the input/output files
+<p>Typically you'll use the <code>VideoConverter::convert()</code> method in which you specify the input/output files
 as well as the conversion params. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
@@ -877,7 +879,7 @@ as well as the conversion params. </p>
 
 <p><em>The <code>convert()</code> method will automatically set the process timeouts, logger... as specified during 
 service initialization.</em> </p>
-<details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>Video\VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
+<details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
 to get more control on the conversion process. 
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$process</span> <span class="o">=</span> <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">getSymfonyProcess</span><span class="p">(</span>

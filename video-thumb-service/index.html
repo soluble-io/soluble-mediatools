@@ -652,7 +652,7 @@
                 
                   <h1>ThumbnailGenerator</h1>
                 
-                <p>The <mark>Video\VideoThumbGenerator</mark> service acts as a wrapper over ffmpeg and
+                <p>The <mark>VideoThumbGenerator service</mark> acts as a wrapper over ffmpeg and
 deal with video thumbnail creation. </p>
 <p>It exposes an immutable api for thumbnail generation parameters and attempt to make 
 debugging easier with clean exceptions. You can also inject any psr-3 compatible 
@@ -681,8 +681,9 @@ logger if you don't want to log issues by yourself.</p>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg <a href="../install-ffmpeg/">installed</a> on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php">Video\VideoThumbGenerator</a>
-requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter. 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php">VideoThumbGenerator</a>
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> 
+object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
@@ -710,12 +711,12 @@ and the various timeouts if needed. The second parameter can be used to inject a
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
 Depending on available framework integrations, you may have a look to the 
-<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php"><code>Video\VideoThumbGeneratorFactory</code></a>
+<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php"><code>VideoThumbGeneratorFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <h4 id="thumbnailing">Thumbnailing<a class="headerlink" href="#thumbnailing" title="Permanent link">&para;</a></h4>
-<p>The <code>Video\VideoThumbGenerator</code> offers a quick and simple <code>makeThumbnail()</code> method in which you specify the input/output files
-as well as the thumb params. </p>
+<p>Typically you'll use the <code>VideoThumbGenerator::makeThumbnail()</code> method in which you specify the input/output files
+as well as the thumbnail params. </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>

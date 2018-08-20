@@ -664,7 +664,7 @@
                 
                   <h1>Analyzer</h1>
                 
-                <p>The <mark>Video\VideoAnalyzer</mark> service acts as a wrapper over ffmpeg and will analyze a video stream. 
+                <p>The <mark>VideoAnalyzer service</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
 It does not query video metadata (like ffprobe or the <code>Video\VideoInfoReader</code>) but really
 reads the video to infer some characteristics (currently only interlace detection is implemented...). </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
@@ -697,7 +697,7 @@ reads the video to infer some characteristics (currently only interlace detectio
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg <a href="../install-ffmpeg/">installed</a> on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php">Video\VideoAnalyzer</a> 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php">VideoAnalyzer</a> 
 requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
@@ -735,7 +735,6 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
 <span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
-
 
 <span class="k">try</span> <span class="p">{</span>    
     <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
