@@ -97,7 +97,8 @@ try {
         '/path/input.mov',
         // Optional:
         //   $maxFramesToAnalyze, default: 1000
-        $maxFramesToAnalyze = 200
+        //   (at 25fps -> 40 seconds) 
+        $maxFramesToAnalyze = 1000
     );
     
 } catch(AnalyzerExceptionInterface $e) {
@@ -112,12 +113,10 @@ $interlaced = $interlaceGuess->isInterlaced(
 
 ``` 
 
-
 #### Exceptions
 
 You can safely catch exceptions with the generic `Soluble\MediaTools\Video\Exception\ExceptionInterface`,
 alternatively you can also :
-
 
 
 ```php
@@ -171,3 +170,50 @@ try {
 }
        
 ``` 
+
+### Recipes
+
+#### Convert with deinterlace detection  
+
+```php
+<?php
+
+use Soluble\MediaTools\Video\VideoAnalyzer;
+use Soluble\MediaTools\Video\Filter\{VideoFilterChain, Hqdn3DVideoFilter, YadifVideoFilter};
+
+/** @var VideoAnalyzer $analyzer */
+
+$interlaceGuess = $analyzer->detectInterlacement(
+            '/path/input_video.mov',
+            // $max_frames_to_analyze:
+            //  - Less is faster... but let's assume some older
+            //    videos starts with black screen... 1500 at 
+            //    25fps = 60 seconds
+            1500
+);
+
+$convertParams = (new \Soluble\MediaTools\Video\VideoConvertParams())
+                    ->withVideoCodec('libvpx-vp9')
+                    ->withVideoBitrate('750k');
+
+// Add the deint and denoise filters only if 40% frames have been
+// detected as interlaced
+
+if ($interlaceGuess->isInterlaced($threshold=0.4)) {
+    $convertParams = $convertParams->withVideoFilter(
+        new VideoFilterChain([
+            // This will deinterlace
+            new YadifVideoFilter(),
+            // This will slightly denoise 
+            new Hqdn3DVideoFilter()
+        ])
+    );
+}
+
+$converter->convert(
+    '/path/inputFile.mov', 
+    '/path/outputFile.webm', 
+    $convertParams
+);
+
+```
