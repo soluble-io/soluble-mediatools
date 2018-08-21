@@ -16,16 +16,18 @@ docs_dir: docs
 site_dir: build/docs
 
 nav:
-    - { 'Home': index.md }
+    - Home:
+      - Introduction: index.md
+      - Features: service-overview.md
+      - Installation: install.md
+      - License: 'about/license.md'
     - Video tools:
       - 'Converter': 'video-conversion-service.md'
       - 'InfoReader': 'video-info-service.md'
-      - 'ThumbnailGenerator': 'video-thumb-service.md'
+      - 'ThumbGenerator': 'video-thumb-service.md'
       - 'Analyzer': 'video-detection-service.md'
-    - Installation:
-      - 'FFMpeg': 'install-ffmpeg.md'
-    - About:
-      - 'License': 'about/license.md'
+    - Notes:
+      - 'Ffmpeg install': 'install-ffmpeg.md'
 
 theme:
   name: 'material'

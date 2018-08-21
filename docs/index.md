@@ -19,125 +19,6 @@ Under the hood, it relies on the battle-tested [symfony/process](https://symfony
 Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
 tests to ensure a smooth experience. But **this project is young** and would ❤️ to meet new contributors !
 
-## Implemented services
-
-### VideoConverter
-
-> Full doc: [here](./video-conversion-service.md)
-
-```php hl_lines="8 9 10 11 14 15 16 17 18"
-<?php
-use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
-use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
-
-$converter = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
-
-$params = (new VideoConvertParams())
-    ->withVideoCodec('libx264')    
-    ->withStreamable(true)
-    ->withCrf(24);                  
-    
-try {    
-    $converter->convert(
-        '/path/inputFile.mov', 
-        '/path/outputFile.mp4', 
-        $params
-    );    
-} catch(ConverterExceptionInterface $e) {
-    // See chapter about exception !!!    
-}
-       
-```  
- 
-### VideoInfoReader 
-
-> Full doc: [here](./video-info-service.md)
-
-```php
-<?php
-use Soluble\MediaTools\Video\Config\FFProbeConfig;
-use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
-use Soluble\MediaTools\Video\VideoInfoReader;
-
-$infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
-
-try {
-    $videoInfo = $infoReader->getInfo('/path/video.mp4');
-} catch (InfoReaderExceptionInterface $e) {
-    // see below for exceptions
-}
-
-$duration = $videoInfo->getDuration();
-$frames   = $videoInfo->getNbFrames();
-$width    = $videoInfo->getWidth();
-$height   = $videoInfo->getHeight();
-
-// Or alternatively
-['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
-       
-``` 
-
-### VideoThumbGenerator 
-
-> Full doc: [here](./video-thumb-service.md)
-
-```php hl_lines="8 9 12 13 14 15 16"
-<?php
-use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
-use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
-
-$generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
-
-$params = (new VideoThumbParams())
-    ->withTime(1.25);
-    
-try {    
-    $generator->makeThumbnail(
-        '/path/inputFile.mov', 
-        '/path/outputFile.jpg', 
-        $params
-    );    
-} catch(ConverterExceptionInterface $e) {
-    // See chapter about exception !!!    
-}
-       
-``` 
-
-### VideoAnalyzer
-
-> Full doc: [here](./video-detection-service.md)
-
-```php
-<?php
-use Soluble\MediaTools\Video\Config\FFMpegConfig;
-use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
-use Soluble\MediaTools\Video\VideoAnalyzer;
-
-$analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
-
-    
-try {    
-    $interlaceGuess = $analyzer->detectInterlacement(
-        '/path/input.mov',
-        // Optional:
-        //   $maxFramesToAnalyze, default: 1000
-        $maxFramesToAnalyze = 200
-    );
-    
-} catch(AnalyzerExceptionInterface $e) {
-    // See chapter about exception !!!    
-}
-
-$interlaced = $interlaceGuess->isInterlaced(
-    // Optional: 
-    //  $threshold, default 0.25 (if >=25% interlaced frames, then true) 
-    0.25
-);
-
-``` 
-
 ## Requirements
 
 A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
@@ -146,13 +27,6 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 > alternatively have a look to the [travis install script](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) too.
 
 
-## Installation
-
-Installation in your project
-
-```bash
-$ composer require soluble/mediatools
-``` 
 
 ## Project philosophy
 
