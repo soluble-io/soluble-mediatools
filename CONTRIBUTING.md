@@ -38,12 +38,11 @@ $ composer check
 
 ### Mkdocs
 
-If you're working on documentation, please install mkdocs:
+If you're working on documentation, please install mkdocs, mkdocs-material...:
 
 ```shell
-$ pip install mkdocs mkdocs-material pygments pymdown-extensions --upgrade 
+$ pip install -r ./requirements.txt --upgrade
 ```
-
 You can serve the doc:
 
 ```shell
