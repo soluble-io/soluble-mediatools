@@ -21,7 +21,7 @@ nav:
       - Features: service-overview.md
       - Installation: install.md
       - License: 'about/license.md'
-    - Video tools:
+    - Video services:
       - 'Converter': 'video-conversion-service.md'
       - 'InfoReader': 'video-info-service.md'
       - 'ThumbGenerator': 'video-thumb-service.md'

@@ -28,8 +28,7 @@
 - [x] **VideoInfoReader** ([doc here](./video-info-service.md))
       - [x] Duration, dimensions, number of frames
         ```php hl_lines="5 7 8 9 10"
-        <?php // a quick taste
-        
+        <?php // a quick taste    
         $infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
         
         $videoInfo = $infoReader->getInfo('/path/video.mp4');
