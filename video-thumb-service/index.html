@@ -42,7 +42,7 @@
     
     
       
-        <title>ThumbnailGenerator - Mediatools</title>
+        <title>ThumbGenerator - Mediatools</title>
       
     
     
@@ -134,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                ThumbnailGenerator
+                ThumbGenerator
               </span>
             
           
@@ -213,13 +213,16 @@
     <ul class="md-tabs__list">
       
         
-  <li class="md-tabs__item">
-    
-      <a href=".." title="Home" class="md-tabs__link">
-        Home
-      </a>
-    
-  </li>
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href=".." title="Home" class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
 
       
         
@@ -240,21 +243,8 @@
   
     <li class="md-tabs__item">
       
-        <a href="../install-ffmpeg/" title="Installation" class="md-tabs__link">
-          Installation
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="../about/license/" title="About" class="md-tabs__link">
-          About
+        <a href="../install-ffmpeg/" title="Notes" class="md-tabs__link">
+          Notes
         </a>
       
     </li>
@@ -311,10 +301,70 @@
       
 
 
-  <li class="md-nav__item">
-    <a href=".." title="Home" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
       Home
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../service-overview/" title="Features" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../about/license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -376,11 +426,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        ThumbnailGenerator
+        ThumbGenerator
       </label>
     
-    <a href="./" title="ThumbnailGenerator" class="md-nav__link md-nav__link--active">
-      ThumbnailGenerator
+    <a href="./" title="ThumbGenerator" class="md-nav__link md-nav__link--active">
+      ThumbGenerator
     </a>
     
       
@@ -490,11 +540,11 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
-      Installation
+      Notes
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
-        Installation
+        Notes
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -505,44 +555,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../install-ffmpeg/" title="FFMpeg" class="md-nav__link">
-      FFMpeg
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      About
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        About
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../about/license/" title="License" class="md-nav__link">
-      License
+    <a href="../install-ffmpeg/" title="Ffmpeg install" class="md-nav__link">
+      Ffmpeg install
     </a>
   </li>
 
@@ -650,7 +664,7 @@
                   <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-thumb-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>ThumbnailGenerator</h1>
+                  <h1>ThumbGenerator</h1>
                 
                 <p>The <mark>VideoThumbGenerator service</mark> acts as a wrapper over ffmpeg and
 deal with video thumbnail creation. </p>

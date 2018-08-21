@@ -6,6 +6,21 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://soluble-io.github.io/soluble-mediatools/service-overview/</loc>
+     <lastmod>2018-08-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://soluble-io.github.io/soluble-mediatools/install/</loc>
+     <lastmod>2018-08-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://soluble-io.github.io/soluble-mediatools/about/license/</loc>
+     <lastmod>2018-08-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://soluble-io.github.io/soluble-mediatools/video-conversion-service/</loc>
      <lastmod>2018-08-21</lastmod>
      <changefreq>daily</changefreq>
@@ -27,11 +42,6 @@
     </url>
     <url>
      <loc>https://soluble-io.github.io/soluble-mediatools/install-ffmpeg/</loc>
-     <lastmod>2018-08-21</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://soluble-io.github.io/soluble-mediatools/about/license/</loc>
      <lastmod>2018-08-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
