@@ -66,7 +66,7 @@
             "@phpstan"
         ],
         "fix": [
-            "@cs-fix-full"
+            "@cs-fix"
         ],
         "test": "vendor/bin/phpunit",
         "test:mutation": "vendor/bin/infection --configuration=infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=55 --min-covered-msi=55 --threads=4",
