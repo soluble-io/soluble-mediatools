@@ -23,11 +23,6 @@ tests to ensure a smooth experience. But **this project is young** and would ❤
 
 A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 
-> For linux, you can easily download statically compiled binaries [here](https://johnvansickle.com/ffmpeg/), 
-> alternatively have a look to the [travis install script](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) too.
-
-
-
 ## Project philosophy
 
 ???+ Info "Note for developers"
