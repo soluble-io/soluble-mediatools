@@ -21,7 +21,7 @@ tests to ensure a smooth experience. But **this project is young** and would ❤
 
 ## Implemented services
 
-### Video\VideoConverter
+### VideoConverter
 
 > Full doc: [here](./video-conversion-service.md)
 

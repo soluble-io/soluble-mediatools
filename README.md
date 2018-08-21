@@ -32,83 +32,133 @@ need to implement more services: image optimization, subtitle conversions... pol
 
 All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://soluble-io.github.io/soluble-mediatools/)**
 
-## A quick taste
-
-> Check the [doc](https://soluble-io.github.io/soluble-mediatools/) to get a more detailed overview !!!
-
-```php
-<?php
-
-use Soluble\MediaTools\Video\Config\{FFProbeConfig, FFMpegConfig};
-use Soluble\MediaTools\Video\Exception\{InfoReaderExceptionInterface, ConverterExceptionInterface};
-use Soluble\MediaTools\Video\{VideoInfoReader, VideoThumbGenerator, VideoThumbParams, VideoConverter, VideoConvertParams};
-use Soluble\MediaTools\Video\Filter;
-
-$file = '/path/video.mp4';
-
-// QUERYING
-
-$infoService = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
-
-try {
-    $videoInfo = $infoService->getInfo($file);
-} catch (InfoReaderExceptionInterface $e) {
-    // see the chapter about exceptions
-}
-
-echo $videoInfo->getWidth();
-
-// CONVERSION
-
-$conversionService = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
-
-try {
-    $conversionService->convert(
-        $file, 
-        '/path/output.mp4',
-        (new VideoConvertParams())
-             ->withVideoCodec('libx264')    
-             ->withStreamable(true)
-             ->withCrf(24)
-             ->withVideoFilter(
-                 new Filter\Hqdn3DVideoFilter()
-             )
-            
-    );
-} catch (ConverterExceptionInterface $e) {
-    // see the chapter about exceptions
-}
-
-// THUMBNAILING
-
-
-$thumbService = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
-
-
-try {
-    $thumbService->makeThumbnail(
-            $file, 
-            '/path/outputFile.jpg', 
-            (new VideoThumbParams())
-                 ->withTime(1.123)
-                 ->withQualityScale(5)
-                 ->withVideoFilter(
-                     new Filter\NlmeansVideoFilter()
-                 )
-        );
-} catch (ConverterExceptionInterface $e) {
-    
-}
-
-```
-
 ## Requirements
 
 - PHP 7.1+
 - FFmpeg/FFProbe 3.4+, 4.0+.
 
-> For linux, you can easily download ffmpeg/ffprobe statically compiled binaries [here](https://johnvansickle.com/ffmpeg/), 
-> alternatively have a look to the [travis install script](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) too.
+## A quick taste
+
+> Check the [doc](https://soluble-io.github.io/soluble-mediatools/) to get a more detailed overview !!!
+
+### Implemented services
+
+#### VideoConverter
+
+> Full doc: [here](https://soluble-io.github.io/soluble-mediatools/video-conversion-service/)
+
+```php
+<?php
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\{VideoConverter, VideoConvertParams};
+
+$converter = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
+
+$params = (new VideoConvertParams())
+    ->withVideoCodec('libx264')    
+    ->withStreamable(true)
+    ->withCrf(24);                  
+    
+try {    
+    $converter->convert(
+        '/path/inputFile.mov', 
+        '/path/outputFile.mp4', 
+        $params
+    );    
+} catch(ConverterExceptionInterface $e) {
+    // See chapter about exception !!!    
+}
+       
+```  
+ 
+#### VideoInfoReader 
+
+> Full doc: [here](https://soluble-io.github.io/soluble-mediatools/video-info-service/)
+
+```php
+<?php
+use Soluble\MediaTools\Video\Config\FFProbeConfig;
+use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
+use Soluble\MediaTools\Video\VideoInfoReader;
+
+$infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
+
+try {
+    $videoInfo = $infoReader->getInfo('/path/video.mp4');
+} catch (InfoReaderExceptionInterface $e) {
+    // see below for exceptions
+}
+
+$duration = $videoInfo->getDuration();
+$frames   = $videoInfo->getNbFrames();
+$width    = $videoInfo->getWidth();
+$height   = $videoInfo->getHeight();
+
+// Or alternatively
+['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
+       
+``` 
+
+#### VideoThumbGenerator 
+
+> Full doc: [here](https://soluble-io.github.io/soluble-mediatools/video-thumb-service/)
+
+```php
+<?php
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
+
+$generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
+
+$params = (new VideoThumbParams())
+    ->withTime(1.25);
+    
+try {    
+    $generator->makeThumbnail(
+        '/path/inputFile.mov', 
+        '/path/outputFile.jpg', 
+        $params
+    );    
+} catch(ConverterExceptionInterface $e) {
+    // See chapter about exception !!!    
+}
+       
+``` 
+
+#### VideoAnalyzer
+
+> Full doc: [here](https://soluble-io.github.io/soluble-mediatools/video-detection-service/)
+
+```php
+<?php
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
+use Soluble\MediaTools\Video\VideoAnalyzer;
+
+$analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
+
+    
+try {    
+    $interlaceGuess = $analyzer->detectInterlacement(
+        '/path/input.mov',
+        // Optional:
+        //   $maxFramesToAnalyze, default: 1000
+        $maxFramesToAnalyze = 200
+    );
+    
+} catch(AnalyzerExceptionInterface $e) {
+    // See chapter about exception !!!    
+}
+
+$interlaced = $interlaceGuess->isInterlaced(
+    // Optional: 
+    //  $threshold, default 0.25 (if >=25% interlaced frames, then true) 
+    0.25
+);
+
+``` 
  
    
 ## Coding standards and interop
