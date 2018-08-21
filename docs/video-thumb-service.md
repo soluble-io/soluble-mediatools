@@ -32,8 +32,6 @@ try {
        
 ``` 
 
-
-
 ### Requirements
 
 You'll need to have ffmpeg [installed](./install-ffmpeg.md) on your system.
