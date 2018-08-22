@@ -245,8 +245,7 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 #### Filters
 
-Video filters can be set to the VideoConvertParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
-
+Video filters can be set to the VideoConvertParams through the `->withVideoFilter(VideoFilterInterface $videoFilter)` method:
 
 ```php
 <?php
@@ -254,55 +253,17 @@ use Soluble\MediaTools\Video\Filter;
 
 $params = (new VideoConvertParams())
     ->withVideoFilter(
-        // A denoise filter
-        new Filter\Hqdn3DVideoFilter()
+        new Filter\VideoFilterChain([
+            // A scaling filter
+            new Filter\ScaleFilter(800, 600),
+            // A denoise filter
+            new Filter\Hqdn3DVideoFilter()
+        ])
     );
 
 ```
 
-If you need to chain multiple filters, you can use the [`VideoFilterChain`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/VideoFilterChain.php) object:
-
-```php
-<?php
-use Soluble\MediaTools\Video\Filter;
-
-// from the constructor
-$filters = new Filter\VideoFilterChain([    
-    new Filter\YadifVideoFilter(),
-    new Filter\Hqdn3DVideoFilter() 
-]);
-
-// Alternatively, use ->addFilter method
-$filters->addFilter(new Filter\NlmeansVideoFilter());
-
-$params = (new VideoConvertParams())
-    ->withVideoFilter($filters);
-
-// ....
-
-```
- 
-Currently there's only few built-in filters available:
-
-| Filter                   |Note(s)                               |
-| ------------------------ | ------------------------------------ | 
-| [`YadifVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php)       | Deinterlacer  | 
-| [`Hqdn3DVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php)       | Basic denoiser  | 
-| [`NlmeansVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php)       | Very slow but good denoiser  | 
-| [`ScaleFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php)       | Scaleing filter  |
-
- 
-> But it's quite easy to add yours, simply implements the [FFMpegVideoFilterInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Type/FFMpegVideoFilterInterface.php).
-> We :heart: pull request, so don't forget to share :)
-  
-  
-  
-??? Question "Is the order of parameters, filters... important ?" 
-    Generally FFMpeg will evaluate the parameters in the order they appear... 
-    So if you're about to clip a video (from 1s to 3s) and use a denoise filter, 
-    setting the clipping params before the filter will generally be more performant
-    *(the denoise filter will only be applied on the clipped part of the video 
-    and not it's entire length)*.     
+See the **[complete video filters doc here](./video-filters.md)** 
        
 #### Exceptions
 

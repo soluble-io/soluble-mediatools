@@ -26,8 +26,11 @@ nav:
       - 'InfoReader': 'video-info-service.md'
       - 'ThumbGenerator': 'video-thumb-service.md'
       - 'Analyzer': 'video-detection-service.md'
+      - 'Notes':
+        - 'Video filters': 'video-filters.md'
     - Notes:
-      - 'Ffmpeg install': 'install-ffmpeg.md'
+      - 'Install':
+        - FFMpeg: 'install-ffmpeg.md'
 
 theme:
   name: 'material'

@@ -208,32 +208,27 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 #### Filters
 
-Video filters can be set to the VideoConvertParams through the `withVideoFilter(VideoFilterInterface $videoFilter)` method:
+Video filters can be set to the VideoThumbParams through the `->withVideoFilter(VideoFilterInterface $videoFilter)` method:
 
 ```php
 <?php
-use Soluble\MediaTools\Video\VideoThumbParams;
 use Soluble\MediaTools\Video\Filter;
 
-$params = (new VideoThumbParams())
-    ->withTime(1.123)
-    ->withVideoFilter(new Filter\VideoFilterChain([
-        new Filter\YadifVideoFilter(),
-        new Filter\NlmeansVideoFilter()
-    ])); 
+$params = (new VideoConvertParams())
+    ->withVideoFilter(
+        new Filter\VideoFilterChain([
+            // A scaling filter
+            new Filter\ScaleFilter(800, 600),
+            // Deint filter
+            new Filter\YadifVideoFilter(),
+            // Denoise (slow but best denoiser, ok for thumbs)
+            new Filter\NlmeansVideoFilter()
+        ])
+    );
 
 ```
 
-Currently there's only few built-in filters available:
-
-| Filter                   |Note(s)                               |
-| ------------------------ | ------------------------------------ | 
-| [`YadifVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php)       | Deinterlacer  | 
-| [`Hqdn3DVideoFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php)       | Basic denoiser  | 
-| [`NlmeansFilter`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php)       | Very slow but good denoiser  | 
- 
-> But it's quite easy to add yours, simply implements the [FFMpegVideoFilterInterface](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Type/FFMpegVideoFilterInterface.php).
-> We :heart: pull request, so don't forget to share :)
+See the **[complete video filters doc here](./video-filters.md)** 
 
 
 #### Exceptions
