@@ -13,7 +13,7 @@
         <meta name="description" content="soluble-mediatools documentation">
       
       
-        <link rel="canonical" href="https://soluble-io.github.io/soluble-mediatools/test/">
+        <link rel="canonical" href="https://soluble-io.github.io/soluble-mediatools/video-filters/">
       
       
         <meta name="author" content="Sébastien Vanvelthem">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Test - Mediatools</title>
+        <title>Video filters - Mediatools</title>
       
     
     
@@ -108,7 +108,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#test" tabindex="1" class="md-skip">
+      <a href="../#video-filters" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -134,7 +134,7 @@
                 Mediatools
               </span>
               <span class="md-header-nav__topic">
-                Test
+                Video filters
               </span>
             
           
@@ -206,7 +206,9 @@
       
         
 
-<nav class="md-tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -228,7 +230,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../video-conversion-service/" title="Video services" class="md-tabs__link">
+        <a href="../video-conversion-service/" title="Video services" class="md-tabs__link md-tabs__link--active">
           Video services
         </a>
       
@@ -376,10 +378,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Video services
@@ -443,10 +447,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5" checked>
     
     <label class="md-nav__link" for="nav-2-5">
       Notes
@@ -462,11 +468,85 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../video-filters/" title="Video filters" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Video filters
+      </label>
+    
+    <a href="./" title="Video filters" class="md-nav__link md-nav__link--active">
       Video filters
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#video-filters" title="Video filters" class="md-nav__link">
+    Video filters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-filters" title="Built-in filters" class="md-nav__link">
+    Built-in filters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaining-filters" title="Chaining filters" class="md-nav__link">
+    Chaining filters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#videofilterchain" title="VideoFilterChain" class="md-nav__link">
+    VideoFilterChain
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-filter" title="Custom filter" class="md-nav__link">
+    Custom filter
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -554,8 +634,62 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#video-filters" title="Video filters" class="md-nav__link">
+    Video filters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-filters" title="Built-in filters" class="md-nav__link">
+    Built-in filters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaining-filters" title="Chaining filters" class="md-nav__link">
+    Chaining filters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#videofilterchain" title="VideoFilterChain" class="md-nav__link">
+    VideoFilterChain
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-filter" title="Custom filter" class="md-nav__link">
+    Custom filter
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
   
 </nav>
                   </div>
@@ -567,52 +701,123 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/test.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-filters.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="test">Test<a class="headerlink" href="#test" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span>#!/bin/sh
+                  <h1>Video filters</h1>
+                
+                <h2 id="video-filters">Video filters<a class="headerlink" href="#video-filters" title="Permanent link">&para;</a></h2>
+<p>Both <code>VideoConverter</code> and <code>VideoThumbGenerator</code> services allows setting up video filters through
+the <code>-&gt;withVideoFilter(VideoFilterInterface $videoFilter)</code> method. </p>
+<details class="question" open="open"><summary>What are video filters used for ? </summary><p>We try to keep close to what ffmpeg does. In ffmpeg 
+filters accomplish tasks as different as cropping, scaling, 
+identifying (interlace, black detection), denoising, parts selection, 
+colouring, generators...</p><p>The complete list of ffmpeg filters can be found <a href="https://ffmpeg.org/ffmpeg-filters.html">here</a></p></details><p>Mediatools provide some common filters implementations but it's very easy to create your own, see last section.</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
 
-#
-# For the mp4 version
-#
-
-# 1.1. Ignore interlacing, no denoising
-
-/opt/ffmpeg/ffmpeg -i &#39;/web/material-for-the-spine/sources/videos_mov/hello.mov&#39; -vcodec h264 -acodec aac -pix_fmt yuv420p -movflags +faststart -threads 7 &#39;/web/material-for-the-spine/converted/videos/hello_nodeint_nodenoise.mp4&#39;
-
-# -&gt; 15.6 Mb
-
-# 1.2. Deinnterlace, no denoising
-
-/opt/ffmpeg/ffmpeg -i &#39;/web/material-for-the-spine/sources/videos_mov/hello.mov&#39; -vcodec h264 -acodec aac -pix_fmt yuv420p -movflags +faststart -threads 7 &#39;/web/material-for-the-spine/converted/videos/hello_deint_nodenoise.mp4&#39;
-
-# 1.3. Deinterlace, denoise
-
-/opt/ffmpeg/ffmpeg -i &#39;/web/material-for-the-spine/sources/videos_mov/hello.mov&#39; -vcodec h264 -acodec aac -pix_fmt yuv420p -movflags +faststart -threads 7 &#39;/web/material-for-the-spine/converted/videos/hello_deint_denoise.mp4&#39;
-
-#
-# 2. For the webm version
-#
-
-# 2.1. Ignore interlacing, no denoising
-
-/opt/ffmpeg/ffmpeg -i &#39;/web/material-for-the-spine/sources/videos_mov/hello.mov&#39; -vcodec libvpx-vp9 -b:v 750k -quality good -crf 33 -acodec libopus -b:a 128k -g 240 -tile-columns 2 -frame-parallel 1 -speed 0 -pix_fmt yuv420p -f webm -threads 7 &#39;/web/material-for-the-spine/hello_nodeint_nodenoise.webm&#39;
-
-# -&gt; 18.4Mb (Not bad)
-
-# 2.2. Deinterlace, no denoising
-
-/opt/ffmpeg/ffmpeg -i &#39;/web/material-for-the-spine/sources/videos_mov/hello.mov&#39; -vcodec libvpx-vp9 -b:v 750k -vf yadif=mode=0:parity=1:deint=0 -quality good -crf 33 -acodec libopus -b:a 128k -g 240 -tile-columns 2 -frame-parallel 1 -speed 0 -pix_fmt yuv420p -f webm -threads 7 &#39;/web/material-for-the-spine/hello_deint_nodenoise.webm&#39;
-
-# -&gt; 15.8Mb (Not bad)
-
-# 2.3. Deinterlace, denoise
-
-/opt/ffmpeg/ffmpeg -i &#39;/web/material-for-the-spine/sources/videos_mov/hello.mov&#39; -vcodec libvpx-vp9 -b:v 750k -vf yadif=mode=0:parity=1:deint=0,hqdn3d -quality good -crf 33 -acodec libopus -b:a 128k -g 240 -tile-columns 2 -frame-parallel 1 -speed 0 -pix_fmt yuv420p -f webm -threads 7 &#39;/web/material-for-the-spine/hello_deint_denoise.webm&#39;
-
-# -&gt; 14.2Mb (Good size, a bit blurred)
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
+        <span class="k">new</span> <span class="nx">Filter\VideoFilterChain</span><span class="p">([</span>
+            <span class="c1">// A scaling filter</span>
+            <span class="k">new</span> <span class="nx">Filter\ScaleFilter</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span>
+            <span class="c1">// A denoise filter</span>
+            <span class="k">new</span> <span class="nx">Filter\Hqdn3DVideoFilter</span><span class="p">(),</span>
+            <span class="c1">// A custom filter</span>
+            <span class="k">new</span> <span class="k">class</span> <span class="nc">implements</span> <span class="nx">Filter\Type\FFMpegVideoFilterInterface</span> <span class="p">{</span>
+                <span class="k">public</span> <span class="k">function</span> <span class="nf">getFFmpegCLIValue</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="s1">&#39;frei0r=vertigo:0.2&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">])</span>
+    <span class="p">);</span>
 </pre></div>
+
+<h3 id="built-in-filters">Built-in filters<a class="headerlink" href="#built-in-filters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Filter</th>
+<th>Type</th>
+<th>Argument(s)</th>
+<th>Link(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ScaleFilter</code></td>
+<td>Dimension</td>
+<td>$width, <span><span class="MathJax_Preview">height, ?</span><script type="math/tex">height, ?</script></span>aspect_ratio_mode</td>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php">src</a></td>
+</tr>
+<tr>
+<td><code>YadifVideoFilter</code></td>
+<td>Deinterlace</td>
+<td>?<span><span class="MathJax_Preview">mode, ?</span><script type="math/tex">mode, ?</script></span>parity, ?$deint</td>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php">src</a></td>
+</tr>
+<tr>
+<td><code>Hqdn3DVideoFilter</code></td>
+<td>Denoise</td>
+<td></td>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php">src</a></td>
+</tr>
+<tr>
+<td><code>NlmeansVideoFilter</code></td>
+<td>Denoise (slow)</td>
+<td></td>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php">src</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="chaining-filters">Chaining filters<a class="headerlink" href="#chaining-filters" title="Permanent link">&para;</a></h3>
+<h4 id="videofilterchain">VideoFilterChain<a class="headerlink" href="#videofilterchain" title="Permanent link">&para;</a></h4>
+<p>To apply multiple filters, use the <code>VideoFilterChain</code> object. Filters will be processed
+in the order they've been added.</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
+
+<span class="c1">// from the constructor</span>
+<span class="nv">$filters</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Filter\VideoFilterChain</span><span class="p">([</span>    
+    <span class="k">new</span> <span class="nx">Filter\YadifVideoFilter</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">Filter\Hqdn3DVideoFilter</span><span class="p">()</span> 
+<span class="p">]);</span>
+
+<span class="c1">// Alternatively, use -&gt;addFilter method</span>
+<span class="nv">$filters</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span><span class="k">new</span> <span class="nx">Filter\NlmeansVideoFilter</span><span class="p">());</span>
+
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
+
+<span class="c1">// ....</span>
+</pre></div>
+
+<details class="question" open="open"><summary>Filter graph support ?</summary><p>FFMpeg support a complex notation for advanced filter chaining named
+ <a href="http://ffmpeg.org/ffmpeg-filters.html#Filtergraph-description">filtergraph</a>.</p><p>The <code>VideoFilterChain</code> does not support this notation to keep the surface API
+ as intuitive as possible. If you need to use the filtergraph notation, you'll 
+ need to create your own filter:   </p><div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$myComplexFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">interface</span> <span class="nx">FFMpegVideoFilterInterface</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="nf">getFFmpegCLIValue</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+   <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;[in]yadif=0:0:0[middle];[middle]scale=iw/2:-1[out]&#39;</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>We <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> contributions, if you have nice ideas about how to support filtergraph, 
+ make your voice loud in this <a href="https://github.com/soluble-io/soluble-mediatools/issues/10">issue</a></p></details><h3 id="custom-filter">Custom filter<a class="headerlink" href="#custom-filter" title="Permanent link">&para;</a></h3>
+<p>Making your own filter is easy, you just have to implement <code>FFMpegVideoFilterInterface</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface</span><span class="p">;</span>
+
+<span class="nv">$vertigoFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">implements</span> <span class="nx">FFMpegVideoFilterInterface</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getFFmpegCLIValue</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;frei0r=vertigo:0.2&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>And voilà !</p>
                 
                   
                 
@@ -629,6 +834,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../video-detection-service/" title="Analyzer" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Analyzer
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../install-ffmpeg/" title="FFMpeg" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                FFMpeg
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

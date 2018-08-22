@@ -241,6 +241,10 @@
         
   
   
+    
+    
+  
+  
     <li class="md-tabs__item">
       
         <a href="../install-ffmpeg/" title="Notes" class="md-tabs__link">
@@ -248,6 +252,8 @@
         </a>
       
     </li>
+  
+
   
 
       
@@ -600,6 +606,42 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+    
+    <label class="md-nav__link" for="nav-2-5">
+      Notes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-5">
+        Notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../video-filters/" title="Video filters" class="md-nav__link">
+      Video filters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -629,10 +671,34 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Install
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Install
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="../install-ffmpeg/" title="Ffmpeg install" class="md-nav__link">
-      Ffmpeg install
+    <a href="../install-ffmpeg/" title="FFMpeg" class="md-nav__link">
+      FFMpeg
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1255,72 +1321,23 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php">FFMpegAdapter</a> sources.</p>
 </blockquote>
 <h4 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h4>
-<p>Video filters can be set to the VideoConvertParams through the <code>withVideoFilter(VideoFilterInterface $videoFilter)</code> method:</p>
+<p>Video filters can be set to the VideoConvertParams through the <code>-&gt;withVideoFilter(VideoFilterInterface $videoFilter)</code> method:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
 
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
-        <span class="c1">// A denoise filter</span>
-        <span class="k">new</span> <span class="nx">Filter\Hqdn3DVideoFilter</span><span class="p">()</span>
+        <span class="k">new</span> <span class="nx">Filter\VideoFilterChain</span><span class="p">([</span>
+            <span class="c1">// A scaling filter</span>
+            <span class="k">new</span> <span class="nx">Filter\ScaleFilter</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span>
+            <span class="c1">// A denoise filter</span>
+            <span class="k">new</span> <span class="nx">Filter\Hqdn3DVideoFilter</span><span class="p">()</span>
+        <span class="p">])</span>
     <span class="p">);</span>
 </pre></div>
 
-<p>If you need to chain multiple filters, you can use the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/VideoFilterChain.php"><code>VideoFilterChain</code></a> object:</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
-
-<span class="c1">// from the constructor</span>
-<span class="nv">$filters</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Filter\VideoFilterChain</span><span class="p">([</span>    
-    <span class="k">new</span> <span class="nx">Filter\YadifVideoFilter</span><span class="p">(),</span>
-    <span class="k">new</span> <span class="nx">Filter\Hqdn3DVideoFilter</span><span class="p">()</span> 
-<span class="p">]);</span>
-
-<span class="c1">// Alternatively, use -&gt;addFilter method</span>
-<span class="nv">$filters</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span><span class="k">new</span> <span class="nx">Filter\NlmeansVideoFilter</span><span class="p">());</span>
-
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
-    <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
-
-<span class="c1">// ....</span>
-</pre></div>
-
-<p>Currently there's only few built-in filters available:</p>
-<table>
-<thead>
-<tr>
-<th>Filter</th>
-<th>Note(s)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php"><code>YadifVideoFilter</code></a></td>
-<td>Deinterlacer</td>
-</tr>
-<tr>
-<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php"><code>Hqdn3DVideoFilter</code></a></td>
-<td>Basic denoiser</td>
-</tr>
-<tr>
-<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php"><code>NlmeansVideoFilter</code></a></td>
-<td>Very slow but good denoiser</td>
-</tr>
-<tr>
-<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php"><code>ScaleFilter</code></a></td>
-<td>Scaleing filter</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>But it's quite easy to add yours, simply implements the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Type/FFMpegVideoFilterInterface.php">FFMpegVideoFilterInterface</a>.
-We <img alt="❤️" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> pull request, so don't forget to share :)</p>
-</blockquote>
-<details class="question"><summary>Is the order of parameters, filters... important ?</summary><p>Generally FFMpeg will evaluate the parameters in the order they appear... 
-So if you're about to clip a video (from 1s to 3s) and use a denoise filter, 
-setting the clipping params before the filter will generally be more performant
-<em>(the denoise filter will only be applied on the clipped part of the video 
-and not it's entire length)</em>.     </p></details><h4 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h4>
+<p>See the <strong><a href="../video-filters/">complete video filters doc here</a></strong> </p>
+<h4 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h4>
 <p>All conversion exceptions implements <code>Soluble\MediaTools\VideoException\ConverterExceptionInterface</code>,  interface.,
 alternatively you can also :</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
