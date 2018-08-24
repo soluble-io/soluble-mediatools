@@ -49,14 +49,14 @@ class ConfigProvider
     {
         return [
             // Configuration holders
-            FFMpegConfig::class           => FFMpegConfigInterface::class,
-            FFProbeConfig::class          => FFProbeConfigInterface::class,
+            FFMpegConfig::class  => FFMpegConfigInterface::class,
+            FFProbeConfig::class => FFProbeConfigInterface::class,
 
             // Services
-            VideoConverter::class                     => VideoConverterInterface::class,
-            VideoInfoReader::class                    => VideoInfoReaderInterface::class,
-            VideoAnalyzer::class                      => VideoAnalyzerInterface::class,
-            VideoThumbGenerator::class                => VideoThumbGeneratorInterface::class,
+            VideoConverter::class      => VideoConverterInterface::class,
+            VideoInfoReader::class     => VideoInfoReaderInterface::class,
+            VideoAnalyzer::class       => VideoAnalyzerInterface::class,
+            VideoThumbGenerator::class => VideoThumbGeneratorInterface::class,
         ];
     }
 
@@ -69,14 +69,14 @@ class ConfigProvider
     {
         return [
             // Configuration holders
-            FFMpegConfigInterface::class   => FFMpegConfigFactory::class,
-            FFProbeConfigInterface::class  => FFProbeConfigFactory::class,
+            FFMpegConfigInterface::class  => FFMpegConfigFactory::class,
+            FFProbeConfigInterface::class => FFProbeConfigFactory::class,
 
             // Services classes
-            VideoConverterInterface::class                => VideoConverterFactory::class,
-            VideoInfoReaderInterface::class               => VideoInfoReaderFactory::class,
-            VideoAnalyzerInterface::class                 => VideoAnalyzerFactory::class,
-            VideoThumbGeneratorInterface::class           => VideoThumbGeneratorFactory::class,
+            VideoConverterInterface::class      => VideoConverterFactory::class,
+            VideoInfoReaderInterface::class     => VideoInfoReaderFactory::class,
+            VideoAnalyzerInterface::class       => VideoAnalyzerFactory::class,
+            VideoThumbGeneratorInterface::class => VideoThumbGeneratorFactory::class,
 
             // Logger
             //LoggerConfigInterface::class    => <Factory to create / too much choice>

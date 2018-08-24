@@ -44,7 +44,7 @@ class FFMpegConfig implements FFMpegConfigInterface
     ) {
         $this->binary = $ffmpegBinary ?? self::getPlatformDefaultBinary();
 
-        $this->threads     = $threads;
+        $this->threads = $threads;
 
         $this->processParams = new ProcessParams(
             $timeout,

@@ -27,7 +27,7 @@ interface ConverterAdapterInterface
      *
      * @return string
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments=[]): string;
+    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): string;
 
     public function getDefaultThreads(): ?int;
 }

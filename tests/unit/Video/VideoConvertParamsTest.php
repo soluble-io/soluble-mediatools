@@ -137,13 +137,13 @@ class VideoConvertParamsTest extends TestCase
             VideoConvertParamsInterface::PARAM_NOAUDIO           => true,
             VideoConvertParamsInterface::PARAM_VIDEO_FRAMES      => 1500,
 
-            VideoConvertParamsInterface::PARAM_SEEK_START        => $seekTimeStart,
-            VideoConvertParamsInterface::PARAM_SEEK_END          => $seekTimeEnd,
+            VideoConvertParamsInterface::PARAM_SEEK_START => $seekTimeStart,
+            VideoConvertParamsInterface::PARAM_SEEK_END   => $seekTimeEnd,
 
-            VideoConvertParamsInterface::PARAM_PASSLOGFILE       => '/tmp/ffmpeg-pass.log',
-            VideoConvertParamsInterface::PARAM_PASS              => 2,
-            VideoConvertParamsInterface::PARAM_AUTO_ALT_REF      => 1,
-            VideoConvertParamsInterface::PARAM_LAG_IN_FRAMES     => 25,
+            VideoConvertParamsInterface::PARAM_PASSLOGFILE   => '/tmp/ffmpeg-pass.log',
+            VideoConvertParamsInterface::PARAM_PASS          => 2,
+            VideoConvertParamsInterface::PARAM_AUTO_ALT_REF  => 1,
+            VideoConvertParamsInterface::PARAM_LAG_IN_FRAMES => 25,
         ];
 
         self::assertEquals($expectedParams, $params->toArray());
@@ -160,7 +160,7 @@ class VideoConvertParamsTest extends TestCase
             ->withTileColumns(12);
 
         self::assertEquals([
-            VideoConvertParamsInterface::PARAM_TILE_COLUMNS      => 12,
+            VideoConvertParamsInterface::PARAM_TILE_COLUMNS => 12,
         ], $params->toArray());
     }
 
@@ -170,7 +170,7 @@ class VideoConvertParamsTest extends TestCase
                     ->withBuiltInParam(VideoConvertParams::PARAM_TILE_COLUMNS, 12);
 
         self::assertEquals([
-            VideoConvertParamsInterface::PARAM_TILE_COLUMNS      => 12,
+            VideoConvertParamsInterface::PARAM_TILE_COLUMNS => 12,
         ], $params->toArray());
     }
 

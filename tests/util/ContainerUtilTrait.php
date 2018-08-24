@@ -15,8 +15,7 @@ trait ContainerUtilTrait
             array_merge(
                 [
                     'services' => [
-                        $entryName =>
-                            //(new ConfigProvider())->getDefaultConfiguration(),
+                        $entryName => //(new ConfigProvider())->getDefaultConfiguration(),
                             $mediaToolsConfig,
                     ]],
                 [] //could be: (new ConfigProvider)->getDependencies()

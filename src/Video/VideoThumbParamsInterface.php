@@ -9,11 +9,11 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
 interface VideoThumbParamsInterface extends ActionParamInterface
 {
-    public const PARAM_QUALITY_SCALE       = 'QUALITY_SCALE';
-    public const PARAM_VIDEO_FILTER        = 'VIDEO_FILTER';
-    public const PARAM_SEEK_TIME           = 'SEEK_TIME';
-    public const PARAM_OVERWRITE           = 'OVERWRITE';
-    public const PARAM_OUTPUT_FORMAT       = 'OUTPUT_FORMAT';
+    public const PARAM_QUALITY_SCALE = 'QUALITY_SCALE';
+    public const PARAM_VIDEO_FILTER  = 'VIDEO_FILTER';
+    public const PARAM_SEEK_TIME     = 'SEEK_TIME';
+    public const PARAM_OVERWRITE     = 'OVERWRITE';
+    public const PARAM_OUTPUT_FORMAT = 'OUTPUT_FORMAT';
 
     /**
      * Built-in params.

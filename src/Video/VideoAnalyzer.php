@@ -26,8 +26,8 @@ class VideoAnalyzer implements VideoAnalyzerInterface
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {
-        $this->ffmpegConfig  = $ffmpegConfig;
-        $this->logger        = $logger ?? new NullLogger();
+        $this->ffmpegConfig = $ffmpegConfig;
+        $this->logger       = $logger ?? new NullLogger();
     }
 
     /**

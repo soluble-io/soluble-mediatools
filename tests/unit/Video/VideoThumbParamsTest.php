@@ -91,7 +91,7 @@ class VideoThumbParamsTest extends TestCase
             ->withBuiltInParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE, 5);
 
         self::assertEquals([
-            VideoThumbParamsInterface::PARAM_QUALITY_SCALE      => 5,
+            VideoThumbParamsInterface::PARAM_QUALITY_SCALE => 5,
         ], $params->toArray());
     }
 

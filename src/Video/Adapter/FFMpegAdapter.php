@@ -176,7 +176,7 @@ class FFMpegAdapter implements ConverterAdapterInterface
      *
      * @throws InvalidArgumentException
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments=[]): string
+    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): string
     {
         $inputArg = ($inputFile !== null && $inputFile !== '')
                         ? sprintf('-i %s', escapeshellarg($inputFile))

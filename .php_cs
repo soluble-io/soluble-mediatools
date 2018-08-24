@@ -2,10 +2,7 @@
 
 $header = <<<'EOF'
 soluble-mediatools
-
 @link      https://github.com/soluble-io/soluble-mediatools
-@author    Vanvelthem Sébastien
-@copyright Copyright (c) 2018 Vanvelthem Sébastien
 @license   MIT
 EOF;
 
@@ -31,13 +28,21 @@ return PhpCsFixer\Config::create()
         'non_printable_character' => true,
         'ordered_imports' => true,
 
+        'align_multiline_comment' => true,
+
         /**
          * Extended code rules
          */
         'binary_operator_spaces' => [
-            'align_double_arrow' => true,
-            'align_equals' => true,
+            // 'align_single_space', 'align_single_space_minimal', 'single_space', null): default fix strategy; defaults to 'single_space'
+            'default' =>  'single_space',
+            'operators' =>
+                [
+                    '=>' => 'align_single_space',
+                    '=' => 'align_single_space_minimal'
+                ]
         ],
+
         'blank_line_after_opening_tag' => true,
         'blank_line_before_return' => true,
         'cast_spaces' => true,

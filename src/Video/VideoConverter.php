@@ -37,7 +37,7 @@ class VideoConverter implements VideoConverterInterface
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {
-        $this->ffmpegConfig  = $ffmpegConfig;
+        $this->ffmpegConfig = $ffmpegConfig;
 
         $this->logger = $logger ?? new NullLogger();
     }

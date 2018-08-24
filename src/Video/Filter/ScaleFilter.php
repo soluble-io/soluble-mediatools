@@ -8,8 +8,8 @@ use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
 class ScaleFilter implements FFMpegVideoFilterInterface
 {
-    public const OPTION_ASPECT_RATIO_INCREASE   = 'increase';
-    public const OPTION_ASPECT_RATIO_DECREASE   = 'decrease';
+    public const OPTION_ASPECT_RATIO_INCREASE = 'increase';
+    public const OPTION_ASPECT_RATIO_DECREASE = 'decrease';
 
     /**
      * Built-in aspect ratios.

@@ -40,9 +40,9 @@ class VideoThumbGeneratorTest extends TestCase
     {
         $this->thumbService = $this->getVideoThumbService();
 
-        $this->baseDir      = dirname(__FILE__, 3);
-        $this->outputDir    = "{$this->baseDir}/tmp";
-        $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
+        $this->baseDir   = dirname(__FILE__, 3);
+        $this->outputDir = "{$this->baseDir}/tmp";
+        $this->videoFile = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
     }
 
     public function testSimpleThumbnail(): void

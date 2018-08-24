@@ -18,7 +18,7 @@ class FFMpegConfigFactoryTest extends TestCase
     {
         $container = $this->createZendServiceManager([
             'soluble-mediatools' => [
-                'ffmpeg.binary'       => '/bin/ffmpeg',
+                'ffmpeg.binary' => '/bin/ffmpeg',
             ],
         ], 'MyCustomEntryName');
 
@@ -30,7 +30,7 @@ class FFMpegConfigFactoryTest extends TestCase
     {
         $container = $this->createZendServiceManager(
             [
-                'ffmpeg.binary'       => '/bin/ffmpeg',
+                'ffmpeg.binary' => '/bin/ffmpeg',
             ],
             'config'
         );
@@ -100,7 +100,7 @@ class FFMpegConfigFactoryTest extends TestCase
 
         $container = $this->createZendServiceManager([
             'soluble-mediatools' => [
-                'ffmpeg.binary'       => ['cool'],
+                'ffmpeg.binary' => ['cool'],
             ],
         ]);
 

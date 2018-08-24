@@ -31,23 +31,23 @@ interface VideoConvertParamsInterface extends ActionParamInterface
     public const PARAM_LAG_IN_FRAMES       = 'LAG_IN_FRAMES';
 
     // Audio family constants
-    public const PARAM_AUDIO_CODEC         = 'AUDIO_CODEC';
-    public const PARAM_AUDIO_BITRATE       = 'AUDIO_BITRATE';
-    public const PARAM_NOAUDIO             = 'NOAUDIO';
+    public const PARAM_AUDIO_CODEC   = 'AUDIO_CODEC';
+    public const PARAM_AUDIO_BITRATE = 'AUDIO_BITRATE';
+    public const PARAM_NOAUDIO       = 'NOAUDIO';
 
     // Timeslice options
-    public const PARAM_SEEK_START        = 'SEEK_START';
-    public const PARAM_SEEK_END          = 'SEEK_END';
+    public const PARAM_SEEK_START = 'SEEK_START';
+    public const PARAM_SEEK_END   = 'SEEK_END';
 
     // Encoder options
-    public const PARAM_SPEED             = 'SPEED';
-    public const PARAM_PASS              = 'PASS';
-    public const PARAM_PASSLOGFILE       = 'PASSLOGFILE';
-    public const PARAM_THREADS           = 'THREADS';
+    public const PARAM_SPEED       = 'SPEED';
+    public const PARAM_PASS        = 'PASS';
+    public const PARAM_PASSLOGFILE = 'PASSLOGFILE';
+    public const PARAM_THREADS     = 'THREADS';
 
     // File Options
-    public const PARAM_OVERWRITE         = 'OVERWRITE';
-    public const PARAM_OUTPUT_FORMAT     = 'OUTPUT_FORMAT';
+    public const PARAM_OVERWRITE     = 'OVERWRITE';
+    public const PARAM_OUTPUT_FORMAT = 'OUTPUT_FORMAT';
 
     /**
      * Built-in params.

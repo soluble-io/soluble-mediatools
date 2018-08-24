@@ -31,8 +31,8 @@ class VideoInfoReaderTest extends TestCase
     {
         $this->infoService = $this->getVideoInfoService();
 
-        $this->baseDir      = dirname(__FILE__, 3);
-        $this->videoFile    = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
+        $this->baseDir   = dirname(__FILE__, 3);
+        $this->videoFile = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
     }
 
     public function testGetInfo(): void

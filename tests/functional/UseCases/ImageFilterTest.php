@@ -36,9 +36,9 @@ class ImageFilterTest extends TestCase
     {
         $this->videoConvert = $this->getVideoConvertService();
 
-        $this->baseDir      = dirname(__FILE__, 3);
-        $this->outputDir    = "{$this->baseDir}/tmp";
-        $this->imgFile      = "{$this->baseDir}/data/test.jpg";
+        $this->baseDir   = dirname(__FILE__, 3);
+        $this->outputDir = "{$this->baseDir}/tmp";
+        $this->imgFile   = "{$this->baseDir}/data/test.jpg";
     }
 
     public function testConversionOfImageWithFilters(): void

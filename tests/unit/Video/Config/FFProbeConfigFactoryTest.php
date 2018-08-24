@@ -18,7 +18,7 @@ class FFProbeConfigFactoryTest extends TestCase
     {
         $container = $this->createZendServiceManager([
             'soluble-mediatools' => [
-                'ffprobe.binary'       => '/bin/ffprobe',
+                'ffprobe.binary' => '/bin/ffprobe',
             ],
         ], 'MyCustomEntryName');
 
@@ -30,7 +30,7 @@ class FFProbeConfigFactoryTest extends TestCase
     {
         $container = $this->createZendServiceManager(
             [
-                'ffprobe.binary'       => '/bin/ffprobe',
+                'ffprobe.binary' => '/bin/ffprobe',
             ],
             'config'
         );
@@ -96,7 +96,7 @@ class FFProbeConfigFactoryTest extends TestCase
 
         $container = $this->createZendServiceManager([
             'soluble-mediatools' => [
-                'ffprobe.binary'       => ['cool'],
+                'ffprobe.binary' => ['cool'],
             ],
         ]);
 

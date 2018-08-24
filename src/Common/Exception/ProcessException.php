@@ -34,7 +34,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
             $previousException
         );
 
-        $this->process     = $process;
+        $this->process = $process;
     }
 
     /**
@@ -56,7 +56,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
     public function getSymfonyProcessRuntimeException(): SPException\RuntimeException
     {
         /**
-         * @var SPException\RuntimeException $previous
+         * @var SPException\RuntimeException
          */
         $previous = $this->getPrevious();
 
