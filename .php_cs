@@ -104,7 +104,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_to_comment' => true,
         'phpdoc_trim' => true,
         'phpdoc_types' => true,
-        'phpdoc_var_without_name' => true,
+        'phpdoc_var_without_name' => false,
         'pre_increment' => true,
         'return_type_declaration' => true,
         'self_accessor' => true,
