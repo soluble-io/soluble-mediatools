@@ -22,8 +22,8 @@ nav:
       - Installation: install.md
       - License: 'about/license.md'
     - Video services:
-      - 'Converter': 'video-conversion-service.md'
       - 'InfoReader': 'video-info-service.md'
+      - 'Converter': 'video-conversion-service.md'
       - 'ThumbGenerator': 'video-thumb-service.md'
       - 'Analyzer': 'video-detection-service.md'
       - 'Notes':
