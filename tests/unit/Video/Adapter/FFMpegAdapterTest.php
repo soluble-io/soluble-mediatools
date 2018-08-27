@@ -191,7 +191,7 @@ class FFMpegAdapterTest extends TestCase
         try {
             $this->ffmpegAdapter->getMappedConversionParams(
                 $params->withVideoCodec('h264')
-                       ->withCrf(53)
+                    ->withCrf(53)
             );
             self::assertFalse(true);
         } catch (ParamValidationException $e) {
