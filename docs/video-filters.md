@@ -43,7 +43,8 @@ $params = (new VideoConvertParams())
 
 | Filter                   | Type          | Argument(s)                            | Link(s)    | 
 | ------------------------ | ------------- | -------------------------------------- | ---------- |
-| `ScaleFilter`            | Dimension     | $width, $height, ?$aspect_ratio_mode   | [src](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php) |
+| `ScaleFilter`            | Dimension     | $width, $height, ?$aspect_ratio_mode...   | [src](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php) |
+| `CropFilter`             |               | ?$width, ?$height, ?$x, ?              | [src](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/CropFilter.php) |            
 | `YadifVideoFilter`       | Deinterlace   | ?$mode, ?$parity, ?$deint              | [src](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/YadifVideoFilter.php) |            
 | `Hqdn3DVideoFilter`      | Denoise       |                                        | [src](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/Hqdn3DVideoFilter.php) |           
 | `NlmeansVideoFilter`     | Denoise (slow)|                                        | [src](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/NlmeansVideoFilter.php) |         
