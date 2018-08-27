@@ -17,7 +17,7 @@ use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\MissingTimeException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
@@ -122,7 +122,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
      * @throws RuntimeReaderException
-     * @throws InvalidParamReaderException
+     * @throws InvalidParamException
      */
     public function makeThumbnail(string $videoFile, string $thumbnailFile, VideoThumbParamsInterface $thumbParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
@@ -135,7 +135,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             } catch (FileNotFoundException | FileNotReadableException $e) {
                 throw new MissingInputFileException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-                throw new InvalidParamReaderException($e->getMessage());
+                throw new InvalidParamException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
                 throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessSignaledException $e) {

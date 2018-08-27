@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
@@ -93,7 +93,7 @@ class VideoConverter implements VideoConverterInterface
      * @throws ProcessTimedOutException
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
-     * @throws InvalidParamReaderException
+     * @throws InvalidParamException
      * @throws RuntimeReaderException
      */
     public function convert(string $inputFile, $outputFile, VideoConvertParamsInterface $convertParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
@@ -106,7 +106,7 @@ class VideoConverter implements VideoConverterInterface
             } catch (CommonException\FileNotFoundException | CommonException\FileNotReadableException $e) {
                 throw new MissingInputFileException($e->getMessage());
             } catch (CommonException\UnsupportedParamValueException | CommonException\UnsupportedParamException $e) {
-                throw new InvalidParamReaderException($e->getMessage());
+                throw new InvalidParamException($e->getMessage());
             } catch (SPException\ProcessTimedOutException $e) {
                 throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessSignaledException $e) {

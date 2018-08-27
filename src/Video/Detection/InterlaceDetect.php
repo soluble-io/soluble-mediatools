@@ -15,7 +15,7 @@ use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface;
 use Soluble\MediaTools\Video\Exception\AnalyzerProcessExceptionInterface;
-use Soluble\MediaTools\Video\Exception\InvalidParamReaderException;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
@@ -67,7 +67,7 @@ class InterlaceDetect
         } catch (FileNotFoundException | FileNotReadableException $e) {
             throw new MissingInputFileException($e->getMessage());
         } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-            throw new InvalidParamReaderException($e->getMessage());
+            throw new InvalidParamException($e->getMessage());
         } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
             throw new ProcessFailedException($e->getProcess(), $e);
         } catch (SPException\RuntimeException $e) {

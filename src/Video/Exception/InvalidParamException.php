@@ -6,6 +6,6 @@ namespace Soluble\MediaTools\Video\Exception;
 
 use Soluble\MediaTools\Common\Exception\RuntimeException as RTE;
 
-class InvalidParamReaderException extends RTE implements ConverterExceptionInterface, AnalyzerExceptionInterface, InfoReaderExceptionInterface
+class InvalidParamException extends RTE implements ConverterExceptionInterface, AnalyzerExceptionInterface, InfoReaderExceptionInterface
 {
 }
