@@ -5,25 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.8.0 (2018-xx-xx)
-
-### Improvement
-
-- New feature: ffmpeg param validation
+## 0.8.0 (2018-08-27)
 
 ### Added
 
+- Added built-in video filter: `CropFilter`.
+- Added more params to `ScaleFilter`.
+- Improved error reporting with initial support for ffmpeg parameters validation `FFMpegParamValidator`.
+  In order to fail earlier, a validation class now checks for some parameters values (currently CRF).
 - `ActionParamInterface::getParam($name, $default=null)`, now allows to set a $default instead of always throwing exception.
-
-### Documentation
-
-- Added recipe for conversion with interlace detection
-- Added chapter about compression (cbr, vbr)
 
 ### Fixed
 
 - [BC-Break] Minor -> `InvalidReaderParamException` renamed into `InvalidParamException`.
 - [BC-Break] Minor -> `UnsetParamReaderException` renamed into `UnsetParamException`.
+
+### Documentation
+
+- Added recipe for conversion with interlace detection
+- Added chapter about compression (cbr, vbr)
+- A lot of fixes and additions
+
 
 ## 0.7.7 (2018-08-19)
 
