@@ -54,7 +54,7 @@ class ImageFilterTest extends TestCase
             ->withVideoFilter(new VideoFilterChain(
                 [
                     new ScaleFilter(320, 200),
-                    new Hqdn3DVideoFilter()
+                    new Hqdn3DVideoFilter(),
                 ]
             ))
             ->withVideoQualityScale(2);
