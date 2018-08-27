@@ -230,7 +230,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../video-conversion-service/" title="Video services" class="md-tabs__link md-tabs__link--active">
+        <a href="../video-info-service/" title="Video services" class="md-tabs__link md-tabs__link--active">
           Video services
         </a>
       
@@ -401,8 +401,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../video-conversion-service/" title="Converter" class="md-nav__link">
-      Converter
+    <a href="../video-info-service/" title="InfoReader" class="md-nav__link">
+      InfoReader
     </a>
   </li>
 
@@ -413,8 +413,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../video-info-service/" title="InfoReader" class="md-nav__link">
-      InfoReader
+    <a href="../video-conversion-service/" title="Converter" class="md-nav__link">
+      Converter
     </a>
   </li>
 
@@ -747,8 +747,14 @@ colouring, generators...</p><p>The complete list of ffmpeg filters can be found 
 <tr>
 <td><code>ScaleFilter</code></td>
 <td>Dimension</td>
-<td>$width, <span><span class="MathJax_Preview">height, ?</span><script type="math/tex">height, ?</script></span>aspect_ratio_mode</td>
+<td>$width, <span><span class="MathJax_Preview">height, ?</span><script type="math/tex">height, ?</script></span>aspect_ratio_mode...</td>
 <td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/ScaleFilter.php">src</a></td>
+</tr>
+<tr>
+<td><code>CropFilter</code></td>
+<td></td>
+<td>?<span><span class="MathJax_Preview">width, ?</span><script type="math/tex">width, ?</script></span>height, ?$x, ?</td>
+<td><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Filter/CropFilter.php">src</a></td>
 </tr>
 <tr>
 <td><code>YadifVideoFilter</code></td>
