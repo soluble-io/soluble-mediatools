@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video\Filter;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Video\Exception\ParamValidationException;
 use Soluble\MediaTools\Video\Filter\ScaleFilter;
 
 class ScaleFilterTest extends TestCase
@@ -31,5 +32,31 @@ class ScaleFilterTest extends TestCase
             (new ScaleFilter(1024, 800, ScaleFilter::OPTION_ASPECT_RATIO_INCREASE))
             ->getFFmpegCLIValue()
         );
+
+        self::assertEquals(
+            'scale=w=1024:h=800:eval=eval:interl=1:flags=flags:param0=1.5:param1=1.6:size=600x600',
+            (new ScaleFilter(
+                1024,
+                800,
+                null,
+                'eval',
+                1,
+                'flags',
+                1.5,
+                1.6,
+                '600x600'
+            ))->getFFmpegCLIValue()
+        );
+    }
+
+    public function testInvalidAspectRatioThrowsException(): void
+    {
+        self::expectException(ParamValidationException::class);
+
+        (new ScaleFilter(
+            1024,
+            800,
+            'cool'
+        ));
     }
 }
