@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Service\ActionParamInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Exception\UnsetParamReaderException;
+use Soluble\MediaTools\Video\Exception\UnsetParamException;
 
 interface VideoConvertParamsInterface extends ActionParamInterface
 {
@@ -109,13 +109,16 @@ interface VideoConvertParamsInterface extends ActionParamInterface
     public function toArray(): array;
 
     /**
-     * Return a param, throw an exception if the param has not been defined yet.
+     * Return a param, throw an exception if the param has not been defined yet or
+     * use $default if it was set.
+     *
+     * @param mixed $default Will return default value instead of throwing exception
      *
      * @return mixed
      *
-     * @throws UnsetParamReaderException
+     * @throws UnsetParamException
      */
-    public function getParam(string $paramName);
+    public function getParam(string $paramName, $default = null);
 
     /**
      * Return a new object with (extra) params added (they will be merged).

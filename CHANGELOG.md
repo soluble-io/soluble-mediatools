@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- `ActionParamInterface::getParam($name, $default=null)`, now allows to set a $default instead of always throwing exception.
 
 ### Documentation
 
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - [BC-Break] Minor -> `InvalidReaderParamException` renamed into `InvalidParamException`.
+- [BC-Break] Minor -> `UnsetParamReaderException` renamed into `UnsetParamException`.
 
 ## 0.7.7 (2018-08-19)
 

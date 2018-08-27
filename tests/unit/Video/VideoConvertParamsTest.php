@@ -6,7 +6,7 @@ namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Exception\UnsetParamReaderException;
+use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoConvertParams;
@@ -196,7 +196,7 @@ class VideoConvertParamsTest extends TestCase
 
     public function testGetParamThrowsUnsetParamException(): void
     {
-        self::expectException(UnsetParamReaderException::class);
+        self::expectException(UnsetParamException::class);
 
         $params = (new VideoConvertParams())->withTileColumns(10);
 

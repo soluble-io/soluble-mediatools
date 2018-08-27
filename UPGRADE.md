@@ -1,6 +1,7 @@
 
 ## From 0.7 to 0.8.0
 
+- `Soluble\MediaTools\Video\Exception\UnsetParamReaderException` renamed into `UnsetParamException`.
 - `Soluble\MediaTools\Video\Exception\InvalidReaderParamException` renamed into `InvalidParamException`.
 
 ## From <= 0.6 to 0.7.0
