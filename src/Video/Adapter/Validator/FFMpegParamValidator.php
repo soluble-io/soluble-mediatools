@@ -14,9 +14,7 @@ use Soluble\MediaTools\Video\VideoConvertParamsInterface;
  */
 class FFMpegParamValidator
 {
-    /**
-     * @var VideoConvertParamsInterface
-     */
+    /** @var VideoConvertParamsInterface */
     protected $params;
 
     public function __construct(VideoConvertParamsInterface $conversionParams)
@@ -41,27 +39,31 @@ class FFMpegParamValidator
     {
         $crf = $this->params->getParam(VideoConvertParamsInterface::PARAM_CRF, 0);
 
-        if ($crf !== null) {
-            // Check allowed values for CRF
-            $codec = $this->params->getParam(VideoConvertParamsInterface::PARAM_VIDEO_CODEC, '');
+        if ($crf === null) {
+            return;
+        }
 
-            if (false !== mb_stripos($codec, 'vp9') && ($crf < 0 || $crf > 63)) {
-                throw new ParamValidationException(
-                    sprintf(
-                        'Invalid value for CRF, \'%s\' requires a number between 0 and 63: %s given.',
-                        $codec,
-                        $crf
-                    )
-                );
-            } elseif (false !== mb_stripos($codec, '264') && ($crf < 0 || $crf > 51)) {
-                throw new ParamValidationException(
-                    sprintf(
-                        'Invalid value for CRF, \'%s\' requires a number between 0 and 61: %s given.',
-                        $codec,
-                        $crf
-                    )
-                );
-            }
+        // Check allowed values for CRF
+        $codec = $this->params->getParam(VideoConvertParamsInterface::PARAM_VIDEO_CODEC, '');
+
+        if (mb_stripos($codec, 'vp9') !== false && ($crf < 0 || $crf > 63)) {
+            throw new ParamValidationException(
+                sprintf(
+                    'Invalid value for CRF, \'%s\' requires a number between 0 and 63: %s given.',
+                    $codec,
+                    $crf
+                )
+            );
+        }
+
+        if (mb_stripos($codec, '264') !== false && ($crf < 0 || $crf > 51)) {
+            throw new ParamValidationException(
+                sprintf(
+                    'Invalid value for CRF, \'%s\' requires a number between 0 and 61: %s given.',
+                    $codec,
+                    $crf
+                )
+            );
         }
     }
 }
