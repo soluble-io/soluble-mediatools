@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.8.0 (2018-xx-xx)
 
+### Improvement
+
+- New feature: ffmpeg param validation
+
 ### Added
 
 - `ActionParamInterface::getParam($name, $default=null)`, now allows to set a $default instead of always throwing exception.

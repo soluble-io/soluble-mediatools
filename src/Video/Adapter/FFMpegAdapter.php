@@ -8,7 +8,9 @@ use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Common\IO\UnescapedFileInterface;
+use Soluble\MediaTools\Video\Adapter\Validator\FFMpegParamValidator;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
+use Soluble\MediaTools\Video\Exception\ParamValidationException;
 use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
 class FFMpegAdapter implements ConverterAdapterInterface
@@ -118,12 +120,17 @@ class FFMpegAdapter implements ConverterAdapterInterface
     }
 
     /**
+     * Return an array version of params suitable for ffmpeg cli.
+     *
+     * @param bool $validateParams whether to run ffmpeg validation process validation
+     *
      * @return array<string, string>
      *
      * @throws UnsupportedParamException
      * @throws UnsupportedParamValueException
+     * @throws ParamValidationException
      */
-    public function getMappedConversionParams(VideoConvertParamsInterface $conversionParams): array
+    public function getMappedConversionParams(VideoConvertParamsInterface $conversionParams, bool $validateParams = true): array
     {
         $args             = [];
         $supportedOptions = $this->getParamsOptions();
@@ -163,6 +170,11 @@ class FFMpegAdapter implements ConverterAdapterInterface
                     )
                 );
             }
+        }
+
+        // Validation
+        if ($validateParams) {
+            (new FFMpegParamValidator($conversionParams))->validate();
         }
 
         return $args;

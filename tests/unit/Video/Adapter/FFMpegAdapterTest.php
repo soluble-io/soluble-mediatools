@@ -9,6 +9,7 @@ use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamValueException;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Exception\ParamValidationException;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
@@ -180,5 +181,32 @@ class FFMpegAdapterTest extends TestCase
             '/test/video.mp4',
             ['invalid_output_file']
         );
+    }
+
+    public function testValidationError(): void
+    {
+        $params = new VideoConvertParams();
+
+        // H264
+        try {
+            $this->ffmpegAdapter->getMappedConversionParams(
+                $params->withVideoCodec('h264')
+                       ->withCrf(53)
+            );
+            self::assertFalse(true);
+        } catch (ParamValidationException $e) {
+            self::assertContains('264', $e->getMessage());
+        }
+
+        // VP9
+        try {
+            $this->ffmpegAdapter->getMappedConversionParams(
+                $params->withVideoCodec('vp9')
+                    ->withCrf(-2)
+            );
+            self::assertFalse(true);
+        } catch (ParamValidationException $e) {
+            self::assertContains('vp9', $e->getMessage());
+        }
     }
 }
