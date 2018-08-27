@@ -85,6 +85,13 @@ class VideoThumbParamsTest extends TestCase
         $params->getParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE);
     }
 
+    public function testGetParamWillUseDefault(): void
+    {
+        $params  = (new VideoThumbParams())->withTime(10);
+        $default = $params->getParam(VideoThumbParams::PARAM_QUALITY_SCALE, 5);
+        self::assertEquals(5, $default);
+    }
+
     public function testWithBuiltInParam(): void
     {
         $params = (new VideoThumbParams())

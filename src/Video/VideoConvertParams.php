@@ -393,6 +393,10 @@ class VideoConvertParams implements VideoConvertParamsInterface
     public function getParam(string $paramName, $default = null)
     {
         if (!$this->hasParam($paramName)) {
+            if ($default !== null) {
+                return $default;
+            }
+
             throw new UnsetParamException(sprintf(
                 'Cannot get param \'%s\', it has not been set',
                 $paramName

@@ -203,6 +203,13 @@ class VideoConvertParamsTest extends TestCase
         $params->getParam(VideoConvertParams::PARAM_AUDIO_BITRATE);
     }
 
+    public function testGetParamWillUseDefalut(): void
+    {
+        $params  = (new VideoConvertParams())->withTileColumns(10);
+        $default = $params->getParam(VideoConvertParams::PARAM_AUDIO_BITRATE, '2M');
+        self::assertEquals('2M', $default);
+    }
+
     public function testUnsupportedParamThrowsInvalidArgumentException(): void
     {
         self::expectException(InvalidArgumentException::class);
