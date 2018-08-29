@@ -51,8 +51,6 @@ interface VideoConvertParamsInterface extends ActionParamInterface
 
     /**
      * Built-in params.
-     *
-     * @var string[]
      */
     public const BUILTIN_PARAMS = [
         self::PARAM_VIDEO_QUALITY_SCALE,

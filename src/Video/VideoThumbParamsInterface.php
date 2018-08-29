@@ -17,8 +17,6 @@ interface VideoThumbParamsInterface extends ActionParamInterface
 
     /**
      * Built-in params.
-     *
-     * @var string[]
      */
     public const BUILTIN_PARAMS = [
         self::PARAM_QUALITY_SCALE,

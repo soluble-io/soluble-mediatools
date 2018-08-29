@@ -15,8 +15,6 @@ class ScaleFilter implements FFMpegVideoFilterInterface
 
     /**
      * Built-in aspect ratios.
-     *
-     * @var string[]
      */
     public const ASPECT_RATIO_MODES = [
         self::OPTION_ASPECT_RATIO_INCREASE,
@@ -86,17 +84,17 @@ class ScaleFilter implements FFMpegVideoFilterInterface
     public function __construct(
         $width = null,
         $height = null,
-        string $forceOriginalAspectRatio = null,
-        string $eval = null,
-        int $interl = null,
-        string $flags = null,
-        float $param0 = null,
-        float $param1 = null,
-        string $size = null,
-        string $inColorMatrix = null,
-        string $outColorMatrix = null,
-        string $inRange = null,
-        string $outRange = null
+        ?string $forceOriginalAspectRatio = null,
+        ?string $eval = null,
+        ?int $interl = null,
+        ?string $flags = null,
+        ?float $param0 = null,
+        ?float $param1 = null,
+        ?string $size = null,
+        ?string $inColorMatrix = null,
+        ?string $outColorMatrix = null,
+        ?string $inRange = null,
+        ?string $outRange = null
     ) {
         if ($forceOriginalAspectRatio !== null &&
            !in_array($forceOriginalAspectRatio, self::ASPECT_RATIO_MODES, true)) {
