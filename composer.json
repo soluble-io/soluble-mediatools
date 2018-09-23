@@ -18,6 +18,7 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
+        "ext-pcre": "*",
         "psr/container": "^1.0",
         "psr/log": "^1.0",
         "symfony/polyfill-mbstring": "^1.9",
