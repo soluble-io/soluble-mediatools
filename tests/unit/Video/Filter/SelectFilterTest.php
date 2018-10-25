@@ -19,6 +19,5 @@ class SelectFilterTest extends TestCase
             '"select=eq(n\,10)"',
             (new SelectFilter('eq(n\,10)'))->getFFmpegCLIValue()
         );
-
     }
 }
