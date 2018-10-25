@@ -92,8 +92,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         $conversionParams = $conversionParams->withVideoFrames(1);
 
         $videoFilters = $this->getThumbFilters($thumbParams);
-
-        if (count($videoFilters->getFilters()) > 0) {
+        if ($videoFilters->count() > 0) {
             $conversionParams = $conversionParams->withVideoFilter($videoFilters);
         }
 
