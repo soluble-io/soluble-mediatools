@@ -25,6 +25,8 @@ use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
+use Soluble\MediaTools\Video\Filter\SelectFilter;
+use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
@@ -65,29 +67,34 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
     {
         $adapter = $this->ffmpegConfig->getAdapter();
 
-        if (!$thumbParams->hasParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)) {
-            throw new MissingTimeException('Missing seekTime parameter');
-        }
-
-        // TIME params are separated from the rest, so we can inject them
-        // before input file
-        $timeParams = (new VideoConvertParams())->withSeekStart(
-            $thumbParams->getParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)
-        );
-
         $conversionParams = (new VideoConvertParams());
 
-        if ($adapter->getDefaultThreads() !== null) {
-            $conversionParams->withThreads($adapter->getDefaultThreads());
+        if (!$thumbParams->hasParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)
+         && !$thumbParams->hasParam(VideoThumbParamsInterface::PARAM_WITH_FRAME)) {
+            throw new MissingTimeException('Missing seekTime/time or frame selection parameter');
         }
 
-        // Only one frame
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)) {
+            // TIME params are separated from the rest, so we can inject them
+            // before input file
+            $timeParams = (new VideoConvertParams())->withSeekStart(
+                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_SEEK_TIME)
+            );
+        } else {
+            $timeParams = null;
+        }
+
+        if ($adapter->getDefaultThreads() !== null) {
+            $conversionParams = $conversionParams->withThreads($adapter->getDefaultThreads());
+        }
+
+        // Only one frame for thumbnails :)
         $conversionParams = $conversionParams->withVideoFrames(1);
 
-        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)) {
-            $conversionParams = $conversionParams->withVideoFilter(
-                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)
-            );
+        $videoFilters = $this->getThumbFilters($thumbParams);
+
+        if (count($videoFilters->getFilters()) > 0) {
+            $conversionParams = $conversionParams->withVideoFilter($videoFilters);
         }
 
         if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE)) {
@@ -106,12 +113,33 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             $arguments,
             $videoFile,
             $thumbnailFile,
-            $adapter->getMappedConversionParams($timeParams)
+            $timeParams !== null ? $adapter->getMappedConversionParams($timeParams) : []
         );
 
         $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
 
         return (new ProcessFactory($ffmpegCmd, $pp))();
+    }
+
+    private function getThumbFilters(VideoThumbParamsInterface $thumbParams): VideoFilterChain
+    {
+        $videoFilters = new VideoFilterChain();
+
+        // Let's choose a frame
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_WITH_FRAME)) {
+            $frame      = $thumbParams->getParam(VideoThumbParamsInterface::PARAM_WITH_FRAME);
+            $expression = sprintf('eq(n\,%d)', max(0, $frame - 1));
+            $videoFilters->addFilter(new SelectFilter($expression));
+        }
+
+        // Let's add the remaning filters
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)) {
+            $videoFilters->addFilter(
+                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)
+            );
+        }
+
+        return $videoFilters;
     }
 
     /**

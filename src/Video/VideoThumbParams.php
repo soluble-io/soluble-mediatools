@@ -64,6 +64,16 @@ class VideoThumbParams implements VideoThumbParamsInterface
     }
 
     /**
+     * @param int $frame take this frame
+     */
+    public function withFrame(int $frame): self
+    {
+        return new self(array_merge($this->params, [
+            self::PARAM_WITH_FRAME => $frame,
+        ]));
+    }
+
+    /**
      * Add with overwrite option (default).
      *
      * @see self::withNoOverwrite()

@@ -12,7 +12,7 @@ use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 class VideoFilterChain implements FFMpegVideoFilterInterface
 {
     /** @var VideoFilterInterface[] */
-    protected $filters = [];
+    private $filters = [];
 
     /**
      * @param VideoFilterInterface[] $filters

@@ -14,6 +14,7 @@ interface VideoThumbParamsInterface extends ActionParamInterface
     public const PARAM_SEEK_TIME     = 'SEEK_TIME';
     public const PARAM_OVERWRITE     = 'OVERWRITE';
     public const PARAM_OUTPUT_FORMAT = 'OUTPUT_FORMAT';
+    public const PARAM_WITH_FRAME    = 'WITH_FRAME';
 
     /**
      * Built-in params.
@@ -24,6 +25,7 @@ interface VideoThumbParamsInterface extends ActionParamInterface
         self::PARAM_SEEK_TIME,
         self::PARAM_OVERWRITE,
         self::PARAM_OUTPUT_FORMAT,
+        self::PARAM_WITH_FRAME,
     ];
 
     /**

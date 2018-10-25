@@ -10,7 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - `VideoThumbGenerator::makeThumbnail()` now checks that output file exists and eventually throws `NoOutputGeneratedException`. [17](https://github.com/soluble-io/soluble-mediatools/issues/17)
- 
+- `VideoThumbParams::withFrame()` allows to make a thumbnail of a specific frame.
+- `SelectFilter` added for frame selections. 
+
+### Fixed
+
+- `VideoThumbgenerator` did not honour default number of threads (minor) 
 
 ## 0.8.1 (2018-10-25)
 

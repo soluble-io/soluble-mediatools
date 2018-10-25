@@ -91,6 +91,26 @@ class VideoThumbGeneratorTest extends TestCase
         unlink($outputFile);
     }
 
+    public function testThumbWithFrameSelection(): void
+    {
+        $outputFile = $this->outputDir . '/testThumbWithFrameSelection.jpg';
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $nbFrames = $this->infoService->getInfo($this->videoFile)->getNbFrames();
+
+        $this->thumbService->makeThumbnail(
+            $this->videoFile,
+            $outputFile,
+            (new VideoThumbParams())->withFrame($nbFrames)
+        );
+
+        self::assertFileExists($outputFile);
+        self::assertGreaterThan(0, filesize($outputFile));
+        unlink($outputFile);
+    }
+
     public function testThumbAtEndDurationMustThrowNoOutputGeneratedException(): void
     {
         self::expectException(NoOutputGeneratedException::class);
