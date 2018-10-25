@@ -11,6 +11,7 @@ use Soluble\MediaTools\Common\IO\UnescapedFileInterface;
 use Soluble\MediaTools\Video\Adapter\Validator\FFMpegParamValidator;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ParamValidationException;
+use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
 use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
 class FFMpegAdapter implements ConverterAdapterInterface
@@ -218,6 +219,12 @@ class FFMpegAdapter implements ConverterAdapterInterface
                 $outputArg
             ))
         );
+
+        if ($ffmpegCmd === null) {
+            throw new UnexpectedValueException(
+                "Cannot generate ffmpeg cli command"
+            );
+        }
 
         return $ffmpegCmd;
     }

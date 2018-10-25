@@ -89,7 +89,7 @@ class InterlaceDetect
                     continue;
                 }
 
-                $unspaced = preg_replace('/( )+/', '', $line);
+                $unspaced = sprintf('%s', preg_replace('/( )+/', '', $line));
                 $matches  = [];
                 if (preg_match_all('/TFF:(\d+)BFF:(\d+)Progressive:(\d+)Undetermined:(\d+)/i', $unspaced, $matches) < 1) {
                     continue;
