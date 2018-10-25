@@ -20,6 +20,7 @@ use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\MissingTimeException;
+use Soluble\MediaTools\Video\Exception\NoOutputGeneratedException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
@@ -123,6 +124,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
      * @throws ProcessSignaledException
      * @throws RuntimeReaderException
      * @throws InvalidParamException
+     * @throws NoOutputGeneratedException
      */
     public function makeThumbnail(string $videoFile, string $thumbnailFile, VideoThumbParamsInterface $thumbParams, ?callable $callback = null, ?ProcessParamsInterface $processParams = null): void
     {
@@ -144,6 +146,15 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
                 throw new ProcessFailedException($e->getProcess(), $e);
             } catch (SPException\RuntimeException $e) {
                 throw new RuntimeReaderException($e->getMessage());
+            }
+
+            if (!file_exists($thumbnailFile) || filesize($thumbnailFile) === 0) {
+                $stdErr        = array_filter(explode("\n", trim($process->getErrorOutput())));
+                $lastErrorLine = count($stdErr) > 0 ? $stdErr[count($stdErr) - 1] : 'no error message';
+                throw new NoOutputGeneratedException(sprintf(
+                    'Thumbnail was not generated, probably an invalid time/frame selection (ffmpeg: %s)',
+                    $lastErrorLine
+                ));
             }
         } catch (\Throwable $e) {
             $exceptionNs = explode('\\', get_class($e));

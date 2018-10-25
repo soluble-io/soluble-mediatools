@@ -8,12 +8,14 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Process\ProcessParams;
+use Soluble\MediaTools\Video\Exception\NoOutputGeneratedException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
+use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Soluble\MediaTools\Video\VideoThumbParams;
 
@@ -23,6 +25,11 @@ class VideoThumbGeneratorTest extends TestCase
 
     /** @var VideoThumbGeneratorInterface */
     protected $thumbService;
+
+    /**
+     * @var VideoInfoReaderInterface
+     */
+    protected $infoService;
 
     /** @var string */
     protected $baseDir;
@@ -39,6 +46,7 @@ class VideoThumbGeneratorTest extends TestCase
     public function setUp(): void
     {
         $this->thumbService = $this->getVideoThumbService();
+        $this->infoService  = $this->getVideoInfoService();
 
         $this->baseDir   = dirname(__FILE__, 3);
         $this->outputDir = "{$this->baseDir}/tmp";
@@ -81,6 +89,26 @@ class VideoThumbGeneratorTest extends TestCase
         self::assertFileExists($outputFile);
         self::assertGreaterThan(0, filesize($outputFile));
         unlink($outputFile);
+    }
+
+    public function testThumbAtEndDurationMustThrowNoOutputGeneratedException(): void
+    {
+        self::expectException(NoOutputGeneratedException::class);
+
+        $outputFile = $this->outputDir . '/testThumbAtVideoDuration.jpg';
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+
+        $duration = $this->infoService->getInfo($this->videoFile)->getDuration();
+
+        $this->thumbService->makeThumbnail(
+            $this->videoFile,
+            $outputFile,
+            (new VideoThumbParams())->withTime(
+                $duration
+            )
+        );
     }
 
     public function testMakeThumbnailThrowsMissingTimeException(): void
