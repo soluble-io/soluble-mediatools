@@ -222,7 +222,7 @@ class FFMpegAdapter implements ConverterAdapterInterface
 
         if ($ffmpegCmd === null) {
             throw new UnexpectedValueException(
-                "Cannot generate ffmpeg cli command"
+                'Cannot generate ffmpeg cli command'
             );
         }
 
