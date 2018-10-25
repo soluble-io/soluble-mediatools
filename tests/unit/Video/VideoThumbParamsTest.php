@@ -76,6 +76,18 @@ class VideoThumbParamsTest extends TestCase
         self::assertEquals(1.423, $time->getTime());
     }
 
+    public function testWithFrame(): void
+    {
+        $params = (new VideoThumbParams())
+            ->withFrame(2);
+
+        self::assertTrue($params->hasParam(VideoThumbParams::PARAM_WITH_FRAME));
+        self::assertEquals(
+            2,
+            $params->getParam(VideoThumbParams::PARAM_WITH_FRAME)
+        );
+    }
+
     public function testGetParamThrowsUnsetParamException(): void
     {
         self::expectException(UnsetParamException::class);
