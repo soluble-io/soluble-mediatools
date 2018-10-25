@@ -13,7 +13,7 @@ logger if you don't want to log issues by yourself.
 <?php
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
-use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
+use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams};
 
 $generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
@@ -178,8 +178,10 @@ Here's a list of categorized built-in methods you can use. See the ffmpeg doc fo
 
 | Method                        | FFmpeg arg(s)          | Example(s) | Note(s)                      |
 | ----------------------------- | ---------------------- | ---------- | ---------------------------- |
-| `withTime(float)`             | -ss ◌                  | 61.123     | Set the time in seconds, decimals are considered milliseconds |   |
-| `withSeekTime(SeekTime)`      | -ss ◌                  | [`SeekTime::createFromHms('0:00:01.9')`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/SeekTime.php) |   |
+| `withTime(float)`             | -ss ◌                  | 61.123     | Set the time in seconds, decimals are considered milliseconds |  
+| `withFrame(int)`              | -vf "select=eq()"      | 10         | Choose a specific frame, useful for getting the last image for example | 
+| `withSeekTime(SeekTime)`      | -ss ◌                  | [`SeekTime::createFromHms('0:00:01.9')`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/SeekTime.php) |  
+
 
 - Quality options:
 
@@ -308,3 +310,45 @@ try {
 }
        
 ``` 
+
+
+### Recipes
+
+#### Make a thumbnail of the last frame
+
+> To get the last frame, use the [`VideoInfoReader`](./video-info-service.md) to get
+the total number of frames. 
+ 
+```php
+<?php
+use Soluble\MediaTools\Video\Config\FFProbeConfig;
+use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams};
+use Soluble\MediaTools\Video\VideoInfoReader;
+use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+
+$myVideo = '/path/video.mp4';
+
+// Can be taken from a service
+$infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
+$generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
+
+$videoInfo = $infoReader->getInfo($myVideo);
+
+$params = (new VideoThumbParams())
+    ->withFrame(
+        $videoInfo->getNbFrames()
+    );           
+        
+try {    
+    $generator->makeThumbnail(
+        $myVideo, 
+        '/path/outputFile.jpg', 
+        $params
+    );    
+} catch(ConverterExceptionInterface $e) {
+    // See chapter about exception !!!    
+}
+       
+``` 
+
