@@ -91,7 +91,8 @@ use Soluble\MediaTools\Video\{VideoThumbGenerator, VideoThumbParams, SeekTime};
 $generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
 
 $params = (new VideoThumbParams())
-    ->withSeekTime(new SeekTime(1.25));
+    ->withTime(1.25);
+    // or: ->withSeekTime(new SeekTime(1.25)); 
 
 $generator->makeThumbnail(
     '/path/inputFile.mov', 
@@ -101,7 +102,9 @@ $generator->makeThumbnail(
        
 ``` 
 
-*The `makeThumbnail()` method will automatically set the process timeouts, logger... as specified during 
+> **Warning**, if the time is out of range, an `NoOutputGeneratedException` will be thrown.
+
+*The `makeThumbnail()` method will automatically honour the process timeouts, logger... as specified during 
 service initialization.* 
 
 ??? question "What if I need more control over the process ? (advanced usage)"
@@ -260,6 +263,14 @@ try {
 } catch(VE\MissingTimeException $e) {
     
     // Missing required time
+    
+    echo $e->getMessage();
+
+
+} catch(VE\NoOutputGeneratedException $e) {
+    
+    // Probably the time seek was out of range
+    // and no thumbnail was generated
     
     echo $e->getMessage();
     
