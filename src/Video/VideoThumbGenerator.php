@@ -89,12 +89,9 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         }
 
         // Only one frame for thumbnails :)
-        $conversionParams = $conversionParams->withVideoFrames(1);
-
-        $videoFilters = $this->getThumbFilters($thumbParams);
-        if ($videoFilters->count() > 0) {
-            $conversionParams = $conversionParams->withVideoFilter($videoFilters);
-        }
+        $conversionParams = $conversionParams
+            ->withVideoFrames(1)
+            ->withVideoFilter($this->getThumbFilters($thumbParams));
 
         if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE)) {
             $conversionParams = $conversionParams->withVideoQualityScale(
@@ -118,27 +115,6 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();
 
         return (new ProcessFactory($ffmpegCmd, $pp))();
-    }
-
-    private function getThumbFilters(VideoThumbParamsInterface $thumbParams): VideoFilterChain
-    {
-        $videoFilters = new VideoFilterChain();
-
-        // Let's choose a frame
-        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_WITH_FRAME)) {
-            $frame      = $thumbParams->getParam(VideoThumbParamsInterface::PARAM_WITH_FRAME);
-            $expression = sprintf('eq(n\,%d)', max(0, $frame - 1));
-            $videoFilters->addFilter(new SelectFilter($expression));
-        }
-
-        // Let's add the remaning filters
-        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)) {
-            $videoFilters->addFilter(
-                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)
-            );
-        }
-
-        return $videoFilters;
     }
 
     /**
@@ -198,5 +174,26 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             );
             throw $e;
         }
+    }
+
+    private function getThumbFilters(VideoThumbParamsInterface $thumbParams): VideoFilterChain
+    {
+        $videoFilters = new VideoFilterChain();
+
+        // Let's choose a frame
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_WITH_FRAME)) {
+            $frame      = $thumbParams->getParam(VideoThumbParamsInterface::PARAM_WITH_FRAME);
+            $expression = sprintf('eq(n\,%d)', max(0, $frame - 1));
+            $videoFilters->addFilter(new SelectFilter($expression));
+        }
+
+        // Let's add the remaning filters
+        if ($thumbParams->hasParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)) {
+            $videoFilters->addFilter(
+                $thumbParams->getParam(VideoThumbParamsInterface::PARAM_VIDEO_FILTER)
+            );
+        }
+
+        return $videoFilters;
     }
 }

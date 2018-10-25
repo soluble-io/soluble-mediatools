@@ -97,4 +97,24 @@ class VideoThumbGeneratorTest extends TestCase
         self::assertContains(' -filter:v "select=eq(n\,1)",hqdn3d,nlmeans ', $cmdLine);
         self::assertContains(escapeshellarg('/path/output.jpg'), $cmdLine);
     }
+
+    public function testGetSymfonyProcessWithEmptyFilterChain(): void
+    {
+        $videoFilterChain = new VideoFilterChain();
+
+        $thumbParams = (new VideoThumbParams())
+            ->withTime(2)
+            ->withVideoFilter($videoFilterChain);
+
+        $process = $this->thumbGenerator->getSymfonyProcess(
+            __FILE__,
+            '/path/output.jpg',
+            $thumbParams
+        );
+
+        $cmdLine = $process->getCommandLine();
+
+        self::assertNotContains(' -filter:v ', $cmdLine);
+        self::assertContains(escapeshellarg('/path/output.jpg'), $cmdLine);
+    }
 }

@@ -36,9 +36,21 @@ class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
         return $this->filters;
     }
 
+    /**
+     * Will append the filter, if the filter is a VideoFilterChain
+     * it will be merged at the end.
+     *
+     * @param VideoFilterInterface $filter filter to add
+     */
     public function addFilter(VideoFilterInterface $filter): void
     {
-        $this->filters[] = $filter;
+        if ($filter instanceof self) {
+            if ($filter->count() > 0) {
+                $this->filters = array_merge($this->filters, $filter->getFilters());
+            }
+        } else {
+            $this->filters[] = $filter;
+        }
     }
 
     public function count(): int
@@ -61,15 +73,14 @@ class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
                     VideoFilterInterface::class
                 ));
             }
-            $this->filters[] = $filter;
+            $this->addFilter($filter);
         }
-        $this->filters = $this->filters + $filters;
     }
 
     /**
      * @throws UnsupportedParamValueException
      */
-    public function getFFmpegCLIValue(): string
+    public function getFFmpegCLIValue(): ?string
     {
         $values = [];
         foreach ($this->filters as $filter) {
@@ -88,8 +99,9 @@ class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
 
             $values[] = $val;
         }
+
         if (count($values) === 0) {
-            return '';
+            return null;
         }
 
         return implode(',', $values);

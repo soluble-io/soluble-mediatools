@@ -107,6 +107,16 @@ class VideoFilterChainTest extends TestCase
         self::assertSame($filters, $chain->getFilters());
     }
 
+    public function testAddEmptyChainToChain(): void
+    {
+        $filters = [
+            new VideoFilterChain(),
+        ];
+        $chain = new VideoFilterChain();
+        $chain->addFilters($filters);
+        self::assertEquals(0, $chain->count());
+    }
+
     public function testAddFiltersThrowsInvalidArgumentExceptionWithScalar(): void
     {
         self::expectException(InvalidArgumentException::class);

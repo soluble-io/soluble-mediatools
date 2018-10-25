@@ -140,6 +140,17 @@ class FFMpegAdapterTest extends TestCase
         self::assertEquals('-filter:v filter_1,filter_2', $args[VideoConvertParamsInterface::PARAM_VIDEO_FILTER]);
     }
 
+    public function testWithEmptyVideoFilterChain(): void
+    {
+        $filterChain = new VideoFilterChain();
+
+        $conversionParams = (new VideoConvertParams())
+            ->withVideoFilter($filterChain);
+
+        $args = $this->ffmpegAdapter->getMappedConversionParams($conversionParams);
+        self::assertArrayNotHasKey(VideoConvertParamsInterface::PARAM_VIDEO_FILTER, $args);
+    }
+
     public function testWithNonFFMpegVideoFilterMustThrowException(): void
     {
         self::expectException(UnsupportedParamValueException::class);

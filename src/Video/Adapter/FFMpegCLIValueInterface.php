@@ -8,8 +8,7 @@ interface FFMpegCLIValueInterface
 {
     /**
      * Return the value to send to ffmpeg.
-     *
-     * @return string
+     * If null will not be processed by ffmpeg.
      */
-    public function getFFmpegCLIValue(): string;
+    public function getFFmpegCLIValue(): ?string;
 }

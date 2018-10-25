@@ -16,7 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- `VideoThumbgenerator` did not honour default number of threads (minor) 
+- `VideoThumbgenerator` did not honour default number of threads (minor)
+- `VideoFilterChain` prevent recursive chaining (merge chains) 
 
 ## 0.8.1 (2018-10-25)
 
