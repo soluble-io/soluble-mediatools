@@ -23,43 +23,43 @@ class ScaleFilter implements FFMpegVideoFilterInterface
     ];
 
     /** @var int|string|null */
-    protected $height;
+    private $height;
 
     /** @var int|string|null */
-    protected $width;
+    private $width;
 
     /** @var string|null */
-    protected $forceOriginalAspectRatio;
+    private $forceOriginalAspectRatio;
 
     /** @var string|null */
-    protected $eval;
+    private $eval;
 
     /** @var int|null */
-    protected $interl;
+    private $interl;
 
     /** @var string|null */
-    protected $flags;
+    private $flags;
 
     /** @var float|null */
-    protected $param0;
+    private $param0;
 
     /** @var float|null */
-    protected $param1;
+    private $param1;
 
     /** @var string|null */
-    protected $size;
+    private $size;
 
     /** @var string|null */
-    protected $inColorMatrix;
+    private $inColorMatrix;
 
     /** @var string|null */
-    protected $outColorMatrix;
+    private $outColorMatrix;
 
     /** @var string|null */
-    protected $inRange;
+    private $inRange;
 
     /** @var string|null */
-    protected $outRange;
+    private $outRange;
 
     /**
      * Scale filter.
