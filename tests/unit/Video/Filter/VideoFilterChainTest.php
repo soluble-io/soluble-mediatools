@@ -26,6 +26,14 @@ class VideoFilterChainTest extends TestCase
         self::assertSame($emptyFilter, $chain->getFilters()[0]);
     }
 
+    public function testCountable(): void
+    {
+        $chain = new VideoFilterChain();
+        self::assertEquals(0, $chain->count());
+        $chain->addFilter(new EmptyVideoFilter());
+        self::assertEquals(1, $chain->count());
+    }
+
     public function testAddFiltersMustReturnCorrectCliArguments(): void
     {
         $filter1 = new class() implements VideoFilterInterface {

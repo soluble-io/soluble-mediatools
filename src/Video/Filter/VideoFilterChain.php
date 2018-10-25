@@ -9,7 +9,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
-class VideoFilterChain implements FFMpegVideoFilterInterface
+class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
 {
     /** @var VideoFilterInterface[] */
     private $filters = [];
@@ -39,6 +39,11 @@ class VideoFilterChain implements FFMpegVideoFilterInterface
     public function addFilter(VideoFilterInterface $filter): void
     {
         $this->filters[] = $filter;
+    }
+
+    public function count(): int
+    {
+        return count($this->filters);
     }
 
     /**

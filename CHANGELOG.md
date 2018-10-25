@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `VideoThumbGenerator::makeThumbnail()` now checks that output file exists and eventually throws `NoOutputGeneratedException`. [17](https://github.com/soluble-io/soluble-mediatools/issues/17)
 - `VideoThumbParams::withFrame()` allows to make a thumbnail of a specific frame.
 - `SelectFilter` added for frame selections. 
+- `VideoFilterChain::count()` method added, implements `Countable`  
 
 ### Fixed
 
