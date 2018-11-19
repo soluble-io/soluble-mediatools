@@ -1,11 +1,12 @@
 {
     "name": "soluble/mediatools",
-    "description": "mediatools",
+    "description": "Media tools with FFMPEG (transcode, thumbnails...)",
     "license": "MIT",
     "keywords": [
         "video",
         "transcode",
-        "ffmpeg"
+        "ffmpeg",
+        "thumbnail"
     ],
     "homepage": "https://github.com/soluble-io/soluble-mediatools",
     "type": "library",
