@@ -14,7 +14,7 @@ class ProcessExceptionTest extends TestCase
 {
     public function testUsage(): void
     {
-        $process = new Process('ls -la');
+        $process = new Process(['ls -la']);
         $se      = new ProcessTimedOutException($process, ProcessTimedOutException::TYPE_GENERAL);
         $e       = new ProcessException($process, $se);
 

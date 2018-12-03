@@ -26,7 +26,11 @@ class ProcessFactory
 
     public function __invoke(): Process
     {
-        $process = new Process($this->command);
+        if (!is_array($this->command)) {
+            $process = Process::fromShellCommandline($this->command);
+        } else {
+            $process = new Process($this->command);
+        }
         if ($this->processParams !== null) {
             $process->setTimeout($this->processParams->getTimeout());
             $process->setIdleTimeout($this->processParams->getIdleTimeout());
