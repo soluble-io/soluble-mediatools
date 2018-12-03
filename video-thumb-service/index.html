@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.11e41852.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
       
@@ -57,16 +57,17 @@
       
     
     
-      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="../assets/javascripts/modernizr.20ef595d.js"></script>
     
     
-      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
     <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
     
       <link rel="stylesheet" href="../assets/css/extra.css">
     
@@ -108,7 +109,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#requirements" tabindex="1" class="md-skip">
+      <a href="#requirements" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -502,6 +503,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#recipes" title="Recipes" class="md-nav__link">
+    Recipes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-a-thumbnail-of-the-last-frame" title="Make a thumbnail of the last frame" class="md-nav__link">
+    Make a thumbnail of the last frame
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
         <li class="md-nav__item">
           <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
@@ -705,6 +726,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#recipes" title="Recipes" class="md-nav__link">
+    Recipes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-a-thumbnail-of-the-last-frame" title="Make a thumbnail of the last frame" class="md-nav__link">
+    Make a thumbnail of the last frame
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
         <li class="md-nav__item">
           <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
@@ -740,7 +781,7 @@ logger if you don't want to log issues by yourself.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">};</span>
 
 <span class="nv">$generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
@@ -793,7 +834,9 @@ and the various timeouts if needed. The second parameter can be used to inject a
 Depending on available framework integrations, you may have a look to the 
 <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGeneratorFactory.php"><code>VideoThumbGeneratorFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
-See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p></details><h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p>
+</details>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <h4 id="thumbnailing">Thumbnailing<a class="headerlink" href="#thumbnailing" title="Permanent link">&para;</a></h4>
 <p>Typically you'll use the <code>VideoThumbGenerator::makeThumbnail()</code> method in which you specify the input/output files
 as well as the thumbnail params. </p>
@@ -805,7 +848,8 @@ as well as the thumbnail params. </p>
 <span class="nv">$generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
-    <span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">));</span>
+    <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span>
+    <span class="c1">// or: -&gt;withSeekTime(new SeekTime(1.25)); </span>
 
 <span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
     <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
@@ -814,7 +858,10 @@ as well as the thumbnail params. </p>
 <span class="p">);</span>    
 </pre></div>
 
-<p><em>The <code>makeThumbnail()</code> method will automatically set the process timeouts, logger... as specified during 
+<blockquote>
+<p><strong>Warning</strong>, if the time is out of range, an <code>NoOutputGeneratedException</code> will be thrown.</p>
+</blockquote>
+<p><em>The <code>makeThumbnail()</code> method will automatically honour the process timeouts, logger... as specified during 
 service initialization.</em> </p>
 <details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>Video\VideoThumbGenerator::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
 to get more control on the conversion process. 
@@ -836,7 +883,9 @@ to get more control on the conversion process.
     <span class="p">}</span>
 <span class="p">}</span>        
 </pre></div>
-Have a look to the <a href="https://symfony.com/doc/current/components/process.html">symfony/process documentation</a> for more recipes. </p></details><h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+Have a look to the <a href="https://symfony.com/doc/current/components/process.html">symfony/process documentation</a> for more recipes. </p>
+</details>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
 <p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbParams.php"><code>Video\VideoThumbParams</code></a> 
 exposes an immutable api that attempt to mimic ffmpeg params.  </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
@@ -851,8 +900,10 @@ exposes an immutable api that attempt to mimic ffmpeg params.  </p>
 
 <details class="question"><summary>Immutable api, what does it change for me ? (vs fluent)</summary><p>VideoThumbParams exposes an <mark>immutable</mark> style api <em>(<code>-&gt;withXXX()</code>, like PSR-7 for example)</em>.
 It means that the original object is never touched, the <code>withXXX()</code> methods will return a newly 
-created object. </p><p>Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both expose 
-chainable methods... your primary reflexes might cause pain: </p><div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+created object. </p>
+<p>Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both expose 
+chainable methods... your primary reflexes might cause pain: </p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">());</span>
 
 <span class="nv">$newParams</span> <span class="o">=</span> <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">1.1212</span><span class="p">));</span>
@@ -863,7 +914,9 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <span class="hll"><span class="c1">// $newParams contains SeekTime (correct)</span>
 </span><span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output.jpg&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
 </pre></div>
-</details><p>Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information. </p>
+
+</details>
+<p>Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information. </p>
 <ul>
 <li>Time related:</li>
 </ul>
@@ -882,6 +935,12 @@ chainable methods... your primary reflexes might cause pain: </p><div class="cod
 <td>-ss ◌</td>
 <td>61.123</td>
 <td>Set the time in seconds, decimals are considered milliseconds</td>
+</tr>
+<tr>
+<td><code>withFrame(int)</code></td>
+<td>-vf "select=eq()"</td>
+<td>10</td>
+<td>Choose a specific frame, useful for getting the last image for example</td>
 </tr>
 <tr>
 <td><code>withSeekTime(SeekTime)</code></td>
@@ -1026,6 +1085,14 @@ alternatively you can also :</p>
     <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
 
 
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">VE\NoOutputGeneratedException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Probably the time seek was out of range</span>
+    <span class="c1">// and no thumbnail was generated</span>
+
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+
+
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span>
 
     <span class="c1">// The following 3 exceptions are linked to process</span>
@@ -1056,6 +1123,43 @@ alternatively you can also :</p>
     <span class="c1">//</span>
     <span class="c1">// - VE\RuntimeException</span>
     <span class="c1">// - VE\InvalidParamException (should not happen)</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
+<h4 id="make-a-thumbnail-of-the-last-frame">Make a thumbnail of the last frame<a class="headerlink" href="#make-a-thumbnail-of-the-last-frame" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>To get the last frame, use the <a href="../video-info-service/"><code>VideoInfoReader</code></a> to get
+the total number of frames. </p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
+
+<span class="nv">$myVideo</span> <span class="o">=</span> <span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">;</span>
+
+<span class="c1">// Can be taken from a service</span>
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
+<span class="nv">$generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+
+<span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="nv">$myVideo</span><span class="p">);</span>
+
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="na">withFrame</span><span class="p">(</span>
+        <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">()</span>
+    <span class="p">);</span>           
+
+<span class="k">try</span> <span class="p">{</span>    
+    <span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
+        <span class="nv">$myVideo</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
+        <span class="nv">$params</span>
+    <span class="p">);</span>    
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
 </pre></div>
                 
@@ -1151,9 +1255,9 @@ alternatively you can also :</p>
       
     </div>
     
-      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      <script src="../assets/javascripts/application.9e1f3b71.js"></script>
       
-      <script>app.initialize({version:"1.0.2",url:{base:".."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
     
