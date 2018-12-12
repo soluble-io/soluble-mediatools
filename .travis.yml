@@ -19,12 +19,12 @@ before_install:
     fi
 
 install:
-  - |
-    if [ "x$IGNORE_PLATFORM_REQS" != "xyes" ]; then
-      travis_retry composer -n update --prefer-dist --no-interaction
+  - if [[ $DEPS == 'lowest' ]]; then
+      travis_retry composer -n update --prefer-dist --prefer-lowest --prefer-stable --no-interaction $COMPOSER_ARGS
     else
-      travis_retry composer -n update --prefer-dist --no-interaction --ignore-platform-reqs
+      travis_retry composer -n update --prefer-dist --no-interaction $COMPOSER_ARGS
     fi
+
 
 
 jobs:
@@ -52,6 +52,11 @@ jobs:
       env: INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+    - stage: Test PHP7.1 With lowest deps
+      php: 7.1
+      env: INSTALL_FFMPEG=yes DEPS=lowest
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Make doc
       language: python
       script:
@@ -65,7 +70,7 @@ jobs:
         - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=55 --min-covered-msi=55 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
-      env: IGNORE_PLATFORM_REQS=yes
+      env: COMPOSER_ARGS=--ignore-platform-reqs
       script:
         - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
 
