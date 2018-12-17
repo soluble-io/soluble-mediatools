@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Bugfix 
 
-- Recently introduced for `symfony/process 4.2` broke older versions.
+- [Major] Recently introduced for `symfony/process 4.2` broke older versions.
 
 ### Improvement
 
-- Now relies on arguments escaping offered by `symfony/process`.  
+- Now relies on arguments escaping offered by `symfony/process`.
+- Tested on PHP 7.3 final !  
 
 ### Improved
 
