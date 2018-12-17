@@ -192,7 +192,7 @@ class FFMpegAdapter implements ConverterAdapterInterface
      *
      * @throws InvalidArgumentException
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): string
+    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): array
     {
         $inputArg = ($inputFile !== null && $inputFile !== '')
                         ? sprintf('-i %s', escapeshellarg($inputFile))
@@ -202,7 +202,8 @@ class FFMpegAdapter implements ConverterAdapterInterface
         if ($outputFile instanceof UnescapedFileInterface) {
             $outputArg = $outputFile->getFile();
         } elseif (is_string($outputFile)) {
-            $outputArg = sprintf('%s', escapeshellarg($outputFile));
+            //$outputArg = sprintf('%s', escapeshellarg($outputFile));
+            $outputArg = $outputFile;
         } elseif ($outputFile !== null) {
             throw new InvalidArgumentException(sprintf(
                 'Output file must be either a non empty string, null or PlatformNullFile (type %s)',
@@ -210,26 +211,47 @@ class FFMpegAdapter implements ConverterAdapterInterface
             ));
         }
 
-        $ffmpegCmd = preg_replace(
-            '/(\ ){2,}/',
-            ' ',
-            trim(sprintf(
-                '%s %s %s %s %s',
+        $ffmpegCmd = array_merge(
+            [
                 $this->ffmpegConfig->getBinary(),
-                implode(' ', $prependArguments),
-                $inputArg,
-                implode(' ', $arguments),
-                $outputArg
-            ))
+            ],
+            $this->getArgsWithExplodedValues($prependArguments),
+            ['-i', $inputFile],
+            $this->getArgsWithExplodedValues($arguments),
+            [$outputArg]
         );
 
-        if ($ffmpegCmd === null) {
+        if (count($ffmpegCmd) < 2) {
             throw new UnexpectedValueException(
                 'Cannot generate ffmpeg cli command'
             );
         }
 
         return $ffmpegCmd;
+    }
+
+    /**
+     * As we rely on symfony process unescaping, we
+     * need to explode options name and values... i.e
+     * ['-tune animation'] will become ['-tune', 'animation'].
+     *
+     * @param array<string, string> $args
+     *
+     * @return string[]
+     */
+    private function getArgsWithExplodedValues(array $args): array
+    {
+        $exploded = [];
+        foreach ($args as $key => $value) {
+            $elems      = explode(' ', $value);
+            $exploded[] = (string) array_shift($elems);
+            if (count($elems) <= 0) {
+                continue;
+            }
+            $exploded[] = implode(' ', $elems);
+        }
+
+        return $exploded;
     }
 
     public function getDefaultThreads(): ?int

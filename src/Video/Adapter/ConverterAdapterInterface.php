@@ -25,9 +25,9 @@ interface ConverterAdapterInterface
      * @param null|string|UnescapedFileInterface $outputFile
      * @param array<string,string>               $prependArguments args that must be added at the beginning of the command
      *
-     * @return string
+     * @return array<int, string>
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): string;
+    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): array;
 
     public function getDefaultThreads(): ?int;
 }

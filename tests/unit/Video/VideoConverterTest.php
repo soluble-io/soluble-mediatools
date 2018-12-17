@@ -64,7 +64,8 @@ class VideoConverterTest extends TestCase
             $convertParams
         );
 
-        $cmdLine = $process->getCommandLine();
+        // We test on unescaped command argument (because it's more convenient)
+        $cmdLine = str_replace("'", '', $process->getCommandLine());
 
         self::assertContains(' -c:v libvpx-vp9 ', $cmdLine);
         self::assertContains(' -b:v 200k ', $cmdLine);
@@ -82,7 +83,7 @@ class VideoConverterTest extends TestCase
         self::assertContains(' -f webm ', $cmdLine);
         self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
         self::assertContains(' -frames:v 200 ', $cmdLine);
-        self::assertContains(escapeshellarg('/path/output'), $cmdLine);
+        self::assertContains('/path/output', $cmdLine);
     }
 
     public function testGetSymfonyProcessMustThrowExceptionOnWrongOutput(): void
@@ -116,8 +117,10 @@ class VideoConverterTest extends TestCase
             $convertParams
         );
 
+        // We test on unescaped command argument (because it's more convenient)
         $cmdLine = $process->getCommandLine();
-        self::assertContains(' /a n/un \'escaped/file', $cmdLine);
+
+        self::assertContains('/a n/un \'\\\'\'escaped/file\'', $cmdLine);
     }
 
     public function testGetSymfonyProcessMustDefaultToConfigThreads(): void
@@ -132,7 +135,8 @@ class VideoConverterTest extends TestCase
             $convertParams
         );
 
-        $cmdLine = $process->getCommandLine();
+        // We test on unescaped command argument (because it's more convenient)
+        $cmdLine = str_replace("'", '', $process->getCommandLine());
 
         self::assertContains(' -threads 3 ', $cmdLine);
 

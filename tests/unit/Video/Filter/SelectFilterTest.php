@@ -16,7 +16,7 @@ class SelectFilterTest extends TestCase
     public function testGetFFMpegCLIValue(): void
     {
         self::assertEquals(
-            '"select=eq(n\,10)"',
+            'select=eq(n\,10)',
             (new SelectFilter('eq(n\,10)'))->getFFmpegCLIValue()
         );
     }

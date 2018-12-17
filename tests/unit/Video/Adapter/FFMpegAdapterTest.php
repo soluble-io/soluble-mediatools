@@ -176,7 +176,7 @@ class FFMpegAdapterTest extends TestCase
             '/test/output.mp4'
         );
 
-        self::assertContains('ffmpeg -i \'/test/video.mp4\' -crf 32 -c:v h264 -y \'/test/output.mp4\'', $cmd);
+        self::assertContains('ffmpeg -i /test/video.mp4 -crf 32 -c:v h264 -y /test/output.mp4', implode(' ', $cmd));
     }
 
     public function testGetCliCommandWrongOutputFileThrowsInvalidArgumentException(): void

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 0.8.4 (2018-12-17)
+
+### Bugfix 
+
+- Recently introduced for `symfony/process 4.2` broke older versions.
+
+### Improvement
+
+- Now relies on arguments escaping offered by `symfony/process`.  
+
+### Improved
+
+- Q&A: travis now tests with lowest supported deps !  
+
+
 ## 0.8.3 (2018-12-03)
 
 ### Updated 

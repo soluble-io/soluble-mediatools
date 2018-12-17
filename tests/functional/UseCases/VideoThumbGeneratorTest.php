@@ -26,9 +26,7 @@ class VideoThumbGeneratorTest extends TestCase
     /** @var VideoThumbGeneratorInterface */
     protected $thumbService;
 
-    /**
-     * @var VideoInfoReaderInterface
-     */
+    /** @var VideoInfoReaderInterface */
     protected $infoService;
 
     /** @var string */

@@ -15,10 +15,10 @@ class ProcessFactory
     protected $processParams;
 
     /**
-     * @param array|string                $command
+     * @param array                       $command
      * @param null|ProcessParamsInterface $processParams
      */
-    public function __construct($command, ?ProcessParamsInterface $processParams = null)
+    public function __construct(array $command, ?ProcessParamsInterface $processParams = null)
     {
         $this->command       = $command;
         $this->processParams = $processParams;
@@ -27,7 +27,9 @@ class ProcessFactory
     public function __invoke(): Process
     {
         if (!is_array($this->command)) {
-            $process = Process::fromShellCommandline($this->command);
+            var_dump($this->command);
+            die('cool');
+        //            $process = Process::fromShellCommandline($this->command);
         } else {
             $process = new Process($this->command);
         }

@@ -31,13 +31,13 @@
         "fig/http-message-util": "^1.1.2",
         "friendsofphp/php-cs-fixer": "^2.13",
         "guzzlehttp/guzzle": "^6.2",
-        "infection/infection": "^0.11",
+        "infection/infection": "^0.11.2",
         "jangregor/phpstan-prophecy": "^0.2",
         "monolog/monolog": "^1.23",
         "phpspec/prophecy": "^1.8",
-        "phpstan/phpstan": "^0.10",
+        "phpstan/phpstan": "^0.10.5",
         "phpstan/phpstan-phpunit": "^0.10",
-        "phpstan/phpstan-strict-rules": "^0.10",
+        "phpstan/phpstan-strict-rules": "^0.10.1",
         "phpunit/phpunit": "^7.4",
         "psr/http-message": "^1.0.1",
         "roave/security-advisories": "dev-master",
@@ -62,7 +62,6 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "\\CaptainHook\\CaptainHook\\Composer\\Cmd::install",
         "check": [
             "@cs-check",
             "@phpstan"

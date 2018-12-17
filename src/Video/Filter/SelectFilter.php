@@ -8,9 +8,7 @@ use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
 class SelectFilter implements FFMpegVideoFilterInterface
 {
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     private $expression;
 
     /**
@@ -21,7 +19,7 @@ class SelectFilter implements FFMpegVideoFilterInterface
      * @param string|null $expression ffmpeg selected expression
      */
     public function __construct(
-        string $expression = null
+        ?string $expression = null
     ) {
         $this->expression = $expression;
     }
@@ -29,7 +27,7 @@ class SelectFilter implements FFMpegVideoFilterInterface
     public function getFFmpegCLIValue(): string
     {
         return sprintf(
-            '"select=%s"',
+            'select=%s',
             str_replace('"', '\"', $this->expression ?? '')
         );
     }

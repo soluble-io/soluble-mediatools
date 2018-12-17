@@ -46,6 +46,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
      */
     public function getSymfonyProcess(string $inputFile, ?ProcessParamsInterface $processParams = null): Process
     {
+        /*
         $ffprobeCmd = trim(sprintf(
             '%s %s %s',
             $this->ffprobeConfig->getBinary(),
@@ -57,6 +58,19 @@ class VideoInfoReader implements VideoInfoReaderInterface
             ]),
             sprintf('-i %s', escapeshellarg($inputFile))
         ));
+        */
+
+        $ffprobeCmd = [
+            $this->ffprobeConfig->getBinary(),
+            '-v',
+            'quiet',
+            '-print_format',
+            'json',
+            '-show_format',
+            '-show_streams',
+            '-i',
+            $inputFile,
+        ];
 
         $pp = $processParams ?? $this->ffprobeConfig->getProcessParams();
 
