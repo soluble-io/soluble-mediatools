@@ -34,8 +34,8 @@ jobs:
     - stage: Make doc
 
   include:
-    - stage: Tests and Coverage (PHP 7.2)
-      php: 7.2
+    - stage: Tests and Coverage (PHP 7.3)
+      php: 7.3
       env: XDEBUG=yes INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
@@ -49,6 +49,11 @@ jobs:
         - composer cs-check
     - stage: Test PHP7.1
       php: 7.1
+      env: INSTALL_FFMPEG=yes
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+    - stage: Test PHP7.2
+      php: 7.2
       env: INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
@@ -67,7 +72,7 @@ jobs:
       php: 7.2
       env: XDEBUG=yes
       script:
-        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=55 --min-covered-msi=55 --threads=4
+        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=40 --min-covered-msi=60 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
       env: COMPOSER_ARGS=--ignore-platform-reqs
