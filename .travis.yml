@@ -34,7 +34,7 @@ jobs:
   include:
     - stage: Tests and Coverage (PHP 7.3)
       php: 7.3
-      env: XDEBUG=yes INSTALL_FFMPEG=yes
+      env: XDEBUG=yes INSTALL_FFMPEG=yes COMPOSER_ARGS=--ignore-platform-reqs
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
