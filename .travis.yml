@@ -19,14 +19,12 @@ before_install:
     fi
 
 install:
-  - if [[ $DEPS == 'lowest' ]]; then
+  - |
+    if [[ $DEPS == 'lowest' ]]; then
       travis_retry composer -n update --prefer-dist --prefer-lowest --prefer-stable --no-interaction $COMPOSER_ARGS
     else
       travis_retry composer -n update --prefer-dist --no-interaction $COMPOSER_ARGS
     fi
-
-
-
 jobs:
   allow_failures:
     - php: nightly
