@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.5 (2018-12-20)
+
+### Improvement
+
+- `symfony/process` 3.4 allowed and tested ! (^3.4 || ^4.0)
 
 ## 0.8.4 (2018-12-17)
 
