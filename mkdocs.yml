@@ -16,30 +16,24 @@ docs_dir: docs
 site_dir: build/docs
 
 nav:
-    - Home:
-      - Introduction: index.md
-      - Features: service-overview.md
-      - Installation: install.md
-      - License: 'about/license.md'
-    - Video services:
-      - 'InfoReader': 'video-info-service.md'
-      - 'Converter': 'video-conversion-service.md'
-      - 'ThumbGenerator': 'video-thumb-service.md'
-      - 'Analyzer': 'video-detection-service.md'
-      - 'Notes':
-        - 'Video filters': 'video-filters.md'
-    - Notes:
-      - 'Install':
-        - FFMpeg: 'install-ffmpeg.md'
+    - Home: index.md
+    - Features: service-overview.md
+    - '> VideoInfoReader': 'video-info-service.md'
+    - '> VideoConverter': 'video-conversion-service.md'
+    - '> VideoThumbGenerator': 'video-thumb-service.md'
+    - '> VideoAnalyzer': 'video-detection-service.md'
+    - '> Filters notes': 'video-filters.md'
+    - Installation: install.md
+    - License: 'about/license.md'
 
 theme:
   name: 'material'
   language: 'en'
   palette:
-    primary: 'deep-orange'
-    accent: 'green'
+    primary: 'white'
+    accent: 'orange'
   font:
-    text: 'Roboto'
+    text: 'Lato'
     code: 'Roboto Mono'
   logo:
     icon: 'play_circle_outline'
