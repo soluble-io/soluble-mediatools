@@ -41,6 +41,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://soluble-io.github.io/soluble-mediatools/extras/</loc>
+     <lastmod>2018-12-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://soluble-io.github.io/soluble-mediatools/about/license/</loc>
      <lastmod>2018-12-22</lastmod>
      <changefreq>daily</changefreq>
