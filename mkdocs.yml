@@ -24,6 +24,7 @@ nav:
     - '✔ VideoAnalyzer': 'video-detection-service.md'
     - '▧ Filters notes': 'video-filters.md'
     - Installation: install.md
+    - Integration: extras.md
     - License: 'about/license.md'
 
 theme:
@@ -38,7 +39,7 @@ theme:
   logo:
     icon: 'play_circle_outline'
   feature:
-    tabs: true
+    tabs: false
 
 # Customization
 extra:
