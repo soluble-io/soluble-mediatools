@@ -38,17 +38,12 @@ span.md-header-nav__title {
 
 
 /**
- * Change the default hero template
- */
 .md-header, .md-hero {
     background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);
 }
 
 
-[data-md-color-primary=light-green] .md-header, [data-md-color-primary=light-green] .md-hero {
-   /* background: linear-gradient(135deg, rgba(0,0,0, 0.9), rgba(0,0,0, 0.6) 60%, green);*/
-}
-
+*/
 
 .md-hero--expand .md-hero__inner {
     margin-bottom: 0;
