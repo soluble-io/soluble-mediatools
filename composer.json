@@ -6,6 +6,7 @@
         "video",
         "transcode",
         "ffmpeg",
+        "ffprobe",
         "thumbnail"
     ],
     "homepage": "https://github.com/soluble-io/soluble-mediatools",
