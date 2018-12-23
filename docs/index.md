@@ -19,8 +19,9 @@ they work well too. *I still believe mediatools dance better though ;)*
     
 On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
-*(SOLID friendly)*. Last but not least, all services accepts a `LoggerInterface` a good reason for me to
-prefer it from a simple command-line.  
+*(SOLID friendly)*.  
+Last but not least, all services accepts a `LoggerInterface` one more reason to
+prefer it from a simple command-line.
 
 Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.      
 
