@@ -8,14 +8,18 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
+Toolbox for video conversions, transcoding, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
+
+From existing alternatives, it differs by offering a great level of tunability by exposing 
+an api very close to what ffmpeg does. It can be seen as a drawback too, but in my experience efficient 
+conversions are very far from being a straightforward thing.    
 
 It likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
-*(SOLID friendly)*.   
+*(SOLID friendly)*. Last but not least, all services accepts a `LoggerInterface` a good reason for me to
+prefer it from a simple command-line.  
 
 Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.
-
      
 ## Status
 
