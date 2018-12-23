@@ -528,13 +528,14 @@ and exposes most of their features, like scaling, clipping, filters, transcoding
 and much more.   </p>
 <p><img alt="Logo" src="assets/images/mediatools.png" /></p>
 <p>Its API rather focus on giving developer freedom and tunability than ready-made recipes. 
-Conversions are <a href="./docs/video-conversion-service/#notes">far from being straightforward</a>,
+Conversions are <a href="./video-conversion-service/#notes">far from being straightforward</a>,
 so if you're looking for more ready-made cookies, check the <a href="./#alternatives">alternatives</a>, 
 they work well too. <em>I still believe mediatools dance better though ;)</em>  </p>
 <p>On another side, it likes <a href="https://www.php-fig.org/psr/">PSR</a> (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
-<em>(SOLID friendly)</em>. Last but not least, all services accepts a <code>LoggerInterface</code> a good reason for me to
-prefer it from a simple command-line.  </p>
+<em>(SOLID friendly)</em>.<br />
+Last but not least, all services accepts a <code>LoggerInterface</code> one more reason to
+prefer it from a simple command-line.</p>
 <p>Under the hood, it relies on the battle-tested <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a>, its only dependency.      </p>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
 <p>Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
