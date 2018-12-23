@@ -102,7 +102,7 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 
 ## Alternative(s)
 
-- https://github.com/PHP-FFMpeg/PHP-FFMpeg
+- [https://github.com/PHP-FFMpeg/PHP-FFMpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg])
 
 
 ## Project philosophy

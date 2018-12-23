@@ -163,6 +163,10 @@ $interlaced = $interlaceGuess->isInterlaced(
 );
 
 ``` 
+
+## Alternative(s)
+
+- [https://github.com/PHP-FFMpeg/PHP-FFMpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg])
  
    
 ## Coding standards and interop
