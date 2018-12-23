@@ -25,6 +25,8 @@ $ composer update
 
 ### Step 3: Release a P/R (pull request)
 
+If you have disabled .githooks:
+
 1. First ensure the code is clean
 
 ```shell
