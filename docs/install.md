@@ -11,8 +11,15 @@ $ composer require soluble/mediatools
 
 ## FFMpeg
 
-VideoServices requires ffmpeg and ffprobe to be installed. 
-
+> This library relies on FFMpeg binaries 
+>
+> - **[ffmpeg](https://ffmpeg.org/ffmpeg.html)** is required by `VideoConverter`, `VideoVideoAnalyzer` and `VideoThumbGenerator`.
+> - **[ffprobe](https://ffmpeg.org/ffprobe.html)** is required by `VideoInfoReader`.
+>  
+> Statically [compiled binaries](https://ffmpeg.org/download.html) exists in case your OS does not provide them.
+>
+> *Tip: For integration tests see our [ffmpeg travis install](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) script*. 
+ 
 ### For Linux
 
 > Most distributions offers ffmpeg in their repositories. If you're not happy with

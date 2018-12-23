@@ -17,14 +17,13 @@ site_dir: build/docs
 
 nav:
     - Home: index.md
-    - Features: service-overview.md
     - '✔ VideoInfoReader': 'video-info-service.md'
     - '✔ VideoConverter': 'video-conversion-service.md'
     - '✔ VideoThumbGenerator': 'video-thumb-service.md'
     - '✔ VideoAnalyzer': 'video-detection-service.md'
     - '▧ Filters notes': 'video-filters.md'
     - Installation: install.md
-    - Integration: extras.md
+    - Integration: integration.md
     - License: 'about/license.md'
 
 theme:

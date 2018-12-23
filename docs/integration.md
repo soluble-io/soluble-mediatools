@@ -1,20 +1,15 @@
-## Installation
+## Integration
 
-### Binaries 
+### Framework(s) integration
 
-> This library relies on FFMpeg binaries 
+> No framework integration have been done yet... Open a P/R or send us a link.
 >
-> - **[ffmpeg](https://ffmpeg.org/ffmpeg.html)** is required by `VideoConverter`, `VideoVideoAnalyzer` and `VideoThumbGenerator`.
-> - **[ffprobe](https://ffmpeg.org/ffprobe.html)** is required by `VideoInfoReader`.
->  
-> Statically [compiled binaries](https://ffmpeg.org/download.html) exists in case your OS does not provide them.
+> - [ ] zend-expressive (wip) 
+> - [ ] Laravel (todo)
+> - [ ] Symfony (todo)
 >
-> *Tip: For integration tests see our [ffmpeg travis install](https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh) script*. 
 
-
-## Configuration
-
-### PSR-11/container way 
+### The PSR-11/container way 
 
 > Mediatools is PSR-11/container friendly and provides some ready to use factories.
 
@@ -73,12 +68,4 @@ $container = new ServiceManager(
 > to get some ideas about registered factories / aliases
 
 
-### Framework(s) integration
-
-> No framework integration have been done yet... Open a P/R or send us a link.
->
-> - [ ] zend-expressive (wip) 
-> - [ ] Laravel (todo)
-> - [ ] Symfony (todo)
->
 

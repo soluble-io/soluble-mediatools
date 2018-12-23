@@ -3,14 +3,18 @@
 [![codecov](https://codecov.io/gh/soluble-io/soluble-mediatools/branch/master/graph/badge.svg)](https://codecov.io/gh/soluble-io/soluble-mediatools)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/soluble-io/soluble-mediatools/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/soluble-io/soluble-mediatools/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/soluble/mediatools/v/stable.svg)](https://packagist.org/packages/soluble/mediatools)
-[![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
+Toolbox for video conversions, transcoding, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
+
+From existing alternatives, it differs by offering a great level of tunability by exposing 
+an api very close to what ffmpeg does. It can be seen as a drawback too, but in my experience efficient 
+conversions are very far from being a straightforward thing.    
 
 It likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
-*(SOLID friendly)*.   
+*(SOLID friendly)*. Last but not least, all services accepts a `LoggerInterface` a good reason for me to
+prefer it from a simple command-line.  
 
 Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.
       
@@ -22,6 +26,84 @@ tests to ensure a smooth experience. But **this project is young** and would ❤
 ## Requirements
 
 A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
+
+## Features at a glance
+
+## Video services
+
+- [x] **VideoConverter** ([doc here](./video-conversion-service.md))
+      - [x] Conversions: transcode, compress, transmux...
+      - [x] Clipping (start-time/send-time)
+      - [x] Filters: scale, deinterlace, denoise.        
+        ```php hl_lines="4 5 6 7 8 9 10 12 13 14 15 16"
+        <?php // A quick taste            
+        $converter = new VideoConverter(new FFMpegConfig('/path/to/ffmpeg'));
+        
+        $params = (new VideoConvertParams())
+            ->withVideoCodec('libx264')    
+            ->withStreamable(true)
+            ->withVideoFilter(
+                new ScaleFilter(720, 576)
+            )
+            ->withCrf(24);                  
+            
+        $converter->convert(
+            '/path/inputFile.mov', 
+            '/path/outputFile.mp4', 
+            $params
+        );           
+        ```  
+      
+- [x] **VideoInfoReader** ([doc here](./video-info-service.md))
+      - [x] Duration, dimensions, number of frames
+        ```php hl_lines="5 7 8 9 10"
+        <?php // a quick taste    
+        $infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
+        
+        $videoInfo = $infoReader->getInfo('/path/video.mp4');
+        
+        $duration = $videoInfo->getDuration();
+        $frames   = $videoInfo->getNbFrames();
+        $width    = $videoInfo->getWidth();
+        $height   = $videoInfo->getHeight();
+        ```  
+
+- [x] **VideoThumbGenerator** ([doc here](./video-thumb-service.md))
+      - [x] Thumbnail at specific time
+      - [x] Support filters: scale, denoise, deinterlace.
+        ```php hl_lines="4 5 6 7 8 9 11 12 13 14 15"
+        <?php // a quick taste        
+        $generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
+        
+        $params = (new VideoThumbParams())
+            ->withVideoFilter(
+                new ScaleFilter(720, 576)
+            )        
+            ->withTime(1.25);
+            
+        $generator->makeThumbnail(
+            '/path/inputFile.mov', 
+            '/path/outputFile.jpg', 
+            $params
+        );    
+        ```  
+
+- [x] **VideoAnalyzer** ([doc here](./video-detection-service.md))
+      - [x] Interlacing detection
+        ```php hl_lines="4 6 7 8 9 10"
+        <?php // a quick taste        
+        $analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
+        
+        $interlaceGuess = $analyzer->detectInterlacement();
+                    
+        $interlaced = $interlaceGuess->isInterlaced();
+        ```  
+     
+
+## Alternative(s)
+
+- https://github.com/PHP-FFMpeg/PHP-FFMpeg
+
 
 ## Project philosophy
 
@@ -53,9 +135,5 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
     - Note that information and thumbnail services can be used in realtime but conversions should be 
       used with a job queue. Conversions are heavy.    
 
-
-## Alternative(s)
-
-- https://github.com/PHP-FFMpeg/PHP-FFMpeg
 
 
