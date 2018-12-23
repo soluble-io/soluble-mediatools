@@ -264,18 +264,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../service-overview/" title="Features" class="md-nav__link">
-      Features
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../video-info-service/" title="✔ VideoInfoReader" class="md-nav__link">
       ✔ VideoInfoReader
     </a>
@@ -433,7 +421,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../extras/" title="Integration" class="md-nav__link">
+    <a href="../integration/" title="Integration" class="md-nav__link">
       Integration
     </a>
   </li>
@@ -551,7 +539,15 @@
 </pre></div>
 
 <h2 id="ffmpeg">FFMpeg<a class="headerlink" href="#ffmpeg" title="Permanent link">&para;</a></h2>
-<p>VideoServices requires ffmpeg and ffprobe to be installed. </p>
+<blockquote>
+<p>This library relies on FFMpeg binaries </p>
+<ul>
+<li><strong><a href="https://ffmpeg.org/ffmpeg.html">ffmpeg</a></strong> is required by <code>VideoConverter</code>, <code>VideoVideoAnalyzer</code> and <code>VideoThumbGenerator</code>.</li>
+<li><strong><a href="https://ffmpeg.org/ffprobe.html">ffprobe</a></strong> is required by <code>VideoInfoReader</code>.</li>
+</ul>
+<p>Statically <a href="https://ffmpeg.org/download.html">compiled binaries</a> exists in case your OS does not provide them.</p>
+<p><em>Tip: For integration tests see our <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/.travis/travis-install-ffmpeg.sh">ffmpeg travis install</a> script</em>. </p>
+</blockquote>
 <h3 id="for-linux">For Linux<a class="headerlink" href="#for-linux" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Most distributions offers ffmpeg in their repositories. If you're not happy with
@@ -604,7 +600,7 @@ their version, use a static build instead.</p>
           </a>
         
         
-          <a href="../extras/" title="Integration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../integration/" title="Integration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">

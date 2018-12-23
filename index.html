@@ -289,8 +289,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
-    Project philosophy
+  <a href="#features-at-a-glance" title="Features at a glance" class="md-nav__link">
+    Features at a glance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-services" title="Video services" class="md-nav__link">
+    Video services
   </a>
   
 </li>
@@ -298,6 +305,13 @@
         <li class="md-nav__item">
   <a href="#alternatives" title="Alternative(s)" class="md-nav__link">
     Alternative(s)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
+    Project philosophy
   </a>
   
 </li>
@@ -310,18 +324,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="service-overview/" title="Features" class="md-nav__link">
-      Features
-    </a>
   </li>
 
     
@@ -403,7 +405,7 @@
 
 
   <li class="md-nav__item">
-    <a href="extras/" title="Integration" class="md-nav__link">
+    <a href="integration/" title="Integration" class="md-nav__link">
       Integration
     </a>
   </li>
@@ -454,8 +456,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
-    Project philosophy
+  <a href="#features-at-a-glance" title="Features at a glance" class="md-nav__link">
+    Features at a glance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-services" title="Video services" class="md-nav__link">
+    Video services
   </a>
   
 </li>
@@ -463,6 +472,13 @@
         <li class="md-nav__item">
   <a href="#alternatives" title="Alternative(s)" class="md-nav__link">
     Alternative(s)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
+    Project philosophy
   </a>
   
 </li>
@@ -493,18 +509,105 @@
 <a href="https://codecov.io/gh/soluble-io/soluble-mediatools"><img alt="codecov" src="https://codecov.io/gh/soluble-io/soluble-mediatools/branch/master/graph/badge.svg" /></a>
 <a href="https://scrutinizer-ci.com/g/soluble-io/soluble-mediatools/?branch=master"><img alt="Scrutinizer Code Quality" src="https://scrutinizer-ci.com/g/soluble-io/soluble-mediatools/badges/quality-score.png?b=master" /></a>
 <a href="https://packagist.org/packages/soluble/mediatools"><img alt="Latest Stable Version" src="https://poser.pugx.org/soluble/mediatools/v/stable.svg" /></a>
-<a href="https://packagist.org/packages/soluble/mediatools"><img alt="Total Downloads" src="https://poser.pugx.org/soluble/mediatools/downloads.png" /></a>
 <a href="https://packagist.org/packages/soluble/mediatools"><img alt="License" src="https://poser.pugx.org/soluble/mediatools/license.png" /></a></p>
-<p>Toolbox for video conversions, transcoding, querying, thumbnailing... wraps around <a href="https://www.ffmpeg.org/">ffmpeg</a> and <a href="https://www.ffmpeg.org/ffprobe.html">ffprobe</a>. </p>
+<p>Toolbox for video conversions, transcoding, scaling, querying, thumbnailing... wraps around <a href="https://www.ffmpeg.org/">ffmpeg</a> and <a href="https://www.ffmpeg.org/ffprobe.html">ffprobe</a>. </p>
+<p>From existing alternatives, it differs by offering a great level of tunability by exposing 
+an api very close to what ffmpeg does. It can be seen as a drawback too, but in my experience efficient 
+conversions are very far from being a straightforward thing.    </p>
 <p>It likes <a href="https://www.php-fig.org/psr/">PSR</a> (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
-<em>(SOLID friendly)</em>.   </p>
+<em>(SOLID friendly)</em>. Last but not least, all services accepts a <code>LoggerInterface</code> a good reason for me to
+prefer it from a simple command-line.  </p>
 <p>Under the hood, it relies on the battle-tested <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a>, its only dependency.</p>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
 <p>Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
 tests to ensure a smooth experience. But <strong>this project is young</strong> and would ❤️ to meet new contributors !</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>A PHP version &gt;= 7.1 and depending on required services: ffmpeg and ffprobe.</p>
+<h2 id="features-at-a-glance">Features at a glance<a class="headerlink" href="#features-at-a-glance" title="Permanent link">&para;</a></h2>
+<h2 id="video-services">Video services<a class="headerlink" href="#video-services" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> <strong>VideoConverter</strong> (<a href="video-conversion-service/">doc here</a>)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Conversions: transcode, compress, transmux...</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Clipping (start-time/send-time)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Filters: scale, deinterlace, denoise.      <br />
+    <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// A quick taste            </span>
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+
+<span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>    
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
+</span><span class="hll">        <span class="k">new</span> <span class="nx">ScaleFilter</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="mi">576</span><span class="p">)</span>
+</span><span class="hll">    <span class="p">)</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>                  
+</span>
+<span class="hll"><span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
+</span><span class="hll">    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+</span><span class="hll">    <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+</span><span class="hll">    <span class="nv">$params</span>
+</span><span class="hll"><span class="p">);</span>           
+</span></pre></div></li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> <strong>VideoInfoReader</strong> (<a href="video-info-service/">doc here</a>)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Duration, dimensions, number of frames
+    <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// a quick taste    </span>
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
+
+<span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="hll">
+</span><span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+<span class="hll"><span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+</span><span class="hll"><span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+</span><span class="hll"><span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
+</span></pre></div></li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> <strong>VideoThumbGenerator</strong> (<a href="video-thumb-service/">doc here</a>)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Thumbnail at specific time</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Support filters: scale, denoise, deinterlace.
+    <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// a quick taste        </span>
+<span class="nv">$generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+
+<span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoFilter</span><span class="p">(</span>
+</span><span class="hll">        <span class="k">new</span> <span class="nx">ScaleFilter</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="mi">576</span><span class="p">)</span>
+</span><span class="hll">    <span class="p">)</span>        
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
+<span class="hll">    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+</span><span class="hll">    <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
+</span><span class="hll">    <span class="nv">$params</span>
+</span><span class="hll"><span class="p">);</span>    
+</span></pre></div></li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled checked/> <strong>VideoAnalyzer</strong> (<a href="video-detection-service/">doc here</a>)</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Interlacing detection
+    <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// a quick taste        </span>
+<span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
+
+<span class="hll"><span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">();</span>
+</span>
+<span class="hll"><span class="nv">$interlaced</span> <span class="o">=</span> <span class="nv">$interlaceGuess</span><span class="o">-&gt;</span><span class="na">isInterlaced</span><span class="p">();</span>
+</span></pre></div></li>
+</ul>
+</li>
+</ul>
+<h2 id="alternatives">Alternative(s)<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/PHP-FFMpeg/PHP-FFMpeg">https://github.com/PHP-FFMpeg/PHP-FFMpeg</a></li>
+</ul>
 <h2 id="project-philosophy">Project philosophy<a class="headerlink" href="#project-philosophy" title="Permanent link">&para;</a></h2>
 <details class="info" open="open"><summary>Note for developers</summary><ul>
 <li>
@@ -543,10 +646,6 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
 </li>
 </ul>
 </details>
-<h2 id="alternatives">Alternative(s)<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://github.com/PHP-FFMpeg/PHP-FFMpeg">https://github.com/PHP-FFMpeg/PHP-FFMpeg</a></li>
-</ul>
                 
                   
                 
@@ -568,13 +667,13 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="service-overview/" title="Features" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="video-info-service/" title="✔ VideoInfoReader" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Features
+                ✔ VideoInfoReader
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
