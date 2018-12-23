@@ -7,17 +7,28 @@ parameters:
 		- php
 		- dist
 	excludes_analyse:
-	    # Because I could not find a way to make phpstan not report
-	    # errors when trying to produce them, understand who understand
+		#
+	    # AFAIK there's no way for phpstan to ignore a specific error in a
+	    # specific file...
+	    #
+	    # The folowing exclusions concerns tests files that actualy
+        # try to raise exceptions based on invalid usage.
+        #
+	    # Would be nice to be able to add a @phpstan-ignore, till
+	    # it happens, it's okay to exclude those files from analysis
+	    #
 		- tests/unit/Video/Filter/VideoFilterChainTest.php
 		- tests/unit/Video/Adapter/FFMpegAdapterTest.php
 		- tests/unit/Video/VideoConverterTest.php
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
+		# Till PHP gets generic support ;) This is a case when
+		# the annotation is more precise than the php array typehint
+		# See: VideoFilterChain::addFilters(array $filter)
+		- '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
 	    # With PHPStan 0.10 .... don't like this one so much
 		- '#Strict comparison using !== between null and null will always evaluate to false.#'
-		- '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
-		# For convenience whe faking assertions
+		# For convenience when faking assertions
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
 
 
