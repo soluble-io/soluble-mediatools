@@ -40,8 +40,7 @@ All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://solubl
 It's an attempt to make a swiss-army knife for medias managment in PHP, 
 need to implement more services: image optimization, subtitle conversions... polish the API... 
  
-
-## A quick taste
+## Features
 
 > Check the [doc](https://soluble-io.github.io/soluble-mediatools/) to get a more detailed overview !!!
 
