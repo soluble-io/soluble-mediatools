@@ -1,4 +1,4 @@
-# soluble-mediatools  
+![Logo](./docs/assets/images/mediatools.png)  
 
 [![PHP 7.1+](https://img.shields.io/badge/php-7.1+-ff69b4.svg)](https://packagist.org/packages/soluble/mediatools)
 [![Build Status](https://travis-ci.org/soluble-io/soluble-mediatools.svg?branch=master)](https://travis-ci.org/soluble-io/soluble-mediatools)
@@ -8,10 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Powerful and flexible library for video conversions, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
- 
-
-![Logo](./docs/assets/images/mediatools.png)
+Powerful and flexible library for video conversions, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html).  
 
 From existing alternatives, it differs by offering a great level of tunability by exposing 
 an api very close to what ffmpeg does. It can be seen as a drawback too, but in my experience efficient 
