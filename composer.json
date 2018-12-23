@@ -1,6 +1,6 @@
 {
     "name": "soluble/mediatools",
-    "description": "PHP FFMpeg video conversion, thumbnails and more !",
+    "description": "FFMpeg video conversion, thumbnail, query and more !",
     "license": "MIT",
     "keywords": [
         "video",
