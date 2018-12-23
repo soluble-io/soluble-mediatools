@@ -8,7 +8,10 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Toolbox for video conversions, transcoding, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
+Powerful and flexible library for video conversions, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
+ 
+
+![Logo](./docs/assets/images/mediatools.png)
 
 From existing alternatives, it differs by offering a great level of tunability by exposing 
 an api very close to what ffmpeg does. It can be seen as a drawback too, but in my experience efficient 
