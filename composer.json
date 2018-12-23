@@ -1,6 +1,6 @@
 {
     "name": "soluble/mediatools",
-    "description": "Media tools with FFMPEG (transcode, thumbnails...)",
+    "description": "PHP FFMpeg video conversion, thumbnails and more !",
     "license": "MIT",
     "keywords": [
         "video",
