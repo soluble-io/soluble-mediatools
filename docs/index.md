@@ -12,11 +12,13 @@ and much more.
  
 ![Logo](./assets/images/mediatools.png)
 
-Its API rather focus on giving developer freedom and tunability than ready-made recipes. 
-Conversions are [far from being straightforward](./video-conversion-service/#notes),
-so if you're looking for more ready-made cookies, check the [alternatives](./#alternatives), 
-they work well too. *I still believe mediatools dance better though ;)*  
-    
+To prevent limitations, the API rather focus on providing developer fine-tuned parameters 
+than giving ready-made recipes. Transcoding and conversions generally
+requires specific processing, [judge by yourself](./video-conversion-service/#notes).
+To help starting, the documentation includes a lot of examples and snippets you
+can easily try and tune later. Check also [alternatives](./#alternatives) wrappers
+for ffmpeg, they are good and sometimes offer more magic if you're looking for it. 
+     
 On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
 *(SOLID friendly)*.
