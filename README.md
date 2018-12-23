@@ -15,7 +15,7 @@ and much more.
 
 Its API rather focus on giving developer freedom and tunability than ready-made recipes. 
 Conversions are [far from being straightforward](https://soluble-io.github.io/soluble-mediatools/video-conversion-service/#notes),
-so if you're looking for more ready-made cookies, check the [alternatives](./#alternatives), 
+so if you're looking for more ready-made cookies, check the [alternatives](./README.md#alternatives), 
 they work well too. *I still believe mediatools dance better though ;)*  
     
 On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
