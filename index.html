@@ -532,7 +532,7 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" disabled checked/> Conversions: transcode, compress, transmux...</li>
 <li class="task-list-item"><input type="checkbox" disabled checked/> Clipping (start-time/send-time)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Filters: scale, deinterlace, denoise.      <br />
+<li class="task-list-item"><input type="checkbox" disabled checked/> Filters: scale, deinterlace, denoise... and <a href="video-filters/">others</a>.      <br />
     <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// A quick taste            </span>
 <span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
@@ -559,10 +559,10 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
     <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// a quick taste    </span>
 <span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
 
-<span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
-<span class="hll">
-</span><span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-<span class="hll"><span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+<span class="hll"><span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+</span>
+<span class="hll"><span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+</span><span class="hll"><span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
 </span><span class="hll"><span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
 </span><span class="hll"><span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
 </span></pre></div></li>
@@ -571,7 +571,7 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
 <li class="task-list-item">
 <p><input type="checkbox" disabled checked/> <strong>VideoThumbGenerator</strong> (<a href="video-thumb-service/">doc here</a>)</p>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled checked/> Thumbnail at specific time</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Thumbnail at specific time or frame.</li>
 <li class="task-list-item"><input type="checkbox" disabled checked/> Support filters: scale, denoise, deinterlace.
     <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// a quick taste        </span>
 <span class="nv">$generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoThumbGenerator</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
@@ -581,9 +581,9 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
 </span><span class="hll">        <span class="k">new</span> <span class="nx">ScaleFilter</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="mi">576</span><span class="p">)</span>
 </span><span class="hll">    <span class="p">)</span>        
 </span><span class="hll">    <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span>
-</span><span class="hll">
-</span><span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
-<span class="hll">    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+</span>
+<span class="hll"><span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">makeThumbnail</span><span class="p">(</span>
+</span><span class="hll">    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
 </span><span class="hll">    <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
 </span><span class="hll">    <span class="nv">$params</span>
 </span><span class="hll"><span class="p">);</span>    
