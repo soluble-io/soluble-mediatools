@@ -70,7 +70,7 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 
 - [x] **VideoThumbGenerator** ([doc here](./video-thumb-service.md))
       - [x] Thumbnail at specific time or frame.
-      - [x] Support filters: scale, denoise, deinterlace.
+      - [x] Filters: scale, deinterlace, denoise... and [others](./video-filters.md). 
         ```php hl_lines="4 5 6 7 8 10 11 12 13 14 15"
         <?php // a quick taste        
         $generator = new VideoThumbGenerator(new FFMpegConfig('/path/to/ffmpeg'));
