@@ -14,7 +14,7 @@ and exposes most of their features, like scaling, clipping, filters, transcoding
 and much more.   
 
 Its API rather focus on giving developer freedom and tunability than ready-made recipes. 
-Conversions are [far from being straightforward](./docs/video-conversion-service#notes),
+Conversions are [far from being straightforward](./docs/video-conversion-service.md#notes),
 so if you're looking for more ready-made cookies, check the [alternatives](./#alternatives), 
 they work well too. *I still believe mediatools dance better though ;)*  
     
