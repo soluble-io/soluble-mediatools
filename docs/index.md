@@ -29,7 +29,7 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 
 ## Features at a glance
 
-## Video services
+### Video services
 
 - [x] **VideoConverter** ([doc here](./video-conversion-service.md))
       - [x] Conversions: transcode, compress, transmux...
