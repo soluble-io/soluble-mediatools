@@ -5,21 +5,25 @@
 [![Latest Stable Version](https://poser.pugx.org/soluble/mediatools/v/stable.svg)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Powerful and flexible library for video conversions, scaling, querying, thumbnailing... wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html). 
-
+Flexible video conversions and thumbnailing for hi*php*ies.
+Wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html)
+and exposes most of their features, like scaling, clipping, filters, transcoding 
+and much more.   
+ 
 ![Logo](./assets/images/mediatools.png)
 
-From existing alternatives, it differs by offering a great level of tunability by exposing 
-an api very close to what ffmpeg does. It can be seen as a drawback too, but in my experience efficient 
-conversions are very far from being a straightforward thing.    
-
-It likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
+Its API rather focus on giving developer freedom and tunability than ready-made recipes. 
+Conversions are [far from being straightforward](./docs/video-conversion-service/#notes),
+so if you're looking for more ready-made cookies, check the [alternatives](./#alternatives), 
+they work well too. *I still believe mediatools dance better though ;)*  
+    
+On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
 *(SOLID friendly)*. Last but not least, all services accepts a `LoggerInterface` a good reason for me to
 prefer it from a simple command-line.  
 
-Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.
-      
+Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.      
+
 ## Status
 
 Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
@@ -102,9 +106,10 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
         ```  
      
 
-## Alternative(s)
+## Alternatives
 
-- [https://github.com/PHP-FFMpeg/PHP-FFMpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg])
+- [https://github.com/PHP-FFMpeg/PHP-FFMpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg)
+- [https://github.com/char0n/ffmpeg-php](https://github.com/char0n/ffmpeg-php) 
 
 
 ## Project philosophy
