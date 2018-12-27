@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.6 (2018-12-27)
+
+### Improvement
+
+- `symfony/process` 3.3 supportedin addition to 3.4, 4.0, 4.1 and 4.2 ! (^3.3 || ^4.0)
+- Removed dead code in ProcessFactory
+
 ## 0.8.5 (2018-12-20)
 
 ### Improvement
