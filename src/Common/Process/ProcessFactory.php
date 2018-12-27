@@ -8,7 +8,7 @@ use Symfony\Component\Process\Process;
 
 class ProcessFactory
 {
-    /** @var string|array */
+    /** @var array */
     protected $command;
 
     /** @var null|ProcessParamsInterface */
@@ -26,13 +26,7 @@ class ProcessFactory
 
     public function __invoke(): Process
     {
-        if (!is_array($this->command)) {
-            var_dump($this->command);
-            die('cool');
-        //            $process = Process::fromShellCommandline($this->command);
-        } else {
-            $process = new Process($this->command);
-        }
+        $process = new Process($this->command);
         if ($this->processParams !== null) {
             $process->setTimeout($this->processParams->getTimeout());
             $process->setIdleTimeout($this->processParams->getIdleTimeout());
