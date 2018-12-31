@@ -8,9 +8,9 @@
 [![Total Downloads](https://poser.pugx.org/soluble/mediatools/downloads.png)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Flexible video conversions and thumbnailing for hi*php*ies.
+Flexible audio/video conversions and thumbnailing for hi*php*ies.
 Wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html)
-and exposes most of their features, like scaling, clipping, filters, transcoding 
+and exposes most of their features, like scaling, clipping, filters, transcoding, audio extraction 
 and much more.   
 
 To prevent limitations, the API rather focus on providing developer fine-tuned parameters 

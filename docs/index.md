@@ -5,10 +5,10 @@
 [![Latest Stable Version](https://poser.pugx.org/soluble/mediatools/v/stable.svg)](https://packagist.org/packages/soluble/mediatools)
 [![License](https://poser.pugx.org/soluble/mediatools/license.png)](https://packagist.org/packages/soluble/mediatools)
 
-Flexible video conversions and thumbnailing for hi*php*ies.
+Flexible audio/video conversions and thumbnailing for hi*php*ies.
 Wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html)
-and exposes most of their features, like scaling, clipping, filters, transcoding 
-and much more.   
+and exposes most of their features, like scaling, clipping, filters, transcoding, audio extraction 
+and much more.    
  
 ![Logo](./assets/images/mediatools.png)
 
