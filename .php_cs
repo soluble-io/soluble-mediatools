@@ -1,15 +1,16 @@
 <?php
 
 $header = <<<'EOF'
-soluble-mediatools
-@link      https://github.com/soluble-io/soluble-mediatools
-@license   MIT
+@see       https://github.com/soluble-io/soluble-mediatools for the canonical repository
+@copyright Copyright (c) 2018-2019 Sébastien Vanvelthem. (https://github.com/belgattitude)
+@license   https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md MIT
 EOF;
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
-        //'header_comment' => array('header' => $header), // disable when code is okay
+        // enable when you want to add header
+        //'header_comment' => array('header' => $header, 'comment_type' => 'PHPDoc'),
         '@PSR2' => true,
         '@PHP71Migration' => true,
         'psr4' => true,
