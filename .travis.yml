@@ -31,8 +31,6 @@ install:
 jobs:
   allow_failures:
     - php: nightly
-    - stage: Mutation (unit tests only)
-    - stage: Make doc
 
   include:
     - stage: Tests and Coverage (PHP 7.3)
