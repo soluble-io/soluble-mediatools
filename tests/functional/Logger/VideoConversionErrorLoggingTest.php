@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-/*
- * Jasper report integration for PHP
+/**
+ * @see       https://github.com/soluble-io/soluble-mediatools for the canonical repository
  *
- * @link      https://github.com/belgattitude/soluble-jasper
- * @author    Vanvelthem Sébastien
- * @copyright Copyright (c) 2017 Vanvelthem Sébastien
- * @license   MIT
+ * @copyright Copyright (c) 2018-2019 Sébastien Vanvelthem. (https://github.com/belgattitude)
+ * @license   https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md MIT
  */
 
 namespace MediaToolsTest\Functional\Logger;
