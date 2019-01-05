@@ -112,7 +112,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getDimensions(int $streamIndex = 0): array
     {
@@ -123,7 +123,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getWidth(int $streamIndex = 0): int
     {
@@ -133,7 +133,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getHeight(int $streamIndex = 0): int
     {
@@ -143,7 +143,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getNbFrames(int $streamIndex = 0): int
     {
@@ -153,7 +153,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoBitrate(int $streamIndex = 0): int
     {
@@ -165,7 +165,7 @@ class VideoInfo implements VideoInfoInterface
     /**
      * Convenience method to get audio stream bitrate.
      *
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioBitrate(int $streamIndex = 0): int
     {
@@ -175,7 +175,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioCodecName(int $streamIndex = 0): ?string
     {
@@ -185,7 +185,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoCodecName(int $streamIndex = 0): ?string
     {
@@ -208,7 +208,7 @@ class VideoInfo implements VideoInfoInterface
      * @throws InvalidArgumentException
      *
      * @param string $streamType  any of self::SUPPORTED_STREAM_TYPES
-     * @param int    $streamIndex by default will take the first available video stream
+     * @param int    $streamIndex selected a specific stream by index, default: 0 = the first available
      *
      * @return array<string, mixed>
      */

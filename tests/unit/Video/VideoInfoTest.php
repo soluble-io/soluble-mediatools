@@ -75,6 +75,16 @@ class VideoInfoTest extends TestCase
         self::assertEquals(0, $vi->countStreams(VideoInfo::STREAM_TYPE_DATA));
     }
 
+    public function testGetNbFrames(): void
+    {
+        $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
+        self::assertSame(1113, $vi->getNbFrames());
+
+        // Non existent video stream
+        self::assertSame(0, $vi->getNbFrames(2));
+    }
+
+
     public function testGetDimensions(): void
     {
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());

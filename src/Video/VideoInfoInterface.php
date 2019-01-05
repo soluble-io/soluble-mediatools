@@ -50,7 +50,7 @@ interface VideoInfoInterface
     public function getDuration(): float;
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      *
      * @return array<string, int> associative array with 'height' and 'width'
      */
@@ -59,40 +59,45 @@ interface VideoInfoInterface
     /**
      * Return video stream width.
      *
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getWidth(int $streamIndex = 0): int;
 
     /**
      * Return video stream height.
      *
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getHeight(int $streamIndex = 0): int;
 
+    /**
+     * Return number of frames.
+     *
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
+     */
     public function getNbFrames(int $streamIndex = 0): int;
 
     /**
      * Return video bitrate of the first video stream.
      *
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoBitrate(int $streamIndex = 0): int;
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoCodecName(int $streamIndex = 0): ?string;
 
     /**
      * Return video bitrate.
      *
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioBitrate(int $streamIndex = 0): int;
 
     /**
-     * @param int $streamIndex by default will take the first available video stream
+     * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioCodecName(int $streamIndex = 0): ?string;
 
