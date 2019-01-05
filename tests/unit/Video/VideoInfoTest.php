@@ -20,14 +20,10 @@ use Soluble\MediaTools\Video\VideoInfo;
 
 class VideoInfoTest extends TestCase
 {
-    /**
-     * @var \org\bovigo\vfs\vfsStreamDirectory
-     */
+    /** @var \org\bovigo\vfs\vfsStreamDirectory */
     private $vfsRoot;
 
-    /**
-     * @var \org\bovigo\vfs\vfsStreamFile
-     */
+    /** @var \org\bovigo\vfs\vfsStreamFile */
     private $virtualFile;
 
     public function setUp(): void
@@ -260,7 +256,7 @@ class VideoInfoTest extends TestCase
                     'title'             => 'big_buck_bunny',
                     'encoder'           => 'HandBrake 1.1.0 2018042400',
                 ],
-            ]
+            ],
         ];
     }
 }

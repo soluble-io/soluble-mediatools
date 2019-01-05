@@ -197,8 +197,8 @@ class VideoInfo implements VideoInfoInterface
     {
         if (!in_array($streamType, self::SUPPORTED_STREAM_TYPES, true)) {
             throw new InvalidArgumentException(sprintf(
-               'Invalid usage, unsupported param $streamType given: %s',
-               $streamType
+                'Invalid usage, unsupported param $streamType given: %s',
+                $streamType
             ));
         }
         $md = $this->getMetadataByStreamType();
