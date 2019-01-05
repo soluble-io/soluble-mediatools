@@ -35,7 +35,7 @@ class VideoConverter implements VideoConverterInterface
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger=null)
+    public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {
         $this->ffmpegConfig = $ffmpegConfig;
 
@@ -59,7 +59,7 @@ class VideoConverter implements VideoConverterInterface
     {
         $adapter = $this->ffmpegConfig->getAdapter();
 
-        if ($convertParams->hasParam(VideoConvertParamsInterface::PARAM_THREADS)
+        if (!$convertParams->hasParam(VideoConvertParamsInterface::PARAM_THREADS)
             && $adapter->getDefaultThreads() !== null) {
             $convertParams = $convertParams->withBuiltInParam(
                 VideoConvertParamsInterface::PARAM_THREADS,
