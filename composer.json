@@ -31,7 +31,7 @@
         "captainhook/plugin-composer": "^3.0",
         "consistence/coding-standard": "^3.7",
         "fig/http-message-util": "^1.1.2",
-        "friendsofphp/php-cs-fixer": "^2.13",
+        "friendsofphp/php-cs-fixer": "^2.14",
         "guzzlehttp/guzzle": "^6.2",
         "infection/infection": "^0.11.2",
         "jangregor/phpstan-prophecy": "^0.2",
