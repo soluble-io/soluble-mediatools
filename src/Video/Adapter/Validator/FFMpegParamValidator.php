@@ -44,11 +44,10 @@ class FFMpegParamValidator
      */
     protected function ensureValidCrf(): void
     {
-        $crf = $this->params->getParam(VideoConvertParamsInterface::PARAM_CRF, null);
-
-        if ($crf === null) {
+        if (!$this->params->hasParam(VideoConvertParamsInterface::PARAM_CRF)) {
             return;
         }
+        $crf = $this->params->getParam(VideoConvertParamsInterface::PARAM_CRF);
 
         // Check allowed values for CRF
         $codec = $this->params->getParam(VideoConvertParamsInterface::PARAM_VIDEO_CODEC, '');
