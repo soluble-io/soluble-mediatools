@@ -84,7 +84,6 @@ class VideoInfoTest extends TestCase
         self::assertSame(0, $vi->getNbFrames(2));
     }
 
-
     public function testGetDimensions(): void
     {
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
