@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
-use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
 interface VideoInfoInterface
 {
@@ -57,14 +57,14 @@ interface VideoInfoInterface
     public function getDimensions(int $streamIndex = 0): array;
 
     /**
-     * Return first video stream width.
+     * Return video stream width.
      *
      * @param int $streamIndex by default will take the first available video stream
      */
     public function getWidth(int $streamIndex = 0): int;
 
     /**
-     * Return first video stream height.
+     * Return video stream height.
      *
      * @param int $streamIndex by default will take the first available video stream
      */
@@ -85,7 +85,7 @@ interface VideoInfoInterface
     public function getVideoCodecName(int $streamIndex = 0): ?string;
 
     /**
-     * Return video bitrate of the first video stream.
+     * Return video bitrate.
      *
      * @param int $streamIndex by default will take the first available video stream
      */
@@ -98,23 +98,31 @@ interface VideoInfoInterface
 
     /**
      * Return underlying ffprobe data.
+     *
+     * @return array<string, array>
      */
     public function getMetadata(): array;
 
     /**
-     * @throws UnexpectedValueException
+     * Return underlying ffprobe audio metadata.
+     *
+     * @return array<int, array>
      */
     public function getAudioStreamsMetadata(): array;
 
     /**
-     * @throws UnexpectedValueException
+     * Return underlying ffprobe video metadata.
+     *
+     * @return array<int, array>
      */
     public function getVideoStreamsMetadata(): array;
 
     /**
+     * @throws InvalidArgumentException
+     *
      * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
      *
-     * @return array<string, mixed>
+     * @return array<int, array>
      */
     public function getStreamsMetadataByType(string $streamType): array;
 }

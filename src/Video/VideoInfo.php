@@ -14,7 +14,6 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
 
 class VideoInfo implements VideoInfoInterface
 {
@@ -92,8 +91,6 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
-     *
-     * @throws UnexpectedValueException
      */
     public function countStreams(?string $streamType = null): int
     {
@@ -116,8 +113,6 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param int $streamIndex by default will take the first available video stream
-     *
-     * @throws UnexpectedValueException
      */
     public function getDimensions(int $streamIndex = 0): array
     {
@@ -129,8 +124,6 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param int $streamIndex by default will take the first available video stream
-     *
-     * @throws UnexpectedValueException
      */
     public function getWidth(int $streamIndex = 0): int
     {
@@ -141,8 +134,6 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param int $streamIndex by default will take the first available video stream
-     *
-     * @throws UnexpectedValueException
      */
     public function getHeight(int $streamIndex = 0): int
     {
@@ -153,8 +144,6 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param int $streamIndex by default will take the first available video stream
-     *
-     * @throws UnexpectedValueException
      */
     public function getNbFrames(int $streamIndex = 0): int
     {
@@ -164,9 +153,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * Convenience method to get video stream bitrate.
-     *
-     * @throws UnexpectedValueException
+     * @param int $streamIndex by default will take the first available video stream
      */
     public function getVideoBitrate(int $streamIndex = 0): int
     {
@@ -179,8 +166,6 @@ class VideoInfo implements VideoInfoInterface
      * Convenience method to get audio stream bitrate.
      *
      * @param int $streamIndex by default will take the first available video stream
-     *
-     * @throws UnexpectedValueException
      */
     public function getAudioBitrate(int $streamIndex = 0): int
     {
@@ -189,6 +174,9 @@ class VideoInfo implements VideoInfoInterface
         return (int) ($audioStream['bit_rate'] ?? 0);
     }
 
+    /**
+     * @param int $streamIndex by default will take the first available video stream
+     */
     public function getAudioCodecName(int $streamIndex = 0): ?string
     {
         $audioStream = $this->getAudioStreamsMetadata()[$streamIndex] ?? [];
@@ -196,6 +184,9 @@ class VideoInfo implements VideoInfoInterface
         return $audioStream['codec_name'] ?? null;
     }
 
+    /**
+     * @param int $streamIndex by default will take the first available video stream
+     */
     public function getVideoCodecName(int $streamIndex = 0): ?string
     {
         $videoStream = $this->getVideoStreamsMetadata()[$streamIndex] ?? [];
@@ -203,17 +194,11 @@ class VideoInfo implements VideoInfoInterface
         return $videoStream['codec_name'] ?? null;
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
     public function getAudioStreamsMetadata(): array
     {
         return $this->getStreamsMetadataByType(self::STREAM_TYPE_AUDIO);
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
     public function getVideoStreamsMetadata(): array
     {
         return $this->getStreamsMetadataByType(self::STREAM_TYPE_VIDEO);
@@ -221,7 +206,6 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @throws InvalidArgumentException
-     * @throws UnexpectedValueException
      *
      * @param string $streamType  any of self::SUPPORTED_STREAM_TYPES
      * @param int    $streamIndex by default will take the first available video stream
@@ -240,9 +224,6 @@ class VideoInfo implements VideoInfoInterface
         return $this->getMetadataByStreamType()[$streamType];
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
     private function getMetadataByStreamType(): array
     {
         if ($this->metadataByStreamType === null) {
@@ -264,7 +245,7 @@ class VideoInfo implements VideoInfoInterface
                         $streams[self::STREAM_TYPE_DATA][] = $stream;
                         break;
                     default:
-                        throw new UnexpectedValueException(sprintf('Does not support codec_type "%s"', $type));
+                        $streams[$type][] = $stream;
                 }
             }
             $this->metadataByStreamType = $streams;
