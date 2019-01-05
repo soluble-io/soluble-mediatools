@@ -10,6 +10,10 @@ cache:
 
 before_install:
   - |
+    if [ "xREMOVE_QA" = "xyes" ]; then
+      composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules --dev --no-interaction;
+    fi
+  - |
     if [ "x$XDEBUG" != "xyes" ]; then
       mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
     fi
@@ -34,7 +38,7 @@ jobs:
   include:
     - stage: Tests and Coverage (PHP 7.3)
       php: 7.3
-      env: XDEBUG=yes INSTALL_FFMPEG=yes COMPOSER_ARGS=--ignore-platform-reqs
+      env: XDEBUG=yes INSTALL_FFMPEG=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
@@ -47,17 +51,17 @@ jobs:
         - composer cs-check
     - stage: Test PHP7.1
       php: 7.1
-      env: INSTALL_FFMPEG=yes
+      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Test PHP7.2
       php: 7.2
-      env: INSTALL_FFMPEG=yes
+      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Test PHP7.1 With lowest deps
       php: 7.1
-      env: INSTALL_FFMPEG=yes DEPS=lowest
+      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Make doc
@@ -73,7 +77,7 @@ jobs:
         - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=40 --min-covered-msi=60 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
-      env: COMPOSER_ARGS=--ignore-platform-reqs
+      env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
 
