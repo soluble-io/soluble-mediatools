@@ -38,7 +38,7 @@ jobs:
   include:
     - stage: Tests and Coverage (PHP 7.3)
       php: 7.3
-      env: XDEBUG=yes INSTALL_FFMPEG=yes
+      env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
@@ -46,6 +46,7 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
     - stage: PHPStan and Code style
       php: 7.2
+      env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
         - composer phpstan
         - composer cs-check
