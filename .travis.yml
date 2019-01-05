@@ -10,7 +10,7 @@ cache:
 
 before_install:
   - |
-    if [ "xREMOVE_QA" = "xyes" ]; then
+    if [ "x$REMOVE_QA" = "xyes" ]; then
       composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules --dev --no-interaction;
     fi
   - |
