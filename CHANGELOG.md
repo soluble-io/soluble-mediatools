@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `VideoInfo::getMetadata()`
 - `VideoInfo::getStreamMetadataByType(string $streamType)`
 
+### Fixed
+
+- Minor bug when not specifying crf in conversions
+
 ### Change
 
 - [Breaking Change] `VideoInfoInterface::getBitrate()` renamed to `VideoInfoInterface::getVideoBitrate()`
