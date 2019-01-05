@@ -69,6 +69,10 @@ class VideoInfoTest extends TestCase
     {
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
         self::assertEquals(2, $vi->countStreams());
+
+        self::assertEquals(1, $vi->countStreams(VideoInfo::STREAM_TYPE_VIDEO));
+        self::assertEquals(1, $vi->countStreams(VideoInfo::STREAM_TYPE_AUDIO));
+        self::assertEquals(0, $vi->countStreams(VideoInfo::STREAM_TYPE_DATA));
     }
 
     public function testGetDimensions(): void
@@ -82,6 +86,10 @@ class VideoInfoTest extends TestCase
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
         self::assertEquals(320, $vi->getWidth());
         self::assertEquals(180, $vi->getHeight());
+
+        // with stream that does not exists
+        self::assertEquals(0, $vi->getHeight(2));
+        self::assertEquals(0, $vi->getWidth(2));
     }
 
     public function testGetMetadata(): void
@@ -95,6 +103,21 @@ class VideoInfoTest extends TestCase
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
         self::assertEquals(39933, $vi->getVideoBitrate());
         self::assertEquals(84255, $vi->getAudioBitrate());
+
+        // with streams that does not exists
+        self::assertEquals(0, $vi->getVideoBitrate(2));
+        self::assertEquals(0, $vi->getAudioBitrate(2));
+    }
+
+    public function testGetAudioVideoCodecName(): void
+    {
+        $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
+        self::assertEquals('h264', $vi->getVideoCodecName());
+        self::assertEquals('aac', $vi->getAudioCodecName());
+
+        // with streams that does not exists
+        self::assertNull($vi->getVideoCodecName(2));
+        self::assertNull($vi->getAudioCodecName(2));
     }
 
     public function testGetFormatName(): void
@@ -107,7 +130,7 @@ class VideoInfoTest extends TestCase
     {
         self::expectException(InvalidArgumentException::class);
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
-        $vi->getStreamMetadataByType('unsupported');
+        $vi->getStreamsMetadataByType('unsupported');
     }
 
     public function testCreateFromFFProbeJsonThrowsJsonExceptionWhenEmpty(): void

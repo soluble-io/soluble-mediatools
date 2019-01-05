@@ -8,6 +8,7 @@ The ==VideoInfoReader service== acts as a wrapper over **ffprobe** and return in
 use Soluble\MediaTools\Video\Config\FFProbeConfig;
 use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
 use Soluble\MediaTools\Video\VideoInfoReader;
+use Soluble\MediaTools\Video\VideoInfoInterface;
 
 $infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
@@ -29,15 +30,23 @@ $filesize     = $videoInfo->getFileSize();
 $videoBitrate = $videoInfo->getVideoBitrate();
 $audioBitrate = $videoInfo->getAudioBitrate();
 
-$nbStreams    = $videoInfo->countStreams();
+$videoCodec = $videoInfo->getVideoCodecName();
+$audioCodec = $videoInfo->getAudioCodecName();
+
 
 // ffprobe format: i.e 'mov,mp4,m4a,3gp,3g2,mj2'
 $format       = $videoInfo->getFormatName();
 
+// Count all streams present (audio/video/data)
+$nbStreams      = $videoInfo->countStreams();
+$nbVideoStreams = $videoInfo->countStreams(VideoInfoInterface::STREAM_TYPE_VIDEO);
+$nbAudioStreams = $videoInfo->countStreams(VideoInfoInterface::STREAM_TYPE_AUDIO);
+
 // Advanced, return what ffprobe returned
 $metadata      = $videoInfo->getMetadata();
-$audioMetadata = $videoInfo->getStreamMetadataByType('audio');
-$videoMetadata = $videoInfo->getStreamMetadataByType('video');
+$audioMetadata = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_VIDEO);
+$videoMetadata = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_AUDIO);
+$dataMetadata  = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_DATA);
 
 ``` 
 
@@ -143,7 +152,9 @@ try {
 ### Metadata
 
 The `VideoInfo::getMetadata()` returns the ffprobe result, if you're 
-wondering what it is, have a look to an example with ffprobe 4.0.  
+wondering what it is, have a look to an example with ffprobe 4.0.
+
+> **Warning**, direct use of ffprobe metadata if not ensured by semver, bc break can potentially happen.
 
 ```php
 <?php

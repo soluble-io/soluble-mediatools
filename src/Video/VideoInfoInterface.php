@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video;
 
+use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
+
 interface VideoInfoInterface
 {
     public const STREAM_TYPE_AUDIO = 'audio';
@@ -32,8 +34,10 @@ interface VideoInfoInterface
 
     /**
      * Return the number of streams.
+     *
+     * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
      */
-    public function countStreams(): int;
+    public function countStreams(?string $streamType = null): int;
 
     /**
      * Return original file path.
@@ -46,31 +50,51 @@ interface VideoInfoInterface
     public function getDuration(): float;
 
     /**
+     * @param int $streamIndex by default will take the first available video stream
+     *
      * @return array<string, int> associative array with 'height' and 'width'
      */
-    public function getDimensions(): array;
+    public function getDimensions(int $streamIndex = 0): array;
 
     /**
      * Return first video stream width.
+     *
+     * @param int $streamIndex by default will take the first available video stream
      */
-    public function getWidth(): int;
+    public function getWidth(int $streamIndex = 0): int;
 
     /**
      * Return first video stream height.
+     *
+     * @param int $streamIndex by default will take the first available video stream
      */
-    public function getHeight(): int;
+    public function getHeight(int $streamIndex = 0): int;
 
-    public function getNbFrames(): int;
-
-    /**
-     * Return video bitrate of the first video stream.
-     */
-    public function getVideoBitrate(): int;
+    public function getNbFrames(int $streamIndex = 0): int;
 
     /**
      * Return video bitrate of the first video stream.
+     *
+     * @param int $streamIndex by default will take the first available video stream
      */
-    public function getAudioBitrate(): int;
+    public function getVideoBitrate(int $streamIndex = 0): int;
+
+    /**
+     * @param int $streamIndex by default will take the first available video stream
+     */
+    public function getVideoCodecName(int $streamIndex = 0): ?string;
+
+    /**
+     * Return video bitrate of the first video stream.
+     *
+     * @param int $streamIndex by default will take the first available video stream
+     */
+    public function getAudioBitrate(int $streamIndex = 0): int;
+
+    /**
+     * @param int $streamIndex by default will take the first available video stream
+     */
+    public function getAudioCodecName(int $streamIndex = 0): ?string;
 
     /**
      * Return underlying ffprobe data.
@@ -78,9 +102,19 @@ interface VideoInfoInterface
     public function getMetadata(): array;
 
     /**
+     * @throws UnexpectedValueException
+     */
+    public function getAudioStreamsMetadata(): array;
+
+    /**
+     * @throws UnexpectedValueException
+     */
+    public function getVideoStreamsMetadata(): array;
+
+    /**
      * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
      *
      * @return array<string, mixed>
      */
-    public function getStreamMetadataByType(string $streamType): array;
+    public function getStreamsMetadataByType(string $streamType): array;
 }
