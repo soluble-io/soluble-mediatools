@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improvement
 
-- `symfony/process` 3.3 supportedin addition to 3.4, 4.0, 4.1 and 4.2 ! (^3.3 || ^4.0)
+- `symfony/process` 3.3 supported in addition to 3.4, 4.0, 4.1 and 4.2 ! (^3.3 || ^4.0)
 - Removed dead code in ProcessFactory
 
 ## 0.8.5 (2018-12-20)
