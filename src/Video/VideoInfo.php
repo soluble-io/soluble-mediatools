@@ -165,7 +165,7 @@ class VideoInfo implements VideoInfoInterface
      */
     public function getAudioBitrate(): int
     {
-        $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
+        $videoStream = $this->getAudioStreamMetadata()[0] ?? [];
 
         return (int) ($videoStream['bit_rate'] ?? 0);
     }

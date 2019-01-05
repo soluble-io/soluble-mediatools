@@ -94,7 +94,7 @@ class VideoInfoTest extends TestCase
     {
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
         self::assertEquals(39933, $vi->getVideoBitrate());
-        self::assertEquals(39933, $vi->getAudioBitrate());
+        self::assertEquals(84255, $vi->getAudioBitrate());
     }
 
     public function testGetFormatName(): void
