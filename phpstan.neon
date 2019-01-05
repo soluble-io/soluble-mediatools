@@ -27,7 +27,7 @@ parameters:
 		# See: VideoFilterChain::addFilters(array $filter)
 		- '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
 	    # With PHPStan 0.10 .... don't like this one so much
-		- '#Strict comparison using !== between null and null will always evaluate to false.#'
+		#- '#Strict comparison using !== between null and null will always evaluate to false.#'
 		# For convenience when faking assertions
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
 
