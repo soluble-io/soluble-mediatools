@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.9.0 (2019-01-05)
+
+### Added
+
+- `VideoInfo::countStreams()`
+- `VideoInfo::getFileSize()`
+- `VideoInfo::getVideoBitRate()`
+- `VideoInfo::getVideoBitRate()`
+
+### Change
+
+- [Breaking Change] `VideoInfoInterface::getBitrate()` renamed to `VideoInfoInterface::getVideoBitrate()`
+
+
 ## 0.8.7 (2019-01-05)
 
 ### Fixed
