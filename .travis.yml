@@ -67,6 +67,8 @@ jobs:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Make doc
       language: python
+      python:
+        - 3.6
       install: skip
       script:
         - sudo -H pip install --upgrade pip
