@@ -9,10 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- `VideoInfo::countStreams()`
-- `VideoInfo::getFileSize()`
-- `VideoInfo::getVideoBitRate()`
-- `VideoInfo::getVideoBitRate()`
+- `VideoInfo::countStreams(): int`
+- `VideoInfo::getFileSize(): int`
+- `VideoInfo::getVideoBitRate(): int`
+- `VideoInfo::getAudioBitRate(): int`
+- `VideoInfo::getFormatName(): string`
+- `VideoInfo::getMetadata()`
+- `VideoInfo::getStreamMetadataByType(string $streamType)`
 
 ### Change
 
