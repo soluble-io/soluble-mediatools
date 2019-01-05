@@ -65,14 +65,14 @@ jobs:
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Make doc
-      sudo: required
+      install: skip
       language: python
       python:
-        - 3.6
-      install: skip
+        - 3.7
       script:
-        - sudo -H pip install --user --upgrade pip
-        - sudo -H pip install --user -r ./requirements.txt
+        #- pip install requests[security]
+        #- pip install --upgrade pip
+        - pip install -r ./requirements.txt
         - mkdocs build
     - stage: Mutation (unit tests only)
       php: 7.2
