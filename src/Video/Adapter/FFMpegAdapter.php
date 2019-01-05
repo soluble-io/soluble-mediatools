@@ -186,23 +186,17 @@ class FFMpegAdapter implements ConverterAdapterInterface
 
     /**
      * @param array<string,string>               $arguments        args that will be added
-     * @param null|string                        $inputFile
      * @param null|string|UnescapedFileInterface $outputFile
      * @param array<string,string>               $prependArguments args that must be added at the beginning of the command
      *
      * @throws InvalidArgumentException
      */
-    public function getCliCommand(array $arguments, ?string $inputFile, $outputFile = null, array $prependArguments = []): array
+    public function getCliCommand(array $arguments, string $inputFile, $outputFile = null, array $prependArguments = []): array
     {
-        $inputArg = ($inputFile !== null && $inputFile !== '')
-                        ? sprintf('-i %s', escapeshellarg($inputFile))
-                        : '';
-
         $outputArg = '';
         if ($outputFile instanceof UnescapedFileInterface) {
             $outputArg = $outputFile->getFile();
         } elseif (is_string($outputFile)) {
-            //$outputArg = sprintf('%s', escapeshellarg($outputFile));
             $outputArg = $outputFile;
         } elseif ($outputFile !== null) {
             throw new InvalidArgumentException(sprintf(
