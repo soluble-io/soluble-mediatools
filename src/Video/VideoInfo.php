@@ -147,11 +147,23 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * Convenience method to get video bitrate.
+     * Convenience method to get first video stream bitrate.
      *
      * @throws UnexpectedValueException
      */
     public function getVideoBitrate(): int
+    {
+        $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
+
+        return (int) ($videoStream['bit_rate'] ?? 0);
+    }
+
+    /**
+     * Convenience method to get first audio stream bitrate.
+     *
+     * @throws UnexpectedValueException
+     */
+    public function getAudioBitrate(): int
     {
         $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
 

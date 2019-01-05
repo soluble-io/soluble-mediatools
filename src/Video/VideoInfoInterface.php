@@ -68,6 +68,11 @@ interface VideoInfoInterface
     public function getVideoBitrate(): int;
 
     /**
+     * Return video bitrate of the first video stream.
+     */
+    public function getAudioBitrate(): int;
+
+    /**
      * Return underlying ffprobe data.
      */
     public function getMetadata(): array;
