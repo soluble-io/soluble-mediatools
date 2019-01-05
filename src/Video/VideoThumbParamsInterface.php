@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Service\ActionParamInterface;
+use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
 interface VideoThumbParamsInterface extends ActionParamInterface
 {
@@ -31,8 +33,8 @@ interface VideoThumbParamsInterface extends ActionParamInterface
     /**
      * Set a built-in param...
      *
-     * @param string $paramName  a param that must exist in builtInParams
-     * @param mixed  $paramValue
+     * @param string                                                       $paramName  a param that must exist in builtInParams
+     * @param bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface $paramValue
      *
      * @throws InvalidArgumentException in case of unsupported builtin param
      */

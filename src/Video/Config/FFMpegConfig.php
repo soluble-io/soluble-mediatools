@@ -22,7 +22,7 @@ class FFMpegConfig implements FFMpegConfigInterface
     /** @var int|null */
     protected $threads;
 
-    /** @var FFMpegAdapter */
+    /** @var FFMpegAdapter|null */
     protected $ffmpegAdapter;
 
     /** @var ProcessParams */

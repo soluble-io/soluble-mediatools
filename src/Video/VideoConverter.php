@@ -39,7 +39,7 @@ class VideoConverter implements VideoConverterInterface
     {
         $this->ffmpegConfig = $ffmpegConfig;
 
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -72,7 +72,7 @@ class VideoConverter implements VideoConverterInterface
         try {
             $ffmpegCmd = $adapter->getCliCommand($arguments, $inputFile, $outputFile);
         } catch (CommonException\InvalidArgumentException $e) {
-            throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            throw new InvalidArgumentException($e->getMessage(), (int) $e->getCode(), $e);
         }
 
         $pp = $processParams ?? $this->ffmpegConfig->getProcessParams();

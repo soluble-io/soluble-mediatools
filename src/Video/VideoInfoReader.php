@@ -28,7 +28,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
     /** @var FFProbeConfigInterface */
     protected $ffprobeConfig;
 
-    /** @var LoggerInterface|NullLogger */
+    /** @var LoggerInterface */
     protected $logger;
 
     public function __construct(FFProbeConfigInterface $ffProbeConfig, ?LoggerInterface $logger = null)

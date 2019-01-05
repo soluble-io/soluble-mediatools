@@ -42,7 +42,7 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
     /** @var int */
     protected $defaultQualityScale;
 
-    /** @var LoggerInterface|NullLogger */
+    /** @var LoggerInterface */
     protected $logger;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null, int $defaultQualityScale = self::DEFAULT_QUALITY_SCALE)

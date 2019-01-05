@@ -193,12 +193,14 @@ class FFMpegAdapter implements ConverterAdapterInterface
      */
     public function getCliCommand(array $arguments, string $inputFile, $outputFile = null, array $prependArguments = []): array
     {
-        $outputArg = '';
+        $outputArg = null;
         if ($outputFile instanceof UnescapedFileInterface) {
             $outputArg = $outputFile->getFile();
         } elseif (is_string($outputFile)) {
             $outputArg = $outputFile;
-        } elseif ($outputFile !== null) {
+        }
+
+        if ($outputArg === null) {
             throw new InvalidArgumentException(sprintf(
                 'Output file must be either a non empty string, null or PlatformNullFile (type %s)',
                 gettype($outputFile)

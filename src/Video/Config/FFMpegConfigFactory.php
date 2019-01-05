@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Config;
 
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Soluble\MediaTools\Common\Config\SafeConfigReader;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
@@ -36,7 +34,7 @@ class FFMpegConfigFactory
     {
         try {
             $containerConfig = $container->get($this->entryName);
-        } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
+        } catch (\Throwable $e) {
             throw new InvalidConfigException(
                 sprintf('Cannot resolve container entry \'%s\' ($entryName).', $this->entryName)
             );
@@ -50,7 +48,7 @@ class FFMpegConfigFactory
             );
         }
 
-        $scr = new SafeConfigReader($config, $this->configKey ?? '');
+        $scr = new SafeConfigReader($config, $this->configKey ?: '');
 
         return new FFMpegConfig(
             $scr->getNullableString('ffmpeg.binary', null),
