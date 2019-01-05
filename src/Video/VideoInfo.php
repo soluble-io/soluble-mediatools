@@ -13,6 +13,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
+use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
 
 class VideoInfo implements VideoInfoInterface
 {
@@ -20,19 +21,34 @@ class VideoInfo implements VideoInfoInterface
     public const STREAM_TYPE_VIDEO = 'video';
     public const STREAM_TYPE_DATA  = 'data';
 
-    /** @var array */
+    /** @var array<string, mixed> */
     protected $metadata;
 
     /** @var string */
     protected $file;
 
-    public function __construct(string $file, array $metadata)
+    /**
+     * @param string $fileName reference to filename
+     * @param array  $metadata metadata as parsed from ffprobe --json
+     *
+     * @throws IOException
+     */
+    public function __construct(string $fileName, array $metadata)
     {
+        if (!file_exists($fileName)) {
+            throw new IOException(sprintf(
+                'File %s does not exists',
+                $this->file
+            ));
+        }
         $this->metadata = $metadata;
-        $this->file     = $file;
+        $this->file     = $fileName;
     }
 
-    public static function createFromFFProbeJson(string $file, string $ffprobeJson): self
+    /**
+     * @throws JsonParseException if json is invalid
+     */
+    public static function createFromFFProbeJson(string $fileName, string $ffprobeJson): self
     {
         if (trim($ffprobeJson) === '') {
             throw new JsonParseException('Cannot parse empty json string');
@@ -42,7 +58,7 @@ class VideoInfo implements VideoInfoInterface
             throw new JsonParseException('Cannot parse json');
         }
 
-        return new self($file, $decoded);
+        return new self($fileName, $decoded);
     }
 
     public function getFile(): string
@@ -115,23 +131,37 @@ class VideoInfo implements VideoInfoInterface
         return (int) ($videoStream['nb_frames'] ?? 0);
     }
 
-    public function getBitrate(): int
+    /**
+     * Convenience method to get video bitrate.
+     */
+    public function getVideoBitrate(): int
     {
         $videoStream = $this->getVideoStreamInfo();
 
         return (int) ($videoStream['bit_rate'] ?? 0);
     }
 
+    /**
+     * @throws UnexpectedValueException
+     */
     public function getAudioStreamInfo(): ?array
     {
         return $this->getStreamsByType()[self::STREAM_TYPE_AUDIO] ?? null;
     }
 
+    /**
+     * @throws UnexpectedValueException
+     */
     public function getVideoStreamInfo(): ?array
     {
         return $this->getStreamsByType()[self::STREAM_TYPE_VIDEO] ?? null;
     }
 
+    /**
+     * @throws UnexpectedValueException
+     *
+     * @return array<string, mixed>
+     */
     protected function getStreamsByType(): array
     {
         $streams = $this->metadata['streams'] ?? [];
@@ -148,7 +178,7 @@ class VideoInfo implements VideoInfoInterface
                     $streams['data'] = $stream;
                     break;
                 default:
-                    throw new \Exception(sprintf('Does not support codec_type "%s"', $type));
+                    throw new UnexpectedValueException(sprintf('Does not support codec_type "%s"', $type));
             }
         }
 

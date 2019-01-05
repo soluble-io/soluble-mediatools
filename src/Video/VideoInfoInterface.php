@@ -13,9 +13,6 @@ namespace Soluble\MediaTools\Video;
 
 interface VideoInfoInterface
 {
-    /**
-     * Return the filesize.
-     */
     public function getFileSize(): int;
 
     /**
@@ -44,22 +41,24 @@ interface VideoInfoInterface
     public function getDimensions(): array;
 
     /**
-     * Return main video stream width.
+     * Return first video stream width.
      */
     public function getWidth(): int;
 
     /**
-     * Return main video stream height.
+     * Return first video stream height.
      */
     public function getHeight(): int;
 
-    /**
-     * Return bumber of frames.
-     */
     public function getNbFrames(): int;
 
     /**
-     * Return video bitrate.
+     * Return video bitrate of the first video stream.
      */
-    public function getBitrate(): int;
+    public function getVideoBitrate(): int;
+
+    /**
+     * Return underlying ffprobe data.
+     */
+    public function getMetadata(): array;
 }
