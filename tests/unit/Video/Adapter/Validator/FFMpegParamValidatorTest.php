@@ -17,17 +17,15 @@ use Soluble\MediaTools\Video\VideoConvertParams;
 
 class FFMpegParamValidatorTest extends TestCase
 {
-
     public function setUp(): void
     {
     }
 
     public function testNullCRFPass(): void
     {
-        $params = new VideoConvertParams();
+        $params    = new VideoConvertParams();
         $validator = new FFMpegParamValidator($params);
         $validator->validate();
         self::assertTrue(true);
     }
-
 }
