@@ -45,6 +45,7 @@ class VideoInfoReaderTest extends TestCase
     public function testGetInfo(): void
     {
         $videoInfo = $this->infoService->getInfo($this->videoFile);
+
         self::assertEquals(61.533000, $videoInfo->getDuration());
 
         self::assertEquals(realpath($this->videoFile), realpath($videoInfo->getFile()));
