@@ -68,10 +68,10 @@ jobs:
       install: skip
       language: python
       python:
-        - 3.7
+        - 3.6
       script:
-        #- pip install requests[security]
-        #- pip install --upgrade pip
+        - pip install requests[security]
+        - pip install --upgrade pip
         - pip install -r ./requirements.txt
         - mkdocs build
     - stage: Mutation (unit tests only)
