@@ -22,9 +22,22 @@ $frames   = $videoInfo->getNbFrames();
 $width    = $videoInfo->getWidth();
 $height   = $videoInfo->getHeight();
 
-// Or alternatively
 ['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
-       
+
+$filesize     = $videoInfo->getFileSize();
+
+$videoBitrate = $videoInfo->getVideoBitrate();
+
+$nbStreams    = $videoInfo->countStreams();
+
+// ffprobe format: i.e 'mov,mp4,m4a,3gp,3g2,mj2'
+$format       = $videoInfo->getFormatName();
+
+// Advanced, return what ffprobe returned
+$metadata      = $videoInfo->getMetadata();
+$audioMetadata = $videoInfo->getStreamMetadataByType('audio');
+$videoMetadata = $videoInfo->getStreamMetadataByType('video');
+
 ``` 
 
 ### Requirements
