@@ -86,7 +86,7 @@ class VideoThumbGeneratorTest extends TestCase
         self::assertContains('/path/output.jpg', $cmdLine);
     }
 
-    public function testGetSymfonyProcessWithFrameAndFilters(): void
+    public function testGetSymfonyProcessWithFrameAndFiltersAndQScale(): void
     {
         $videoFilterChain = new VideoFilterChain();
         $videoFilterChain->addFilter(new Hqdn3DVideoFilter());
@@ -94,7 +94,8 @@ class VideoThumbGeneratorTest extends TestCase
 
         $thumbParams = (new VideoThumbParams())
             ->withFrame(2)
-            ->withVideoFilter($videoFilterChain);
+            ->withVideoFilter($videoFilterChain)
+            ->withQualityScale(3);
 
         $process = $this->thumbGenerator->getSymfonyProcess(
             __FILE__,
@@ -104,8 +105,7 @@ class VideoThumbGeneratorTest extends TestCase
 
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
-
-        self::assertContains(' -filter:v select=eq(n\,1),hqdn3d,nlmeans ', $cmdLine);
+        self::assertContains(' -filter:v select=eq(n\,1),hqdn3d,nlmeans -qscale:v 3 ', $cmdLine);
     }
 
     public function testGetSymfonyProcessWithEmptyFilterChain(): void

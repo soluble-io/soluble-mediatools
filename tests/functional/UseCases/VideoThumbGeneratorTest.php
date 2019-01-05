@@ -108,7 +108,7 @@ class VideoThumbGeneratorTest extends TestCase
         $this->thumbService->makeThumbnail(
             $this->videoFile,
             $outputFile,
-            (new VideoThumbParams())->withFrame($nbFrames)
+            (new VideoThumbParams())->withFrame($nbFrames)->withQualityScale(3)
         );
 
         self::assertFileExists($outputFile);
