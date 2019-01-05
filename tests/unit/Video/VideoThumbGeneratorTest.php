@@ -13,6 +13,7 @@ namespace MediaToolsTest\Video;
 
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Video\Exception\MissingTimeException;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
 use Soluble\MediaTools\Video\Filter\NlmeansVideoFilter;
 use Soluble\MediaTools\Video\Filter\VideoFilterChain;
@@ -29,6 +30,17 @@ class VideoThumbGeneratorTest extends TestCase
     public function setUp(): void
     {
         $this->thumbGenerator = $this->getVideoThumbService();
+    }
+
+    public function testGetSymfonyProcessWithoutTimeOrFrameThrowsException(): void
+    {
+        self::expectException(MissingTimeException::class);
+
+        $this->thumbGenerator->getSymfonyProcess(
+            __FILE__,
+            '/path/output.jpg',
+            (new VideoThumbParams())
+        );
     }
 
     public function testGetSymfonyProcessWithFrame(): void
