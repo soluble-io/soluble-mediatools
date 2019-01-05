@@ -15,6 +15,7 @@ use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\VideoInfo;
 
 class VideoInfoTest extends TestCase
@@ -97,6 +98,19 @@ class VideoInfoTest extends TestCase
     {
         $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
         self::assertEquals(39933, $vi->getVideoBitrate());
+    }
+
+    public function testGetFormatName(): void
+    {
+        $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
+        self::assertEquals('mov,mp4,m4a,3gp,3g2,mj2', $vi->getFormatName());
+    }
+
+    public function testGetStreamMetadataByTypeThrowsInvalidArgumentException(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+        $vi = new VideoInfo($this->getTestFile(), self::getExampleFFProbeData());
+        $vi->getStreamMetadataByType('unsupported');
     }
 
     public function testCreateFromFFProbeJsonThrowsJsonExceptionWhenEmpty(): void

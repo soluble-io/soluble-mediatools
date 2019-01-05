@@ -13,6 +13,16 @@ namespace Soluble\MediaTools\Video;
 
 interface VideoInfoInterface
 {
+    public const STREAM_TYPE_AUDIO = 'audio';
+    public const STREAM_TYPE_VIDEO = 'video';
+    public const STREAM_TYPE_DATA  = 'data';
+
+    public const SUPPORTED_STREAM_TYPES = [
+        self::STREAM_TYPE_AUDIO,
+        self::STREAM_TYPE_VIDEO,
+        self::STREAM_TYPE_DATA,
+    ];
+
     public function getFileSize(): int;
 
     /**
@@ -61,4 +71,11 @@ interface VideoInfoInterface
      * Return underlying ffprobe data.
      */
     public function getMetadata(): array;
+
+    /**
+     * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
+     *
+     * @return array<string, mixed>
+     */
+    public function getStreamMetadataByType(string $streamType): array;
 }

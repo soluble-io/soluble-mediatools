@@ -13,19 +13,19 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
+use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
 
 class VideoInfo implements VideoInfoInterface
 {
-    public const STREAM_TYPE_AUDIO = 'audio';
-    public const STREAM_TYPE_VIDEO = 'video';
-    public const STREAM_TYPE_DATA  = 'data';
-
     /** @var array<string, mixed> */
-    protected $metadata;
+    private $metadata;
 
     /** @var string */
-    protected $file;
+    private $file;
+
+    /** @var array|null */
+    private $metadataByStreamType;
 
     /**
      * @param string $fileName reference to filename
@@ -82,6 +82,9 @@ class VideoInfo implements VideoInfoInterface
         return $size;
     }
 
+    /**
+     * Format name as returned by ffprobe.
+     */
     public function getFormatName(): string
     {
         return $this->metadata['format']['format_name'];
@@ -102,6 +105,9 @@ class VideoInfo implements VideoInfoInterface
         return (float) ($this->metadata['format']['duration'] ?? 0.0);
     }
 
+    /**
+     * @throws UnexpectedValueException
+     */
     public function getDimensions(): array
     {
         return [
@@ -110,33 +116,44 @@ class VideoInfo implements VideoInfoInterface
         ];
     }
 
+    /**
+     * @throws UnexpectedValueException
+     */
     public function getWidth(): int
     {
-        $videoStream = $this->getVideoStreamInfo();
+        $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
 
         return (int) ($videoStream['width'] ?? 0);
     }
 
+    /**
+     * @throws UnexpectedValueException
+     */
     public function getHeight(): int
     {
-        $videoStream = $this->getVideoStreamInfo();
+        $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
 
         return (int) ($videoStream['height'] ?? 0);
     }
 
+    /**
+     * @throws UnexpectedValueException
+     */
     public function getNbFrames(): int
     {
-        $videoStream = $this->getVideoStreamInfo();
+        $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
 
         return (int) ($videoStream['nb_frames'] ?? 0);
     }
 
     /**
      * Convenience method to get video bitrate.
+     *
+     * @throws UnexpectedValueException
      */
     public function getVideoBitrate(): int
     {
-        $videoStream = $this->getVideoStreamInfo();
+        $videoStream = $this->getVideoStreamMetadata()[0] ?? [];
 
         return (int) ($videoStream['bit_rate'] ?? 0);
     }
@@ -144,44 +161,69 @@ class VideoInfo implements VideoInfoInterface
     /**
      * @throws UnexpectedValueException
      */
-    public function getAudioStreamInfo(): ?array
+    public function getAudioStreamMetadata(): array
     {
-        return $this->getStreamsByType()[self::STREAM_TYPE_AUDIO] ?? null;
+        return $this->getStreamMetadataByType(self::STREAM_TYPE_AUDIO);
     }
 
     /**
      * @throws UnexpectedValueException
      */
-    public function getVideoStreamInfo(): ?array
+    public function getVideoStreamMetadata(): ?array
     {
-        return $this->getStreamsByType()[self::STREAM_TYPE_VIDEO] ?? null;
+        return $this->getStreamMetadataByType(self::STREAM_TYPE_VIDEO);
     }
 
     /**
      * @throws UnexpectedValueException
      *
+     * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
+     *
      * @return array<string, mixed>
      */
-    protected function getStreamsByType(): array
+    public function getStreamMetadataByType(string $streamType): array
     {
-        $streams = $this->metadata['streams'] ?? [];
-        foreach ($streams as $stream) {
-            $type = mb_strtolower($stream['codec_type']);
-            switch ($type) {
-                case self::STREAM_TYPE_VIDEO:
-                    $streams['video'] = $stream;
-                    break;
-                case self::STREAM_TYPE_AUDIO:
-                    $streams['audio'] = $stream;
-                    break;
-                case self::STREAM_TYPE_DATA:
-                    $streams['data'] = $stream;
-                    break;
-                default:
-                    throw new UnexpectedValueException(sprintf('Does not support codec_type "%s"', $type));
+        if (!in_array($streamType, self::SUPPORTED_STREAM_TYPES, true)) {
+            throw new InvalidArgumentException(sprintf(
+               'Invalid usage, unsupported param $streamType given: %s',
+               $streamType
+            ));
+        }
+        $md = $this->getMetadataByStreamType();
+
+        return $md[$streamType];
+    }
+
+    /**
+     * @throws UnexpectedValueException
+     */
+    private function getMetadataByStreamType(): array
+    {
+        if ($this->metadataByStreamType === null) {
+            $streams = [
+                self::STREAM_TYPE_VIDEO => [],
+                self::STREAM_TYPE_AUDIO => [],
+                self::STREAM_TYPE_DATA  => [],
+            ];
+            foreach ($this->metadata['streams'] as $stream) {
+                $type = mb_strtolower($stream['codec_type']);
+                switch ($type) {
+                    case self::STREAM_TYPE_VIDEO:
+                        $streams[self::STREAM_TYPE_VIDEO][] = $stream;
+                        break;
+                    case self::STREAM_TYPE_AUDIO:
+                        $streams[self::STREAM_TYPE_AUDIO][] = $stream;
+                        break;
+                    case self::STREAM_TYPE_DATA:
+                        $streams[self::STREAM_TYPE_DATA][] = $stream;
+                        break;
+                    default:
+                        throw new UnexpectedValueException(sprintf('Does not support codec_type "%s"', $type));
+                }
             }
+            $this->metadataByStreamType = $streams;
         }
 
-        return $streams;
+        return $this->metadataByStreamType;
     }
 }
