@@ -1,5 +1,4 @@
 language: php
-sudo: required
 
 cache:
     directories:
@@ -66,13 +65,14 @@ jobs:
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
     - stage: Make doc
+      sudo: required
       language: python
       python:
         - 3.6
       install: skip
       script:
-        - sudo -H pip install --upgrade pip
-        - sudo -H pip install -r ./requirements.txt
+        - sudo -H pip install --user --upgrade pip
+        - sudo -H pip install --user -r ./requirements.txt
         - mkdocs build
     - stage: Mutation (unit tests only)
       php: 7.2
