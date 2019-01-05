@@ -307,6 +307,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#metadata" title="Metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
       
         <li class="md-nav__item">
           <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
@@ -447,6 +454,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#metadata" title="Metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
       
         <li class="md-nav__item">
           <a href="#__source" title="Source" class="md-nav__link md-nav__link--active">
@@ -493,8 +507,22 @@
 <span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
 <span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
 
-<span class="c1">// Or alternatively</span>
 <span class="p">[</span><span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="nv">$width</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span> <span class="o">=&gt;</span> <span class="nv">$height</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDimensions</span><span class="p">();</span>
+
+<span class="nv">$filesize</span>     <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFileSize</span><span class="p">();</span>
+
+<span class="nv">$videoBitrate</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoBitrate</span><span class="p">();</span>
+<span class="nv">$audioBitrate</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getAudioBitrate</span><span class="p">();</span>
+
+<span class="nv">$nbStreams</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">();</span>
+
+<span class="c1">// ffprobe format: i.e &#39;mov,mp4,m4a,3gp,3g2,mj2&#39;</span>
+<span class="nv">$format</span>       <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFormatName</span><span class="p">();</span>
+
+<span class="c1">// Advanced, return what ffprobe returned</span>
+<span class="nv">$metadata</span>      <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getMetadata</span><span class="p">();</span>
+<span class="nv">$audioMetadata</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamMetadataByType</span><span class="p">(</span><span class="s1">&#39;audio&#39;</span><span class="p">);</span>
+<span class="nv">$videoMetadata</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamMetadataByType</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">);</span>
 </pre></div>
 
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
@@ -581,6 +609,137 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
     <span class="c1">// - VE\RuntimeException</span>
     <span class="c1">// - VE\InvalidParamException (should not happen)</span>
 <span class="p">}</span>
+</pre></div>
+
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>The <code>VideoInfo::getMetadata()</code> returns the ffprobe result, if you're 
+wondering what it is, have a look to an example with ffprobe 4.0.  </p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">return</span> <span class="p">[</span>
+    <span class="s1">&#39;streams&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="mi">0</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;index&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;codec_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h264&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_long_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;profile&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Main&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;video&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_time_base&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;81/2968&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_tag_string&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;avc1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_tag&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0x31637661&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">320</span><span class="p">,</span>
+            <span class="s1">&#39;height&#39;</span> <span class="o">=&gt;</span> <span class="mi">180</span><span class="p">,</span>
+            <span class="s1">&#39;coded_width&#39;</span> <span class="o">=&gt;</span> <span class="mi">320</span><span class="p">,</span>
+            <span class="s1">&#39;coded_height&#39;</span> <span class="o">=&gt;</span> <span class="mi">180</span><span class="p">,</span>
+            <span class="s1">&#39;has_b_frames&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;sample_aspect_ratio&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1:1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;display_aspect_ratio&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;16:9&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pix_fmt&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;yuv420p&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;level&#39;</span> <span class="o">=&gt;</span> <span class="mi">40</span><span class="p">,</span>
+            <span class="s1">&#39;color_range&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;tv&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;color_space&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;smpte170m&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;color_transfer&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bt709&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;color_primaries&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;smpte170m&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;chroma_location&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;refs&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;is_avc&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;nal_length_size&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;r_frame_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;120/1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;avg_frame_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1484/81&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;time_base&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1/90000&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;start_pts&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;start_time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0.000000&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;duration_ts&#39;</span> <span class="o">=&gt;</span> <span class="mi">5467500</span><span class="p">,</span>
+            <span class="s1">&#39;duration&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;60.750000&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bit_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;39933&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bits_per_raw_sample&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;nb_frames&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1113&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;disposition&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;dub&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;original&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;comment&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;lyrics&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;karaoke&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;forced&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;hearing_impaired&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;visual_impaired&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;clean_effects&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;attached_pic&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;timed_thumbnails&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s1">&#39;tags&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;creation_time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2018-07-04T14:51:24.000000Z&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;language&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;und&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;handler_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;VideoHandler&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="mi">1</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;index&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;codec_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;aac&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_long_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AAC (Advanced Audio Coding)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;profile&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;LC&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;audio&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_time_base&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1/22050&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_tag_string&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mp4a&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;codec_tag&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0x6134706d&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;sample_fmt&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;fltp&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;sample_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;22050&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;channels&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;channel_layout&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mono&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bits_per_sample&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;r_frame_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0/0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;avg_frame_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0/0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;time_base&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1/22050&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;start_pts&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;start_time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0.000000&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;duration_ts&#39;</span> <span class="o">=&gt;</span> <span class="mi">1355766</span><span class="p">,</span>
+            <span class="s1">&#39;duration&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;61.485986&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bit_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;84255&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;max_bit_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;84255&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;nb_frames&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1325&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;disposition&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;dub&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;original&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;comment&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;lyrics&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;karaoke&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;forced&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;hearing_impaired&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;visual_impaired&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;clean_effects&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;attached_pic&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;timed_thumbnails&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s1">&#39;tags&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;creation_time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2018-07-04T14:51:24.000000Z&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;language&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;eng&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;handler_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mono&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;format&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;filename&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/tmp/big_buck_bunny_low.m4v&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nb_streams&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;nb_programs&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;format_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mov,mp4,m4a,3gp,3g2,mj2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;format_long_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;QuickTime / MOV&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;start_time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;0.000000&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;duration&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;61.533000&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;983115&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bit_rate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;127816&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;probe_score&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s1">&#39;tags&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;major_brand&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mp42&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;minor_version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;512&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;compatible_brands&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isomiso2avc1mp41&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;creation_time&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2018-07-04T14:51:24.000000Z&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;big_buck_bunny&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;encoder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;HandBrake 1.1.0 2018042400&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">];</span>
 </pre></div>
                 
                   
