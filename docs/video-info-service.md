@@ -27,11 +27,11 @@ $height   = $videoInfo->getHeight();
 
 $filesize     = $videoInfo->getFileSize();
 
-$videoBitrate = $videoInfo->getVideoBitrate();
-$audioBitrate = $videoInfo->getAudioBitrate();
+$videoBitrate = $videoInfo->getVideoBitrate(); 
+$audioBitrate = $videoInfo->getAudioBitrate(); 
 
-$videoCodec = $videoInfo->getVideoCodecName();
-$audioCodec = $videoInfo->getAudioCodecName();
+$videoCodec = $videoInfo->getVideoCodecName(); // h264
+$audioCodec = $videoInfo->getAudioCodecName(); // aac
 
 
 // ffprobe format: i.e 'mov,mp4,m4a,3gp,3g2,mj2'
