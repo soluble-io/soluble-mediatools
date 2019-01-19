@@ -197,6 +197,7 @@ class FFMpegAdapter implements ConverterAdapterInterface
      * @param array<string,string>               $prependArguments args that must be added at the beginning of the command
      *
      * @throws InvalidArgumentException
+     *
      * @return array<int|string, string>
      */
     public function getCliCommand(array $arguments, string $inputFile, $outputFile = null, array $prependArguments = []): array

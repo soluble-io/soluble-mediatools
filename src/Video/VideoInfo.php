@@ -113,6 +113,7 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
+     *
      * @return array<string, int> associative array with 'height' and 'width'
      */
     public function getDimensions(int $streamIndex = 0): array
