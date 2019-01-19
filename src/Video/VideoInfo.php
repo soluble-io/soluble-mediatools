@@ -113,6 +113,7 @@ class VideoInfo implements VideoInfoInterface
 
     /**
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
+     * @return array<string, int> associative array with 'height' and 'width'
      */
     public function getDimensions(int $streamIndex = 0): array
     {
@@ -194,14 +195,20 @@ class VideoInfo implements VideoInfoInterface
         return $videoStream['codec_name'] ?? null;
     }
 
+    /**
+     * @return array<int, array>
+     */
     public function getAudioStreamsMetadata(): array
     {
-        return $this->getStreamsMetadataByType(self::STREAM_TYPE_AUDIO);
+        return array_values($this->getStreamsMetadataByType(self::STREAM_TYPE_AUDIO));
     }
 
+    /**
+     * @return array<int, array>
+     */
     public function getVideoStreamsMetadata(): array
     {
-        return $this->getStreamsMetadataByType(self::STREAM_TYPE_VIDEO);
+        return array_values($this->getStreamsMetadataByType(self::STREAM_TYPE_VIDEO));
     }
 
     /**
@@ -210,7 +217,7 @@ class VideoInfo implements VideoInfoInterface
      * @param string $streamType  any of self::SUPPORTED_STREAM_TYPES
      * @param int    $streamIndex selected a specific stream by index, default: 0 = the first available
      *
-     * @return array<string, mixed>
+     * @return array<string|int, array>
      */
     public function getStreamsMetadataByType(string $streamType, int $streamIndex = 0): array
     {

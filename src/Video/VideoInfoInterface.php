@@ -118,7 +118,7 @@ interface VideoInfoInterface
     /**
      * Return underlying ffprobe video metadata.
      *
-     * @return array<int, array>
+     * @return array<mixed, array>
      */
     public function getVideoStreamsMetadata(): array;
 
@@ -127,7 +127,7 @@ interface VideoInfoInterface
      *
      * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
      *
-     * @return array<int, array>
+     * @return array<int|string, array>
      */
     public function getStreamsMetadataByType(string $streamType): array;
 }

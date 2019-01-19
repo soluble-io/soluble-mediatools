@@ -98,7 +98,7 @@ class VideoConverterTest extends TestCase
         self::expectException(InvalidArgumentException::class);
         $convertParams = (new VideoConvertParams());
 
-        $process = (new VideoConverter(
+        (new VideoConverter(
             new FFMpegConfig('ffmpeg')
         ))->getSymfonyProcess(
             __FILE__,
