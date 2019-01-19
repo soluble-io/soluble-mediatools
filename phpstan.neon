@@ -7,34 +7,18 @@ parameters:
 	fileExtensions:
 		- php
 		- dist
-	excludes_analyse:
-		#
-	    # AFAIK there's no way for phpstan to ignore a specific error in a
-	    # specific file...
-	    #
-	    # The folowing exclusions concerns tests files that actualy
-        # try to raise exceptions based on invalid usage.
-        #
-	    # Would be nice to be able to add a @phpstan-ignore, till
-	    # it happens, it's okay to exclude those files from analysis
-	    #
-		#- tests/unit/Video/Filter/VideoFilterChainTest.php
-		#- tests/unit/Video/Adapter/FFMpegAdapterTest.php
-		#- tests/unit/Video/VideoConverterTest.php
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-		# Till PHP gets generic support ;) This is a case when
-		# the annotation is more precise than the php array typehint
-		# See: VideoFilterChain::addFilters(array $filter)
-		- '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
-		# For convenience when faking assertions
-		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
-		- '#Call to static method PHPUnit\\Framework\\Assert::assertFalse\(\) with true#'
 		# for covariance allowed failures
 		-
 			message: '#Return type(.*)RuntimeException(.*)of method(.*)should be covariant#'
 			path: src/Common/Exception/ProcessException.php
-
+		-
+			message: '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
+			path: src/Video/Filter/VideoFilterChain.php
+		# For convenience when faking assertions
+		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
+		- '#Call to static method PHPUnit\\Framework\\Assert::assertFalse\(\) with true#'
 		# For allowing tests to attempt to break things
 		-
 			message: '#Parameter \#2 \$outputFile of method#'
