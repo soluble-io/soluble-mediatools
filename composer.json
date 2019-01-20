@@ -69,12 +69,14 @@
         "check": [
             "@cs-check",
             "@phpstan",
-            "@psalm"
+            "@psalm",
+            "@test:unit"
         ],
         "fix": [
             "@cs-fix"
         ],
         "test": "vendor/bin/phpunit",
+        "test:unit": "vendor/bin/phpunit --testsuite=unit",
         "test:mutation": "vendor/bin/infection --configuration=infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=40 --min-covered-msi=60 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
