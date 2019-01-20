@@ -13,7 +13,7 @@
     "pre-push": {
         "enabled": true,
         "actions": [{
-            "action": "composer cs-check && composer phpstan && composer psalm && composer test",
+            "action": "composer cs-check && composer phpstan && composer test:unit",
             "options": []
 
         }]
