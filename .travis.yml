@@ -34,7 +34,7 @@ jobs:
 
   include:
     - stage: Tests and Coverage (PHP 7.3)
-      php: 7.3
+      php: 7.2
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
@@ -47,13 +47,13 @@ jobs:
       script:
         - composer phpstan
         - composer cs-check
-    - stage: Test PHP7.1
-      php: 7.1
+    - stage: Test PHP7.2
+      php: 7.3
       env: INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
-    - stage: Test PHP7.2
-      php: 7.2
+    - stage: Test PHP7.1
+      php: 7.1
       env: INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
