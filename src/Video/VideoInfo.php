@@ -14,6 +14,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Info\VideoStreamCollection;
 
 class VideoInfo implements VideoInfoInterface
 {
@@ -25,6 +26,11 @@ class VideoInfo implements VideoInfoInterface
 
     /** @var array|null */
     private $metadataByStreamType;
+
+    /**
+     * @var VideoStreamCollection|null;
+     */
+    private $cachedVideoStreams;
 
     /**
      * @param string $fileName reference to filename
@@ -81,6 +87,16 @@ class VideoInfo implements VideoInfoInterface
         return $size;
     }
 
+    public function getVideoStreams(): VideoStreamCollection
+    {
+        if ($this->cachedVideoStreams === null) {
+            $videoStreamsMetadata     = array_values($this->getStreamsMetadataByType(self::STREAM_TYPE_VIDEO));
+            $this->cachedVideoStreams = new VideoStreamCollection($videoStreamsMetadata);
+        }
+
+        return $this->cachedVideoStreams;
+    }
+
     /**
      * Format name as returned by ffprobe.
      */
@@ -95,7 +111,7 @@ class VideoInfo implements VideoInfoInterface
     public function countStreams(?string $streamType = null): int
     {
         if ($streamType === null) {
-            return $this->metadata['format']['nb_streams'];
+            return count($this->metadata['streams'] ?? []);
         }
 
         return count($this->getStreamsMetadataByType($streamType));
