@@ -29,7 +29,7 @@ class VideoConvertParams implements VideoConvertParamsInterface
      *
      * @throws InvalidArgumentException in case of unsupported option
      */
-    public function __construct($params = [])
+    public function __construct(array $params = [])
     {
         $this->ensureSupportedParams($params);
         $this->params = $params;
@@ -233,7 +233,7 @@ class VideoConvertParams implements VideoConvertParamsInterface
     public function withOverwrite(): self
     {
         return new self(array_merge($this->params, [
-            self::PARAM_OVERWRITE => true
+            self::PARAM_OVERWRITE => true,
         ]));
     }
 
@@ -245,7 +245,7 @@ class VideoConvertParams implements VideoConvertParamsInterface
     public function withNoOverwrite(): self
     {
         return new self(array_merge($this->params, [
-            self::PARAM_OVERWRITE => false
+            self::PARAM_OVERWRITE => false,
         ]));
     }
 

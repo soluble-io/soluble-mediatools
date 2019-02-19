@@ -26,7 +26,7 @@ class VideoThumbParams implements VideoThumbParamsInterface
      *
      * @throws InvalidArgumentException in case of unsupported option
      */
-    public function __construct($params = [])
+    public function __construct(array $params = [])
     {
         $this->ensureSupportedParams($params);
         $this->params = $params;
@@ -88,7 +88,7 @@ class VideoThumbParams implements VideoThumbParamsInterface
     public function withOverwrite(): self
     {
         return new self(array_merge($this->params, [
-            self::PARAM_OVERWRITE => true
+            self::PARAM_OVERWRITE => true,
         ]));
     }
 
@@ -100,7 +100,7 @@ class VideoThumbParams implements VideoThumbParamsInterface
     public function withNoOverwrite(): self
     {
         return new self(array_merge($this->params, [
-            self::PARAM_OVERWRITE => false
+            self::PARAM_OVERWRITE => false,
         ]));
     }
 
