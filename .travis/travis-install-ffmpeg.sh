@@ -15,7 +15,8 @@ DEST=${BASE_DIR}/${FILE%%.*}
 
 if [[ -f ${DISTFILE} ]]; then
   # not first run
-  curl -o ${DISTFILE} -z ${DISTFILE} -L ${URL}
+  # curl -o ${DISTFILE} -z ${DISTFILE} -L ${URL}
+  echo "Already downloaded";
 else
   # first run
   curl -o ${DISTFILE} -L ${URL}
