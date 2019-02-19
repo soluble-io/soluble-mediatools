@@ -37,7 +37,7 @@ span.md-header-nav__title {
 }
 
 .md-typeset p {
-    font-size: 1.6rem;
+    /*font-size: 1.6rem;*/
     line-height: 1.65em;
     -webkit-print-color-adjust: exact;
 }

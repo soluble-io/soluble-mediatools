@@ -4,5 +4,5 @@
 mkdocs>=1
 Pygments>=2.2
 pymdown-extensions>=4.11
-mkdocs-material>=3
+mkdocs-material>=4
 
