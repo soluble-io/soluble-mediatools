@@ -1,4 +1,5 @@
 includes:
+	- vendor/phpstan/phpstan-webmozart-assert/extension.neon
 	- vendor/jangregor/phpstan-prophecy/src/extension.neon
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
 	- vendor/phpstan/phpstan-phpunit/extension.neon
