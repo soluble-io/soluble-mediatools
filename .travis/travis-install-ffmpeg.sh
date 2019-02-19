@@ -4,7 +4,7 @@ set -ex
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-URL=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
+URL=https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
 FILE=$(basename ${URL})
 DOWNLOAD_DIR=${BASE_DIR}/downloads
 DISTFILE=${DOWNLOAD_DIR}/${FILE}
