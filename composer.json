@@ -35,7 +35,7 @@
         "guzzlehttp/guzzle": "^6.2",
         "infection/infection": "^0.12",
         "jangregor/phpstan-prophecy": "^0.3",
-        "mikey179/vfsStream": "^1.6",
+        "mikey179/vfsstream": "^1.6",
         "monolog/monolog": "^1.23",
         "phpspec/prophecy": "^1.8",
         "phpstan/phpstan": "^0.11",
