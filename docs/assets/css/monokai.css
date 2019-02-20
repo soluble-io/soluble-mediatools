@@ -5,11 +5,14 @@
 .codehilite code, .codehilite pre {
     background-color: hsla(0, 0%, 93%, 0.5);
     color: white;
-    font-size: 85%;
+    font-size: 0.9em;
+    line-height: 1.35em;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
 
 }
 
-.codehilite .hll { background-color: #49483e;}
+.codehilite .hll { background-color: rgba(45,45, 45, 0.8) }
 
 .codehilite .hll > .c1 {
     font-family: "Roboto Mono", "Helvetica Neue", Helvetica, Arial, sans-serif;

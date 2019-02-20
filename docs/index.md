@@ -9,9 +9,9 @@ Flexible audio/video conversions and thumbnailing for hi*php*ies.
 Wraps around [ffmpeg](https://www.ffmpeg.org/) and [ffprobe](https://www.ffmpeg.org/ffprobe.html)
 and exposes most of their features, like scaling, clipping, filters, transcoding, audio extraction 
 and much more.    
- 
-![Logo](./assets/images/mediatools.png)
 
+![Logo](./assets/images/mediatools.png)
+ 
 To prevent limitations, the API rather focus on providing developer fine-tuned parameters 
 than giving ready-made recipes. Transcoding and conversions generally
 requires specific processing, [judge by yourself](./video-conversion-service/#notes).
@@ -19,7 +19,7 @@ To help starting, the documentation includes a lot of examples and snippets you
 can easily try and tune later. Check also [alternatives](./#alternatives) wrappers
 for ffmpeg, they are good and sometimes offer more magic if you're looking for it. 
      
-On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
+It likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
 *(SOLID friendly)*.
 Last but not least, all services accepts a `LoggerInterface` one more reason to
