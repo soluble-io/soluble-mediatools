@@ -15,6 +15,7 @@ use MediaToolsTest\Util\FFProbeMetadataProviderTrait;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
+use Soluble\MediaTools\Video\Exception\NoStreamException;
 use Soluble\MediaTools\Video\Info\VideoStream;
 use Soluble\MediaTools\Video\Info\VideoStreamCollection;
 use Soluble\MediaTools\Video\VideoInfo;
@@ -58,6 +59,14 @@ class VideoStreamCollectionTest extends TestCase
         self::expectException(InvalidStreamMetadataException::class);
         new VideoStreamCollection([0 => 'cool']);
     }
+
+
+    public function testVideoStreamsWithDataThrowsNoStreamException(): void
+    {
+        self::expectException(NoStreamException::class);
+        (new VideoStreamCollection([]))->getFirst();
+    }
+
 
     private function getTestFile(): string
     {

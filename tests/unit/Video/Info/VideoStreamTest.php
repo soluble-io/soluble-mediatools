@@ -12,36 +12,23 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video\Info;
 
 use MediaToolsTest\Util\FFProbeMetadataProviderTrait;
-use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Video\VideoInfo;
+use Soluble\MediaTools\Video\Info\VideoStream;
 
 class VideoStreamTest extends TestCase
 {
     use FFProbeMetadataProviderTrait;
 
-    /** @var \org\bovigo\vfs\vfsStreamDirectory */
-    private $vfsRoot;
-
-    /** @var \org\bovigo\vfs\vfsStreamFile */
-    private $virtualFile;
 
     public function setUp(): void
     {
-        $this->vfsRoot     = vfsStream::setup();
-        $this->virtualFile = vfsStream::newFile('mediatools-test-virtual-file')
-            ->withContent('A fake file used by mediatools tests')
-            ->at($this->vfsRoot);
     }
 
     public function testGetVideoStreams(): void
     {
-        $data = $this->getExampleFFProbeData();
 
-        $vi     = new VideoInfo($this->getTestFile(), $data);
-        $stream = $vi->getVideoStreams()->getFirst();
-
-        $d = $data['streams'][0];
+        $d = $this->getExampleFFProbeData()['streams'][0];
+        $stream = new VideoStream($d);
 
         self::assertEquals($d['index'], $stream->getIndex());
 
@@ -76,8 +63,13 @@ class VideoStreamTest extends TestCase
         self::assertEquals($d['is_avc'] === 'true', $stream->isAvc());
     }
 
-    private function getTestFile(): string
-    {
-        return $this->virtualFile->url();
+    public function testNullIsAvc(): void {
+
+        $data = $this->getExampleFFProbeData()['streams'][0];
+        unset($data['is_avc']);
+        $stream = new VideoStream($data);
+        self::assertNull($stream->isAvc());
     }
+
+
 }

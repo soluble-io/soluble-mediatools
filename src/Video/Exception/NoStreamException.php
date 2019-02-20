@@ -11,6 +11,6 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Exception;
 
-class StreamNotFoundException extends \Soluble\MediaTools\Common\Exception\RuntimeException implements InfoReaderExceptionInterface
+class NoStreamException extends \Soluble\MediaTools\Common\Exception\RuntimeException implements InfoReaderExceptionInterface
 {
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Info;
 
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
-use Soluble\MediaTools\Video\Exception\StreamNotFoundException;
+use Soluble\MediaTools\Video\Exception\NoStreamException;
 
 class VideoStreamCollection implements StreamCollectionInterface
 {
@@ -29,7 +29,7 @@ class VideoStreamCollection implements StreamCollectionInterface
     public function getFirst(): VideoStream
     {
         if ($this->count() === 0) {
-            throw new StreamNotFoundException('Unable to get video first stream, none exists');
+            throw new NoStreamException('Unable to get video first stream, none exists');
         }
 
         return new VideoStream($this->streamsMetadata[0]);
