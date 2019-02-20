@@ -29,6 +29,7 @@ use Soluble\MediaTools\Video\VideoConverter as VideoConversionService;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoConvertParams;
 use Soluble\MediaTools\Video\VideoConvertParamsInterface;
+use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 
 class VideoConverterTest extends TestCase
 {
@@ -36,6 +37,11 @@ class VideoConverterTest extends TestCase
 
     /** @var VideoConverterInterface */
     protected $videoConvert;
+
+    /**
+     * @var VideoInfoReaderInterface
+     */
+    protected $infoService;
 
     /** @var string */
     protected $baseDir;
@@ -52,6 +58,7 @@ class VideoConverterTest extends TestCase
     public function setUp(): void
     {
         $this->videoConvert = $this->getVideoConvertService();
+        $this->infoService  = $this->getVideoInfoService();
 
         $this->baseDir   = dirname(__FILE__, 3);
         $this->outputDir = "{$this->baseDir}/tmp";
@@ -91,6 +98,13 @@ class VideoConverterTest extends TestCase
         }
 
         self::assertFileExists($outputFile);
+
+        $info   = $this->infoService->getInfo($outputFile);
+        $stream = $info->getVideoStreams()->getFirst();
+        self::assertEquals(320, $stream->getWidth());
+        // Because of ratio decrease !
+        self::assertEquals(180, $stream->getHeight());
+
         unlink($outputFile);
     }
 
@@ -103,9 +117,8 @@ class VideoConverterTest extends TestCase
         }
 
         $convertParams = (new VideoConvertParams())
-            ->withVideoCodec('libx264')
-            ->withPreset('ultrafast')
-            ->withTune('animation')
+            ->withVideoCodec('vp9')
+            ->withVideoBitrate('50k')
             ->withOverwrite()
             // Will speed up test
             ->withSeekStart(new SeekTime(1))
@@ -123,6 +136,13 @@ class VideoConverterTest extends TestCase
         }
 
         self::assertFileExists($outputFile);
+
+        $info   = $this->infoService->getInfo($outputFile);
+        $stream = $info->getVideoStreams()->getFirst();
+        self::assertEquals(160, $stream->getWidth());
+        // Because of ratio decrease !
+        self::assertEquals(90, $stream->getHeight());
+        self::assertLessThan(50000, $stream->getBitRate());
         unlink($outputFile);
     }
 
@@ -164,6 +184,13 @@ class VideoConverterTest extends TestCase
         }
 
         self::assertFileExists($outputFile);
+
+        $info   = $this->infoService->getInfo($outputFile);
+        $stream = $info->getVideoStreams()->getFirst();
+        self::assertEquals('yuv420p', $stream->getPixFmt());
+        // because it's vp9 with min/max bitrates ;)
+        self::assertNull($stream->getBitRate());
+
         unlink($outputFile);
     }
 
@@ -225,7 +252,12 @@ class VideoConverterTest extends TestCase
 
         unlink($logFile);
         self::assertFileExists($outputFile);
-        //unlink($outputFile);
+
+        $info   = $this->infoService->getInfo($outputFile);
+        $stream = $info->getVideoStreams()->getFirst();
+        self::assertEquals('yuv420p', $stream->getPixFmt());
+
+        unlink($outputFile);
     }
 
     public function testConvertWithWrongPassWillError(): void

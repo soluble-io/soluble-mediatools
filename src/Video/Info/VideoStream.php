@@ -105,9 +105,14 @@ class VideoStream
         return $this->tsReader->getKeyFloatValue('duration');
     }
 
-    public function getBitRate(): int
+    public function getProfile(): ?string
     {
-        return $this->tsReader->getKeyIntValue('bit_rate');
+        return $this->tsReader->getKeyStringOrNullValue('profile');
+    }
+
+    public function getBitRate(): ?int
+    {
+        return $this->tsReader->getKeyIntOrNullValue('bit_rate');
     }
 
     public function getNbFrames(): int
