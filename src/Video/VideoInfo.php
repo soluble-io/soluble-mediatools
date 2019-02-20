@@ -87,7 +87,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * Return VideoStreams as a collection
+     * Return VideoStreams as a collection.
+     *
      * @throws InvalidStreamMetadataException
      */
     public function getVideoStreams(): VideoStreamCollection
@@ -272,14 +273,12 @@ class VideoInfo implements VideoInfoInterface
             }
 
             foreach ($this->metadata['streams'] as $stream) {
-
                 if (!is_array($stream)) {
                     throw new InvalidStreamMetadataException(sprintf(
                         'Stream metadata returned by ffprobe must be an array: %s',
                         (string) json_encode($stream)
                     ));
                 }
-
 
                 if (!isset($stream['codec_type'])) {
                     throw new InvalidStreamMetadataException(sprintf(

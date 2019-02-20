@@ -17,6 +17,7 @@ class VideoStreamCollection implements StreamCollectionInterface
 
     /**
      * @param array<int, array> $videoStreamsMetadata
+     *
      * @throws InvalidStreamMetadataException
      */
     public function __construct(array $videoStreamsMetadata)

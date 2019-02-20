@@ -80,21 +80,22 @@ class VideoInfoTest extends TestCase
         self::assertEquals(0, $vi->countStreams(VideoInfo::STREAM_TYPE_DATA));
     }
 
-    public function testGetVideoStreams(): void {
-        $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
+    public function testGetVideoStreams(): void
+    {
+        $vi      = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
         $streams = $vi->getVideoStreams();
         self::assertEquals(2, $streams->count());
         /**
          * @var VideoStream $stream
          */
-        foreach($streams as $idx => $stream) {
+        foreach ($streams as $idx => $stream) {
             self::assertInstanceOf(VideoStream::class, $stream);
             self::assertEquals($idx, $stream->getIndex());
         }
     }
 
-
-    public function testGetVideoStreamsThrowsException(): void {
+    public function testGetVideoStreamsThrowsException(): void
+    {
         self::expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
         $vi->getVideoStreams();
