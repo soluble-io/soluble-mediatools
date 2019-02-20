@@ -18,24 +18,56 @@ try {
     // see below for exceptions
 }
 
+// Total duration
 $duration = $videoInfo->getDuration();
-$frames   = $videoInfo->getNbFrames();
-$width    = $videoInfo->getWidth();
-$height   = $videoInfo->getHeight();
-
-['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
 
 $filesize     = $videoInfo->getFileSize();
 
-$videoBitrate = $videoInfo->getVideoBitrate(); 
-$audioBitrate = $videoInfo->getAudioBitrate(); 
-
-$videoCodec = $videoInfo->getVideoCodecName(); // h264
-$audioCodec = $videoInfo->getAudioCodecName(); // aac
-
-
 // ffprobe format: i.e 'mov,mp4,m4a,3gp,3g2,mj2'
 $format       = $videoInfo->getFormatName();
+
+
+// Get video streams (generally one, i.e mkv containers can have multiple)
+
+$videoStreams = $videoInfo->getVideoStreams();
+
+if (count($videoStreams->count() === 1)) {
+    $videoStreams->getFirst()->getCodecName(); // vp9
+    $videoStreams->getFirst()->getCodecTagString();
+    $videoStreams->getFirst()->getNbFrames();
+    $videoStreams->getFirst()->getHeight();
+    $videoStreams->getFirst()->getWidth();
+    $videoStreams->getFirst()->getDuration();
+    $videoStreams->getFirst()->getDurationTs();
+    
+    $videoStreams->getFirst()->getPixFmt();
+    $videoStreams->getFirst()->getNbFrames();
+    $videoStreams->getFirst()->getTimeBase();
+    $videoStreams->getFirst()->getBitRate();
+    $videoStreams->getFirst()->getTags();
+    $videoStreams->getFirst()->getDisplayAspectRatio();
+    $videoStreams->getFirst()->getSampleAspectRatio();
+    $videoStreams->getFirst()->getCodedWidth();
+    $videoStreams->getFirst()->getCodedHeight();
+    $videoStreams->getFirst()->getRFrameRate();
+}
+
+
+$audioStreams = $videoInfo->getAudioStreams();
+
+if (count($audioStreams->count() === 1)) {
+    $audioStreams->getFirst()->getCodecName(); // aac
+    $audioStreams->getFirst()->getCodecTagString();
+    $audioStreams->getFirst()->getDuration();
+    $audioStreams->getFirst()->getDurationTs();
+    
+    $audioStreams->getFirst()->getTimeBase();
+    $audioStreams->getFirst()->getBitRate();
+    $audioStreams->getFirst()->getTags();
+}
+
+
+
 
 // Count all streams present (audio/video/data)
 $nbStreams      = $videoInfo->countStreams();
@@ -49,6 +81,8 @@ $videoMetadata = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM
 $dataMetadata  = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_DATA);
 
 ``` 
+
+
 
 ### Requirements
 
@@ -104,7 +138,8 @@ use Soluble\MediaTools\Video\Exception as VE;
 /** @var VideoInfoReader $vis */
 try {
     
-    $vis->getInfo('/path/video.mov');
+    $info = $vis->getInfo('/path/video.mov');
+    
     
 // All exception below implements VE\InfoReaderExceptionInterface
         
