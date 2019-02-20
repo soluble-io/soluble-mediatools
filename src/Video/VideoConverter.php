@@ -37,10 +37,10 @@ class VideoConverter implements VideoConverterInterface
     use PathAssertionsTrait;
 
     /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    private $ffmpegConfig;
 
     /** @var LoggerInterface */
-    protected $logger;
+    private $logger;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {

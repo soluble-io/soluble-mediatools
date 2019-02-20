@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Exception\NoStreamException;
 
-class VideoStreamCollection implements StreamCollectionInterface
+class VideoStreamCollection implements VideoStreamCollectionInterface
 {
     /** @var array<int, array> */
     private $streamsMetadata;
@@ -16,13 +19,20 @@ class VideoStreamCollection implements StreamCollectionInterface
     private $streams;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param array<int, array> $videoStreamsMetadata
      *
      * @throws InvalidStreamMetadataException
      */
-    public function __construct(array $videoStreamsMetadata)
+    public function __construct(array $videoStreamsMetadata, ?LoggerInterface $logger = null)
     {
         $this->streamsMetadata = $videoStreamsMetadata;
+        $this->logger          = $logger ?? new NullLogger();
+
         $this->loadStreams();
     }
 
@@ -51,14 +61,19 @@ class VideoStreamCollection implements StreamCollectionInterface
     private function loadStreams(): void
     {
         $this->streams = [];
-        foreach ($this->streamsMetadata as $idx => $metadata) {
-            if (!is_array($metadata)) {
-                throw new InvalidStreamMetadataException(sprintf(
-                    'Invalid or unsupported metadata stream received %s',
-                    (string) json_encode($metadata)
-                ));
+        try {
+            foreach ($this->streamsMetadata as $idx => $metadata) {
+                if (!is_array($metadata)) {
+                    throw new InvalidStreamMetadataException(sprintf(
+                        'Invalid or unsupported metadata stream received %s',
+                        (string) json_encode($metadata)
+                    ));
+                }
+                $this->streams[] = new VideoStream($metadata);
             }
-            $this->streams[] = new VideoStream($metadata);
+        } catch (InvalidStreamMetadataException $e) {
+            $this->logger->log(LogLevel::ERROR, $e->getMessage());
+            throw $e;
         }
     }
 }

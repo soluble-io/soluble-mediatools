@@ -33,10 +33,10 @@ class VideoInfoReader implements VideoInfoReaderInterface
     use PathAssertionsTrait;
 
     /** @var FFProbeConfigInterface */
-    protected $ffprobeConfig;
+    private $ffprobeConfig;
 
     /** @var LoggerInterface */
-    protected $logger;
+    private $logger;
 
     public function __construct(FFProbeConfigInterface $ffProbeConfig, ?LoggerInterface $logger = null)
     {
@@ -108,6 +108,6 @@ class VideoInfoReader implements VideoInfoReaderInterface
             throw $e;
         }
 
-        return VideoInfo::createFromFFProbeJson($file, $output);
+        return VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
     }
 }

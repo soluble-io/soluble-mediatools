@@ -20,6 +20,10 @@ parameters:
 		-
 			message: '#Call to function is_array\(\) with array will always evaluate to true.#'
 			path: src/Video/Info/VideoStreamCollection.php
+		-
+			message: '#Call to function is_array\(\) with array will always evaluate to true.#'
+			path: src/Video/Info/AudioStreamCollection.php
+
 
 		# For convenience when faking assertions
 

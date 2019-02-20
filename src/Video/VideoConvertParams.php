@@ -22,7 +22,7 @@ class VideoConvertParams implements VideoConvertParamsInterface
     use BitrateAssertionsTrait;
 
     /** @var array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> */
-    protected $params = [];
+    private $params = [];
 
     /**
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params

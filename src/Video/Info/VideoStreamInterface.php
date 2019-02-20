@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info;
 
-
 interface VideoStreamInterface
 {
-
     public function getIndex(): int;
 
     public function getCodecName(): string;
@@ -62,4 +60,9 @@ interface VideoStreamInterface
      * @return array<string, string>
      */
     public function getTags(): array;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getStreamMetadata(): array;
 }

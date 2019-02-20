@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info\Util;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Exception\UnexpectedMetadataException;
 use Webmozart\Assert\Assert;
 
@@ -13,11 +15,17 @@ class MetadataTypeSafeReader
     private $streamMetadata;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param array<string, mixed> $streamMetadata
      */
-    public function __construct(array $streamMetadata)
+    public function __construct(array $streamMetadata, ?LoggerInterface $logger = null)
     {
         $this->streamMetadata = $streamMetadata;
+        $this->logger         = $logger ?? new NullLogger();
     }
 
     /**
@@ -29,10 +37,11 @@ class MetadataTypeSafeReader
     {
         try {
             Assert::integerish(
-                $this->streamMetadata[$key] ?? '',
+                $this->streamMetadata[$key] ?? '<empty>',
                 "The ffprobe/videoInfo metadata '$key' is expected to be an integer. Got: %s"
             );
         } catch (\Throwable $e) {
+            $this->logger->notice($e->getMessage());
             throw new UnexpectedMetadataException($e->getMessage());
         }
 
@@ -52,6 +61,7 @@ class MetadataTypeSafeReader
                 "The ffprobe/videoInfo metadata '$key' is expected to be an integer or null. Got: %s"
             );
         } catch (\Throwable $e) {
+            $this->logger->notice($e->getMessage());
             throw new UnexpectedMetadataException($e->getMessage());
         }
         if (isset($this->streamMetadata[$key])) {
@@ -70,10 +80,11 @@ class MetadataTypeSafeReader
     {
         try {
             Assert::numeric(
-                $this->streamMetadata[$key] ?? '',
+                $this->streamMetadata[$key] ?? '<empty>',
                 "The ffprobe/videoInfo metadata '$key' is expected to be a float. Got: %s"
             );
         } catch (\Throwable $e) {
+            $this->logger->notice($e->getMessage());
             throw new UnexpectedMetadataException($e->getMessage());
         }
 
@@ -93,6 +104,7 @@ class MetadataTypeSafeReader
                 "The ffprobe/videoInfo metadata '$key' is expected to be a float or null. Got: %s"
             );
         } catch (\Throwable $e) {
+            $this->logger->notice($e->getMessage());
             throw new UnexpectedMetadataException($e->getMessage());
         }
         if (isset($this->streamMetadata[$key])) {
@@ -115,6 +127,7 @@ class MetadataTypeSafeReader
                 "The ffprobe/videoInfo metadata '$key' is expected to be a string or null. Got: %s"
             );
         } catch (\Throwable $e) {
+            $this->logger->notice($e->getMessage());
             throw new UnexpectedMetadataException($e->getMessage());
         }
         if (isset($this->streamMetadata[$key])) {
@@ -137,6 +150,7 @@ class MetadataTypeSafeReader
                 "The ffprobe/videoInfo metadata '$key' is expected to be a string. Got: %s"
             );
         } catch (\Throwable $e) {
+            $this->logger->notice($e->getMessage());
             throw new UnexpectedMetadataException($e->getMessage());
         }
 

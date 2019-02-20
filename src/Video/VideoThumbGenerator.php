@@ -44,13 +44,13 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
     use PathAssertionsTrait;
 
     /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    private $ffmpegConfig;
 
     /** @var int */
-    protected $defaultQualityScale;
+    private $defaultQualityScale;
 
     /** @var LoggerInterface */
-    protected $logger;
+    private $logger;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null, int $defaultQualityScale = self::DEFAULT_QUALITY_SCALE)
     {

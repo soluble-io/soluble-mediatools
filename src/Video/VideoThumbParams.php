@@ -19,7 +19,7 @@ use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 class VideoThumbParams implements VideoThumbParamsInterface
 {
     /** @var array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> */
-    protected $params = [];
+    private $params = [];
 
     /**
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params

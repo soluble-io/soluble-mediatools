@@ -59,6 +59,8 @@ class VideoStreamTest extends TestCase
         self::assertEquals($d['tags'], $stream->getTags());
         self::assertEquals($d['time_base'], $stream->getTimeBase());
         self::assertEquals($d['is_avc'] === 'true', $stream->isAvc());
+
+        self::assertEquals($d, $stream->getStreamMetadata());
     }
 
     public function testNullIsAvc(): void

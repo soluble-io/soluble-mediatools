@@ -18,6 +18,7 @@ use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
+use Soluble\MediaTools\Video\Info\AudioStream;
 use Soluble\MediaTools\Video\Info\VideoStream;
 use Soluble\MediaTools\Video\VideoInfo;
 
@@ -91,6 +92,20 @@ class VideoInfoTest extends TestCase
         foreach ($streams as $idx => $stream) {
             self::assertInstanceOf(VideoStream::class, $stream);
             self::assertEquals($idx, $stream->getIndex());
+        }
+    }
+
+    public function testGetAudioStreams(): void
+    {
+        $vi      = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
+        $streams = $vi->getAudioStreams();
+        self::assertEquals(1, $streams->count());
+        /**
+         * @var AudioStream $stream
+         */
+        foreach ($streams as $idx => $stream) {
+            self::assertInstanceOf(AudioStream::class, $stream);
+            //self::assertEquals($idx, $stream->getIndex());
         }
     }
 

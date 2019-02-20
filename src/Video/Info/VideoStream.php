@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info;
 
+use Psr\Log\LoggerInterface;
 use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
 class VideoStream implements VideoStreamInterface
@@ -14,10 +15,10 @@ class VideoStream implements VideoStreamInterface
     /** @var MetadataTypeSafeReader */
     private $tsReader;
 
-    public function __construct(array $streamMetadata)
+    public function __construct(array $streamMetadata, ?LoggerInterface $logger = null)
     {
         $this->streamMetadata = $streamMetadata;
-        $this->tsReader       = new MetadataTypeSafeReader($streamMetadata);
+        $this->tsReader       = new MetadataTypeSafeReader($streamMetadata, $logger);
     }
 
     public function getIndex(): int
@@ -155,5 +156,15 @@ class VideoStream implements VideoStreamInterface
     public function getTags(): array
     {
         return $this->streamMetadata['tags'] ?? [];
+    }
+
+    /**
+     * Return underlying ffprobe json metadata.
+     *
+     * @return array<string, mixed>
+     */
+    public function getStreamMetadata(): array
+    {
+        return $this->streamMetadata;
     }
 }

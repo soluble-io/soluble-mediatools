@@ -26,10 +26,10 @@ use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 class VideoAnalyzer implements VideoAnalyzerInterface
 {
     /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    private $ffmpegConfig;
 
     /** @var LoggerInterface */
-    protected $logger;
+    private $logger;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig, ?LoggerInterface $logger = null)
     {
