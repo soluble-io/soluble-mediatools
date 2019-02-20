@@ -24,6 +24,7 @@ parameters:
 		# For convenience when faking assertions
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertFalse\(\) with true#'
+		- '#Call to static method PHPUnit\\Framework\\Assert::assertInstanceOf(.*)will always evaluate to true#'
 		# For allowing tests to attempt to break things
 		-
 			message: '#Parameter \#2 \$outputFile of method#'

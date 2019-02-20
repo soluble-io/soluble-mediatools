@@ -14,6 +14,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Info\VideoStreamCollection;
 
 class VideoInfo implements VideoInfoInterface
@@ -85,6 +86,10 @@ class VideoInfo implements VideoInfoInterface
         return $size;
     }
 
+    /**
+     * Return VideoStreams as a collection
+     * @throws InvalidStreamMetadataException
+     */
     public function getVideoStreams(): VideoStreamCollection
     {
         if ($this->cachedVideoStreams === null) {
@@ -233,6 +238,8 @@ class VideoInfo implements VideoInfoInterface
      * @param int    $streamIndex selected a specific stream by index, default: 0 = the first available
      *
      * @return array<string|int, array>
+     *
+     * @throws InvalidStreamMetadataException
      */
     public function getStreamsMetadataByType(string $streamType, int $streamIndex = 0): array
     {
@@ -246,6 +253,9 @@ class VideoInfo implements VideoInfoInterface
         return $this->getMetadataByStreamType()[$streamType];
     }
 
+    /**
+     * @throws InvalidStreamMetadataException
+     */
     private function getMetadataByStreamType(): array
     {
         if ($this->metadataByStreamType === null) {
@@ -254,7 +264,30 @@ class VideoInfo implements VideoInfoInterface
                 self::STREAM_TYPE_AUDIO => [],
                 self::STREAM_TYPE_DATA  => [],
             ];
+            if (!is_array($this->metadata['streams'])) {
+                throw new InvalidStreamMetadataException(sprintf(
+                    'Invalid or unsupported stream metadata returned by ffprobe: %s',
+                    (string) json_encode($this->metadata)
+                ));
+            }
+
             foreach ($this->metadata['streams'] as $stream) {
+
+                if (!is_array($stream)) {
+                    throw new InvalidStreamMetadataException(sprintf(
+                        'Stream metadata returned by ffprobe must be an array: %s',
+                        (string) json_encode($stream)
+                    ));
+                }
+
+
+                if (!isset($stream['codec_type'])) {
+                    throw new InvalidStreamMetadataException(sprintf(
+                        'Missing codec_type information in metadata returned by ffprobe: %s',
+                        (string) json_encode($stream)
+                    ));
+                }
+
                 $type = mb_strtolower($stream['codec_type']);
                 switch ($type) {
                     case self::STREAM_TYPE_VIDEO:
