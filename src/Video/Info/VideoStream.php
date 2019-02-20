@@ -8,14 +8,10 @@ use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
 class VideoStream
 {
-    /**
-     * @var array<string, mixed>
-     */
+    /** @var array<string, mixed> */
     private $streamMetadata;
 
-    /**
-     * @var MetadataTypeSafeReader
-     */
+    /** @var MetadataTypeSafeReader */
     private $tsReader;
 
     public function __construct(array $streamMetadata)
