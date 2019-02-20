@@ -116,6 +116,14 @@ class VideoInfoTest extends TestCase
         $vi->getAudioStreams();
     }
 
+    public function testGetVideoStreamsThrowsException(): void
+    {
+        self::expectException(InvalidStreamMetadataException::class);
+        $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
+        $vi->getVideoStreams();
+    }
+
+
     public function testGetNbFrames(): void
     {
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
@@ -210,7 +218,6 @@ class VideoInfoTest extends TestCase
         $vi = new VideoInfo($this->getTestFile(), ['invalid' => []]);
         $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_VIDEO);
     }
-
 
     public function testCreateFromFFProbeJsonThrowsJsonExceptionWhenEmpty(): void
     {
