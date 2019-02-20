@@ -60,13 +60,11 @@ class VideoStreamCollectionTest extends TestCase
         new VideoStreamCollection([0 => 'cool']);
     }
 
-
     public function testVideoStreamsWithDataThrowsNoStreamException(): void
     {
         self::expectException(NoStreamException::class);
         (new VideoStreamCollection([]))->getFirst();
     }
-
 
     private function getTestFile(): string
     {

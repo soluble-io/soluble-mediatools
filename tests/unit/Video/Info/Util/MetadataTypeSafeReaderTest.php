@@ -90,14 +90,12 @@ class MetadataTypeSafeReaderTest extends TestCase
             self::assertTrue(true);
         }
 
-
         try {
             $tsReader->getKeyIntOrNullValue('string');
             self::assertTrue(true);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
-
 
         try {
             $tsReader->getKeyFloatValue('string');
@@ -112,7 +110,6 @@ class MetadataTypeSafeReaderTest extends TestCase
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
-
 
         try {
             $tsReader->getKeyFloatValue('floatNull2');

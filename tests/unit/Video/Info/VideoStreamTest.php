@@ -19,15 +19,13 @@ class VideoStreamTest extends TestCase
 {
     use FFProbeMetadataProviderTrait;
 
-
     public function setUp(): void
     {
     }
 
     public function testGetVideoStreams(): void
     {
-
-        $d = $this->getExampleFFProbeData()['streams'][0];
+        $d      = $this->getExampleFFProbeData()['streams'][0];
         $stream = new VideoStream($d);
 
         self::assertEquals($d['index'], $stream->getIndex());
@@ -63,13 +61,11 @@ class VideoStreamTest extends TestCase
         self::assertEquals($d['is_avc'] === 'true', $stream->isAvc());
     }
 
-    public function testNullIsAvc(): void {
-
+    public function testNullIsAvc(): void
+    {
         $data = $this->getExampleFFProbeData()['streams'][0];
         unset($data['is_avc']);
         $stream = new VideoStream($data);
         self::assertNull($stream->isAvc());
     }
-
-
 }

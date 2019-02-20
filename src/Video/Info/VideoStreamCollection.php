@@ -12,7 +12,7 @@ class VideoStreamCollection implements StreamCollectionInterface
     /** @var array<int, array> */
     private $streamsMetadata;
 
-    /** @var array<int, VideoStream> */
+    /** @var array<int, VideoStreamInterface> */
     private $streams;
 
     /**
@@ -26,7 +26,7 @@ class VideoStreamCollection implements StreamCollectionInterface
         $this->loadStreams();
     }
 
-    public function getFirst(): VideoStream
+    public function getFirst(): VideoStreamInterface
     {
         if ($this->count() === 0) {
             throw new NoStreamException('Unable to get video first stream, none exists');

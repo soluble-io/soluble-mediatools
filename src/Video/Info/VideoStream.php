@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Video\Info;
 
 use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
-class VideoStream
+class VideoStream implements VideoStreamInterface
 {
     /** @var array<string, mixed> */
     private $streamMetadata;
