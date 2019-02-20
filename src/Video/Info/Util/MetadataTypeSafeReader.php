@@ -9,9 +9,7 @@ use Webmozart\Assert\Assert;
 
 class MetadataTypeSafeReader
 {
-    /**
-     * @var array<string, mixed>
-     */
+    /** @var array<string, mixed> */
     private $streamMetadata;
 
     /**
@@ -124,5 +122,24 @@ class MetadataTypeSafeReader
         }
 
         return null;
+    }
+
+    /**
+     * @param string $key metadata key
+     *
+     * @throws UnexpectedMetadataException
+     */
+    public function getKeyStringValue(string $key): string
+    {
+        try {
+            Assert::string(
+                $this->streamMetadata[$key] ?? null,
+                "The ffprobe/videoInfo metadata '$key' is expected to be a string. Got: %s"
+            );
+        } catch (\Throwable $e) {
+            throw new UnexpectedMetadataException($e->getMessage());
+        }
+
+        return (string) $this->streamMetadata[$key];
     }
 }
