@@ -123,7 +123,6 @@ class VideoInfoTest extends TestCase
         $vi->getVideoStreams();
     }
 
-
     public function testGetNbFrames(): void
     {
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
