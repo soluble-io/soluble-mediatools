@@ -57,7 +57,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Soluble\\MediaTools\\": "src"
+            "Soluble\\MediaTools\\Common\\": "src/Common/",
+            "Soluble\\MediaTools\\Video\\": "src/Video/"
         }
     },
     "autoload-dev": {
