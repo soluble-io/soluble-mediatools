@@ -71,7 +71,7 @@ trait FFProbeMetadataProviderTrait
                         'handler_name'  => 'VideoHandler',
                     ],
                 ],
-                2 => [
+                1 => [
                     'index'                => 1,
                     'codec_name'           => 'h264',
                     'codec_long_name'      => 'H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10',
@@ -127,7 +127,7 @@ trait FFProbeMetadataProviderTrait
                         'handler_name'  => 'VideoHandler',
                     ],
                 ],
-                3 => [
+                2 => [
                     'index'            => 1,
                     'codec_name'       => 'aac',
                     'codec_long_name'  => 'AAC (Advanced Audio Coding)',

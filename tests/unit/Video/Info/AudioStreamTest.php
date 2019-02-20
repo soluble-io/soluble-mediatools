@@ -25,7 +25,7 @@ class AudioStreamTest extends TestCase
 
     public function testGetAudioStreams(): void
     {
-        $d      = $this->getExampleFFProbeData()['streams'][3];
+        $d      = $this->getExampleFFProbeData()['streams'][2];
         $stream = new AudioStream($d);
 
         self::assertEquals($d['index'], $stream->getIndex());

@@ -109,11 +109,11 @@ class VideoInfoTest extends TestCase
         }
     }
 
-    public function testGetVideoStreamsThrowsException(): void
+    public function testGetAudioStreamsThrowsException(): void
     {
         self::expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
-        $vi->getVideoStreams();
+        $vi->getAudioStreams();
     }
 
     public function testGetNbFrames(): void
@@ -174,6 +174,18 @@ class VideoInfoTest extends TestCase
     {
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
         self::assertEquals('mov,mp4,m4a,3gp,3g2,mj2', $vi->getFormatName());
+    }
+
+    public function testGetStreamMetadataByType(): void
+    {
+        $data  = $this->getExampleFFProbeData();
+        $vi    = new VideoInfo($this->getTestFile(), $data);
+        $audio = $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_AUDIO);
+        self::assertEquals($data['streams'][2], $audio[0]);
+
+        $video = $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_VIDEO);
+        self::assertEquals($data['streams'][0], $video[0]);
+        //$data  = $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_DATA);
     }
 
     public function testGetStreamMetadataByTypeThrowsInvalidArgumentException(): void
