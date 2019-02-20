@@ -17,6 +17,10 @@ parameters:
 		-
 			message: '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
 			path: src/Video/Filter/VideoFilterChain.php
+		-
+			message: '#Call to function is_array\(\) with array will always evaluate to true.#'
+			path: src/Video/Info/VideoStreamCollection.php
+
 		# For convenience when faking assertions
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with true will always evaluate to true.#'
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertFalse\(\) with true#'
@@ -30,5 +34,4 @@ parameters:
 		-
 			message: '#Parameter \#3 \$outputFile of method#'
 			path: tests/unit/Video/Adapter/FFMpegAdapterTest.php
-
 
