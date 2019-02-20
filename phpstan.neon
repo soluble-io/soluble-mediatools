@@ -38,4 +38,7 @@ parameters:
 		-
 			message: '#Parameter \#3 \$outputFile of method#'
 			path: tests/unit/Video/Adapter/FFMpegAdapterTest.php
+		-
+			message: '#Parameter(.*)of class(.*)expects array#'
+			path: tests/unit/Video/Info/VideoStreamCollectionTest.php
 
