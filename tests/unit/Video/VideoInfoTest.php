@@ -185,7 +185,10 @@ class VideoInfoTest extends TestCase
 
         $video = $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_VIDEO);
         self::assertEquals($data['streams'][0], $video[0]);
-        //$data  = $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_DATA);
+
+        $data = $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_DATA);
+        self::assertEquals([], $data);
+
     }
 
     public function testGetStreamMetadataByTypeThrowsInvalidArgumentException(): void
