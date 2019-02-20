@@ -27,9 +27,7 @@ class VideoInfo implements VideoInfoInterface
     /** @var array|null */
     private $metadataByStreamType;
 
-    /**
-     * @var VideoStreamCollection|null;
-     */
+    /** @var VideoStreamCollection|null; */
     private $cachedVideoStreams;
 
     /**
