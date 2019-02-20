@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info;
 
-interface VideoStreamInterface
+interface VideoStreamInterface extends StreamInterface
 {
-    public function getIndex(): int;
-
-    public function getCodecName(): string;
-
-    public function getCodecLongName(): ?string;
-
     public function getCodecTimeBase(): ?string;
 
     public function getCodecTagString(): ?string;
@@ -30,17 +24,11 @@ interface VideoStreamInterface
 
     public function getPixFmt(): ?string;
 
+    public function getLevel(): ?int;
+
     public function getAvgFrameRate(): string;
 
     public function getRFrameRate(): ?string;
-
-    public function getTimeBase(): ?string;
-
-    public function getDurationTs(): ?int;
-
-    public function getDuration(): float;
-
-    public function getProfile(): ?string;
 
     public function getBitRate(): ?int;
 
@@ -48,21 +36,9 @@ interface VideoStreamInterface
 
     public function isAvc(): ?bool;
 
-    public function getLevel(): ?int;
-
     public function getColorRange(): ?string;
 
     public function getColorSpace(): ?string;
 
     public function getColorTransfer(): ?string;
-
-    /**
-     * @return array<string, string>
-     */
-    public function getTags(): array;
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function getStreamMetadata(): array;
 }

@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info;
 
-interface AudioStreamInterface
+interface AudioStreamInterface extends StreamInterface
 {
-    /**
-     * @return array<string, mixed>
-     */
-    public function getStreamMetadata(): array;
+    public function getStartTime(): ?float;
 }

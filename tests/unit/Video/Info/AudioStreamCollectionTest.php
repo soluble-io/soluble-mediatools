@@ -16,11 +16,11 @@ use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Exception\NoStreamException;
-use Soluble\MediaTools\Video\Info\VideoStream;
-use Soluble\MediaTools\Video\Info\VideoStreamCollection;
+use Soluble\MediaTools\Video\Info\AudioStream;
+use Soluble\MediaTools\Video\Info\AudioStreamCollection;
 use Soluble\MediaTools\Video\VideoInfo;
 
-class VideoStreamCollectionTest extends TestCase
+class AudioStreamCollectionTest extends TestCase
 {
     use FFProbeMetadataProviderTrait;
 
@@ -38,36 +38,36 @@ class VideoStreamCollectionTest extends TestCase
             ->at($this->vfsRoot);
     }
 
-    public function testVideoStreamsWithData(): void
+    public function testAudioStreamsWithData(): void
     {
         $data = $this->getExampleFFProbeData();
 
         $vi = new VideoInfo($this->getTestFile(), $data);
-        $md = $vi->getVideoStreamsMetadata();
+        $md = $vi->getAudioStreamsMetadata();
 
-        $coll = new VideoStreamCollection($md);
-        self::assertEquals(2, $coll->count());
-        self::assertInstanceOf(VideoStream::class, $coll->getFirst());
+        $coll = new AudioStreamCollection($md);
+        self::assertEquals(1, $coll->count());
+        self::assertInstanceOf(AudioStream::class, $coll->getFirst());
 
-        foreach ($coll as $idx => $videoStream) {
+        foreach ($coll as $idx => $audioStream) {
             /*
-             * @var VideoStream $videoStream
+             * @var AudioStream $audioStream
              */
-            self::assertEquals($coll->getIterator()[$idx], $videoStream);
-            self::assertEquals('video', $videoStream->getCodecType());
+            self::assertEquals($coll->getIterator()[$idx], $audioStream);
+            self::assertEquals('audio', $audioStream->getCodecType());
         }
     }
 
-    public function testVideoStreamsWithDataThrowsException(): void
+    public function testAudioStreamsWithDataThrowsException(): void
     {
         self::expectException(InvalidStreamMetadataException::class);
-        new VideoStreamCollection([0 => 'cool']);
+        new AudioStreamCollection([0 => 'cool']);
     }
 
-    public function testVideoStreamsWithDataThrowsNoStreamException(): void
+    public function testAudioStreamsWithDataThrowsNoStreamException(): void
     {
         self::expectException(NoStreamException::class);
-        (new VideoStreamCollection([]))->getFirst();
+        (new AudioStreamCollection([]))->getFirst();
     }
 
     private function getTestFile(): string

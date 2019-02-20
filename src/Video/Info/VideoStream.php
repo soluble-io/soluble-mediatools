@@ -26,9 +26,14 @@ class VideoStream implements VideoStreamInterface
         return $this->tsReader->getKeyIntValue('index');
     }
 
+    public function getCodecType(): string
+    {
+        return $this->tsReader->getKeyStringValue('codec_type');
+    }
+
     public function getCodecName(): string
     {
-        return $this->streamMetadata['codec_name'];
+        return $this->tsReader->getKeyStringValue('codec_name');
     }
 
     public function getCodecLongName(): ?string
