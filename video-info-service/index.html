@@ -498,24 +498,56 @@
     <span class="c1">// see below for exceptions</span>
 <span class="p">}</span>
 
+<span class="c1">// Total duration</span>
 <span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-<span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
-<span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
-<span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
-
-<span class="p">[</span><span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="nv">$width</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span> <span class="o">=&gt;</span> <span class="nv">$height</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDimensions</span><span class="p">();</span>
 
 <span class="nv">$filesize</span>     <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFileSize</span><span class="p">();</span>
 
-<span class="nv">$videoBitrate</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoBitrate</span><span class="p">();</span> 
-<span class="nv">$audioBitrate</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getAudioBitrate</span><span class="p">();</span> 
-
-<span class="nv">$videoCodec</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoCodecName</span><span class="p">();</span> <span class="c1">// h264</span>
-<span class="nv">$audioCodec</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getAudioCodecName</span><span class="p">();</span> <span class="c1">// aac</span>
-
-
 <span class="c1">// ffprobe format: i.e &#39;mov,mp4,m4a,3gp,3g2,mj2&#39;</span>
 <span class="nv">$format</span>       <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFormatName</span><span class="p">();</span>
+
+
+<span class="c1">// Get video streams (generally one, i.e mkv containers can have multiple)</span>
+
+<span class="nv">$videoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
+
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getPixFmt</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDisplayAspectRatio</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getSampleAspectRatio</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodedWidth</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodedHeight</span><span class="p">();</span>
+    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRFrameRate</span><span class="p">();</span>
+<span class="p">}</span>
+
+
+<span class="nv">$audioStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getAudioStreams</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// aac</span>
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
+
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
+    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+<span class="p">}</span>
+
+
+
 
 <span class="c1">// Count all streams present (audio/video/data)</span>
 <span class="nv">$nbStreams</span>      <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">();</span>
@@ -572,7 +604,8 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <span class="sd">/** @var VideoInfoReader $vis */</span>
 <span class="k">try</span> <span class="p">{</span>
 
-    <span class="nv">$vis</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mov&#39;</span><span class="p">);</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$vis</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mov&#39;</span><span class="p">);</span>
+
 
 <span class="c1">// All exception below implements VE\InfoReaderExceptionInterface</span>
 
