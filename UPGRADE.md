@@ -1,3 +1,11 @@
+## From 0.9 to 1.0
+
+- `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
+- `VideoInfo::getAudioBitRate(): int` -> Use `VideoInfo::getAudioStreams()->getFirst()->getBitRate()` instead.
+- `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
+- `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
+
+
 ## From 0.8 to 0.9
 
 - `VideoInfoInterface::getBitrate()` renamed to `VideoInfoInterface::getVideoBitrate()`
