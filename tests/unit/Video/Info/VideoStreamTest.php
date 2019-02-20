@@ -44,6 +44,7 @@ class VideoStreamTest extends TestCase
         self::assertEquals($d['color_range'], $stream->getColorRange());
         self::assertEquals($d['color_space'], $stream->getColorSpace());
         self::assertEquals($d['color_transfer'], $stream->getColorTransfer());
+        self::assertEquals('Main', $stream->getProfile());
 
         self::assertEquals($d['display_aspect_ratio'], $stream->getDisplayAspectRatio());
         self::assertEquals($d['duration'], $stream->getDuration());

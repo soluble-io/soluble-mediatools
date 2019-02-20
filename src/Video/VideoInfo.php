@@ -89,10 +89,9 @@ class VideoInfo implements VideoInfoInterface
     {
         $size = @filesize($this->file);
         if ($size === false) {
-            throw new IOException(sprintf(
-                'Cannot get filesize of file %s',
-                $this->file
-            ));
+            $msg = sprintf('Cannot get filesize of file %s', $this->file);
+            $this->logger->log(LogLevel::ERROR, $msg);
+            throw new IOException($msg);
         }
 
         return $size;
@@ -166,17 +165,27 @@ class VideoInfo implements VideoInfoInterface
         return count($this->getStreamsMetadataByType($streamType));
     }
 
+    /**
+     * Return metadata as received by ffprobe.
+     *
+     * @return array<string, array>
+     */
     public function getMetadata(): array
     {
         return $this->metadata;
     }
 
+    /**
+     * Return total duration.
+     */
     public function getDuration(): float
     {
         return (float) ($this->metadata['format']['duration'] ?? 0.0);
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      *
      * @return array<string, int> associative array with 'height' and 'width'
@@ -190,6 +199,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getWidth(int $streamIndex = 0): int
@@ -200,6 +211,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getHeight(int $streamIndex = 0): int
@@ -210,6 +223,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getNbFrames(int $streamIndex = 0): int
@@ -220,6 +235,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoBitrate(int $streamIndex = 0): int
@@ -230,7 +247,7 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
-     * Convenience method to get audio stream bitrate.
+     * @deprecated
      *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
@@ -242,6 +259,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioCodecName(int $streamIndex = 0): ?string
@@ -252,6 +271,8 @@ class VideoInfo implements VideoInfoInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoCodecName(int $streamIndex = 0): ?string

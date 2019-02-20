@@ -18,9 +18,7 @@ class VideoStreamCollection implements VideoStreamCollectionInterface
     /** @var array<int, VideoStreamInterface> */
     private $streams;
 
-    /**
-     * @var LoggerInterface
-     */
+    /** @var LoggerInterface */
     private $logger;
 
     /**

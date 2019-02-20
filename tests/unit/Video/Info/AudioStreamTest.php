@@ -36,6 +36,8 @@ class AudioStreamTest extends TestCase
         self::assertEquals($d['codec_tag_string'], $stream->getCodecTagString());
         self::assertEquals($d['codec_time_base'], $stream->getCodecTimeBase());
 
+        self::assertEquals(0, $stream->getStartTime());
+        self::assertEquals('LC', $stream->getProfile());
         self::assertEquals($d['duration'], $stream->getDuration());
         self::assertEquals($d['duration_ts'], $stream->getDurationTs());
 

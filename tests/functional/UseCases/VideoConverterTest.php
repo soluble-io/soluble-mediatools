@@ -38,9 +38,7 @@ class VideoConverterTest extends TestCase
     /** @var VideoConverterInterface */
     protected $videoConvert;
 
-    /**
-     * @var VideoInfoReaderInterface
-     */
+    /** @var VideoInfoReaderInterface */
     protected $infoService;
 
     /** @var string */

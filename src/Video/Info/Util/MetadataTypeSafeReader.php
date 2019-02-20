@@ -14,9 +14,7 @@ class MetadataTypeSafeReader
     /** @var array<string, mixed> */
     private $streamMetadata;
 
-    /**
-     * @var LoggerInterface
-     */
+    /** @var LoggerInterface */
     private $logger;
 
     /**

@@ -174,7 +174,7 @@ trait FFProbeMetadataProviderTrait
             ],
             'format' => [
                 'filename'         => '/tmp/big_buck_bunny_low.m4v',
-                'nb_streams'       => 2,
+                'nb_streams'       => 3,
                 'nb_programs'      => 0,
                 'format_name'      => 'mov,mp4,m4a,3gp,3g2,mj2',
                 'format_long_name' => 'QuickTime / MOV',
