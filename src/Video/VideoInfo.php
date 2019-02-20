@@ -334,7 +334,7 @@ class VideoInfo implements VideoInfoInterface
                     self::STREAM_TYPE_AUDIO => [],
                     self::STREAM_TYPE_DATA  => [],
                 ];
-                if (!is_array($this->metadata['streams'])) {
+                if (!is_array($this->metadata['streams'] ?? null)) {
                     throw new InvalidStreamMetadataException(sprintf(
                         'Invalid or unsupported stream metadata returned by ffprobe: %s',
                         (string) json_encode($this->metadata)
