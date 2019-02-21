@@ -16,7 +16,7 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
-use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\VideoConverter;
 use Soluble\MediaTools\Video\VideoConvertParams;
 
@@ -33,7 +33,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     /** @var string */
     protected $loggerName;
 
-    /** @var FFMpegConfig */
+    /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
     /** @var string */
@@ -52,7 +52,7 @@ class VideoConversionErrorLoggingTest extends TestCase
         $this->loggerTestHandler = new TestHandler(Logger::DEBUG);
         $this->logger->pushHandler($this->loggerTestHandler);
 
-        $this->ffmpegConfig = $this->getConfiguredContainer()->get(FFMpegConfig::class);
+        $this->ffmpegConfig = $this->getFFMpegConfig();
 
         $this->baseDir   = dirname(__FILE__, 3);
         $this->outputDir = "{$this->baseDir}/tmp";
@@ -62,7 +62,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     public function testConversionProcessFailedMustBeLoggedAsError(): void
     {
         $outputFile   = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
-        $videoConvert = new VideoConverter(new FFMpegConfig(), $this->logger);
+        $videoConvert = new VideoConverter($this->getFFMpegConfig(), $this->logger);
         try {
             $videoConvert->convert(
                 $this->videoFile,
@@ -84,7 +84,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     public function testConversionMissingInputFileMustBeLoggedAsWarning(): void
     {
         $outputFile   = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
-        $videoConvert = new VideoConverter(new FFMpegConfig(), $this->logger);
+        $videoConvert = new VideoConverter($this->getFFMpegConfig(), $this->logger);
         try {
             $videoConvert->convert(
                 '/path_does_no_exists/path',

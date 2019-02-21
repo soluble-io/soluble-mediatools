@@ -13,6 +13,8 @@ namespace MediaToolsTest\Util;
 
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
+use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
+use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
@@ -51,6 +53,16 @@ trait ServicesProviderTrait
     public function getVideoThumbService(): VideoThumbGeneratorInterface
     {
         return $this->getConfiguredContainer()->get(VideoThumbGeneratorInterface::class);
+    }
+
+    public function getFFMpegConfig(?string $ffmpegBinary = null): FFMpegConfigInterface
+    {
+        return $this->getConfiguredContainer(false, $ffmpegBinary)->get(FFMpegConfigInterface::class);
+    }
+
+    public function getFFProbeConfig(?string $ffprobeBinary = null): FFProbeConfigInterface
+    {
+        return $this->getConfiguredContainer(false, null, $ffprobeBinary)->get(FFProbeConfigInterface::class);
     }
 
     /**

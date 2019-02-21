@@ -16,7 +16,7 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
-use Soluble\MediaTools\Video\Config\FFMpegConfig;
+use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoThumbGenerator;
 use Soluble\MediaTools\Video\VideoThumbParams;
@@ -34,7 +34,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     /** @var string */
     protected $loggerName;
 
-    /** @var FFMpegConfig */
+    /** @var FFMpegConfigInterface */
     protected $ffmpegConfig;
 
     /** @var string */
@@ -53,7 +53,7 @@ class VideoThumbErrorLoggingTest extends TestCase
         $this->loggerTestHandler = new TestHandler(Logger::DEBUG);
         $this->logger->pushHandler($this->loggerTestHandler);
 
-        $this->ffmpegConfig = $this->getConfiguredContainer()->get(FFMpegConfig::class);
+        $this->ffmpegConfig = $this->getFFMpegConfig();
 
         $this->baseDir   = dirname(__FILE__, 3);
         $this->outputDir = "{$this->baseDir}/tmp";
@@ -63,7 +63,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     public function testThumbProcessFailedMustBeLoggedAsError(): void
     {
         $outputFile = "{$this->outputDir}/tmp.jpg";
-        $videoThumb = new VideoThumbGenerator(new FFMpegConfig(), $this->logger);
+        $videoThumb = new VideoThumbGenerator($this->ffmpegConfig, $this->logger);
         try {
             $videoThumb->makeThumbnail(
                 $this->videoFile,
@@ -85,7 +85,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     public function testConversionMissingInputFileMustBeLoggedAsWarning(): void
     {
         $outputFile = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
-        $videoThumb = new VideoThumbGenerator(new FFMpegConfig(), $this->logger);
+        $videoThumb = new VideoThumbGenerator($this->ffmpegConfig, $this->logger);
         try {
             $videoThumb->makeThumbnail(
                 '/path_does_no_exists/path',
