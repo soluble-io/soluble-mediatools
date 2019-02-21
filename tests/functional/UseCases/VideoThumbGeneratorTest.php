@@ -15,6 +15,7 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Process\ProcessParams;
+use Soluble\MediaTools\Video\Exception\MissingFFMpegBinaryException;
 use Soluble\MediaTools\Video\Exception\NoOutputGeneratedException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\Hqdn3DVideoFilter;
@@ -23,6 +24,7 @@ use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
+use Soluble\MediaTools\Video\VideoThumbGenerator;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
 use Soluble\MediaTools\Video\VideoThumbParams;
 
@@ -56,6 +58,15 @@ class VideoThumbGeneratorTest extends TestCase
         $this->baseDir   = dirname(__FILE__, 3);
         $this->outputDir = "{$this->baseDir}/tmp";
         $this->videoFile = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
+    }
+
+    public function testMissingFFMpegBinary(): void
+    {
+        self::expectException(MissingFFMpegBinaryException::class);
+        $thumb = $this->getConfiguredContainer(false, './path/ffmpeg', './path/ffprobe')
+            ->get(VideoThumbGenerator::class);
+
+        $thumb->makeThumbnail($this->videoFile, '/tmp/a.jpg', (new VideoThumbParams())->withTime(0.2));
     }
 
     public function testSimpleThumbnail(): void

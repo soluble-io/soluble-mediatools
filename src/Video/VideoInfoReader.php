@@ -22,6 +22,7 @@ use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Exception\InfoProcessReaderExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
+use Soluble\MediaTools\Video\Exception\MissingFFProbeBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
@@ -75,6 +76,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
      * @throws InfoProcessReaderExceptionInterface
      * @throws ProcessFailedException
      * @throws MissingInputFileException
+     * @throws MissingFFProbeBinaryException
      * @throws RuntimeReaderException
      */
     public function getInfo(string $file): VideoInfo
@@ -88,7 +90,14 @@ class VideoInfoReader implements VideoInfoReaderInterface
                 $output = $process->getOutput();
             } catch (FileNotFoundException | FileNotReadableException $e) {
                 throw new MissingInputFileException($e->getMessage());
-            } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
+            } catch (SPException\ProcessFailedException $e) {
+                $process = $e->getProcess();
+                if ($process->getExitCode() === 127 ||
+                    mb_strpos(mb_strtolower($process->getExitCodeText()), 'command not found') !== false) {
+                    throw new MissingFFProbeBinaryException($process, $e);
+                }
+                throw new ProcessFailedException($process, $e);
+            } catch (SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
                 throw new ProcessFailedException($e->getProcess(), $e);
             } catch (SPException\RuntimeException $e) {
                 throw new RuntimeReaderException($e->getMessage());

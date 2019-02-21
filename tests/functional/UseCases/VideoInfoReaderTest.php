@@ -14,6 +14,7 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
+use Soluble\MediaTools\Video\Exception\MissingFFProbeBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
@@ -60,6 +61,14 @@ class VideoInfoReaderTest extends TestCase
 
         self::assertEquals(320, $width);
         self::assertEquals(180, $height);
+    }
+
+    public function testMissingFFProbeBinary(): void
+    {
+        self::expectException(MissingFFProbeBinaryException::class);
+        $infoService = $this->getConfiguredContainer(false, './path/ffmpeg', './path/ffprobe')
+            ->get(VideoInfoReaderInterface::class);
+        $infoService->getInfo($this->videoFile);
     }
 
     public function testGetMediaInfoThrowsProcessFailedException(): void

@@ -25,6 +25,7 @@ use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidParamException;
+use Soluble\MediaTools\Video\Exception\MissingFFMpegBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\MissingTimeException;
 use Soluble\MediaTools\Video\Exception\NoOutputGeneratedException;
@@ -148,12 +149,17 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
                 throw new MissingInputFileException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
                 throw new InvalidParamException($e->getMessage());
-            } catch (SPException\ProcessTimedOutException $e) {
-                throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessSignaledException $e) {
                 throw new ProcessSignaledException($e->getProcess(), $e);
+            } catch (SPException\ProcessTimedOutException $e) {
+                throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessFailedException $e) {
-                throw new ProcessFailedException($e->getProcess(), $e);
+                $process = $e->getProcess();
+                if ($process->getExitCode() === 127 ||
+                    mb_strpos(mb_strtolower($process->getExitCodeText()), 'command not found') !== false) {
+                    throw new MissingFFMpegBinaryException($process, $e);
+                }
+                throw new ProcessFailedException($process, $e);
             } catch (SPException\RuntimeException $e) {
                 throw new RuntimeReaderException($e->getMessage());
             }

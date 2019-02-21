@@ -24,6 +24,7 @@ use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
 use Soluble\MediaTools\Video\Exception\ConverterProcessExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidParamException;
+use Soluble\MediaTools\Video\Exception\MissingFFMpegBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessSignaledException;
@@ -97,6 +98,7 @@ class VideoConverter implements VideoConverterInterface
      * @throws ConverterExceptionInterface        Base exception class for conversion exceptions
      * @throws ConverterProcessExceptionInterface Base exception class for process conversion exceptions
      * @throws MissingInputFileException
+     * @throws MissingFFMpegBinaryException
      * @throws ProcessTimedOutException
      * @throws ProcessFailedException
      * @throws ProcessSignaledException
@@ -114,12 +116,17 @@ class VideoConverter implements VideoConverterInterface
                 throw new MissingInputFileException($e->getMessage());
             } catch (CommonException\UnsupportedParamValueException | CommonException\UnsupportedParamException $e) {
                 throw new InvalidParamException($e->getMessage());
-            } catch (SPException\ProcessTimedOutException $e) {
-                throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessSignaledException $e) {
                 throw new ProcessSignaledException($e->getProcess(), $e);
+            } catch (SPException\ProcessTimedOutException $e) {
+                throw new ProcessTimedOutException($e->getProcess(), $e);
             } catch (SPException\ProcessFailedException $e) {
-                throw new ProcessFailedException($e->getProcess(), $e);
+                $process = $e->getProcess();
+                if ($process->getExitCode() === 127 ||
+                    mb_strpos(mb_strtolower($process->getExitCodeText()), 'command not found') !== false) {
+                    throw new MissingFFMpegBinaryException($process, $e);
+                }
+                throw new ProcessFailedException($process, $e);
             } catch (SPException\RuntimeException $e) {
                 throw new RuntimeReaderException($e->getMessage());
             }

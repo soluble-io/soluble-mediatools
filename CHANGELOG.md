@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - VideoInfo now supports getting multiple audio and video streams.
+- Added `MissingFFMpegBinaryException` and `MissingFFProbeBinaryException` (ProcessFailedException).
 
 ### Removed
 

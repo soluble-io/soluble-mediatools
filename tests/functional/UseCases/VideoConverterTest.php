@@ -18,6 +18,7 @@ use Soluble\MediaTools\Common\IO\PlatformNullFile;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\Exception\MissingFFMpegBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
@@ -61,6 +62,23 @@ class VideoConverterTest extends TestCase
         $this->baseDir   = dirname(__FILE__, 3);
         $this->outputDir = "{$this->baseDir}/tmp";
         $this->videoFile = "{$this->baseDir}/data/big_buck_bunny_low.m4v";
+    }
+
+    public function testMissingFFMpegBinary(): void
+    {
+        self::expectException(MissingFFMpegBinaryException::class);
+        $convert = $this->getConfiguredContainer(false, './path/ffmpeg', './path/ffprobe')
+            ->get(VideoConverterInterface::class);
+
+        $convertParams = (new VideoConvertParams())
+            ->withVideoCodec('libx264')
+            ->withPreset('ultrafast')
+            ->withOverwrite()
+            // Will speed up test
+            ->withSeekStart(new SeekTime(1))
+            ->withSeekEnd(new SeekTime(1.2));
+
+        $convert->convert($this->videoFile, '/tmp/a.tmp.mp4', $convertParams);
     }
 
     public function testBasicConversion(): void
