@@ -32,7 +32,7 @@ class InterlaceDetectGuessTest extends TestCase
             InterlaceDetectGuess::MODE_INTERLACED_BFF => 3 / 16,
             InterlaceDetectGuess::MODE_PROGRESSIVE    => 2 / 16,
             InterlaceDetectGuess::MODE_UNDETERMINED   => 1 / 16,
-            ], $g->getStats());
+        ], $g->getStats());
 
         self::assertTrue($g->isInterlacedTff());
         self::assertFalse($g->isInterlacedBff());

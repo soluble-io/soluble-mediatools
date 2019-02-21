@@ -32,9 +32,7 @@ class InterlaceDetectTest extends TestCase
     /** @var \org\bovigo\vfs\vfsStreamFile */
     private $virtualFile;
 
-    /**
-     * @var InterlaceDetect
-     */
+    /** @var InterlaceDetect */
     private $interlaceDetect;
 
     public function setUp(): void
