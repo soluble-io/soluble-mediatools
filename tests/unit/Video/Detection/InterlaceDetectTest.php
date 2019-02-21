@@ -15,17 +15,10 @@ use MediaToolsTest\Util\FFProbeMetadataProviderTrait;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Common\Exception\IOException;
-use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Config\FFMpegConfig;
 use Soluble\MediaTools\Video\Detection\InterlaceDetect;
-use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
-use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
-use Soluble\MediaTools\Video\Info\AudioStream;
-use Soluble\MediaTools\Video\Info\VideoStream;
-use Soluble\MediaTools\Video\VideoInfo;
 
 class InterlaceDetectTest extends TestCase
 {
@@ -33,13 +26,11 @@ class InterlaceDetectTest extends TestCase
 
     use ServicesProviderTrait;
 
-
     /** @var \org\bovigo\vfs\vfsStreamDirectory */
     private $vfsRoot;
 
     /** @var \org\bovigo\vfs\vfsStreamFile */
     private $virtualFile;
-
 
     /**
      * @var InterlaceDetect
@@ -56,20 +47,17 @@ class InterlaceDetectTest extends TestCase
         $this->interlaceDetect = new InterlaceDetect(new FFMpegConfig());
     }
 
-
     public function testGuessInterlacingThrowsMissingInputFileException(): void
     {
         self::expectException(MissingInputFileException::class);
         $this->interlaceDetect->guessInterlacing('./unexistent_file.mp4', 200);
     }
 
-
     public function testGuessInterlacingThrowsProcessFailedException(): void
     {
         self::expectException(ProcessFailedException::class);
         $this->interlaceDetect->guessInterlacing($this->getTestFile(), 200);
     }
-
 
     private function getTestFile(): string
     {
