@@ -73,8 +73,6 @@ class InterlaceDetect
             $process->mustRun();
         } catch (FileNotFoundException | FileNotReadableException $e) {
             throw new MissingInputFileException($e->getMessage());
-        } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
-            throw new InvalidParamException($e->getMessage());
         } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
             throw new ProcessFailedException($e->getProcess(), $e);
         } catch (SPException\RuntimeException $e) {
