@@ -24,6 +24,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
 - `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
 
+### Improvement
+
+- Removal of webmozart/assert dependency.
+
 ## 0.9.2 (2019-02-20)
 
 ### Added
