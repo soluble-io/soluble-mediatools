@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.0.0 (2019-02-??)
 
+### Removed
+
+- `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
+- `VideoInfo::getAudioBitRate(): int` -> Use `VideoInfo::getAudioStreams()->getFirst()->getBitRate()` instead.
+- `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
+- `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
+
+## 0.9.3 (2019-02-23)
+
 ### Added
 
 - VideoInfo now supports getting multiple audio and video streams.
@@ -16,13 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Missing deprecation in VideoInfoInterface
 - Missing new `VideoInfoInterface::getVideoStreams()` and `VideoInfoInterface::getAudioStreams()`
-
-### Removed
-
-- `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
-- `VideoInfo::getAudioBitRate(): int` -> Use `VideoInfo::getAudioStreams()->getFirst()->getBitRate()` instead.
-- `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
-- `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
+- Some issues with type requirements in VideoInfo
 
 ### Improvement
 

@@ -76,9 +76,9 @@ class VideoStream implements VideoStreamInterface
         return $this->tsReader->getKeyStringOrNullValue('sample_aspect_ratio');
     }
 
-    public function getDisplayAspectRatio(): string
+    public function getDisplayAspectRatio(): ?string
     {
-        return $this->streamMetadata['display_aspect_ratio'];
+        return $this->tsReader->getKeyStringOrNullValue('display_aspect_ratio');
     }
 
     public function getPixFmt(): ?string
@@ -86,9 +86,9 @@ class VideoStream implements VideoStreamInterface
         return $this->tsReader->getKeyStringOrNullValue('pix_fmt');
     }
 
-    public function getAvgFrameRate(): string
+    public function getAvgFrameRate(): ?string
     {
-        return $this->streamMetadata['avg_frame_rate'];
+        return $this->tsReader->getKeyStringOrNullValue('avg_frame_rate');
     }
 
     public function getRFrameRate(): ?string
@@ -121,9 +121,9 @@ class VideoStream implements VideoStreamInterface
         return $this->tsReader->getKeyIntOrNullValue('bit_rate');
     }
 
-    public function getNbFrames(): int
+    public function getNbFrames(): ?int
     {
-        return $this->tsReader->getKeyIntValue('nb_frames');
+        return $this->tsReader->getKeyIntOrNullValue('nb_frames');
     }
 
     public function isAvc(): ?bool

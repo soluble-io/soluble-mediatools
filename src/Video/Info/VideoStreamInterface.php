@@ -20,19 +20,19 @@ interface VideoStreamInterface extends StreamInterface
 
     public function getSampleAspectRatio(): ?string;
 
-    public function getDisplayAspectRatio(): string;
+    public function getDisplayAspectRatio(): ?string;
 
     public function getPixFmt(): ?string;
 
     public function getLevel(): ?int;
 
-    public function getAvgFrameRate(): string;
+    public function getAvgFrameRate(): ?string;
 
     public function getRFrameRate(): ?string;
 
     public function getBitRate(): ?int;
 
-    public function getNbFrames(): int;
+    public function getNbFrames(): ?int;
 
     public function isAvc(): ?bool;
 

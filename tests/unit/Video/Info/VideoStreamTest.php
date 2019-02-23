@@ -25,43 +25,47 @@ class VideoStreamTest extends TestCase
 
     public function testGetVideoStreams(): void
     {
-        $d      = $this->getExampleFFProbeData()['streams'][0];
-        $stream = new VideoStream($d);
+        $videoStreamIdxs = [0, 1];
 
-        self::assertEquals($d['index'], $stream->getIndex());
+        foreach ($videoStreamIdxs as $idx) {
+            $d      = $this->getExampleFFProbeData()['streams'][$idx];
+            $stream = new VideoStream($d);
 
-        self::assertEquals($d['nb_frames'], $stream->getNbFrames());
-        self::assertEquals($d['width'], $stream->getWidth());
-        self::assertEquals($d['avg_frame_rate'], $stream->getAvgFrameRate());
-        self::assertEquals($d['bit_rate'], $stream->getBitRate());
-        self::assertEquals($d['codec_long_name'], $stream->getCodecLongName());
-        self::assertEquals($d['codec_name'], $stream->getCodecName());
-        self::assertEquals($d['codec_tag_string'], $stream->getCodecTagString());
-        self::assertEquals($d['codec_time_base'], $stream->getCodecTimeBase());
+            self::assertEquals($d['index'], $stream->getIndex());
 
-        self::assertEquals($d['coded_height'], $stream->getCodedHeight());
-        self::assertEquals($d['coded_width'], $stream->getCodedWidth());
-        self::assertEquals($d['color_range'], $stream->getColorRange());
-        self::assertEquals($d['color_space'], $stream->getColorSpace());
-        self::assertEquals($d['color_transfer'], $stream->getColorTransfer());
-        self::assertEquals('Main', $stream->getProfile());
+            self::assertEquals($d['nb_frames'] ?? null, $stream->getNbFrames());
+            self::assertEquals($d['width'], $stream->getWidth());
+            self::assertEquals($d['avg_frame_rate'] ?? null, $stream->getAvgFrameRate());
+            self::assertEquals($d['bit_rate'] ?? null, $stream->getBitRate());
+            self::assertEquals($d['codec_long_name'] ?? null, $stream->getCodecLongName());
+            self::assertEquals($d['codec_name'], $stream->getCodecName());
+            self::assertEquals($d['codec_tag_string'] ?? null, $stream->getCodecTagString());
+            self::assertEquals($d['codec_time_base'] ?? null, $stream->getCodecTimeBase());
 
-        self::assertEquals($d['display_aspect_ratio'], $stream->getDisplayAspectRatio());
-        self::assertEquals($d['duration'], $stream->getDuration());
-        self::assertEquals($d['duration_ts'], $stream->getDurationTs());
-        self::assertEquals($d['height'], $stream->getHeight());
-        self::assertEquals($d['width'], $stream->getWidth());
+            self::assertEquals($d['coded_height'] ?? null, $stream->getCodedHeight());
+            self::assertEquals($d['coded_width'] ?? null, $stream->getCodedWidth());
+            self::assertEquals($d['color_range'] ?? null, $stream->getColorRange());
+            self::assertEquals($d['color_space'] ?? null, $stream->getColorSpace());
+            self::assertEquals($d['color_transfer'] ?? null, $stream->getColorTransfer());
+            self::assertEquals($d['profile'] ?? null, $stream->getProfile());
 
-        self::assertEquals($d['level'], $stream->getLevel());
-        self::assertEquals($d['pix_fmt'], $stream->getPixFmt());
-        self::assertEquals($d['r_frame_rate'], $stream->getRFrameRate());
+            self::assertEquals($d['display_aspect_ratio'], $stream->getDisplayAspectRatio());
+            self::assertEquals($d['duration'], $stream->getDuration());
+            self::assertEquals($d['duration_ts'] ?? null, $stream->getDurationTs());
+            self::assertEquals($d['height'], $stream->getHeight());
+            self::assertEquals($d['width'], $stream->getWidth());
 
-        self::assertEquals($d['sample_aspect_ratio'], $stream->getSampleAspectRatio());
-        self::assertEquals($d['tags'], $stream->getTags());
-        self::assertEquals($d['time_base'], $stream->getTimeBase());
-        self::assertEquals($d['is_avc'] === 'true', $stream->isAvc());
+            self::assertEquals($d['level'], $stream->getLevel());
+            self::assertEquals($d['pix_fmt'] ?? null, $stream->getPixFmt());
+            self::assertEquals($d['r_frame_rate'], $stream->getRFrameRate());
 
-        self::assertEquals($d, $stream->getStreamMetadata());
+            self::assertEquals($d['sample_aspect_ratio'] ?? null, $stream->getSampleAspectRatio());
+            self::assertEquals($d['tags'] ?? [], $stream->getTags());
+            self::assertEquals($d['time_base'] ?? null, $stream->getTimeBase());
+            self::assertEquals(($d['is_avc'] ?? null) === 'true', $stream->isAvc());
+
+            self::assertEquals($d, $stream->getStreamMetadata());
+        }
     }
 
     public function testNullIsAvc(): void
