@@ -12,6 +12,9 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
+use Soluble\MediaTools\Video\Info\AudioStreamCollectionInterface;
+use Soluble\MediaTools\Video\Info\VideoStreamCollectionInterface;
 
 interface VideoInfoInterface
 {
@@ -50,7 +53,23 @@ interface VideoInfoInterface
     public function getDuration(): float;
 
     /**
+     * Return VideoStreams as a collection.
+     *
+     * @throws InvalidStreamMetadataException
+     */
+    public function getVideoStreams(): VideoStreamCollectionInterface;
+
+    /**
+     * Return VideoStreams as a collection.
+     *
+     * @throws InvalidStreamMetadataException
+     */
+    public function getAudioStreams(): AudioStreamCollectionInterface;
+
+    /**
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
+     *
+     * @deprecated
      *
      * @return array<string, int> associative array with 'height' and 'width'
      */
@@ -59,12 +78,16 @@ interface VideoInfoInterface
     /**
      * Return video stream width.
      *
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getWidth(int $streamIndex = 0): int;
 
     /**
      * Return video stream height.
+     *
+     * @deprecated
      *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
@@ -73,6 +96,8 @@ interface VideoInfoInterface
     /**
      * Return number of frames.
      *
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getNbFrames(int $streamIndex = 0): int;
@@ -80,11 +105,15 @@ interface VideoInfoInterface
     /**
      * Return video bitrate of the first video stream.
      *
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoBitrate(int $streamIndex = 0): int;
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getVideoCodecName(int $streamIndex = 0): ?string;
@@ -92,11 +121,15 @@ interface VideoInfoInterface
     /**
      * Return video bitrate.
      *
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioBitrate(int $streamIndex = 0): int;
 
     /**
+     * @deprecated
+     *
      * @param int $streamIndex selected a specific stream by index, default: 0 = the first available
      */
     public function getAudioCodecName(int $streamIndex = 0): ?string;

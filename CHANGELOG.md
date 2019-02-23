@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - VideoInfo now supports getting multiple audio and video streams.
 - Added `MissingFFMpegBinaryException` and `MissingFFProbeBinaryException` (ProcessFailedException).
 
+### Bugfix
+
+- Missing deprecation in VideoInfoInterface
+- Missing new `VideoInfoInterface::getVideoStreams()` and `VideoInfoInterface::getAudioStreams()`
+
 ### Removed
 
 - `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
