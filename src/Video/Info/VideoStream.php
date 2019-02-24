@@ -15,6 +15,9 @@ class VideoStream implements VideoStreamInterface
     /** @var MetadataTypeSafeReader */
     private $tsReader;
 
+    /**
+     * @param array<string, mixed> $streamMetadata
+     */
     public function __construct(array $streamMetadata, ?LoggerInterface $logger = null)
     {
         $this->streamMetadata = $streamMetadata;
