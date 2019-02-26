@@ -185,7 +185,13 @@ class VideoStream implements VideoStreamInterface
             // Let's use the rframe_rate
             [$frames, $base] = explode('/', $rFrame);
             if (is_numeric($base) && $base > 0 && is_numeric($frames) && $frames > 0) {
-                $fps = (float) ((int) $frames / (int) $base);
+                $tmp = (float) ((int) $frames / (int) $base);
+                if ($tmp > 1000 && $this->getFpsFromDuration() !== null) {
+                    // sometimes a bug with samsung smartphone (i.e: 9000fps)
+                    $fps = $this->getFpsFromDuration();
+                } else {
+                    $fps = $tmp;
+                }
             }
         }
 

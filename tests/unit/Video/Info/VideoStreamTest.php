@@ -129,5 +129,14 @@ class VideoStreamTest extends TestCase
             'nb_frames'    => null
         ]);
         self::assertNull((new VideoStream($d))->getFps(1));
+
+        // Test bug with some smartphone (i.e galaxy s7 reporting 9000 frames/seconds
+
+        $d = array_merge($data, [
+            'r_frame_rate' => '9000/1',
+            'duration'     => 1,
+            'nb_frames'    => 30
+        ]);
+        self::assertEquals(30, (new VideoStream($d))->getFps(0));
     }
 }
