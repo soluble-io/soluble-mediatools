@@ -79,5 +79,6 @@ class VideoSubtitleTest extends TestCase
         self::assertEquals(1, $info->countStreams());
         $sub = $info->getSubtitleStreams()->getFirst();
         self::assertEquals(StreamTypeInterface::SUBTITLE, $sub->getCodecType());
+        self::assertEquals('webvtt', $sub->getCodecName());
     }
 }
