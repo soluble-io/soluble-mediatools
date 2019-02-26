@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
 - `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
 
+## 0.9.6 (2019-02-26)
+
+### Added
+
+- `VideoStream::getFps(?int $decimals=null)` to get the stream framerate.
+
 ## 0.9.5 (2019-02-26)
 
 ### Fixed
