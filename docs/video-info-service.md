@@ -32,38 +32,53 @@ $format       = $videoInfo->getFormatName();
 $videoStreams = $videoInfo->getVideoStreams();
 
 if (count($videoStreams->count() === 1)) {
-    $videoStreams->getFirst()->getCodecName(); // vp9
-    $videoStreams->getFirst()->getCodecTagString();
-    $videoStreams->getFirst()->getNbFrames();
-    $videoStreams->getFirst()->getHeight();
-    $videoStreams->getFirst()->getWidth();
-    $videoStreams->getFirst()->getDuration();
-    $videoStreams->getFirst()->getDurationTs();
+    $video = $videoStreams->getFirst();
+    $video->getCodecName(); // vp9
+    $video->getCodecTagString();
+    $video->getNbFrames();
+    $video->getHeight();
+    $video->getWidth();
+    $video->getDuration();
+    $video->getDurationTs();
     
-    $videoStreams->getFirst()->getPixFmt();
-    $videoStreams->getFirst()->getNbFrames();
-    $videoStreams->getFirst()->getTimeBase();
-    $videoStreams->getFirst()->getBitRate();
-    $videoStreams->getFirst()->getTags();
-    $videoStreams->getFirst()->getDisplayAspectRatio();
-    $videoStreams->getFirst()->getSampleAspectRatio();
-    $videoStreams->getFirst()->getCodedWidth();
-    $videoStreams->getFirst()->getCodedHeight();
-    $videoStreams->getFirst()->getRFrameRate();
+    $video->getPixFmt();
+    $video->getNbFrames();
+    $video->getTimeBase();
+    $video->getBitRate();
+    $video->getTags();
+    $video->getDisplayAspectRatio();
+    $video->getSampleAspectRatio();
+    $video->getCodedWidth();
+    $video->getCodedHeight();
+    $video->getRFrameRate();
 }
 
+
+// For audio streams
 
 $audioStreams = $videoInfo->getAudioStreams();
 
 if (count($audioStreams->count() === 1)) {
-    $audioStreams->getFirst()->getCodecName(); // aac
-    $audioStreams->getFirst()->getCodecTagString();
-    $audioStreams->getFirst()->getDuration();
-    $audioStreams->getFirst()->getDurationTs();
+    $audio = $audioStreams->getFirst();
+    $audio->getCodecName(); // aac
+    $audio->getCodecTagString();
+    $audio->getDuration();
+    $audio->getDurationTs();
     
-    $audioStreams->getFirst()->getTimeBase();
-    $audioStreams->getFirst()->getBitRate();
-    $audioStreams->getFirst()->getTags();
+    $audio->getTimeBase();
+    $audio->getBitRate();
+    $audio->getTags();
+}
+
+
+
+// For subtitle streams
+
+$subtitleStreams = $videoInfo->getSubtitleStreams();
+
+if (count($subtitleStreams->count() === 1)) {
+    $subtitle = $subtitleStreams->getFirst();
+    $subtitle->getCodecName(); // webvtt
 }
 
 
@@ -73,11 +88,13 @@ if (count($audioStreams->count() === 1)) {
 $nbStreams      = $videoInfo->countStreams();
 $nbVideoStreams = $videoInfo->countStreams(VideoInfoInterface::STREAM_TYPE_VIDEO);
 $nbAudioStreams = $videoInfo->countStreams(VideoInfoInterface::STREAM_TYPE_AUDIO);
+$nbSubStreams   = $videoInfo->countStreams(VideoInfoInterface::STREAM_TYPE_SUBTITLE);
 
 // Advanced, return what ffprobe returned
 $metadata      = $videoInfo->getMetadata();
 $audioMetadata = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_VIDEO);
 $videoMetadata = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_AUDIO);
+$subsMetadata  = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_SUBTITLE);
 $dataMetadata  = $videoInfo->getStreamsMetadataByType(VideoInfoInterface::STREAM_TYPE_DATA);
 
 ``` 
