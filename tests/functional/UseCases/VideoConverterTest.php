@@ -24,6 +24,7 @@ use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\ProcessTimedOutException;
 use Soluble\MediaTools\Video\Filter\ScaleFilter;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
+use Soluble\MediaTools\Video\Info\StreamTypeInterface;
 use Soluble\MediaTools\Video\Process\ProcessParams;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoConverter as VideoConversionService;
@@ -201,11 +202,17 @@ class VideoConverterTest extends TestCase
 
         self::assertFileExists($outputFile);
 
-        $info   = $this->infoService->getInfo($outputFile);
+        $info = $this->infoService->getInfo($outputFile);
+        self::assertEquals(2, $info->countStreams());
         $stream = $info->getVideoStreams()->getFirst();
         self::assertEquals('yuv420p', $stream->getPixFmt());
+        self::assertEquals(StreamTypeInterface::VIDEO, $stream->getCodecType());
+        self::assertEquals('vp9', $stream->getCodecName());
         // because it's vp9 with min/max bitrates ;)
         self::assertNull($stream->getBitRate());
+
+        $audio = $info->getAudioStreams()->getFirst();
+        self::assertEquals('opus', $audio->getCodecName());
 
         unlink($outputFile);
     }

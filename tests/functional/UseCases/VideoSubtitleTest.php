@@ -14,6 +14,7 @@ namespace MediaToolsTest\Functional\UseCases;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
+use Soluble\MediaTools\Video\Info\StreamTypeInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoConvertParams;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
@@ -76,6 +77,7 @@ class VideoSubtitleTest extends TestCase
         $info = $this->infoService->getInfo($outputFile);
         self::assertEquals('webvtt', $info->getFormatName());
         self::assertEquals(1, $info->countStreams());
-        //var_export($info->getMetadata()['streams']);
+        $sub = $info->getSubtitleStreams()->getFirst();
+        self::assertEquals(StreamTypeInterface::SUBTITLE, $sub->getCodecType());
     }
 }
