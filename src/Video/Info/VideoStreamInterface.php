@@ -52,6 +52,11 @@ interface VideoStreamInterface extends StreamInterface
     public function getColorTransfer(): ?string;
 
     /**
+     * Return stream bitrate if available (depends on encoder params).
+     */
+    public function getBitRate(): ?int;
+
+    /**
      * Return associative array with width and height.
      *
      * @return array<string, int>

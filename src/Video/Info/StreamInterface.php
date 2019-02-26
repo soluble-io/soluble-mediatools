@@ -30,11 +30,6 @@ interface StreamInterface
     public function getTimeBase(): ?string;
 
     /**
-     * Return stream bitrate if available (depends on encoder params).
-     */
-    public function getBitRate(): ?int;
-
-    /**
      * Return underlying ffprobe stream metadata.
      *
      * @return array<string, mixed>

@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
 - `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
 
+## 0.9.5 (2019-02-26)
+
+### Fixed
+
+- Do not require 'duration', 'duration_ts' and 'bitrate' for SubtitleStreamInterface
+
+
 ## 0.9.4 (2019-02-26)
 
 ### Added

@@ -64,21 +64,6 @@ class SubtitleStream implements SubtitleStreamInterface
         return $this->tsReader->getKeyStringOrNullValue('time_base');
     }
 
-    public function getDurationTs(): ?int
-    {
-        return $this->tsReader->getKeyIntOrNullValue('duration_ts');
-    }
-
-    public function getDuration(): float
-    {
-        return $this->tsReader->getKeyFloatValue('duration');
-    }
-
-    public function getBitRate(): ?int
-    {
-        return $this->tsReader->getKeyIntOrNullValue('bit_rate');
-    }
-
     /**
      * Return underlying ffprobe json metadata.
      *

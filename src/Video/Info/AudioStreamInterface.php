@@ -23,4 +23,9 @@ interface AudioStreamInterface extends StreamInterface
      * @return array<string, string>
      */
     public function getTags(): array;
+
+    /**
+     * Return stream bitrate if available (depends on encoder params).
+     */
+    public function getBitRate(): ?int;
 }
