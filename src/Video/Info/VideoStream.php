@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Info;
 
 use Psr\Log\LoggerInterface;
+use Soluble\MediaTools\Video\Exception\UnexpectedMetadataException;
 use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
 class VideoStream implements VideoStreamInterface
@@ -111,7 +112,11 @@ class VideoStream implements VideoStreamInterface
 
     public function getDuration(): float
     {
-        return $this->tsReader->getKeyFloatValue('duration');
+        try {
+            return $this->tsReader->getKeyFloatValue('duration');
+        } catch (UnexpectedMetadataException $e) {
+            return 0;
+        }
     }
 
     public function getProfile(): ?string
@@ -169,6 +174,39 @@ class VideoStream implements VideoStreamInterface
             'width'  => $this->getWidth(),
             'height' => $this->getHeight()
         ];
+    }
+
+    public function getFps(?int $decimals = null): ?float
+    {
+        $rFrame = $this->getRFrameRate();
+        $fps    = null;
+
+        if ($rFrame !== null && preg_match('/^[0-9]+\/[0-9]+$/', $rFrame) !== false) {
+            // Let's use the rframe_rate
+            [$frames, $base] = explode('/', $rFrame);
+            if (is_numeric($base) && $base > 0 && is_numeric($frames) && $frames > 0) {
+                $fps = (float) ((int) $frames / (int) $base);
+            }
+        }
+
+        if ($fps === null) {
+            $fps = $this->getFpsFromDuration();
+        }
+
+        if ($decimals !== null && $fps !== null) {
+            $fps = round($fps, $decimals);
+        }
+
+        return $fps;
+    }
+
+    private function getFpsFromDuration(): ?float
+    {
+        if (($this->getNbFrames() ?? 0) > 0 && ($this->getDuration() ?? 0) > 0) {
+            return (float) $this->getNbFrames() / $this->getDuration();
+        }
+
+        return null;
     }
 
     /**

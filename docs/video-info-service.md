@@ -32,9 +32,11 @@ $format       = $videoInfo->getFormatName();
 $videoStreams = $videoInfo->getVideoStreams();
 
 if (count($videoStreams->count() === 1)) {
-    $video = $videoStreams->getFirst();
+    $video = $videoStreams->getFirst(); 
     $video->getCodecName(); // vp9
+    $video->getFps($decimals=0); // i.e: 24
     $video->getCodecTagString();
+    $video->getFps($roundedDecimals=null); 
     $video->getNbFrames();
     $video->getHeight();
     $video->getWidth();

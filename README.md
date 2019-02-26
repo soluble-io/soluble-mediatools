@@ -102,13 +102,18 @@ try {
 }
 
 $duration = $videoInfo->getDuration(); // total duration
-$format   = $videoInfo->getFormatName(); // container format
+$format   = $videoInfo->getFormatName(); // container format: mkv, mp4
 
+try {
+    $video   = $videoInfo->getVideoStreams()->getFirst();
+    $codec   = $video->getCodecName(); // i.e: vp9
+    $fps     = $video->getFps($decimals=0); // i.e: 24
+    $width   = $video->getWidth(); // i.e: 1080
+} catch (\Soluble\MediaTools\Video\Exception\NoStreamException $e) {
+    // No video stream
+}
 
-$width    = $videoInfo->getVideoStreams()->getFirst()->getWidth(); // 1080
-$codec    = $videoInfo->getVideoStreams()->getFirst()->getCodecName(); // vp9
-
-
+// alternate example with subtitles (without catch block)
 if ($videoInfo->countStreams(VideoInfo::STREAM_TYPE_SUBTITLE) > 0) {
     $first  = $videoInfo->getSubtitleStreams()->getFirst();
     $first->getCodecName(); // webvtt

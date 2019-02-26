@@ -37,8 +37,19 @@ interface VideoStreamInterface extends StreamInterface
 
     public function getLevel(): ?int;
 
+    /**
+     * What ffprobe returns, i.e:'1484/81', you don't generally want this.
+     *
+     * @see self::getRFrameRate()
+     * @see self::getFps()
+     */
     public function getAvgFrameRate(): ?string;
 
+    /**
+     * What ffprobe returns, i.e:'24000/1001', '25/1', '24000/1001'.
+     *
+     * @see self::getFps()
+     */
     public function getRFrameRate(): ?string;
 
     public function getNbFrames(): ?int;
@@ -50,6 +61,23 @@ interface VideoStreamInterface extends StreamInterface
     public function getColorSpace(): ?string;
 
     public function getColorTransfer(): ?string;
+
+    /**
+     * Convenience method to return the number of frames per second.
+     *
+     * The FPS will generally be computed from the self::getRFrameRate(),
+     * if the info is not present, it will attempt to compute the fps
+     * from duration and total number of frames. If none works, it returns
+     * null.
+     *
+     * @see self::getAvgFrameRate()
+     * @see self::getRFrameRate()
+     * @see self::getDuration()
+     * @see self::getNbFrames()
+     *
+     * @param int|null $decimals fps can be rounded to the number of decimals, null means no rounding
+     */
+    public function getFps(?int $decimals = null): ?float;
 
     /**
      * Return stream bitrate if available (depends on encoder params).

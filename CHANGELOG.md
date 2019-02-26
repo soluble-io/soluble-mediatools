@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.0.0 (2019-02-??)
 
+### Added
+
+- `VideoStream::getFps(?int $decimals=null)` to get the stream framerate.
+
 ### Removed
 
 - `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
