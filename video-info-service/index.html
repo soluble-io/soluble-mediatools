@@ -512,38 +512,53 @@
 <span class="nv">$videoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
+    <span class="nv">$video</span> <span class="o">=</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
 
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getPixFmt</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDisplayAspectRatio</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getSampleAspectRatio</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodedWidth</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodedHeight</span><span class="p">();</span>
-    <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRFrameRate</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getPixFmt</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDisplayAspectRatio</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getSampleAspectRatio</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedWidth</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedHeight</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getRFrameRate</span><span class="p">();</span>
 <span class="p">}</span>
 
+
+<span class="c1">// For audio streams</span>
 
 <span class="nv">$audioStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getAudioStreams</span><span class="p">();</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// aac</span>
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
+    <span class="nv">$audio</span> <span class="o">=</span> <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// aac</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
 
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
-    <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
+    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+<span class="p">}</span>
+
+
+
+<span class="c1">// For subtitle streams</span>
+
+<span class="nv">$subtitleStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getSubtitleStreams</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$subtitleStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$subtitle</span> <span class="o">=</span> <span class="nv">$subtitleStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+    <span class="nv">$subtitle</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// webvtt</span>
 <span class="p">}</span>
 
 
@@ -553,11 +568,13 @@
 <span class="nv">$nbStreams</span>      <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">();</span>
 <span class="nv">$nbVideoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_VIDEO</span><span class="p">);</span>
 <span class="nv">$nbAudioStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_AUDIO</span><span class="p">);</span>
+<span class="nv">$nbSubStreams</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_SUBTITLE</span><span class="p">);</span>
 
 <span class="c1">// Advanced, return what ffprobe returned</span>
 <span class="nv">$metadata</span>      <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getMetadata</span><span class="p">();</span>
 <span class="nv">$audioMetadata</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_VIDEO</span><span class="p">);</span>
 <span class="nv">$videoMetadata</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_AUDIO</span><span class="p">);</span>
+<span class="nv">$subsMetadata</span>  <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_SUBTITLE</span><span class="p">);</span>
 <span class="nv">$dataMetadata</span>  <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_DATA</span><span class="p">);</span>
 </pre></div>
 
