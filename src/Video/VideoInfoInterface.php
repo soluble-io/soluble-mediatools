@@ -14,17 +14,20 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Info\AudioStreamCollectionInterface;
+use Soluble\MediaTools\Video\Info\StreamTypeInterface;
 use Soluble\MediaTools\Video\Info\VideoStreamCollectionInterface;
 
 interface VideoInfoInterface
 {
-    public const STREAM_TYPE_AUDIO = 'audio';
-    public const STREAM_TYPE_VIDEO = 'video';
-    public const STREAM_TYPE_DATA  = 'data';
+    public const STREAM_TYPE_AUDIO    = StreamTypeInterface::AUDIO;
+    public const STREAM_TYPE_VIDEO    = StreamTypeInterface::VIDEO;
+    public const STREAM_TYPE_DATA     = StreamTypeInterface::DATA;
+    public const STREAM_TYPE_SUBTITLE = StreamTypeInterface::SUBTITLE;
 
     public const SUPPORTED_STREAM_TYPES = [
         self::STREAM_TYPE_AUDIO,
         self::STREAM_TYPE_VIDEO,
+        self::STREAM_TYPE_SUBTITLE,
         self::STREAM_TYPE_DATA,
     ];
 
@@ -158,7 +161,10 @@ interface VideoInfoInterface
     /**
      * @throws InvalidArgumentException
      *
-     * @param string $streamType any of self::SUPPORTED_STREAM_TYPES
+     * @param string $streamType 'audio'|'video'|'data'|'subtitle' (StreamTypeInterface::AUDIO, StreamTypeInterface::VIDEO, StreamTypeInterface::DATA)
+     *
+     * @see self::SUPPORTED_STREAM_TYPES
+     * @see self::SUPPORTED_STREAM_TYPES
      *
      * @return array<int|string, array>
      */

@@ -30,8 +30,6 @@ interface VideoStreamInterface extends StreamInterface
 
     public function getRFrameRate(): ?string;
 
-    public function getBitRate(): ?int;
-
     public function getNbFrames(): ?int;
 
     public function isAvc(): ?bool;
@@ -41,4 +39,11 @@ interface VideoStreamInterface extends StreamInterface
     public function getColorSpace(): ?string;
 
     public function getColorTransfer(): ?string;
+
+    /**
+     * Return associative array with width and height.
+     *
+     * @return array<string, int>
+     */
+    public function getDimensions(): array;
 }

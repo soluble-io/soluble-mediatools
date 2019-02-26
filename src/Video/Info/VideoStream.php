@@ -158,6 +158,14 @@ class VideoStream implements VideoStreamInterface
         return $this->tsReader->getKeyStringOrNullValue('color_transfer');
     }
 
+    public function getDimensions(): array
+    {
+        return [
+            'width'  => $this->getWidth(),
+            'height' => $this->getHeight()
+        ];
+    }
+
     /**
      * @return array<string, string>
      */
