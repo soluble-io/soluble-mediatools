@@ -74,22 +74,9 @@ class SubtitleStream implements SubtitleStreamInterface
         return $this->tsReader->getKeyFloatValue('duration');
     }
 
-    public function getProfile(): ?string
-    {
-        return $this->tsReader->getKeyStringOrNullValue('profile');
-    }
-
     public function getBitRate(): ?int
     {
         return $this->tsReader->getKeyIntOrNullValue('bit_rate');
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public function getTags(): array
-    {
-        return $this->streamMetadata['tags'] ?? [];
     }
 
     /**

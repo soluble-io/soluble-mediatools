@@ -51,4 +51,7 @@ parameters:
 		-
 			message: '#Parameter(.*)of class(.*)expects array#'
 			path: tests/unit/Video/Info/AudioStreamCollectionTest.php
+		-
+			message: '#Parameter(.*)of class(.*)expects array#'
+			path: tests/unit/Video/Info/SubtitleStreamCollectionTest.php
 

@@ -330,14 +330,13 @@ class VideoInfo implements VideoInfoInterface
     /**
      * @throws InvalidArgumentException
      *
-     * @param string $streamType  any of self::SUPPORTED_STREAM_TYPES
-     * @param int    $streamIndex selected a specific stream by index, default: 0 = the first available
+     * @param string $streamType 'audio', 'video', 'subtitle', 'data' / any of self::SUPPORTED_STREAM_TYPES
      *
-     * @return array<string|int, array>
+     * @return array<int, array<string, mixed>>
      *
      * @throws InvalidStreamMetadataException
      */
-    public function getStreamsMetadataByType(string $streamType, int $streamIndex = 0): array
+    public function getStreamsMetadataByType(string $streamType): array
     {
         if (!in_array($streamType, self::SUPPORTED_STREAM_TYPES, true)) {
             $msg = sprintf(
@@ -359,9 +358,10 @@ class VideoInfo implements VideoInfoInterface
         if ($this->metadataByStreamType === null) {
             try {
                 $streams = [
-                    self::STREAM_TYPE_VIDEO => [],
-                    self::STREAM_TYPE_AUDIO => [],
-                    self::STREAM_TYPE_DATA  => [],
+                    self::STREAM_TYPE_VIDEO    => [],
+                    self::STREAM_TYPE_AUDIO    => [],
+                    self::STREAM_TYPE_DATA     => [],
+                    self::STREAM_TYPE_SUBTITLE => [],
                 ];
                 if (!is_array($this->metadata['streams'] ?? null)) {
                     throw new InvalidStreamMetadataException(sprintf(
@@ -396,6 +396,10 @@ class VideoInfo implements VideoInfoInterface
                         case self::STREAM_TYPE_DATA:
                             $streams[self::STREAM_TYPE_DATA][] = $stream;
                             break;
+                        case self::STREAM_TYPE_SUBTITLE:
+                            $streams[self::STREAM_TYPE_SUBTITLE][] = $stream;
+                            break;
+
                         default:
                             $streams[$type][] = $stream;
                     }

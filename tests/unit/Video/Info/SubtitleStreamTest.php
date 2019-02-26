@@ -13,9 +13,9 @@ namespace MediaToolsTest\Video\Info;
 
 use MediaToolsTest\Util\FFProbeMetadataProviderTrait;
 use PHPUnit\Framework\TestCase;
-use Soluble\MediaTools\Video\Info\AudioStream;
+use Soluble\MediaTools\Video\Info\SubtitleStream;
 
-class AudioStreamTest extends TestCase
+class SubtitleStreamTest extends TestCase
 {
     use FFProbeMetadataProviderTrait;
 
@@ -23,25 +23,20 @@ class AudioStreamTest extends TestCase
     {
     }
 
-    public function testGetAudioStreams(): void
+    public function testGetSubtitleStreams(): void
     {
-        $d      = $this->getExampleFFProbeData()['streams'][2];
-        $stream = new AudioStream($d);
+        $d      = $this->getExampleFFProbeData()['streams'][3];
+        $stream = new SubtitleStream($d);
 
         self::assertEquals($d['index'], $stream->getIndex());
 
-        self::assertEquals($d['bit_rate'], $stream->getBitRate());
         self::assertEquals($d['codec_long_name'], $stream->getCodecLongName());
         self::assertEquals($d['codec_name'], $stream->getCodecName());
         self::assertEquals($d['codec_tag_string'], $stream->getCodecTagString());
         self::assertEquals($d['codec_time_base'], $stream->getCodecTimeBase());
 
         self::assertEquals(0, $stream->getStartTime());
-        self::assertEquals('LC', $stream->getProfile());
-        self::assertEquals($d['duration'], $stream->getDuration());
-        self::assertEquals($d['duration_ts'], $stream->getDurationTs());
-        self::assertEquals($d['start_time'], $stream->getStartTime());
-        self::assertEquals($d['tags'], $stream->getTags());
+
         self::assertEquals($d['time_base'], $stream->getTimeBase());
 
         self::assertEquals($d, $stream->getStreamMetadata());

@@ -49,6 +49,7 @@ class VideoStreamTest extends TestCase
             self::assertEquals($d['color_transfer'] ?? null, $stream->getColorTransfer());
             self::assertEquals($d['profile'] ?? null, $stream->getProfile());
 
+            self::assertEquals($d['start_time'], $stream->getStartTime());
             self::assertEquals($d['display_aspect_ratio'], $stream->getDisplayAspectRatio());
             self::assertEquals($d['duration'], $stream->getDuration());
             self::assertEquals($d['duration_ts'] ?? null, $stream->getDurationTs());

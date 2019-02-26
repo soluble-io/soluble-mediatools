@@ -29,26 +29,10 @@ interface StreamInterface
 
     public function getTimeBase(): ?string;
 
-    public function getDurationTs(): ?int;
-
-    /**
-     * Return stream duration in seconds.
-     */
-    public function getDuration(): float;
-
-    public function getProfile(): ?string;
-
     /**
      * Return stream bitrate if available (depends on encoder params).
      */
     public function getBitRate(): ?int;
-
-    /**
-     * Return tags attached to this stream.
-     *
-     * @return array<string, string>
-     */
-    public function getTags(): array;
 
     /**
      * Return underlying ffprobe stream metadata.

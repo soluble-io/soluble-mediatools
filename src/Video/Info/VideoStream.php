@@ -143,6 +143,11 @@ class VideoStream implements VideoStreamInterface
         return $this->tsReader->getKeyIntOrNullValue('level');
     }
 
+    public function getStartTime(): ?float
+    {
+        return $this->tsReader->getKeyFloatOrNullValue('start_time');
+    }
+
     public function getColorRange(): ?string
     {
         return $this->tsReader->getKeyStringOrNullValue('color_range');

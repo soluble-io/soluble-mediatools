@@ -8,7 +8,18 @@ interface VideoStreamInterface extends StreamInterface
 {
     public function getCodecTimeBase(): ?string;
 
+    public function getStartTime(): ?float;
+
+    public function getDurationTs(): ?int;
+
+    /**
+     * Return stream duration in seconds.
+     */
+    public function getDuration(): float;
+
     public function getCodecTagString(): ?string;
+
+    public function getProfile(): ?string;
 
     public function getWidth(): int;
 
@@ -46,4 +57,11 @@ interface VideoStreamInterface extends StreamInterface
      * @return array<string, int>
      */
     public function getDimensions(): array;
+
+    /**
+     * Return tags attached to this stream.
+     *
+     * @return array<string, string>
+     */
+    public function getTags(): array;
 }

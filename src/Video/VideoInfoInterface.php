@@ -164,9 +164,8 @@ interface VideoInfoInterface
      * @param string $streamType 'audio'|'video'|'data'|'subtitle' (StreamTypeInterface::AUDIO, StreamTypeInterface::VIDEO, StreamTypeInterface::DATA)
      *
      * @see self::SUPPORTED_STREAM_TYPES
-     * @see self::SUPPORTED_STREAM_TYPES
      *
-     * @return array<int|string, array>
+     * @return array<int, array<string, mixed>>
      */
     public function getStreamsMetadataByType(string $streamType): array;
 }
