@@ -19,6 +19,7 @@ use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Info\AudioStream;
+use Soluble\MediaTools\Video\Info\SubtitleStream;
 use Soluble\MediaTools\Video\Info\VideoStream;
 use Soluble\MediaTools\Video\VideoInfo;
 
@@ -74,11 +75,12 @@ class VideoInfoTest extends TestCase
     public function testCountStreams(): void
     {
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
-        self::assertEquals(3, $vi->countStreams());
+        self::assertEquals(4, $vi->countStreams());
 
         self::assertEquals(2, $vi->countStreams(VideoInfo::STREAM_TYPE_VIDEO));
         self::assertEquals(1, $vi->countStreams(VideoInfo::STREAM_TYPE_AUDIO));
         self::assertEquals(0, $vi->countStreams(VideoInfo::STREAM_TYPE_DATA));
+        self::assertEquals(1, $vi->countStreams(VideoInfo::STREAM_TYPE_SUBTITLE));
     }
 
     public function testGetVideoStreams(): void
@@ -91,6 +93,20 @@ class VideoInfoTest extends TestCase
          */
         foreach ($streams as $idx => $stream) {
             self::assertInstanceOf(VideoStream::class, $stream);
+            self::assertEquals($idx, $stream->getIndex());
+        }
+    }
+
+    public function testGetSubtitleStreams(): void
+    {
+        $vi      = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
+        $streams = $vi->getSubtitleStreams();
+        self::assertEquals(1, $streams->count());
+        /**
+         * @var SubtitleStream $stream
+         */
+        foreach ($streams as $idx => $stream) {
+            self::assertInstanceOf(SubtitleStream::class, $stream);
             self::assertEquals($idx, $stream->getIndex());
         }
     }

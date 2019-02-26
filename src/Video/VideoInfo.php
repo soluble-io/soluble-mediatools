@@ -20,6 +20,8 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Info\AudioStreamCollection;
 use Soluble\MediaTools\Video\Info\AudioStreamCollectionInterface;
+use Soluble\MediaTools\Video\Info\SubtitleStreamCollection;
+use Soluble\MediaTools\Video\Info\SubtitleStreamCollectionInterface;
 use Soluble\MediaTools\Video\Info\VideoStreamCollection;
 use Soluble\MediaTools\Video\Info\VideoStreamCollectionInterface;
 
@@ -42,6 +44,9 @@ class VideoInfo implements VideoInfoInterface
 
     /** @var AudioStreamCollectionInterface|null; */
     private $cachedAudioStreams;
+
+    /** @var SubtitleStreamCollectionInterface|null; */
+    private $cachedSubtitleStreams;
 
     /**
      * @param string               $fileName reference to filename
@@ -119,6 +124,30 @@ class VideoInfo implements VideoInfoInterface
         }
 
         return $this->cachedVideoStreams;
+    }
+
+    /**
+     * Return SubtitleStreams as a collection.
+     *
+     * @throws InvalidStreamMetadataException
+     */
+    public function getSubtitleStreams(): SubtitleStreamCollectionInterface
+    {
+        if ($this->cachedSubtitleStreams === null) {
+            try {
+                $streamsMetadata             = array_values($this->getStreamsMetadataByType(self::STREAM_TYPE_SUBTITLE));
+                $this->cachedSubtitleStreams = new SubtitleStreamCollection($streamsMetadata);
+            } catch (InvalidStreamMetadataException $e) {
+                $this->logger->log(LogLevel::ERROR, sprintf(
+                    'Cannot get subtitle streams info for file: %s, message is: %s',
+                    $this->file,
+                    $e->getMessage()
+                ));
+                throw $e;
+            }
+        }
+
+        return $this->cachedSubtitleStreams;
     }
 
     /**

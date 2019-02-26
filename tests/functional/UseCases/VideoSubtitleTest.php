@@ -76,6 +76,6 @@ class VideoSubtitleTest extends TestCase
         $info = $this->infoService->getInfo($outputFile);
         self::assertEquals('webvtt', $info->getFormatName());
         self::assertEquals(1, $info->countStreams());
-        //var_dump($info->getMetadata()['streams']);
+        //var_export($info->getMetadata()['streams']);
     }
 }
