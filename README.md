@@ -91,6 +91,7 @@ try {
 use Soluble\MediaTools\Video\Config\FFProbeConfig;
 use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
 use Soluble\MediaTools\Video\VideoInfoReader;
+use Soluble\MediaTools\Video\VideoInfo;
 
 $infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
@@ -100,14 +101,19 @@ try {
     // see below for exceptions
 }
 
-$duration = $videoInfo->getDuration();
-$frames   = $videoInfo->getNbFrames();
-$width    = $videoInfo->getWidth();
-$height   = $videoInfo->getHeight();
+$duration = $videoInfo->getDuration(); // total duration
+$format   = $videoInfo->getFormatName(); // container format
 
-// Or alternatively
-['width' => $width, 'height' => $height] = $videoInfo->getDimensions();
-       
+
+$width    = $videoInfo->getVideoStreams()->getFirst()->getWidth(); // 1080
+$codec    = $videoInfo->getVideoStreams()->getFirst()->getCodecName(); // vp9
+
+
+if ($videoInfo->countStreams(VideoInfo::STREAM_TYPE_SUBTITLE) > 0) {
+    $first  = $videoInfo->getSubtitleStreams()->getFirst();
+    $first->getCodecName(); // webvtt
+}
+
 ``` 
 
 #### VideoThumbGenerator 
