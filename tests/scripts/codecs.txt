@@ -1,0 +1,455 @@
+e
+.:= Decoding supported
+.:= Encoding supported
+V:= Video codec
+A:= Audio codec
+S:= Subtitle codec
+.:= Intra frame-only codec
+.:= Lossy compression
+.:= Lossless compression
+-
+V:012v                 Uncompressed 4:2:2 10-bit
+V:4xm                  4X Movie
+V:8bps                 QuickTime 8BPS video
+V:a64_multi            Multicolor charset for Commodore 64 (encoders: a64multi )
+V:a64_multi5           Multicolor charset for Commodore 64, extended with 5th color (colram) (encoders: a64multi5 )
+V:aasc                 Autodesk RLE
+V:aic                  Apple Intermediate Codec
+V:alias_pix            Alias/Wavefront PIX image
+V:amv                  AMV Video
+V:anm                  Deluxe Paint Animation
+V:ansi                 ASCII/ANSI art
+V:apng                 APNG (Animated Portable Network Graphics) image
+V:asv1                 ASUS V1
+V:asv2                 ASUS V2
+V:aura                 Auravision AURA
+V:aura2                Auravision Aura 2
+V:av1                  Alliance for Open Media AV1 (decoders: libaom-av1 ) (encoders: libaom-av1 )
+V:avrn                 Avid AVI Codec
+V:avrp                 Avid 1:1 10-bit RGB Packer
+V:avs                  AVS (Audio Video Standard) video
+V:avs2                 AVS2-P2/IEEE1857.4
+V:avui                 Avid Meridien Uncompressed
+V:ayuv                 Uncompressed packed MS 4:4:4:4
+V:bethsoftvid          Bethesda VID video
+V:bfi                  Brute Force & Ignorance
+V:binkvideo            Bink video
+V:bintext              Binary text
+V:bitpacked            Bitpacked
+V:bmp                  BMP (Windows and OS/2 bitmap)
+V:bmv_video            Discworld II BMV video
+V:brender_pix          BRender PIX image
+V:c93                  Interplay C93
+V:cavs                 Chinese AVS (Audio Video Standard) (AVS1-P2, JiZhun profile)
+V:cdgraphics           CD Graphics video
+V:cdxl                 Commodore CDXL video
+V:cfhd                 Cineform HD
+V:cinepak              Cinepak
+V:clearvideo           Iterated Systems ClearVideo
+V:cljr                 Cirrus Logic AccuPak
+V:cllc                 Canopus Lossless Codec
+V:cmv                  Electronic Arts CMV video (decoders: eacmv )
+V:cpia                 CPiA video format
+V:cscd                 CamStudio (decoders: camstudio )
+V:cyuv                 Creative YUV (CYUV)
+V:daala                Daala
+V:dds                  DirectDraw Surface image decoder
+V:dfa                  Chronomaster DFA
+V:dirac                Dirac (encoders: vc2 )
+V:dnxhd                VC3/DNxHD
+V:dpx                  DPX (Digital Picture Exchange) image
+V:dsicinvideo          Delphine Software International CIN video
+V:dvvideo              DV (Digital Video)
+V:dxa                  Feeble Files/ScummVM DXA
+V:dxtory               Dxtory
+V:dxv                  Resolume DXV
+V:escape124            Escape 124
+V:escape130            Escape 130
+V:exr                  OpenEXR image
+V:ffv1                 FFmpeg video codec #1
+V:ffvhuff              Huffyuv FFmpeg variant
+V:fic                  Mirillis FIC
+V:fits                 FITS (Flexible Image Transport System)
+V:flashsv              Flash Screen Video v1
+V:flashsv2             Flash Screen Video v2
+V:flic                 Autodesk Animator Flic video
+V:flv1                 FLV / Sorenson Spark / Sorenson H.263 (Flash Video) (decoders: flv ) (encoders: flv )
+V:fmvc                 FM Screen Capture Codec
+V:fraps                Fraps
+V:frwu                 Forward Uncompressed
+V:g2m                  Go2Meeting
+V:gdv                  Gremlin Digital Video
+V:gif                  GIF (Graphics Interchange Format)
+V:h261                 H.261
+V:h263                 H.263 / H.263-1996, H.263+ / H.263-1998 / H.263 version 2 (decoders: h263 h263_v4l2m2m ) (encoders: h263 h263_v
+V:h263i                Intel H.263
+V:h263p                H.263+ / H.263-1998 / H.263 version 2
+V:h264                 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (decoders: h264 h264_v4l2m2m ) (encoders: libx264 libx264rgb h264_v4l
+V:hap                  Vidvox Hap
+V:hevc                 H.265 / HEVC (High Efficiency Video Coding) (encoders: libx265 hevc_vaapi )
+V:hnm4video            HNM 4 video
+V:hq_hqa               Canopus HQ/HQA
+V:hqx                  Canopus HQX
+V:huffyuv              HuffYUV
+V:idcin                id Quake II CIN video (decoders: idcinvideo )
+V:idf                  iCEDraw text
+V:iff_ilbm             IFF ACBM/ANIM/DEEP/ILBM/PBM/RGB8/RGBN (decoders: iff )
+V:imm4                 Infinity IMM4
+V:indeo2               Intel Indeo 2
+V:indeo3               Intel Indeo 3
+V:indeo4               Intel Indeo Video Interactive 4
+V:indeo5               Intel Indeo Video Interactive 5
+V:interplayvideo       Interplay MVE video
+V:jpeg2000             JPEG 2000 (decoders: jpeg2000 libopenjpeg ) (encoders: jpeg2000 libopenjpeg )
+V:jpegls               JPEG-LS
+V:jv                   Bitmap Brothers JV video
+V:kgv1                 Kega Game Video
+V:kmvc                 Karl Morton's video codec
+V:lagarith             Lagarith lossless
+V:ljpeg                Lossless JPEG
+V:loco                 LOCO
+V:m101                 Matrox Uncompressed SD
+V:mad                  Electronic Arts Madcow Video (decoders: eamad )
+V:magicyuv             MagicYUV video
+V:mdec                 Sony PlayStation MDEC (Motion DECoder)
+V:mimic                Mimic
+V:mjpeg                Motion JPEG (encoders: mjpeg mjpeg_vaapi )
+V:mjpegb               Apple MJPEG-B
+V:mmvideo              American Laser Games MM Video
+V:motionpixels         Motion Pixels video
+V:mpeg1video           MPEG-1 video (decoders: mpeg1video mpeg1_v4l2m2m )
+V:mpeg2video           MPEG-2 video (decoders: mpeg2video mpegvideo mpeg2_v4l2m2m ) (encoders: mpeg2video mpeg2_vaapi )
+V:mpeg4                MPEG-4 part 2 (decoders: mpeg4 mpeg4_v4l2m2m ) (encoders: mpeg4 libxvid mpeg4_v4l2m2m )
+V:msa1                 MS ATC Screen
+V:mscc                 Mandsoft Screen Capture Codec
+V:msmpeg4v1            MPEG-4 part 2 Microsoft variant version 1
+V:msmpeg4v2            MPEG-4 part 2 Microsoft variant version 2
+V:msmpeg4v3            MPEG-4 part 2 Microsoft variant version 3 (decoders: msmpeg4 ) (encoders: msmpeg4 )
+V:msrle                Microsoft RLE
+V:mss1                 MS Screen 1
+V:mss2                 MS Windows Media Video V9 Screen
+V:msvideo1             Microsoft Video 1
+V:mszh                 LCL (LossLess Codec Library) MSZH
+V:mts2                 MS Expression Encoder Screen
+V:mvc1                 Silicon Graphics Motion Video Compressor 1
+V:mvc2                 Silicon Graphics Motion Video Compressor 2
+V:mwsc                 MatchWare Screen Capture Codec
+V:mxpeg                Mobotix MxPEG video
+V:nuv                  NuppelVideo/RTJPEG
+V:paf_video            Amazing Studio Packed Animation File Video
+V:pam                  PAM (Portable AnyMap) image
+V:pbm                  PBM (Portable BitMap) image
+V:pcx                  PC Paintbrush PCX image
+V:pgm                  PGM (Portable GrayMap) image
+V:pgmyuv               PGMYUV (Portable GrayMap YUV) image
+V:pictor               Pictor/PC Paint
+V:pixlet               Apple Pixlet
+V:png                  PNG (Portable Network Graphics) image
+V:ppm                  PPM (Portable PixelMap) image
+V:prores               Apple ProRes (iCodec Pro) (encoders: prores prores_aw prores_ks )
+V:prosumer             Brooktree ProSumer Video
+V:psd                  Photoshop PSD file
+V:ptx                  V.Flash PTX image
+V:qdraw                Apple QuickDraw
+V:qpeg                 Q-team QPEG
+V:qtrle                QuickTime Animation (RLE) video
+V:r10k                 AJA Kona 10-bit RGB Codec
+V:r210                 Uncompressed RGB 10-bit
+V:rasc                 RemotelyAnywhere Screen Capture
+V:rawvideo             raw video
+V:rl2                  RL2 video
+V:roq                  id RoQ video (decoders: roqvideo ) (encoders: roqvideo )
+V:rpza                 QuickTime video (RPZA)
+V:rscc                 innoHeim/Rsupport Screen Capture Codec
+V:rv10                 RealVideo 1.0
+V:rv20                 RealVideo 2.0
+V:rv30                 RealVideo 3.0
+V:rv40                 RealVideo 4.0
+V:sanm                 LucasArts SANM/SMUSH video
+V:scpr                 ScreenPressor
+V:screenpresso         Screenpresso
+V:sgi                  SGI image
+V:sgirle               SGI RLE 8-bit
+V:sheervideo           BitJazz SheerVideo
+V:smackvideo           Smacker video (decoders: smackvid )
+V:smc                  QuickTime Graphics (SMC)
+V:smvjpeg              Sigmatel Motion Video
+V:snow                 Snow
+V:sp5x                 Sunplus JPEG (SP5X)
+V:speedhq              NewTek SpeedHQ
+V:srgc                 Screen Recorder Gold Codec
+V:sunrast              Sun Rasterfile image
+V:svg                  Scalable Vector Graphics
+V:svq1                 Sorenson Vector Quantizer 1 / Sorenson Video 1 / SVQ1
+V:svq3                 Sorenson Vector Quantizer 3 / Sorenson Video 3 / SVQ3
+V:targa                Truevision Targa image
+V:targa_y216           Pinnacle TARGA CineWave YUV16
+V:tdsc                 TDSC
+V:tgq                  Electronic Arts TGQ video (decoders: eatgq )
+V:tgv                  Electronic Arts TGV video (decoders: eatgv )
+V:theora               Theora (encoders: libtheora )
+V:thp                  Nintendo Gamecube THP video
+V:tiertexseqvideo      Tiertex Limited SEQ video
+V:tiff                 TIFF image
+V:tmv                  8088flex TMV
+V:tqi                  Electronic Arts TQI video (decoders: eatqi )
+V:truemotion1          Duck TrueMotion 1.0
+V:truemotion2          Duck TrueMotion 2.0
+V:truemotion2rt        Duck TrueMotion 2.0 Real Time
+V:tscc                 TechSmith Screen Capture Codec (decoders: camtasia )
+V:tscc2                TechSmith Screen Codec 2
+V:txd                  Renderware TXD (TeXture Dictionary) image
+V:ulti                 IBM UltiMotion (decoders: ultimotion )
+V:utvideo              Ut Video
+V:v210                 Uncompressed 4:2:2 10-bit
+V:v210x                Uncompressed 4:2:2 10-bit
+V:v308                 Uncompressed packed 4:4:4
+V:v408                 Uncompressed packed QT 4:4:4:4
+V:v410                 Uncompressed 4:4:4 10-bit
+V:vb                   Beam Software VB
+V:vble                 VBLE Lossless Codec
+V:vc1                  SMPTE VC-1 (decoders: vc1 vc1_v4l2m2m )
+V:vc1image             Windows Media Video 9 Image v2
+V:vcr1                 ATI VCR1
+V:vixl                 Miro VideoXL (decoders: xl )
+V:vmdvideo             Sierra VMD video
+V:vmnc                 VMware Screen Codec / VMware Video
+V:vp3                  On2 VP3
+V:vp5                  On2 VP5
+V:vp6                  On2 VP6
+V:vp6a                 On2 VP6 (Flash version, with alpha channel)
+V:vp6f                 On2 VP6 (Flash version)
+V:vp7                  On2 VP7
+V:vp8                  On2 VP8 (decoders: vp8 vp8_v4l2m2m libvpx ) (encoders: libvpx vp8_v4l2m2m vp8_vaapi )
+V:vp9                  Google VP9 (decoders: vp9 libvpx-vp9 ) (encoders: libvpx-vp9 vp9_vaapi )
+V:wcmv                 WinCAM Motion Video
+V:webp                 WebP (encoders: libwebp_anim libwebp )
+V:wmv1                 Windows Media Video 7
+V:wmv2                 Windows Media Video 8
+V:wmv3                 Windows Media Video 9
+V:wmv3image            Windows Media Video 9 Image
+V:wnv1                 Winnov WNV1
+V:wrapped_avframe      AVFrame to AVPacket passthrough
+V:ws_vqa               Westwood Studios VQA (Vector Quantized Animation) video (decoders: vqavideo )
+V:xan_wc3              Wing Commander III / Xan
+V:xan_wc4              Wing Commander IV / Xxan
+V:xbin                 eXtended BINary text
+V:xbm                  XBM (X BitMap) image
+V:xface                X-face image
+V:xpm                  XPM (X PixMap) image
+V:xwd                  XWD (X Window Dump) image
+V:y41p                 Uncompressed YUV 4:1:1 12-bit
+V:ylc                  YUY2 Lossless Codec
+V:yop                  Psygnosis YOP Video
+V:yuv4                 Uncompressed packed 4:2:0
+V:zerocodec            ZeroCodec Lossless Video
+V:zlib                 LCL (LossLess Codec Library) ZLIB
+V:zmbv                 Zip Motion Blocks Video
+A:4gv                  4GV (Fourth Generation Vocoder)
+A:8svx_exp             8SVX exponential
+A:8svx_fib             8SVX fibonacci
+A:aac                  AAC (Advanced Audio Coding) (decoders: aac aac_fixed )
+A:aac_latm             AAC LATM (Advanced Audio Coding LATM syntax)
+A:ac3                  ATSC A/52A (AC-3) (decoders: ac3 ac3_fixed ) (encoders: ac3 ac3_fixed )
+A:adpcm_4xm            ADPCM 4X Movie
+A:adpcm_adx            SEGA CRI ADX ADPCM
+A:adpcm_afc            ADPCM Nintendo Gamecube AFC
+A:adpcm_aica           ADPCM Yamaha AICA
+A:adpcm_ct             ADPCM Creative Technology
+A:adpcm_dtk            ADPCM Nintendo Gamecube DTK
+A:adpcm_ea             ADPCM Electronic Arts
+A:adpcm_ea_maxis_xa    ADPCM Electronic Arts Maxis CDROM XA
+A:adpcm_ea_r1          ADPCM Electronic Arts R1
+A:adpcm_ea_r2          ADPCM Electronic Arts R2
+A:adpcm_ea_r3          ADPCM Electronic Arts R3
+A:adpcm_ea_xas         ADPCM Electronic Arts XAS
+A:adpcm_g722           G.722 ADPCM (decoders: g722 ) (encoders: g722 )
+A:adpcm_g726           G.726 ADPCM (decoders: g726 ) (encoders: g726 )
+A:adpcm_g726le         G.726 ADPCM little-endian (decoders: g726le ) (encoders: g726le )
+A:adpcm_ima_amv        ADPCM IMA AMV
+A:adpcm_ima_apc        ADPCM IMA CRYO APC
+A:adpcm_ima_dat4       ADPCM IMA Eurocom DAT4
+A:adpcm_ima_dk3        ADPCM IMA Duck DK3
+A:adpcm_ima_dk4        ADPCM IMA Duck DK4
+A:adpcm_ima_ea_eacs    ADPCM IMA Electronic Arts EACS
+A:adpcm_ima_ea_sead    ADPCM IMA Electronic Arts SEAD
+A:adpcm_ima_iss        ADPCM IMA Funcom ISS
+A:adpcm_ima_oki        ADPCM IMA Dialogic OKI
+A:adpcm_ima_qt         ADPCM IMA QuickTime
+A:adpcm_ima_rad        ADPCM IMA Radical
+A:adpcm_ima_smjpeg     ADPCM IMA Loki SDL MJPEG
+A:adpcm_ima_wav        ADPCM IMA WAV
+A:adpcm_ima_ws         ADPCM IMA Westwood
+A:adpcm_ms             ADPCM Microsoft
+A:adpcm_mtaf           ADPCM MTAF
+A:adpcm_psx            ADPCM Playstation
+A:adpcm_sbpro_2        ADPCM Sound Blaster Pro 2-bit
+A:adpcm_sbpro_3        ADPCM Sound Blaster Pro 2.6-bit
+A:adpcm_sbpro_4        ADPCM Sound Blaster Pro 4-bit
+A:adpcm_swf            ADPCM Shockwave Flash
+A:adpcm_thp            ADPCM Nintendo THP
+A:adpcm_thp_le         ADPCM Nintendo THP (Little-Endian)
+A:adpcm_vima           LucasArts VIMA audio
+A:adpcm_xa             ADPCM CDROM XA
+A:adpcm_yamaha         ADPCM Yamaha
+A:alac                 ALAC (Apple Lossless Audio Codec)
+A:amr_nb               AMR-NB (Adaptive Multi-Rate NarrowBand) (decoders: amrnb libopencore_amrnb ) (encoders: libopencore_amrnb )
+A:amr_wb               AMR-WB (Adaptive Multi-Rate WideBand) (decoders: amrwb libopencore_amrwb ) (encoders: libvo_amrwbenc )
+A:ape                  Monkey's Audio
+A:aptx                 aptX (Audio Processing Technology for Bluetooth)
+A:aptx_hd              aptX HD (Audio Processing Technology for Bluetooth)
+A:atrac1               ATRAC1 (Adaptive TRansform Acoustic Coding)
+A:atrac3               ATRAC3 (Adaptive TRansform Acoustic Coding 3)
+A:atrac3al             ATRAC3 AL (Adaptive TRansform Acoustic Coding 3 Advanced Lossless)
+A:atrac3p              ATRAC3+ (Adaptive TRansform Acoustic Coding 3+) (decoders: atrac3plus )
+A:atrac3pal            ATRAC3+ AL (Adaptive TRansform Acoustic Coding 3+ Advanced Lossless) (decoders: atrac3plusal )
+A:atrac9               ATRAC9 (Adaptive TRansform Acoustic Coding 9)
+A:avc                  On2 Audio for Video Codec (decoders: on2avc )
+A:binkaudio_dct        Bink Audio (DCT)
+A:binkaudio_rdft       Bink Audio (RDFT)
+A:bmv_audio            Discworld II BMV audio
+A:celt                 Constrained Energy Lapped Transform (CELT)
+A:codec2               codec2 (very low bitrate speech codec)
+A:comfortnoise         RFC 3389 Comfort Noise
+A:cook                 Cook / Cooker / Gecko (RealAudio G2)
+A:dolby_e              Dolby E
+A:dsd_lsbf             DSD (Direct Stream Digital), least significant bit first
+A:dsd_lsbf_planar      DSD (Direct Stream Digital), least significant bit first, planar
+A:dsd_msbf             DSD (Direct Stream Digital), most significant bit first
+A:dsd_msbf_planar      DSD (Direct Stream Digital), most significant bit first, planar
+A:dsicinaudio          Delphine Software International CIN audio
+A:dss_sp               Digital Speech Standard - Standard Play mode (DSS SP)
+A:dst                  DST (Direct Stream Transfer)
+A:dts                  DCA (DTS Coherent Acoustics) (decoders: dca ) (encoders: dca )
+A:dvaudio              DV audio
+A:eac3                 ATSC A/52B (AC-3, E-AC-3)
+A:evrc                 EVRC (Enhanced Variable Rate Codec)
+A:flac                 FLAC (Free Lossless Audio Codec)
+A:g723_1               G.723.1
+A:g729                 G.729
+A:gremlin_dpcm         DPCM Gremlin
+A:gsm                  GSM
+A:gsm_ms               GSM Microsoft variant
+A:iac                  IAC (Indeo Audio Coder)
+A:ilbc                 iLBC (Internet Low Bitrate Codec)
+A:imc                  IMC (Intel Music Coder)
+A:interplay_dpcm       DPCM Interplay
+A:interplayacm         Interplay ACM
+A:mace3                MACE (Macintosh Audio Compression/Expansion) 3:1
+A:mace6                MACE (Macintosh Audio Compression/Expansion) 6:1
+A:metasound            Voxware MetaSound
+A:mlp                  MLP (Meridian Lossless Packing)
+A:mp1                  MP1 (MPEG audio layer 1) (decoders: mp1 mp1float )
+A:mp2                  MP2 (MPEG audio layer 2) (decoders: mp2 mp2float ) (encoders: mp2 mp2fixed )
+A:mp3                  MP3 (MPEG audio layer 3) (decoders: mp3float mp3 ) (encoders: libmp3lame )
+A:mp3adu               ADU (Application Data Unit) MP3 (MPEG audio layer 3) (decoders: mp3adufloat mp3adu )
+A:mp3on4               MP3onMP4 (decoders: mp3on4float mp3on4 )
+A:mp4als               MPEG-4 Audio Lossless Coding (ALS) (decoders: als )
+A:musepack7            Musepack SV7 (decoders: mpc7 )
+A:musepack8            Musepack SV8 (decoders: mpc8 )
+A:nellymoser           Nellymoser Asao
+A:opus                 Opus (Opus Interactive Audio Codec) (decoders: opus libopus ) (encoders: opus libopus )
+A:paf_audio            Amazing Studio Packed Animation File Audio
+A:pcm_alaw             PCM A-law / G.711 A-law
+A:pcm_bluray           PCM signed 16|20|24-bit big-endian for Blu-ray media
+A:pcm_dvd              PCM signed 20|24-bit big-endian
+A:pcm_f16le            PCM 16.8 floating point little-endian
+A:pcm_f24le            PCM 24.0 floating point little-endian
+A:pcm_f32be            PCM 32-bit floating point big-endian
+A:pcm_f32le            PCM 32-bit floating point little-endian
+A:pcm_f64be            PCM 64-bit floating point big-endian
+A:pcm_f64le            PCM 64-bit floating point little-endian
+A:pcm_lxf              PCM signed 20-bit little-endian planar
+A:pcm_mulaw            PCM mu-law / G.711 mu-law
+A:pcm_s16be            PCM signed 16-bit big-endian
+A:pcm_s16be_planar     PCM signed 16-bit big-endian planar
+A:pcm_s16le            PCM signed 16-bit little-endian
+A:pcm_s16le_planar     PCM signed 16-bit little-endian planar
+A:pcm_s24be            PCM signed 24-bit big-endian
+A:pcm_s24daud          PCM D-Cinema audio signed 24-bit
+A:pcm_s24le            PCM signed 24-bit little-endian
+A:pcm_s24le_planar     PCM signed 24-bit little-endian planar
+A:pcm_s32be            PCM signed 32-bit big-endian
+A:pcm_s32le            PCM signed 32-bit little-endian
+A:pcm_s32le_planar     PCM signed 32-bit little-endian planar
+A:pcm_s64be            PCM signed 64-bit big-endian
+A:pcm_s64le            PCM signed 64-bit little-endian
+A:pcm_s8               PCM signed 8-bit
+A:pcm_s8_planar        PCM signed 8-bit planar
+A:pcm_u16be            PCM unsigned 16-bit big-endian
+A:pcm_u16le            PCM unsigned 16-bit little-endian
+A:pcm_u24be            PCM unsigned 24-bit big-endian
+A:pcm_u24le            PCM unsigned 24-bit little-endian
+A:pcm_u32be            PCM unsigned 32-bit big-endian
+A:pcm_u32le            PCM unsigned 32-bit little-endian
+A:pcm_u8               PCM unsigned 8-bit
+A:pcm_vidc             PCM Archimedes VIDC
+A:pcm_zork             PCM Zork
+A:qcelp                QCELP / PureVoice
+A:qdm2                 QDesign Music Codec 2
+A:qdmc                 QDesign Music
+A:ra_144               RealAudio 1.0 (14.4K) (decoders: real_144 ) (encoders: real_144 )
+A:ra_288               RealAudio 2.0 (28.8K) (decoders: real_288 )
+A:ralf                 RealAudio Lossless
+A:roq_dpcm             DPCM id RoQ
+A:s302m                SMPTE 302M
+A:sbc                  SBC (low-complexity subband codec)
+A:sdx2_dpcm            DPCM Squareroot-Delta-Exact
+A:shorten              Shorten
+A:sipr                 RealAudio SIPR / ACELP.NET
+A:smackaudio           Smacker audio (decoders: smackaud )
+A:smv                  SMV (Selectable Mode Vocoder)
+A:sol_dpcm             DPCM Sol
+A:sonic                Sonic
+A:sonicls              Sonic lossless
+A:speex                Speex (decoders: libspeex ) (encoders: libspeex )
+A:tak                  TAK (Tom's lossless Audio Kompressor)
+A:truehd               TrueHD
+A:truespeech           DSP Group TrueSpeech
+A:tta                  TTA (True Audio)
+A:twinvq               VQF TwinVQ
+A:vmdaudio             Sierra VMD audio
+A:vorbis               Vorbis (decoders: vorbis libvorbis ) (encoders: vorbis libvorbis )
+A:wavesynth            Wave synthesis pseudo-codec
+A:wavpack              WavPack
+A:westwood_snd1        Westwood Audio (SND1) (decoders: ws_snd1 )
+A:wmalossless          Windows Media Audio Lossless
+A:wmapro               Windows Media Audio 9 Professional
+A:wmav1                Windows Media Audio 1
+A:wmav2                Windows Media Audio 2
+A:wmavoice             Windows Media Audio Voice
+A:xan_dpcm             DPCM Xan
+A:xma1                 Xbox Media Audio 1
+A:xma2                 Xbox Media Audio 2
+D:bin_data             binary data
+D:dvd_nav_packet       DVD Nav packet
+D:klv                  SMPTE 336M Key-Length-Value (KLV) metadata
+D:otf                  OpenType font
+D:scte_35              SCTE 35 Message Queue
+D:timed_id3            timed ID3 metadata
+D:ttf                  TrueType font
+S:ass                  ASS (Advanced SSA) subtitle (decoders: ssa ass ) (encoders: ssa ass )
+S:dvb_subtitle         DVB subtitles (decoders: dvbsub ) (encoders: dvbsub )
+S:dvb_teletext         DVB teletext (decoders: libzvbi_teletextdec )
+S:dvd_subtitle         DVD subtitles (decoders: dvdsub ) (encoders: dvdsub )
+S:eia_608              EIA-608 closed captions (decoders: cc_dec )
+S:hdmv_pgs_subtitle    HDMV Presentation Graphic Stream subtitles (decoders: pgssub )
+S:hdmv_text_subtitle   HDMV Text subtitle
+S:jacosub              JACOsub subtitle
+S:microdvd             MicroDVD subtitle
+S:mov_text             MOV text
+S:mpl2                 MPL2 subtitle
+S:pjs                  PJS (Phoenix Japanimation Society) subtitle
+S:realtext             RealText subtitle
+S:sami                 SAMI subtitle
+S:srt                  SubRip subtitle with embedded timing
+S:ssa                  SSA (SubStation Alpha) subtitle
+S:stl                  Spruce subtitle format
+S:subrip               SubRip subtitle (decoders: srt subrip ) (encoders: srt subrip )
+S:subviewer            SubViewer subtitle
+S:subviewer1           SubViewer v1 subtitle
+S:text                 raw UTF-8 text
+S:ttml                 Timed Text Markup Language
+S:vplayer              VPlayer subtitle
+S:webvtt               WebVTT subtitle
+S:xsub                 XSUB
