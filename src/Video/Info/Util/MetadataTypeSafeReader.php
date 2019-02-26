@@ -128,9 +128,8 @@ class MetadataTypeSafeReader
         $value = $this->streamMetadata[$key] ?? null;
         if ($value !== null && !is_scalar($value)) {
             $msg = sprintf(
-                "The ffprobe/videoInfo metadata '$key' is expected to be a string or null. Got: %s (%s)",
-                gettype($value),
-                (string) $value
+                "The ffprobe/videoInfo metadata '$key' is expected to be a string or null. Got: %s",
+                gettype($value)
             );
             $this->logger->notice($msg);
             throw new UnexpectedMetadataException($msg);
@@ -153,9 +152,8 @@ class MetadataTypeSafeReader
         $value = $this->streamMetadata[$key] ?? null;
         if (!is_scalar($value)) {
             $msg = sprintf(
-                "The ffprobe/videoInfo metadata '$key' is expected to be a string. Got: %s (%s)",
-                gettype($value),
-                (string) $value
+                "The ffprobe/videoInfo metadata '$key' is expected to be a string. Got: %s",
+                gettype($value)
             );
             $this->logger->notice($msg);
             throw new UnexpectedMetadataException($msg);

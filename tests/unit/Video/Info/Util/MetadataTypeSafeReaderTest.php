@@ -86,76 +86,77 @@ class MetadataTypeSafeReaderTest extends TestCase
             'float3'        => '1.234.12',
             'floatNull1'    => -45.2,
             'floatNull2'    => null,
+            'array'         => [],
         ];
 
         $tsReader = new MetadataTypeSafeReader($data);
 
         try {
             $tsReader->getKeyIntValue('int3');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyFloatValue('float3');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyIntValue('float2');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyIntValue('intNull2');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyIntOrNullValue('string');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyFloatValue('string');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyFloatOrNullValue('string');
-            self::assertTrue(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
             $tsReader->getKeyFloatValue('floatNull2');
-            self::assertFalse(true);
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
-            $tsReader->getKeyStringValue('int');
-            self::assertTrue(true);
+            $tsReader->getKeyStringValue('array');
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
 
         try {
-            $tsReader->getKeyStringOrNullValue('float1');
-            self::assertTrue(true);
+            $tsReader->getKeyStringOrNullValue('array');
+            self::assertTrue(false);
         } catch (UnexpectedMetadataException $e) {
             self::assertTrue(true);
         }
