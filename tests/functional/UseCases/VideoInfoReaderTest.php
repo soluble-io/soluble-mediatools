@@ -17,6 +17,7 @@ use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Video\Exception\MissingFFProbeBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
+use Soluble\MediaTools\Video\VideoInfoReader;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 use Symfony\Component\Cache\Simple\ArrayCache;
 
@@ -91,17 +92,53 @@ class VideoInfoReaderTest extends TestCase
         self::assertEquals(10, $cachedVideoInfo2->getDuration());
     }
 
-    public function testGetCorruptedCache(): void
+    public function testGetInfoCorruptedCache(): void
     {
         $cache     = new ArrayCache();
         $videoInfo = $this->infoService->getInfo($this->videoFile, $cache);
 
         $cacheKey = array_keys($cache->getValues())[0] ?? 'nothing_in_cache';
+        $oldCache = $cache->get($cacheKey);
         $cache->set($cacheKey, 'corrupted data');
 
         $cachedVideoInfo = $this->infoService->getInfo($this->videoFile, $cache);
 
         self::assertEquals($videoInfo->getDuration(), $cachedVideoInfo->getDuration());
+
+        // must refill the cache with latest data
+        self::assertEquals($oldCache, $cache->get($cacheKey));
+    }
+
+    public function testGetInfoWithDefaultCache(): void
+    {
+        $cache        = new ArrayCache();
+        $specialCache = new ArrayCache();
+
+        $infoReader = new VideoInfoReader(
+            $this->getFFProbeConfig(),
+            null,
+            $cache
+        );
+
+        $videoInfo = $infoReader->getInfo($this->videoFile);
+
+        $cacheKey = array_keys($cache->getValues())[0] ?? 'nothing_in_cache';
+        self::assertTrue($cache->has($cacheKey));
+
+        $cachedVideoInfo = $infoReader->getInfo($this->videoFile);
+
+        self::assertEquals($videoInfo->getDuration(), $cachedVideoInfo->getDuration());
+
+        self::assertNotEmpty($cache->getValues());
+        self::assertEmpty($specialCache->getValues());
+
+        // clear global cache
+        $cache->clear();
+
+        $infoReader->getInfo($this->videoFile, $specialCache);
+
+        self::assertEmpty($cache->getValues());
+        self::assertNotEmpty($specialCache->getValues());
     }
 
     public function testMissingFFProbeBinary(): void
