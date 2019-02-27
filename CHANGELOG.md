@@ -13,8 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- `VideoInfoReader` now accepts a *psr-6 / simple-cache* implementation in the constructor 
-- `VideoInfoReader::getInfo($file, CacheInterface $cache=null)` to allow using a specific *psr-6* cache implementaton. 
+- `VideoInfoReader` now accepts a *psr-16 / simple-cache* implementation in the constructor 
+- `VideoInfoReader::getInfo($file, CacheInterface $cache=null)` to allow using a specific *psr-16* cache implementaton. 
 - Specific `InvalidFFProbeJsonException` in `VideoInfoReader::getInfo()` to improve debug.
 - `VideoStream::getFps(?int $decimals=null)` to get the stream framerate.
 
