@@ -11,28 +11,38 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Assert;
 
+use Soluble\MediaTools\Common\Exception\FileEmptyException;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 
 trait PathAssertionsTrait
 {
     /**
+     * @param bool $ensureFileNotEmpty check also filesize to be greater than 0
+     *
      * @throws FileNotFoundException
+     * @throws FileEmptyException    if $ensureFileNotEmpty is true
      */
-    protected function ensureFileExists(string $file): void
+    protected function ensureFileExists(string $file, bool $ensureFileNotEmpty = false): void
     {
         if (!file_exists($file)) {
             throw new FileNotFoundException(sprintf('File "%s" does not exists', $file));
         }
+        if ($ensureFileNotEmpty && filesize($file) === 0) {
+            throw new FileEmptyException(sprintf('File "%s" is empty', $file));
+        }
     }
 
     /**
+     * @param bool $ensureFileNotEmpty check also filesize to be greater than 0
+     *
      * @throws FileNotReadableException
      * @throws FileNotFoundException
+     * @throws FileEmptyException       if $ensureFileNotEmpty is true
      */
-    protected function ensureFileReadable(string $file): void
+    protected function ensureFileReadable(string $file, bool $ensureFileNotEmpty = false): void
     {
-        $this->ensureFileExists($file);
+        $this->ensureFileExists($file, $ensureFileNotEmpty);
         if (!is_readable($file)) {
             throw new FileNotReadableException(sprintf(
                 'File "%s" is not readable',

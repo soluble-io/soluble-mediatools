@@ -11,13 +11,17 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Common\Assert;
 
+use MediaToolsTest\Util\DirLocatorTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Common\Exception\FileEmptyException;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 
 class PathAssertionsTraitTest extends TestCase
 {
+    use DirLocatorTrait;
+
     public function testExistingFileMustWork(): void
     {
         $cls = new class() {
@@ -61,6 +65,36 @@ class PathAssertionsTraitTest extends TestCase
 
         $cls->testProtected(__FILE__);
         self::assertTrue(true);
+    }
+
+    public function testReadableWorksWithNonEmpty(): void
+    {
+        $cls = new class() {
+            use PathAssertionsTrait;
+
+            public function testProtected(string $file): void
+            {
+                $this->ensureFileReadable($file, true);
+            }
+        };
+
+        $cls->testProtected(__FILE__);
+        self::assertTrue(true);
+    }
+
+    public function testReadableExceptionsWithNonEmpty(): void
+    {
+        self::expectException(FileEmptyException::class);
+        $cls = new class() {
+            use PathAssertionsTrait;
+
+            public function testProtected(string $file): void
+            {
+                $this->ensureFileReadable($file, true);
+            }
+        };
+
+        $cls->testProtected($this->getDataTestDirectory() . '/empty_video_file.mov');
     }
 
     public function testEnsureFileReadableMustThrowFileNotFoundException(): void
