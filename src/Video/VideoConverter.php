@@ -109,10 +109,10 @@ class VideoConverter implements VideoConverterInterface
     {
         try {
             try {
-                $this->ensureFileReadable($inputFile);
+                $this->ensureFileReadable($inputFile, true);
                 $process = $this->getSymfonyProcess($inputFile, $outputFile, $convertParams, $processParams);
                 $process->mustRun($callback);
-            } catch (CommonException\FileNotFoundException | CommonException\FileNotReadableException $e) {
+            } catch (CommonException\FileNotFoundException | CommonException\FileNotReadableException | CommonException\FileEmptyException $e) {
                 throw new MissingInputFileException($e->getMessage());
             } catch (CommonException\UnsupportedParamValueException | CommonException\UnsupportedParamException $e) {
                 throw new InvalidParamException($e->getMessage());

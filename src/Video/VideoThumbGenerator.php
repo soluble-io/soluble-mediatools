@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Common\Exception\FileEmptyException;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 use Soluble\MediaTools\Common\Exception\UnsupportedParamException;
@@ -141,11 +142,11 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
     {
         try {
             try {
-                $this->ensureFileReadable($videoFile);
+                $this->ensureFileReadable($videoFile, true);
 
                 $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
                 $process->mustRun($callback);
-            } catch (FileNotFoundException | FileNotReadableException $e) {
+            } catch (FileNotFoundException | FileNotReadableException | FileEmptyException $e) {
                 throw new MissingInputFileException($e->getMessage());
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
                 throw new InvalidParamException($e->getMessage());

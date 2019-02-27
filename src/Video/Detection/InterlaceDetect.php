@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Detection;
 
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Common\Exception\FileEmptyException;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\FileNotReadableException;
 use Soluble\MediaTools\Common\IO\PlatformNullFile;
@@ -59,7 +60,7 @@ class InterlaceDetect
             ->withOverwrite();
 
         try {
-            $this->ensureFileReadable($file);
+            $this->ensureFileReadable($file, true);
 
             $arguments = $adapter->getMappedConversionParams($params);
             $ffmpegCmd = $adapter->getCliCommand($arguments, $file, new PlatformNullFile());
@@ -68,7 +69,7 @@ class InterlaceDetect
 
             $process = (new ProcessFactory($ffmpegCmd, $pp))->__invoke();
             $process->mustRun();
-        } catch (FileNotFoundException | FileNotReadableException $e) {
+        } catch (FileNotFoundException | FileNotReadableException | FileEmptyException $e) {
             throw new MissingInputFileException($e->getMessage());
         } catch (SPException\ProcessFailedException | SPException\ProcessTimedOutException | SPException\ProcessSignaledException $e) {
             throw new ProcessFailedException($e->getProcess(), $e);
