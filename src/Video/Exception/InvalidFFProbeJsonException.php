@@ -9,11 +9,10 @@ declare(strict_types=1);
  * @license   https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md MIT
  */
 
-namespace Soluble\MediaTools\Video;
+namespace Soluble\MediaTools\Video\Exception;
 
-use Psr\SimpleCache\CacheInterface;
+use Soluble\MediaTools\Common\Exception\RuntimeException as RTE;
 
-interface VideoInfoReaderInterface
+class InvalidFFProbeJsonException extends RTE implements InfoReaderExceptionInterface
 {
-    public function getInfo(string $file, ?CacheInterface $cache = null): VideoInfo;
 }

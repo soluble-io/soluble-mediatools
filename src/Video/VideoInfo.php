@@ -14,8 +14,6 @@ namespace Soluble\MediaTools\Video;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
-use Psr\SimpleCache\CacheInterface;
-use Soluble\MediaTools\Common\Cache\NullCache;
 use Soluble\MediaTools\Common\Exception\IOException;
 use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
@@ -38,9 +36,6 @@ class VideoInfo implements VideoInfoInterface
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var CacheInterface */
-    private $cache;
-
     /** @var array|null */
     private $metadataByStreamType;
 
@@ -58,7 +53,7 @@ class VideoInfo implements VideoInfoInterface
      * @param array                $metadata metadata as parsed from ffprobe --json
      * @param LoggerInterface|null $logger
      */
-    public function __construct(string $fileName, array $metadata, ?LoggerInterface $logger = null, ?CacheInterface $cache = null)
+    public function __construct(string $fileName, array $metadata, ?LoggerInterface $logger = null)
     {
         if (!file_exists($fileName)) {
             throw new IOException(sprintf(
@@ -69,7 +64,6 @@ class VideoInfo implements VideoInfoInterface
         $this->metadata = $metadata;
         $this->file     = $fileName;
         $this->logger   = $logger ?? new NullLogger();
-        $this->cache    = $cache ?? new NullCache();
     }
 
     /**

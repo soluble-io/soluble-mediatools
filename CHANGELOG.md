@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- `VideoInfoReader` now accepts a psr-simplecache implementation 
+- Specific `InvalidFFProbeJsonException` in `VideoInfoReader::getInfo()` to improve debug.
 - `VideoStream::getFps(?int $decimals=null)` to get the stream framerate.
 
 ### Removed

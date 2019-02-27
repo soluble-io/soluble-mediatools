@@ -18,6 +18,7 @@ use Soluble\MediaTools\Video\Exception\MissingFFProbeBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
+use Symfony\Component\Cache\Simple\ArrayCache;
 
 class VideoInfoReaderTest extends TestCase
 {
@@ -61,6 +62,46 @@ class VideoInfoReaderTest extends TestCase
 
         self::assertEquals(320, $width);
         self::assertEquals(180, $height);
+    }
+
+    public function testGetInfoWithCache(): void
+    {
+        $cache = new ArrayCache();
+
+        $videoInfo = $this->infoService->getInfo($this->videoFile, $cache);
+
+        $cacheKey = array_keys($cache->getValues())[0] ?? 'nothing_in_cache';
+        self::assertTrue($cache->has($cacheKey));
+
+        $cachedVideoInfo = $this->infoService->getInfo($this->videoFile, $cache);
+
+        self::assertEquals($videoInfo->getDuration(), $cachedVideoInfo->getDuration());
+
+        $cached = json_decode($cache->get($cacheKey), true);
+        self::assertEquals($videoInfo->getDuration(), $cached['format']['duration']);
+
+        // modified cache
+        $cached['format']['duration'] = 10;
+        $newEntry                     = json_encode($cached);
+
+        $cache->set($cacheKey, $newEntry);
+
+        $cachedVideoInfo2 = $this->infoService->getInfo($this->videoFile, $cache);
+
+        self::assertEquals(10, $cachedVideoInfo2->getDuration());
+    }
+
+    public function testGetCorruptedCache(): void
+    {
+        $cache     = new ArrayCache();
+        $videoInfo = $this->infoService->getInfo($this->videoFile, $cache);
+
+        $cacheKey = array_keys($cache->getValues())[0] ?? 'nothing_in_cache';
+        $cache->set($cacheKey, 'corrupted data');
+
+        $cachedVideoInfo = $this->infoService->getInfo($this->videoFile, $cache);
+
+        self::assertEquals($videoInfo->getDuration(), $cachedVideoInfo->getDuration());
     }
 
     public function testMissingFFProbeBinary(): void

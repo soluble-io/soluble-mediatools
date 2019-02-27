@@ -14,15 +14,19 @@ namespace Soluble\MediaTools\Video;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
+use Psr\SimpleCache\CacheInterface;
 use Soluble\MediaTools\Common\Assert\PathAssertionsTrait;
+use Soluble\MediaTools\Common\Cache\NullCache;
 use Soluble\MediaTools\Common\Exception\FileEmptyException;
 use Soluble\MediaTools\Common\Exception\FileNotFoundException;
 use Soluble\MediaTools\Common\Exception\FileNotReadableException;
+use Soluble\MediaTools\Common\Exception\JsonParseException;
 use Soluble\MediaTools\Common\Process\ProcessFactory;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Exception\InfoProcessReaderExceptionInterface;
 use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
+use Soluble\MediaTools\Video\Exception\InvalidFFProbeJsonException;
 use Soluble\MediaTools\Video\Exception\MissingFFProbeBinaryException;
 use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
@@ -40,10 +44,16 @@ class VideoInfoReader implements VideoInfoReaderInterface
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct(FFProbeConfigInterface $ffProbeConfig, ?LoggerInterface $logger = null)
+    /**
+     * @var CacheInterface
+     */
+    private $cache;
+
+    public function __construct(FFProbeConfigInterface $ffProbeConfig, ?LoggerInterface $logger = null, ?CacheInterface $cache = null)
     {
         $this->ffprobeConfig = $ffProbeConfig;
         $this->logger        = $logger ?? new NullLogger();
+        $this->cache         = $cache ?? new NullCache();
     }
 
     /**
@@ -76,21 +86,40 @@ class VideoInfoReader implements VideoInfoReaderInterface
      * @throws InfoReaderExceptionInterface
      * @throws InfoProcessReaderExceptionInterface
      * @throws ProcessFailedException
+     * @throws InvalidFFProbeJsonException
      * @throws MissingInputFileException
      * @throws MissingFFProbeBinaryException
      * @throws RuntimeReaderException
      */
-    public function getInfo(string $file): VideoInfo
+    public function getInfo(string $file, ?CacheInterface $cache = null): VideoInfo
     {
+        $cache = $cache ?? $this->cache;
+
         try {
             try {
                 $this->ensureFileReadable($file, true);
+
                 $process = $this->getSymfonyProcess($file);
 
-                $process->mustRun();
-                $output = $process->getOutput();
+                $key = $this->getCacheKey($process, $file);
+                try {
+                    $output = $cache->get($key, null);
+                    if ($output === null) {
+                        throw new JsonParseException('Json not in cache');
+                    }
+                    $videoInfo = VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
+                } catch (JsonParseException $e) {
+                    // cache failure or corrupted, let's fallback to running ffprobe
+                    $cache->set($key, null);
+                    $process->mustRun();
+                    $output    = $process->getOutput();
+                    $videoInfo = VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
+                    $cache->set($key, $output);
+                }
             } catch (FileNotFoundException | FileNotReadableException | FileEmptyException $e) {
                 throw new MissingInputFileException($e->getMessage());
+            } catch (JsonParseException $e) {
+                throw new InvalidFFProbeJsonException($e->getMessage());
             } catch (SPException\ProcessFailedException $e) {
                 $process = $e->getProcess();
                 if ($process->getExitCode() === 127 ||
@@ -118,6 +147,13 @@ class VideoInfoReader implements VideoInfoReaderInterface
             throw $e;
         }
 
-        return VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
+        return $videoInfo;
+    }
+
+    private function getCacheKey(Process $process, string $file): string
+    {
+        $key = sha1(sprintf('%s | %s | %s | %s', $process->getCommandLine(), $file, (string) filesize($file), (string) filemtime($file)));
+
+        return $key;
     }
 }
