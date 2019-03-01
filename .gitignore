@@ -6,6 +6,7 @@ composer.lock
 .DS_Store
 .*.sw*
 .*.un~
+*.cache
 .project
 .settings/
 .idea
