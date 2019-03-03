@@ -93,20 +93,21 @@ class VideoInfoReader implements VideoInfoReaderInterface
     {
         $cache = $cache ?? $this->cache;
 
+        // global try/catch to call logger
+
         try {
             try {
                 $this->ensureFileReadable($file, true);
+            } catch (FileNotFoundException | FileNotReadableException | FileEmptyException $e) {
+                throw new MissingInputFileException($e->getMessage());
+            }
 
-                $process = $this->getSymfonyProcess($file);
+            $process = $this->getSymfonyProcess($file);
 
-                $key = $this->getCacheKey($process, $file);
-                try {
-                    $output = $cache->get($key, null);
-                    if ($output === null) {
-                        throw new JsonParseException('Json not in cache');
-                    }
-                    $videoInfo = VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
-                } catch (JsonParseException $e) {
+            try {
+                $key       = $this->getCacheKey($process, $file);
+                $videoInfo = $this->loadVideoInfoFromCacheKey($file, $cache, $key);
+                if ($videoInfo === null) {
                     // cache failure or corrupted, let's fallback to running ffprobe
                     $cache->set($key, null);
                     $process->mustRun();
@@ -114,8 +115,8 @@ class VideoInfoReader implements VideoInfoReaderInterface
                     $videoInfo = VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
                     $cache->set($key, $output);
                 }
-            } catch (FileNotFoundException | FileNotReadableException | FileEmptyException $e) {
-                throw new MissingInputFileException($e->getMessage());
+
+                // Exception mapping
             } catch (JsonParseException $e) {
                 throw new InvalidFFProbeJsonException($e->getMessage());
             } catch (SPException\ProcessFailedException $e) {
@@ -131,27 +132,44 @@ class VideoInfoReader implements VideoInfoReaderInterface
                 throw new RuntimeReaderException($e->getMessage());
             }
         } catch (\Throwable $e) {
-            $exceptionNs = explode('\\', get_class($e));
-            $this->logger->log(
-                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
-                sprintf(
-                    'Video info retrieval failed \'%s\' with \'%s\'. "%s(%s)"',
-                    $exceptionNs[count($exceptionNs) - 1],
-                    __METHOD__,
-                    $e->getMessage(),
-                    $file
-                )
-            );
+            $this->logException($e, $file);
             throw $e;
         }
 
         return $videoInfo;
     }
 
+    private function loadVideoInfoFromCacheKey(string $file, CacheInterface $cache, string $cacheKey): ?VideoInfo
+    {
+        $output = $cache->get($cacheKey, null);
+        if ($output !== null && $output !== '') {
+            try {
+                return VideoInfo::createFromFFProbeJson($file, $output, $this->logger);
+            } catch (\Throwable $e) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private function logException(\Throwable $e, string $file): void
+    {
+        $exceptionNs = explode('\\', get_class($e));
+        $this->logger->log(
+            ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+            sprintf(
+                'Video info retrieval failed \'%s\' with \'%s\'. "%s(%s)"',
+                $exceptionNs[count($exceptionNs) - 1],
+                __METHOD__,
+                $e->getMessage(),
+                $file
+            )
+        );
+    }
+
     private function getCacheKey(Process $process, string $file): string
     {
-        $key = sha1(sprintf('%s | %s | %s | %s', $process->getCommandLine(), $file, (string) filesize($file), (string) filemtime($file)));
-
-        return $key;
+        return sha1(sprintf('%s | %s | %s | %s', $process->getCommandLine(), $file, (string) filesize($file), (string) filemtime($file)));
     }
 }
