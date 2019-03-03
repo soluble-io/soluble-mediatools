@@ -172,7 +172,7 @@ class VideoStream implements VideoStreamInterface
     {
         return [
             'width'  => $this->getWidth(),
-            'height' => $this->getHeight()
+            'height' => $this->getHeight(),
         ];
     }
 

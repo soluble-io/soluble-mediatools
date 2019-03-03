@@ -44,9 +44,7 @@ class VideoInfoReader implements VideoInfoReaderInterface
     /** @var LoggerInterface */
     private $logger;
 
-    /**
-     * @var CacheInterface
-     */
+    /** @var CacheInterface */
     private $cache;
 
     public function __construct(FFProbeConfigInterface $ffProbeConfig, ?LoggerInterface $logger = null, ?CacheInterface $cache = null)

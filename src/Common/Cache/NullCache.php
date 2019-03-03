@@ -52,9 +52,6 @@ class NullCache implements CacheInterface
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clear(): bool
     {
         return true;

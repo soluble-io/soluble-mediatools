@@ -81,52 +81,52 @@ class VideoStreamTest extends TestCase
     {
         $data = $this->getExampleFFProbeData()['streams'][0];
         $d    = array_merge($data, [
-            'r_frame_rate' => '25/1'
+            'r_frame_rate' => '25/1',
         ]);
         self::assertEquals(25, (new VideoStream($d))->getFps());
 
         $d = array_merge($data, [
-            'r_frame_rate' => '24000/1001'
+            'r_frame_rate' => '24000/1001',
         ]);
         self::assertEquals(23.98, (new VideoStream($d))->getFps(2));
 
         $d = array_merge($data, [
-            'r_frame_rate' => '24000/1001'
+            'r_frame_rate' => '24000/1001',
         ]);
         self::assertEquals(24, (new VideoStream($d))->getFps(0));
 
         $d = array_merge($data, [
             'r_frame_rate' => null,
             'duration'     => 1,
-            'nb_frames'    => 30
+            'nb_frames'    => 30,
         ]);
         self::assertEquals(30, (new VideoStream($d))->getFps(0));
 
         $d = array_merge($data, [
             'r_frame_rate' => null,
             'duration'     => 1000,
-            'nb_frames'    => 60002
+            'nb_frames'    => 60002,
         ]);
         self::assertEquals(60.002, (new VideoStream($d))->getFps(3));
 
         $d = array_merge($data, [
             'r_frame_rate' => 'A/a',
             'duration'     => 1000,
-            'nb_frames'    => 60002
+            'nb_frames'    => 60002,
         ]);
         self::assertEquals(60.002, (new VideoStream($d))->getFps(3));
 
         $d = array_merge($data, [
             'r_frame_rate' => null,
             'duration'     => null,
-            'nb_frames'    => 60002
+            'nb_frames'    => 60002,
         ]);
         self::assertNull((new VideoStream($d))->getFps(1));
 
         $d = array_merge($data, [
             'r_frame_rate' => null,
             'duration'     => null,
-            'nb_frames'    => null
+            'nb_frames'    => null,
         ]);
         self::assertNull((new VideoStream($d))->getFps(1));
 
@@ -135,7 +135,7 @@ class VideoStreamTest extends TestCase
         $d = array_merge($data, [
             'r_frame_rate' => '9000/1',
             'duration'     => 1,
-            'nb_frames'    => 30
+            'nb_frames'    => 30,
         ]);
         self::assertEquals(30, (new VideoStream($d))->getFps(0));
     }

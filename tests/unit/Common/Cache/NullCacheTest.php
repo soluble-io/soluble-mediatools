@@ -37,9 +37,11 @@ class NullCacheTest extends TestCase
             self::assertSame($default, $item);
             // Remove $key for $keys
             foreach ($keys as $k => $v) {
-                if ($v === $key) {
-                    unset($keys[$k]);
+                if ($v !== $key) {
+                    continue;
                 }
+
+                unset($keys[$k]);
             }
             ++$count;
         }
