@@ -75,7 +75,7 @@ class VideoInfo implements VideoInfoInterface
             throw new JsonParseException('Cannot parse empty json string');
         }
         $decoded = json_decode($ffprobeJson, true);
-        if ($decoded === null) {
+        if (!is_array($decoded)) {
             throw new JsonParseException('Cannot parse json');
         }
 
