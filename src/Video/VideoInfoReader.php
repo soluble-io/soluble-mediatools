@@ -65,8 +65,8 @@ class VideoInfoReader implements VideoInfoReaderInterface
     {
         $ffprobeCmd = [
             $this->ffprobeConfig->getBinary(),
-            //'-v',
-            //'quiet',
+            '-v',
+            'warning',
             '-print_format',
             'json',
             '-show_format',
