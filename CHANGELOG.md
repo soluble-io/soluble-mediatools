@@ -7,19 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.0.0 (2019-03-??)
 
+### Improved
+
+- Improved exception and logging messages for VideoInfoReader, VideoThumbGenerator and VideoConverter.
+
 ### Added
 
 - ConfigProvider includes `Video\Logger\LoggerInterface` and `Video\Cache\CacheInterface`.
 
 ### Removed/BC
 
-
 - `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
 - `VideoInfo::getAudioBitRate(): int` -> Use `VideoInfo::getAudioStreams()->getFirst()->getBitRate()` instead.
 - `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
 - `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
 
-- Removed `Video\Config\LoggerConfigInterface` from container specs, replaced by standard factories `Video\Logger\LoggerInterface::class`;
+- Removed undocumented `Video\Config\LoggerConfigInterface` from container specs, replaced by standard factories `Video\Logger\LoggerInterface::class`;
 
 
 ## 0.9.7 (2019-03-04)

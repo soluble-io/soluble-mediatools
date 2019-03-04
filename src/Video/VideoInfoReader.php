@@ -65,8 +65,8 @@ class VideoInfoReader implements VideoInfoReaderInterface
     {
         $ffprobeCmd = [
             $this->ffprobeConfig->getBinary(),
-            '-v',
-            'quiet',
+            //'-v',
+            //'quiet',
             '-print_format',
             'json',
             '-show_format',
@@ -159,11 +159,10 @@ class VideoInfoReader implements VideoInfoReaderInterface
         $this->logger->log(
             ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
             sprintf(
-                'Video info retrieval failed \'%s\' with \'%s\'. "%s(%s)"',
+                'VideoInfoReader %s: \'%s\'. (%s)',
                 $exceptionNs[count($exceptionNs) - 1],
-                __METHOD__,
-                $e->getMessage(),
-                $file
+                $file,
+                $e->getMessage()
             )
         );
     }

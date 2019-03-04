@@ -75,7 +75,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::ERROR, mb_strtolower($logMsgs[0]['level_name']));
             self::assertRegExp(
-                '/^Video conversion failed(.*)ProcessFailedException(.*)"/',
+                '/^VideoConverter(.*)ProcessFailedException(.*)/',
                 $logMsgs[0]['message']
             );
         }
@@ -97,7 +97,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::WARNING, mb_strtolower($logMsgs[0]['level_name']));
             self::assertRegExp(
-                '/^Video conversion failed(.*)MissingInputFile(.*)"/',
+                '/^VideoConverter(.*)MissingInputFile(.*)/',
                 $logMsgs[0]['message']
             );
         }

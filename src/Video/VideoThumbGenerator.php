@@ -180,12 +180,11 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
             $this->logger->log(
                 ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
-                    'Video thumbnailing failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
+                    'VideoThumbGenerator %s: file \'%s\', thumbnail \'%s\'. (%s)',
                     $exceptionNs[count($exceptionNs) - 1],
-                    __METHOD__,
-                    $e->getMessage(),
                     $videoFile,
-                    $thumbnailFile
+                    $thumbnailFile,
+                    $e->getMessage()
                 )
             );
             throw $e;

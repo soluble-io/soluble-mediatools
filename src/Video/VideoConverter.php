@@ -135,12 +135,11 @@ class VideoConverter implements VideoConverterInterface
             $this->logger->log(
                 ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
                 sprintf(
-                    'Video conversion failed \'%s\' with \'%s\'. "%s(%s, %s,...)"',
+                    'VideoConverter %s: \'%s\' to \'%s\'. (%s)',
                     $exceptionNs[count($exceptionNs) - 1],
-                    __METHOD__,
-                    $e->getMessage(),
                     $inputFile,
-                    $outputFile instanceof UnescapedFileInterface ? $outputFile->getFile() : $outputFile
+                    $outputFile instanceof UnescapedFileInterface ? $outputFile->getFile() : $outputFile,
+                    $e->getMessage()
                 )
             );
             throw $e;

@@ -33,10 +33,20 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
             $code = 1;
         }
 
-        $msg = $message ?? $previousException->getMessage();
+        if ($message === null) {
+            $errOutput = $process->isStarted() ? trim($process->getErrorOutput()) : '';
+
+            $message = sprintf(
+                '%s, exit %s: %s (%s)',
+                $process->getExitCodeText(),
+                $process->getExitCode(),
+                $process->getCommandLine(),
+                $errOutput !== '' ? $errOutput : $previousException->getMessage()
+            );
+        }
 
         parent::__construct(
-            $msg,
+            $message,
             $code ?? 1,
             $previousException
         );

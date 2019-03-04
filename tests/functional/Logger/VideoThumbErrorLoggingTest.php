@@ -76,7 +76,7 @@ class VideoThumbErrorLoggingTest extends TestCase
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::ERROR, mb_strtolower($logMsgs[0]['level_name']));
             self::assertRegExp(
-                '/^Video thumbnailing failed (.*)ProcessFailedException(.*)"/',
+                '/^VideoThumbGenerator(.*)ProcessFailedException(.*)/',
                 $logMsgs[0]['message']
             );
         }
@@ -98,7 +98,7 @@ class VideoThumbErrorLoggingTest extends TestCase
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::WARNING, mb_strtolower($logMsgs[0]['level_name']));
             self::assertRegExp(
-                '/^Video thumbnailing failed (.*)MissingInputFile(.*)"/',
+                '/^VideoThumbGenerator(.*)MissingInputFile(.*)/',
                 $logMsgs[0]['message']
             );
         }
