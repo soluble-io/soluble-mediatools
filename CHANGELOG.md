@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.0.0 (2019-03-??)
 
+### Removed
+
+- `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
+- `VideoInfo::getAudioBitRate(): int` -> Use `VideoInfo::getAudioStreams()->getFirst()->getBitRate()` instead.
+- `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
+- `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
+
+## 0.9.7 (2019-03-04)
+
 ### Improvements
 
 - Ensure input files are not empty (instead of relying on ffmpeg cli failure - speedup)
@@ -17,13 +26,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `VideoInfoReader::getInfo($file, CacheInterface $cache=null)` to allow using a specific *psr-16* cache implementaton. 
 - Specific `InvalidFFProbeJsonException` in `VideoInfoReader::getInfo()` to improve debug.
 - `VideoStream::getFps(?int $decimals=null)` to get the stream framerate.
-
-### Removed
-
-- `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
-- `VideoInfo::getAudioBitRate(): int` -> Use `VideoInfo::getAudioStreams()->getFirst()->getBitRate()` instead.
-- `VideoInfo::getVideoCodecName(): ?string` -> Use `VideoInfo::getVideoStreams()->getFirst()->getCodecName()` instead.
-- `VideoInfo::getAudioCodecName(): ?string` -> Use `VideoInfo::getAudioStreams()->getFirst()->getCodecName()` instead.
 
 ## 0.9.6 (2019-02-26)
 
