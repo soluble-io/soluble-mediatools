@@ -143,11 +143,13 @@ class VideoThumbGenerator implements VideoThumbGeneratorInterface
         try {
             try {
                 $this->ensureFileReadable($videoFile, true);
-
-                $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
-                $process->mustRun($callback);
             } catch (FileNotFoundException | FileNotReadableException | FileEmptyException $e) {
                 throw new MissingInputFileException($e->getMessage());
+            }
+
+            try {
+                $process = $this->getSymfonyProcess($videoFile, $thumbnailFile, $thumbParams, $processParams);
+                $process->mustRun($callback);
             } catch (UnsupportedParamValueException | UnsupportedParamException $e) {
                 throw new InvalidParamException($e->getMessage());
             } catch (SPException\ProcessSignaledException $e) {
