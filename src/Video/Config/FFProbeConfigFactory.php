@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Config;
 
 use Psr\Container\ContainerInterface;
+use Soluble\MediaTools\Common\Config\ContainerConfigLocator;
 use Soluble\MediaTools\Common\Config\SafeConfigReader;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
@@ -39,21 +40,7 @@ class FFProbeConfigFactory
      */
     public function __invoke(ContainerInterface $container): FFProbeConfigInterface
     {
-        try {
-            $containerConfig = $container->get($this->entryName);
-        } catch (\Throwable $e) {
-            throw new InvalidConfigException(
-                sprintf('Cannot resolve container entry \'%s\' ($entryName).', $this->entryName)
-            );
-        }
-
-        $config = $this->configKey === null ? $containerConfig : ($containerConfig[$this->configKey] ?? null);
-
-        if (!is_array($config)) {
-            throw new InvalidConfigException(
-                sprintf('Cannot find a configuration ($entryName=%s found, invalid $configKey=%s).', $this->entryName, $this->configKey)
-            );
-        }
+        $config = (new ContainerConfigLocator($container, $this->entryName))->getConfig($this->configKey);
 
         $scr = new SafeConfigReader($config, $this->configKey ?: '');
 

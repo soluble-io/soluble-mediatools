@@ -40,17 +40,5 @@ return [
         'ffprobe.idle_timeout'  => null,       // <null>: no idle timeout, <number>: number of seconds of inactivity before timing-out
         'ffprobe.env'           => [],         // An array of additional env vars to set when running the ffprobe
 
-        /*
-        |--------------------------------------------------------------------------
-        | Infrastructure
-        |--------------------------------------------------------------------------
-        |
-        | psr logger and cache factory classes (must be registered in container)
-        |
-        */
-
-        'logger.factory'       => null,
-        'cache.factory'        => null,
-
     ],
 ];

@@ -9,11 +9,16 @@ declare(strict_types=1);
  * @license   https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md MIT
  */
 
-namespace Soluble\MediaTools\Video\Config;
+namespace Soluble\MediaTools\Video\Logger;
 
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-interface LoggerConfigInterface
+class NullLoggerFactory
 {
-    public function getLogger(): LoggerInterface;
+    public function __invoke(ContainerInterface $container): LoggerInterface
+    {
+        return new NullLogger();
+    }
 }

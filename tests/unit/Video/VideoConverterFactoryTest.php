@@ -14,10 +14,8 @@ namespace MediaToolsTest\Video;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
-use Soluble\MediaTools\Video\Config\LoggerConfigInterface;
 use Soluble\MediaTools\Video\VideoConverterFactory;
 
 class VideoConverterFactoryTest extends TestCase
@@ -30,18 +28,13 @@ class VideoConverterFactoryTest extends TestCase
 
     public function testWithTestLogger(): void
     {
-        $logger = new class() implements LoggerConfigInterface {
-            public function getLogger(): LoggerInterface
-            {
-                return new NullLogger();
-            }
-        };
+        $logger = new NullLogger();
 
         $ffmpegConfig = $this->prophesize(FFMpegConfigInterface::class);
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->has(LoggerConfigInterface::class)->willReturn(true);
-        $container->get(LoggerConfigInterface::class)->willReturn($logger);
+        $container->has(\Soluble\MediaTools\Video\Logger\LoggerInterface::class)->willReturn(true);
+        $container->get(\Soluble\MediaTools\Video\Logger\LoggerInterface::class)->willReturn($logger);
         $container->get(FFMpegConfigInterface::class)->willReturn($ffmpegConfig->reveal());
 
         $videoConverter = new VideoConverterFactory();

@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Config;
 
+use Soluble\MediaTools\Video\Logger\LoggerInterface;
+use Soluble\MediaTools\Video\Logger\NullLoggerFactory;
 use Soluble\MediaTools\Video\VideoAnalyzer;
 use Soluble\MediaTools\Video\VideoAnalyzerFactory;
 use Soluble\MediaTools\Video\VideoAnalyzerInterface;
@@ -86,7 +88,7 @@ class ConfigProvider
             VideoThumbGeneratorInterface::class => VideoThumbGeneratorFactory::class,
 
             // Logger
-            //LoggerConfigInterface::class    => <Factory to create / too much choice>
+            LoggerInterface::class       => NullLoggerFactory::class,
         ];
     }
 
