@@ -93,7 +93,8 @@
     },
     "suggest": {
         "monolog/monolog": "PSR-3 compatible logger",
-        "symfony/cache": "PSR-6/16 compatible cache"
+        "symfony/cache": "PSR-6/16 compatible cache",
+        "cache/simple-cache-bridge": "Useful if you already have a PSR-6 implementation"
     },
     "archive": {
         "exclude": [".travis", "infection.json", ".sami.php", "phpstan.neon", "tests", "docs", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
