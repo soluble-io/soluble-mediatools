@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.0.0 (2019-03-??)
 
+### Added
+
+- ConfigProvider includes `Video\Logger\LoggerInterface` and `Video\Cache\CacheInterface`.
+
 ### Removed/BC
 
 

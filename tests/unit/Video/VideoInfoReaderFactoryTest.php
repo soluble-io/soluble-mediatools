@@ -15,7 +15,10 @@ use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Log\NullLogger;
+use Soluble\MediaTools\Common\Cache\NullCache;
+use Soluble\MediaTools\Video\Cache\CacheInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
+use Soluble\MediaTools\Video\Logger\LoggerInterface;
 use Soluble\MediaTools\Video\VideoInfoReaderFactory;
 
 class VideoInfoReaderFactoryTest extends TestCase
@@ -29,12 +32,16 @@ class VideoInfoReaderFactoryTest extends TestCase
     public function testWithTestLogger(): void
     {
         $logger = new NullLogger();
+        $cache  = new NullCache();
 
         $ffprobeConfig = $this->prophesize(FFProbeConfigInterface::class);
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->has(\Soluble\MediaTools\Video\Logger\LoggerInterface::class)->willReturn(true);
-        $container->get(\Soluble\MediaTools\Video\Logger\LoggerInterface::class)->willReturn($logger);
+        $container->has(LoggerInterface::class)->willReturn(true);
+        $container->get(LoggerInterface::class)->willReturn($logger);
+        $container->has(CacheInterface::class)->willReturn(true);
+        $container->get(CacheInterface::class)->willReturn($cache);
+
         $container->get(FFProbeConfigInterface::class)->willReturn($ffprobeConfig->reveal());
 
         $videoConverter = new VideoInfoReaderFactory();

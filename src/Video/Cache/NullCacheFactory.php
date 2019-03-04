@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @license   https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md MIT
  */
 
-namespace Soluble\MediaTools\Video\Logger;
+namespace Soluble\MediaTools\Video\Cache;
 
 use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;

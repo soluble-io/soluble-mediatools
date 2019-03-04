@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Config;
 
+use Soluble\MediaTools\Video\Cache\CacheInterface;
+use Soluble\MediaTools\Video\Cache\NullCacheFactory;
 use Soluble\MediaTools\Video\Logger\LoggerInterface;
 use Soluble\MediaTools\Video\Logger\NullLoggerFactory;
 use Soluble\MediaTools\Video\VideoAnalyzer;
@@ -87,8 +89,9 @@ class ConfigProvider
             VideoAnalyzerInterface::class       => VideoAnalyzerFactory::class,
             VideoThumbGeneratorInterface::class => VideoThumbGeneratorFactory::class,
 
-            // Logger
+            // Infrastructure
             LoggerInterface::class       => NullLoggerFactory::class,
+            CacheInterface::class        => NullCacheFactory::class,
         ];
     }
 

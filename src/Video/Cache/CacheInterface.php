@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\MediaTools\Video\Logger;
+namespace Soluble\MediaTools\Video\Cache;
 
 interface CacheInterface
 {
