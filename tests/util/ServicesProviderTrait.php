@@ -110,7 +110,6 @@ trait ServicesProviderTrait
             'soluble-mediatools' => [
                 'ffmpeg.binary'          => $ffmpegBinary,
                 'ffprobe.binary'         => $ffprobeBinary,
-                'logger.service_factory' => \Soluble\MediaTools\Video\Logger\NullLoggerFactory::class,
             ],
         ];
 
