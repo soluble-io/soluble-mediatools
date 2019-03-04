@@ -37,4 +37,9 @@ class ConfigProviderTest extends TestCase
         self::assertArrayHasKey('ffmpeg.binary', $defaultConfig['soluble-mediatools']);
         self::assertArrayHasKey('ffprobe.binary', $defaultConfig['soluble-mediatools']);
     }
+
+    public function testGetDefaultConfiguration(): void {
+        $config = ConfigProvider::getDefaultConfiguration();
+        self::assertArrayHasKey('soluble-mediatools', $config);
+    }
 }

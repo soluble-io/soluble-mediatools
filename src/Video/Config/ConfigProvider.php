@@ -93,8 +93,18 @@ class ConfigProvider
     /**
      * @return array<string, array<string,mixed>>
      */
-    public function getDefaultConfiguration(): array
+    public static function getDefaultConfiguration(): array
     {
-        return require dirname(__DIR__, 3) . '/config/soluble-mediatools.config.php';
+        $baseDir = dirname(__DIR__, 3);
+        if (!is_dir($baseDir)) {
+            throw new \RuntimeException(sprintf(
+                'Cannot locate library directory: %s', $baseDir
+            ));
+        }
+        $config = implode(DIRECTORY_SEPARATOR, [$baseDir, 'config', 'soluble-mediatools.config.php']);
+        if (!is_file($config) || !is_readable($config)) {
+            throw new \RuntimeException(sprintf('Missing project default configuration: %s', $config));
+        }
+        return require $config;
     }
 }
