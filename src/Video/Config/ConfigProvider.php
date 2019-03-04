@@ -98,13 +98,15 @@ class ConfigProvider
         $baseDir = dirname(__DIR__, 3);
         if (!is_dir($baseDir)) {
             throw new \RuntimeException(sprintf(
-                'Cannot locate library directory: %s', $baseDir
+                'Cannot locate library directory: %s',
+                $baseDir
             ));
         }
         $config = implode(DIRECTORY_SEPARATOR, [$baseDir, 'config', 'soluble-mediatools.config.php']);
         if (!is_file($config) || !is_readable($config)) {
             throw new \RuntimeException(sprintf('Missing project default configuration: %s', $config));
         }
+
         return require $config;
     }
 }

@@ -31,15 +31,9 @@ class ConfigProviderTest extends TestCase
 
     public function testMustReturnDefaultConfiguration(): void
     {
-        $configProvider = new ConfigProvider();
-        $defaultConfig  = $configProvider->getDefaultConfiguration();
+        $defaultConfig  = ConfigProvider::getDefaultConfiguration();
         self::assertArrayHasKey('soluble-mediatools', $defaultConfig);
         self::assertArrayHasKey('ffmpeg.binary', $defaultConfig['soluble-mediatools']);
         self::assertArrayHasKey('ffprobe.binary', $defaultConfig['soluble-mediatools']);
-    }
-
-    public function testGetDefaultConfiguration(): void {
-        $config = ConfigProvider::getDefaultConfiguration();
-        self::assertArrayHasKey('soluble-mediatools', $config);
     }
 }
