@@ -56,7 +56,7 @@ class VideoInfoReaderTest extends TestCase
         self::assertEquals(320, $videoInfo->getVideoStreams()->getFirst()->getWidth());
         self::assertEquals(180, $videoInfo->getVideoStreams()->getFirst()->getHeight());
         self::assertEquals(['width' => 320, 'height' => 180], $videoInfo->getVideoStreams()->getFirst()->getDimensions());
-        self::assertContains('mp4', $videoInfo->getFormatName());
+        self::assertStringContainsString('mp4', $videoInfo->getFormatName());
         self::assertEquals(2, $videoInfo->countStreams());
 
         ['width' => $width, 'height' => $height] = $videoInfo->getVideoStreams()->getFirst()->getDimensions();

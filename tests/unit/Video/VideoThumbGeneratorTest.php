@@ -58,8 +58,8 @@ class VideoThumbGeneratorTest extends TestCase
         $cmdLine = str_replace("'", '', $process->getCommandLine());
 
         // Note that we did 2 -1
-        self::assertContains(' -filter:v select=eq(n\,1) ', $cmdLine);
-        self::assertContains('/path/output.jpg', $cmdLine);
+        self::assertStringContainsString(' -filter:v select=eq(n\,1) ', $cmdLine);
+        self::assertStringContainsString('/path/output.jpg', $cmdLine);
     }
 
     public function testGetSymfonyProcessWithFrame0(): void
@@ -76,8 +76,8 @@ class VideoThumbGeneratorTest extends TestCase
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
 
-        self::assertContains(' -filter:v select=eq(n\,0) ', $cmdLine);
-        self::assertContains('/path/output.jpg', $cmdLine);
+        self::assertStringContainsString(' -filter:v select=eq(n\,0) ', $cmdLine);
+        self::assertStringContainsString('/path/output.jpg', $cmdLine);
     }
 
     public function testGetSymfonyProcessWithTime(): void
@@ -94,8 +94,8 @@ class VideoThumbGeneratorTest extends TestCase
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
 
-        self::assertContains(' -ss 0:00:01.234 ', $cmdLine);
-        self::assertContains('/path/output.jpg', $cmdLine);
+        self::assertStringContainsString(' -ss 0:00:01.234 ', $cmdLine);
+        self::assertStringContainsString('/path/output.jpg', $cmdLine);
     }
 
     public function testGetSymfonyProcessWithFrameAndFiltersAndQScale(): void
@@ -117,7 +117,7 @@ class VideoThumbGeneratorTest extends TestCase
 
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
-        self::assertContains(' -filter:v select=eq(n\,1),hqdn3d,nlmeans -qscale:v 3 ', $cmdLine);
+        self::assertStringContainsString(' -filter:v select=eq(n\,1),hqdn3d,nlmeans -qscale:v 3 ', $cmdLine);
     }
 
     public function testGetSymfonyProcessWithEmptyFilterChain(): void
@@ -137,6 +137,6 @@ class VideoThumbGeneratorTest extends TestCase
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
 
-        self::assertNotContains(' -filter:v ', $cmdLine);
+        self::assertStringNotContainsStringIgnoringCase(' -filter:v ', $cmdLine);
     }
 }

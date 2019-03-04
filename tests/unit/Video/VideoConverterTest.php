@@ -74,23 +74,23 @@ class VideoConverterTest extends TestCase
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
 
-        self::assertContains(' -c:v libvpx-vp9 ', $cmdLine);
-        self::assertContains(' -b:v 200k ', $cmdLine);
-        self::assertContains(' -maxrate 250000', $cmdLine);
-        self::assertContains(' -minrate 150k ', $cmdLine);
-        self::assertContains(' -c:a libopus ', $cmdLine);
-        self::assertContains(' -b:a 96k ', $cmdLine);
-        self::assertContains(' -filter:v yadif=mode=0:parity=-1:deint=0,hqdn3d,nlmeans ', $cmdLine);
-        self::assertContains(' -threads 12 ', $cmdLine);
-        self::assertContains(' -speed 8 ', $cmdLine);
-        self::assertContains(' -g 240 ', $cmdLine);
-        self::assertContains(' -tile-columns 1 ', $cmdLine);
-        self::assertContains(' -frame-parallel 1', $cmdLine);
-        self::assertContains(' -pix_fmt yuv420p ', $cmdLine);
-        self::assertContains(' -f webm ', $cmdLine);
-        self::assertContains(' -ss 0:00:01.0 ', $cmdLine);
-        self::assertContains(' -frames:v 200 ', $cmdLine);
-        self::assertContains('/path/output', $cmdLine);
+        self::assertStringContainsString(' -c:v libvpx-vp9 ', $cmdLine);
+        self::assertStringContainsString(' -b:v 200k ', $cmdLine);
+        self::assertStringContainsString(' -maxrate 250000', $cmdLine);
+        self::assertStringContainsString(' -minrate 150k ', $cmdLine);
+        self::assertStringContainsString(' -c:a libopus ', $cmdLine);
+        self::assertStringContainsString(' -b:a 96k ', $cmdLine);
+        self::assertStringContainsString(' -filter:v yadif=mode=0:parity=-1:deint=0,hqdn3d,nlmeans ', $cmdLine);
+        self::assertStringContainsString(' -threads 12 ', $cmdLine);
+        self::assertStringContainsString(' -speed 8 ', $cmdLine);
+        self::assertStringContainsString(' -g 240 ', $cmdLine);
+        self::assertStringContainsString(' -tile-columns 1 ', $cmdLine);
+        self::assertStringContainsString(' -frame-parallel 1', $cmdLine);
+        self::assertStringContainsString(' -pix_fmt yuv420p ', $cmdLine);
+        self::assertStringContainsString(' -f webm ', $cmdLine);
+        self::assertStringContainsString(' -ss 0:00:01.0 ', $cmdLine);
+        self::assertStringContainsString(' -frames:v 200 ', $cmdLine);
+        self::assertStringContainsString('/path/output', $cmdLine);
     }
 
     public function testGetSymfonyProcessMustThrowExceptionOnWrongOutput(): void
@@ -127,7 +127,7 @@ class VideoConverterTest extends TestCase
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = $process->getCommandLine();
 
-        self::assertContains('/a n/un \'\\\'\'escaped/file\'', $cmdLine);
+        self::assertStringContainsString('/a n/un \'\\\'\'escaped/file\'', $cmdLine);
     }
 
     public function testGetSymfonyProcessMustDefaultToConfigThreads(): void
@@ -145,7 +145,7 @@ class VideoConverterTest extends TestCase
         // We test on unescaped command argument (because it's more convenient)
         $cmdLine = str_replace("'", '', $process->getCommandLine());
 
-        self::assertContains(' -threads 3 ', $cmdLine);
+        self::assertStringContainsString(' -threads 3 ', $cmdLine);
 
         // If null threads nothing must be set in cli
 
@@ -159,6 +159,6 @@ class VideoConverterTest extends TestCase
 
         $cmdLine = $process->getCommandLine();
 
-        self::assertNotContains(' -threads ', $cmdLine);
+        self::assertStringNotContainsStringIgnoringCase(' -threads ', $cmdLine);
     }
 }
