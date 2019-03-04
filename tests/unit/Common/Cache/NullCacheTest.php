@@ -33,7 +33,7 @@ class NullCacheTest extends TestCase
         $items   = $cache->getMultiple($keys, $default);
         $count   = 0;
         foreach ($items as $key => $item) {
-            self::assertContains($key, $keys, 'Cache key can not change.');
+            self::assertTrue(in_array($key, $keys, true), 'Cache key can not change.');
             self::assertSame($default, $item);
             // Remove $key for $keys
             foreach ($keys as $k => $v) {
