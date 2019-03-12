@@ -23,9 +23,9 @@ class AspectRatioTest extends TestCase
 
     public function testConstruct(): void
     {
-        $sep = AspectRatio::DEFAULT_PROPORTION_SEPARATOR;
-        $ar  = new AspectRatio(16, 9, $sep);
-        self::assertEquals("16${sep}9", $ar->__toString());
+        $defaultSep = AspectRatio::DEFAULT_PROPORTION_SEPARATOR;
+        $ar         = new AspectRatio(16, 9, $defaultSep);
+        self::assertEquals("16${defaultSep}9", $ar->__toString());
 
         $sep = '/';
         $ar  = new AspectRatio(16, 9, $sep);
@@ -43,6 +43,7 @@ class AspectRatioTest extends TestCase
 
         $ar = new AspectRatio(16, 9, $sep);
         self::assertEquals("16${sep}9", $ar->getString($sep, 2));
+        self::assertEquals("16${sep}9", $ar->getString());
     }
 
     public function testGetXY(): void

@@ -63,19 +63,19 @@ class AspectRatio
         return new self((float) $x, (float) $y);
     }
 
-    public function getString(string $separator = self::DEFAULT_PROPORTION_SEPARATOR, ?int $maxDecimals = null): string
+    public function getString(?string $separator = null, ?int $maxDecimals = null): string
     {
         return sprintf(
             '%s%s%s',
             $this->getFloatAsString($this->x, $maxDecimals),
-            $this->separator,
+            $separator ?? $this->separator,
             $this->getFloatAsString($this->y, $maxDecimals)
         );
     }
 
     public function __toString(): string
     {
-        return $this->getString(self::DEFAULT_PROPORTION_SEPARATOR);
+        return $this->getString();
     }
 
     private function getFloatAsString(float $number, ?int $maxDecimals = null): string

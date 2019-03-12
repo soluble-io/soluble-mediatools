@@ -12,12 +12,12 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Logger;
 
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 use Psr\Log\NullLogger;
 
 class NullLoggerFactory
 {
-    public function __invoke(ContainerInterface $container): LoggerInterface
+    public function __invoke(ContainerInterface $container): PsrLoggerInterface
     {
         return new NullLogger();
     }

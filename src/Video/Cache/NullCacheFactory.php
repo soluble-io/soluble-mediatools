@@ -12,12 +12,12 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video\Cache;
 
 use Psr\Container\ContainerInterface;
-use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 use Soluble\MediaTools\Common\Cache\NullCache;
 
 class NullCacheFactory
 {
-    public function __invoke(ContainerInterface $container): CacheInterface
+    public function __invoke(ContainerInterface $container): PsrCacheInterface
     {
         return new NullCache();
     }
