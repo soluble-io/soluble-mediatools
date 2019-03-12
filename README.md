@@ -21,7 +21,7 @@ To help starting, the documentation includes a lot of examples and snippets you
 can easily try and tune later. Check also [alternatives](./README.md#alternatives) wrappers
 for ffmpeg, they are good and sometimes offer more magic if you're looking for it.
     
-On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
+On another side, it likes [PSR](https://www.php-fig.org/psr/) (psr-log, psr-container, psr-simplecache), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize
 *(SOLID friendly)*. Last but not least, all services accepts a `LoggerInterface` one more reason to
 prefer it from a simple command-line.  
