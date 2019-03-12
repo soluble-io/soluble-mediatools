@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixes
 
 - Minor, aspect ratio __toString(), return with separator from constructor instead of default.
-- Minor, use alias for psr interfaces in logger and cache
+- Minor, use alias for psr interfaces in logger and cache to prevent accidental collisions.
 
 ## 1.0.0 (2019-03-12)
 
