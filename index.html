@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
     
     
       
@@ -112,7 +112,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#status" tabindex="1" class="md-skip">
+      <a href="#requirements" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -270,13 +270,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#status" title="Status" class="md-nav__link">
-    Status
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#requirements" title="Requirements" class="md-nav__link">
     Requirements
   </a>
@@ -306,13 +299,6 @@
         <li class="md-nav__item">
   <a href="#alternatives" title="Alternatives" class="md-nav__link">
     Alternatives
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
-    Project philosophy
   </a>
   
 </li>
@@ -443,13 +429,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#status" title="Status" class="md-nav__link">
-    Status
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#requirements" title="Requirements" class="md-nav__link">
     Requirements
   </a>
@@ -479,13 +458,6 @@
         <li class="md-nav__item">
   <a href="#alternatives" title="Alternatives" class="md-nav__link">
     Alternatives
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-philosophy" title="Project philosophy" class="md-nav__link">
-    Project philosophy
   </a>
   
 </li>
@@ -534,11 +506,8 @@ with clear exception messages and ensure that substitution is possible when you 
 Last but not least, all services accepts a <code>LoggerInterface</code> one more reason to
 prefer it from a simple command-line.</p>
 <p>Under the hood, it relies on the battle-tested <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a>, its only dependency.      </p>
-<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
-<p>Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
-tests to ensure a smooth experience. But <strong>this project is young</strong> and would ❤️ to meet new contributors !</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
-<p>A PHP version &gt;= 7.1 and depending on required services: ffmpeg and ffprobe.</p>
+<p>A PHP version &gt;= 7.1 and depending on required services: ffmpeg and/or ffprobe.</p>
 <h2 id="features-at-a-glance">Features at a glance<a class="headerlink" href="#features-at-a-glance" title="Permanent link">&para;</a></h2>
 <h3 id="video-services">Video services<a class="headerlink" href="#video-services" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
@@ -574,13 +543,26 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
     <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span> <span class="c1">// a quick taste    </span>
 <span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
 
-<span class="hll"><span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
-</span>
-<span class="hll"><span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-</span><span class="hll"><span class="nv">$frames</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
-</span><span class="hll"><span class="nv">$width</span>    <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
-</span><span class="hll"><span class="nv">$height</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
-</span></pre></div></li>
+<span class="hll"><span class="k">try</span> <span class="p">{</span>
+</span>    <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="hll"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">    <span class="c1">// Break here</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="c1">// Total duration</span>
+</span><span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>        
+<span class="c1">// ffprobe format: i.e &#39;mov,mp4,m4a,3gp,3g2,mj2&#39;</span>
+<span class="nv">$format</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFormatName</span><span class="p">();</span>
+
+<span class="c1">// Iterable video streams</span>
+<span class="nv">$videoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
+
+<span class="k">echo</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span>
+
+<span class="nv">$audioStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">AudioStreams</span><span class="p">();</span>
+
+<span class="c1">// ...</span>
+</pre></div></li>
 </ul>
 </li>
 <li class="task-list-item">
@@ -624,44 +606,6 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
 <li><a href="https://github.com/PHP-FFMpeg/PHP-FFMpeg">https://github.com/PHP-FFMpeg/PHP-FFMpeg</a></li>
 <li><a href="https://github.com/char0n/ffmpeg-php">https://github.com/char0n/ffmpeg-php</a> </li>
 </ul>
-<h2 id="project-philosophy">Project philosophy<a class="headerlink" href="#project-philosophy" title="Permanent link">&para;</a></h2>
-<details class="info" open="open"><summary>Note for developers</summary><ul>
-<li>
-<p>Mediatools is an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md">opensource</a> PHP 7.1+ library and <img alt="❤" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/2764.svg" title=":heart:" /> pull requests and <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md">contributors</a>.     </p>
-</li>
-<li>
-<p>Mediatools will preferably use PSR standards. It currently allows injection of 
-  any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
-  (PSR-7 for video thumbnailing is under consideration).     </p>
-</li>
-<li>
-<p>Mediatools likes chainability when possible, but completely forbid the use of fluent interfaces in favour
-  of immutable api (like PSR-7).  </p>
-</li>
-<li>
-<p>Customization can generally be done easily as the project try to respect subsitution 
-  principles as much as possible. In most cases, you can swap implementations as you like.</p>
-</li>
-<li>
-<p>Mediatools versions adheres to <a href="http://semver.org/">semantic versioning</a>. 
-  No bc-break outside of major version releases and we keep a <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md">changelog</a>.  </p>
-</li>
-<li>
-<p>Quality assurance is guaranteed through unit and integration/functional tests, 
-  <a href="https://github.com/phpstan/phpstan">phpstan</a> and some php-cs sniffs. 
-  Travis is used as continuous integration server.  </p>
-</li>
-<li>
-<p>Mediatools is currently released as a monolithic repository, but once more
-  diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
-  can be easily split into multiple repositories without affecting existing projects.</p>
-</li>
-<li>
-<p>Note that information and thumbnail services can be used in realtime but conversions should be 
-  used with a job queue. Conversions are heavy.    </p>
-</li>
-</ul>
-</details>
                 
                   
                 
@@ -728,7 +672,7 @@ tests to ensure a smooth experience. But <strong>this project is young</strong> 
       
     </div>
     
-      <script src="assets/javascripts/application.b806dc00.js"></script>
+      <script src="assets/javascripts/application.d9aa80ab.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       

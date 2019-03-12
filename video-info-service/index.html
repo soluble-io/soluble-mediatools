@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
     
     
       
@@ -512,9 +512,11 @@
 <span class="nv">$videoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$video</span> <span class="o">=</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+    <span class="nv">$video</span> <span class="o">=</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span> 
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// i.e: 24</span>
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$roundedDecimals</span><span class="o">=</span><span class="k">null</span><span class="p">);</span> 
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
@@ -531,6 +533,13 @@
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedWidth</span><span class="p">();</span>
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedHeight</span><span class="p">();</span>
     <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getRFrameRate</span><span class="p">();</span>
+
+    <span class="nv">$aspectRatio</span> <span class="o">=</span> <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getAspectRatio</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$aspectRatio</span> <span class="o">!==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">();</span> <span class="c1">// &#39;16:9&#39;</span>
+        <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getX</span><span class="p">();</span> <span class="c1">// float</span>
+        <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getY</span><span class="p">();</span> <span class="c1">// float</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
 
@@ -889,7 +898,7 @@ wondering what it is, have a look to an example with ffprobe 4.0.</p>
       
     </div>
     
-      <script src="../assets/javascripts/application.b806dc00.js"></script>
+      <script src="../assets/javascripts/application.d9aa80ab.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
