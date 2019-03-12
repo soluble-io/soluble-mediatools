@@ -76,7 +76,7 @@ class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
             if (!$filter instanceof VideoFilterInterface) {
                 throw new InvalidArgumentException(sprintf(
                     'Cannot add filter \'%s\', it must not implement %s',
-                    is_object($filter) ? get_class($filter) : gettype($filter),
+                    gettype($filter) === 'object' ? get_class($filter) : gettype($filter),
                     VideoFilterInterface::class
                 ));
             }

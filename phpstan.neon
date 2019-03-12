@@ -9,6 +9,7 @@ parameters:
 		- dist
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
+
 		# for covariance allowed failures
 		-
 			message: '#Return type(.*)RuntimeException(.*)of method(.*)should be covariant#'
