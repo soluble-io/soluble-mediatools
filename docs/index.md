@@ -80,7 +80,7 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and/or ffprobe.
                 
         echo $videoStreams->getFirst()->getCodecName();
         
-        $audioStreams = $videoInfo->AudioStreams();
+        $audioStreams = $videoInfo->getAudioStreams();
         
         // ...
                 
