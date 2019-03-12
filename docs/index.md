@@ -27,14 +27,9 @@ prefer it from a simple command-line.
 
 Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.      
 
-## Status
-
-Not yet 1.0 but what's documented works pretty well ;) Travis runs unit and integration/functional 
-tests to ensure a smooth experience. But **this project is young** and would ❤️ to meet new contributors !
-
 ## Requirements
 
-A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
+A PHP version >= 7.1 and depending on required services: ffmpeg and/or ffprobe.
 
 ## Features at a glance
 
@@ -69,12 +64,26 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
         <?php // a quick taste    
         $infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
         
-        $videoInfo = $infoReader->getInfo('/path/video.mp4');
+        try {
+            $videoInfo = $infoReader->getInfo('/path/video.mp4');
+        } catch (InfoReaderExceptionInterface $e) {
+            // Break here
+        }
         
-        $duration = $videoInfo->getDuration();
-        $frames   = $videoInfo->getNbFrames();
-        $width    = $videoInfo->getWidth();
-        $height   = $videoInfo->getHeight();
+        // Total duration
+        $duration = $videoInfo->getDuration();        
+        // ffprobe format: i.e 'mov,mp4,m4a,3gp,3g2,mj2'
+        $format   = $videoInfo->getFormatName();
+        
+        // Iterable video streams
+        $videoStreams = $videoInfo->getVideoStreams();
+                
+        echo $videoStreams->getFirst()->getCodecName();
+        
+        $audioStreams = $videoInfo->AudioStreams();
+        
+        // ...
+                
         ```  
 
 - [x] **VideoThumbGenerator** ([doc here](./video-thumb-service.md))
@@ -113,37 +122,5 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and ffprobe.
 
 - [https://github.com/PHP-FFMpeg/PHP-FFMpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg)
 - [https://github.com/char0n/ffmpeg-php](https://github.com/char0n/ffmpeg-php) 
-
-
-## Project philosophy
-
-???+ Info "Note for developers"
-    
-    - Mediatools is an [opensource](https://github.com/soluble-io/soluble-mediatools/blob/master/LICENSE.md) PHP 7.1+ library and :heart: pull requests and [contributors](https://github.com/soluble-io/soluble-mediatools/blob/master/CONTRIBUTING.md).     
-    
-    - Mediatools will preferably use PSR standards. It currently allows injection of 
-      any PSR-3 compatible logger and provides integrations for PSR-11 container interface.
-      (PSR-7 for video thumbnailing is under consideration).     
-    
-    - Mediatools likes chainability when possible, but completely forbid the use of fluent interfaces in favour
-      of immutable api (like PSR-7).  
-    
-    - Customization can generally be done easily as the project try to respect subsitution 
-      principles as much as possible. In most cases, you can swap implementations as you like.
-      
-    - Mediatools versions adheres to [semantic versioning](http://semver.org/). 
-      No bc-break outside of major version releases and we keep a [changelog](https://github.com/soluble-io/soluble-mediatools/blob/master/CHANGELOG.md).  
-      
-    - Quality assurance is guaranteed through unit and integration/functional tests, 
-      [phpstan](https://github.com/phpstan/phpstan) and some php-cs sniffs. 
-      Travis is used as continuous integration server.  
-        
-    - Mediatools is currently released as a monolithic repository, but once more
-      diverse services exists (image optimisation, resizing, subtitles conversion...) the architecture
-      can be easily split into multiple repositories without affecting existing projects.
-      
-    - Note that information and thumbnail services can be used in realtime but conversions should be 
-      used with a job queue. Conversions are heavy.    
-
 
 

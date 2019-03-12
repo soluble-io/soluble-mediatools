@@ -28,11 +28,6 @@ prefer it from a simple command-line.
 
 Under the hood, it relies on the battle-tested [symfony/process](https://symfony.com/doc/current/components/process.html), its only dependency.
      
-## Status
-
-Not yet 1.0 but what is documented works pretty well ;) Travis runs unit and integration/functional 
-tests to ensure a smooth experience. But **this project is young** and would ❤️ to meet new contributors !
-
 ## Documentation 
 
 All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://soluble-io.github.io/soluble-mediatools/)**
@@ -105,6 +100,7 @@ $duration = $videoInfo->getDuration(); // total duration
 $format   = $videoInfo->getFormatName(); // container format: mkv, mp4
 
 try {
+    // VideoStreams is iterable
     $video   = $videoInfo->getVideoStreams()->getFirst();
     $codec   = $video->getCodecName(); // i.e: vp9
     $fps     = $video->getFps($decimals=0); // i.e: 24
