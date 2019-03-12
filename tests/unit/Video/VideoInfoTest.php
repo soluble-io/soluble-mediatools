@@ -139,58 +139,10 @@ class VideoInfoTest extends TestCase
         $vi->getVideoStreams();
     }
 
-    public function testGetNbFrames(): void
-    {
-        $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
-        self::assertSame(1113, $vi->getNbFrames());
-
-        // Non existent video stream
-        self::assertSame(0, $vi->getNbFrames(2));
-    }
-
-    public function testGetDimensions(): void
-    {
-        $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
-        self::assertSame(['width' => 320, 'height' => 180], $vi->getDimensions());
-    }
-
-    public function testGetWidthAndHeight(): void
-    {
-        $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
-        self::assertEquals(320, $vi->getWidth());
-        self::assertEquals(180, $vi->getHeight());
-
-        // with stream that does not exists
-        self::assertEquals(0, $vi->getHeight(2));
-        self::assertEquals(0, $vi->getWidth(2));
-    }
-
     public function testGetMetadata(): void
     {
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
         self::assertSame(self::getExampleFFProbeData(), $vi->getMetadata());
-    }
-
-    public function testGetAudioVideoBitRate(): void
-    {
-        $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
-        self::assertEquals(39933, $vi->getVideoBitrate());
-        self::assertEquals(84255, $vi->getAudioBitrate());
-
-        // with streams that does not exists
-        self::assertEquals(0, $vi->getVideoBitrate(2));
-        self::assertEquals(0, $vi->getAudioBitrate(2));
-    }
-
-    public function testGetAudioVideoCodecName(): void
-    {
-        $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
-        self::assertEquals('h264', $vi->getVideoCodecName());
-        self::assertEquals('aac', $vi->getAudioCodecName());
-
-        // with streams that does not exists
-        self::assertNull($vi->getVideoCodecName(2));
-        self::assertNull($vi->getAudioCodecName(2));
     }
 
     public function testGetFormatName(): void

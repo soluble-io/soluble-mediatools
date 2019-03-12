@@ -114,7 +114,9 @@ class VideoThumbGeneratorTest extends TestCase
             unlink($outputFile);
         }
 
-        $nbFrames = $this->infoService->getInfo($this->videoFile)->getNbFrames();
+        $nbFrames = $this->infoService->getInfo($this->videoFile)->getVideoStreams()->getFirst()->getNbFrames();
+
+        self::assertNotNull($nbFrames);
 
         $this->thumbService->makeThumbnail(
             $this->videoFile,
