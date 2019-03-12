@@ -53,6 +53,13 @@ if (count($videoStreams->count() === 1)) {
     $video->getCodedWidth();
     $video->getCodedHeight();
     $video->getRFrameRate();
+    
+    $aspectRatio = $video->getAspectRatio();
+    if ($aspectRatio !== null) {
+        $aspectRatio->getString(); // '16:9'
+        $aspectRatio->getX(); // float
+        $aspectRatio->getY(); // float
+    }
 }
 
 

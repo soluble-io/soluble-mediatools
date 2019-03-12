@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.0 (2019-03-??)
+## 1.0.0 (2019-03-12)
 
 ### Improved
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Support for AspectRatio in VideoStreams: `VideoInfo::getVideoStreams()->getFirst()->getAspectRatio()`
 - ConfigProvider includes `Video\Logger\LoggerInterface` and `Video\Cache\CacheInterface`.
 
 ### Removed/BC

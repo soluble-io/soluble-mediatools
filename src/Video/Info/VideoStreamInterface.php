@@ -29,6 +29,13 @@ interface VideoStreamInterface extends StreamInterface
 
     public function getCodedHeight(): ?int;
 
+    /**
+     * Return (display) aspect ratio object.
+     *
+     * @see VideoStreamInterface::getDisplayAspectRatio() for the ffprobe version
+     */
+    public function getAspectRatio(): ?AspectRatio;
+
     public function getSampleAspectRatio(): ?string;
 
     public function getDisplayAspectRatio(): ?string;

@@ -51,6 +51,7 @@ class VideoStreamTest extends TestCase
 
             self::assertEquals($d['start_time'], $stream->getStartTime());
             self::assertEquals($d['display_aspect_ratio'], $stream->getDisplayAspectRatio());
+
             self::assertEquals($d['duration'], $stream->getDuration());
             self::assertEquals($d['duration_ts'] ?? null, $stream->getDurationTs());
             self::assertEquals($d['height'], $stream->getHeight());
@@ -66,6 +67,13 @@ class VideoStreamTest extends TestCase
             self::assertEquals(($d['is_avc'] ?? null) === 'true', $stream->isAvc());
 
             self::assertEquals($d, $stream->getStreamMetadata());
+
+            // Check aspect ratio
+            $ar = $stream->getAspectRatio();
+            self::assertNotNull($ar);
+            self::assertEquals(16, $ar->getX());
+            self::assertEquals(9, $ar->getY());
+            self::assertEquals('16:9', $ar->getString(':'));
         }
     }
 
