@@ -10,19 +10,13 @@ class AspectRatio
 {
     public const DEFAULT_PROPORTION_SEPARATOR = ':';
 
-    /**
-     * @var float
-     */
+    /** @var float */
     private $x;
 
-    /**
-     * @var float
-     */
+    /** @var float */
     private $y;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $separator;
 
     public function __construct(float $x, float $y, string $separator = self::DEFAULT_PROPORTION_SEPARATOR)
@@ -69,7 +63,7 @@ class AspectRatio
         return new self((float) $x, (float) $y);
     }
 
-    public function getString(string $separator = self::DEFAULT_PROPORTION_SEPARATOR, int $maxDecimals = null): string
+    public function getString(string $separator = self::DEFAULT_PROPORTION_SEPARATOR, ?int $maxDecimals = null): string
     {
         return sprintf(
             '%s%s%s',
@@ -84,7 +78,7 @@ class AspectRatio
         return $this->getString(self::DEFAULT_PROPORTION_SEPARATOR);
     }
 
-    private function getFloatAsString(float $number, int $maxDecimals = null): string
+    private function getFloatAsString(float $number, ?int $maxDecimals = null): string
     {
         $n = (string) $number;
 
