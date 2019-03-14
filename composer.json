@@ -80,7 +80,7 @@
         ],
         "test": "vendor/bin/phpunit",
         "test:unit": "vendor/bin/phpunit --testsuite=unit",
-        "test:mutation": "vendor/bin/infection --configuration=infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=40 --min-covered-msi=60 --threads=4",
+        "test:mutation": "vendor/bin/infection --configuration=infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=50 --min-covered-msi=70 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix --using-cache=false",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix --using-cache=false",
         "cs-lint-fix": "vendor/bin/phpcbf; vendor/bin/php-cs-fixer -v fix",
