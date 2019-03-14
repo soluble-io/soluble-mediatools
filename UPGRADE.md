@@ -1,3 +1,9 @@
+## From 1.0 to 2.0
+
+- V2 Introduced final keywords for classes that are not covered by semver guarantee.
+  Users should not be impacted except if you inherit those classes. An upgrade to ^2.0 
+  should be no-pain.
+
 ## From 0.9 to 1.0
 
 - `VideoInfo::getVideoBitRate(): int` -> Use `VideoInfo::getVideoStreams()->getFirst()->getBitRate()` instead.
