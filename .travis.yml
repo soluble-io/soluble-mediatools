@@ -41,11 +41,12 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
         - bash <(curl -s https://codecov.io/bash)
-    - stage: PHPStan and Code style
+    - stage: PHPStan, Psalm and Code style
       php: 7.2
       env: XDEBUG=false INSTALL_FFMPEG=no REMOVE_QA=no
       script:
         - composer phpstan
+        - composer psalm
         - composer cs-check
     - stage: Test PHP7.3
       php: 7.3
@@ -78,7 +79,7 @@ jobs:
       php: 7.2
       env: XDEBUG=yes
       script:
-        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=40 --min-covered-msi=60 --threads=4
+        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=50 --min-covered-msi=70 --threads=4
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
       env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=yes
