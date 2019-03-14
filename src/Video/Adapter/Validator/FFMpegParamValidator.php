@@ -42,7 +42,7 @@ final class FFMpegParamValidator
      *
      * @throws ParamValidationException
      */
-    protected function ensureValidCrf(): void
+    private function ensureValidCrf(): void
     {
         if (!$this->params->hasParam(VideoConvertParamsInterface::PARAM_CRF)) {
             return;

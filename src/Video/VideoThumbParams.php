@@ -193,7 +193,7 @@ final class VideoThumbParams implements VideoThumbParamsInterface
      *
      * @throws InvalidArgumentException in case of unsupported option
      */
-    protected function ensureSupportedParams(array $params): void
+    private function ensureSupportedParams(array $params): void
     {
         foreach ($params as $paramName => $paramValue) {
             if (!$this->isParamValid($paramName)) {
