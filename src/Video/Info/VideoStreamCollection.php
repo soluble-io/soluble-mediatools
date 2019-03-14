@@ -10,7 +10,7 @@ use Psr\Log\NullLogger;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Exception\NoStreamException;
 
-class VideoStreamCollection implements VideoStreamCollectionInterface
+final class VideoStreamCollection implements VideoStreamCollectionInterface
 {
     /** @var array<int, array> */
     private $streamsMetadata;

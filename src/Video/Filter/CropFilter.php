@@ -13,7 +13,7 @@ namespace Soluble\MediaTools\Video\Filter;
 
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
-class CropFilter implements FFMpegVideoFilterInterface
+final class CropFilter implements FFMpegVideoFilterInterface
 {
     /** @var int|string|null */
     protected $height;

@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Info;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Exception\NoStreamException;
 
-class SubtitleStreamCollection implements SubtitleStreamCollectionInterface
+final class SubtitleStreamCollection implements SubtitleStreamCollectionInterface
 {
     /** @var array<int, array> */
     private $streamsMetadata;

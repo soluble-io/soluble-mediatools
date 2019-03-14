@@ -16,16 +16,16 @@ use Soluble\MediaTools\Common\Config\ContainerConfigLocator;
 use Soluble\MediaTools\Common\Config\SafeConfigReader;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
-class FFMpegConfigFactory
+final class FFMpegConfigFactory
 {
     public const DEFAULT_ENTRY_NAME = 'config';
     public const DEFAULT_CONFIG_KEY = 'soluble-mediatools';
 
     /** @var string */
-    protected $entryName;
+    private $entryName;
 
     /** @var null|string */
-    protected $configKey;
+    private $configKey;
 
     public function __construct(
         string $entryName = self::DEFAULT_ENTRY_NAME,

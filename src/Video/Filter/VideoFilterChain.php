@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
-class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
+final class VideoFilterChain implements FFMpegVideoFilterInterface, \Countable
 {
     /** @var VideoFilterInterface[] */
     private $filters = [];

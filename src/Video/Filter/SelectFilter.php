@@ -13,7 +13,7 @@ namespace Soluble\MediaTools\Video\Filter;
 
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
-class SelectFilter implements FFMpegVideoFilterInterface
+final class SelectFilter implements FFMpegVideoFilterInterface
 {
     /** @var null|string */
     private $expression;

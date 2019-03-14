@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 use Psr\Log\NullLogger;
 
-class NullLoggerFactory
+final class NullLoggerFactory
 {
     public function __invoke(ContainerInterface $container): PsrLoggerInterface
     {

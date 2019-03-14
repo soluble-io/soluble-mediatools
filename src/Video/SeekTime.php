@@ -14,10 +14,10 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
 
-class SeekTime implements FFMpegCLIValueInterface
+final class SeekTime implements FFMpegCLIValueInterface
 {
     /** @var float */
-    protected $time;
+    private $time;
 
     /**
      * @param float $seconds seconds and optional milliseconds as decimals

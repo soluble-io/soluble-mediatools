@@ -17,7 +17,7 @@ use Symfony\Component\Process\Process;
 class ProcessException extends RuntimeException implements ProcessExceptionInterface
 {
     /** @var Process */
-    protected $process;
+    private $process;
 
     /**
      * @param string|null $message if not set will use the previousException message

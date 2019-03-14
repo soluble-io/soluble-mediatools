@@ -14,7 +14,7 @@ namespace Soluble\MediaTools\Video\Filter;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoDenoiserInterface;
 
-class Hqdn3DVideoFilter implements FFMpegVideoFilterInterface, VideoDenoiserInterface
+final class Hqdn3DVideoFilter implements FFMpegVideoFilterInterface, VideoDenoiserInterface
 {
     public function getFFmpegCLIValue(): string
     {

@@ -14,7 +14,7 @@ namespace Soluble\MediaTools\Video\Filter;
 use Soluble\MediaTools\Video\Exception\ParamValidationException;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
-class ScaleFilter implements FFMpegVideoFilterInterface
+final class ScaleFilter implements FFMpegVideoFilterInterface
 {
     public const OPTION_ASPECT_RATIO_INCREASE = 'increase';
     public const OPTION_ASPECT_RATIO_DECREASE = 'decrease';

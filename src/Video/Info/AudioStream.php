@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Info;
 use Psr\Log\LoggerInterface;
 use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
-class AudioStream implements AudioStreamInterface
+final class AudioStream implements AudioStreamInterface
 {
     /** @var array<string, mixed> */
     private $streamMetadata;

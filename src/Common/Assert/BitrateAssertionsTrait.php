@@ -20,7 +20,7 @@ trait BitrateAssertionsTrait
      *
      * @throws InvalidArgumentException
      */
-    protected function ensureValidBitRateUnit(string $bitrate): void
+    private function ensureValidBitRateUnit(string $bitrate): void
     {
         if (preg_match('/^\d+(k|M)?$/i', $bitrate) !== 1) {
             throw new InvalidArgumentException(

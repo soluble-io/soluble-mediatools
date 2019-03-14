@@ -9,7 +9,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\UnexpectedMetadataException;
 use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
-class VideoStream implements VideoStreamInterface
+final class VideoStream implements VideoStreamInterface
 {
     /** @var array<string, mixed> */
     private $streamMetadata;

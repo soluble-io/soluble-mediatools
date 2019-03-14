@@ -20,7 +20,7 @@ use Psr\SimpleCache\CacheInterface;
  * NullCache convenience object taken from symfony/cache. Adapted for
  * PHP7.1 strict_types, original author Nicolas Grekas <p@tchwork.com>.
  */
-class NullCache implements CacheInterface
+final class NullCache implements CacheInterface
 {
     /**
      * {@inheritdoc}

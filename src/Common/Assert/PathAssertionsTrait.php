@@ -23,7 +23,7 @@ trait PathAssertionsTrait
      * @throws FileNotFoundException
      * @throws FileEmptyException    if $ensureFileNotEmpty is true
      */
-    protected function ensureFileExists(string $file, bool $ensureFileNotEmpty = false): void
+    private function ensureFileExists(string $file, bool $ensureFileNotEmpty = false): void
     {
         if (!file_exists($file)) {
             throw new FileNotFoundException(sprintf('File "%s" does not exists', $file));
@@ -40,7 +40,7 @@ trait PathAssertionsTrait
      * @throws FileNotFoundException
      * @throws FileEmptyException       if $ensureFileNotEmpty is true
      */
-    protected function ensureFileReadable(string $file, bool $ensureFileNotEmpty = false): void
+    private function ensureFileReadable(string $file, bool $ensureFileNotEmpty = false): void
     {
         $this->ensureFileExists($file, $ensureFileNotEmpty);
         if (!is_readable($file)) {

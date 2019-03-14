@@ -6,7 +6,7 @@ namespace Soluble\MediaTools\Video\Info;
 
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
-class AspectRatio
+final class AspectRatio
 {
     public const DEFAULT_PROPORTION_SEPARATOR = ':';
 

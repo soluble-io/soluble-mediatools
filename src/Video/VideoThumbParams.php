@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
-class VideoThumbParams implements VideoThumbParamsInterface
+final class VideoThumbParams implements VideoThumbParamsInterface
 {
     /** @var array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> */
     private $params = [];

@@ -13,13 +13,13 @@ namespace Soluble\MediaTools\Common\Config;
 
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
-class SafeConfigReader
+final class SafeConfigReader
 {
     /** @var null|string */
-    protected $configKey;
+    private $configKey;
 
     /** @var array<string, mixed> */
-    protected $config;
+    private $config;
 
     /**
      * @param array<string, mixed> $config
@@ -196,7 +196,7 @@ class SafeConfigReader
      *
      * @return mixed|null
      */
-    protected function getValueOrDefault(string $key, $default)
+    private function getValueOrDefault(string $key, $default)
     {
         return $this->keyExists($key) ? $this->config[$key] : $default;
     }
@@ -229,7 +229,7 @@ class SafeConfigReader
      *
      * @throws InvalidConfigException
      */
-    protected function ensureNotNull($value, string $key): void
+    private function ensureNotNull($value, string $key): void
     {
         if ($value !== null) {
             return;
@@ -244,7 +244,7 @@ class SafeConfigReader
         );
     }
 
-    protected function throwInvalidConfigException(string $msg, string $key): void
+    private function throwInvalidConfigException(string $msg, string $key): void
     {
         throw new InvalidConfigException(
             sprintf(

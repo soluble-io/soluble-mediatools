@@ -39,7 +39,7 @@ use Soluble\MediaTools\Video\Filter\VideoFilterChain;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
-class VideoThumbGenerator implements VideoThumbGeneratorInterface
+final class VideoThumbGenerator implements VideoThumbGeneratorInterface
 {
     public const DEFAULT_QUALITY_SCALE = 2;
 

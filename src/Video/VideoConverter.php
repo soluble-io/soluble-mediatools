@@ -33,7 +33,7 @@ use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
-class VideoConverter implements VideoConverterInterface
+final class VideoConverter implements VideoConverterInterface
 {
     use PathAssertionsTrait;
 

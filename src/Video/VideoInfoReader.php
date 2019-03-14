@@ -34,7 +34,7 @@ use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
-class VideoInfoReader implements VideoInfoReaderInterface
+final class VideoInfoReader implements VideoInfoReaderInterface
 {
     use PathAssertionsTrait;
 

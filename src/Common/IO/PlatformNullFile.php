@@ -13,7 +13,7 @@ namespace Soluble\MediaTools\Common\IO;
 
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
 
-class PlatformNullFile implements UnescapedFileInterface
+final class PlatformNullFile implements UnescapedFileInterface
 {
     public const PLATFORM_LINUX = 'LINUX';
     public const PLATFORM_WIN   = 'WINDOWS';
@@ -24,7 +24,7 @@ class PlatformNullFile implements UnescapedFileInterface
     ];
 
     /** @var string $platform if null platform wil be auto detected */
-    protected $platform;
+    private $platform;
 
     /**
      * @param null|string $platform if null platform will be autodetected

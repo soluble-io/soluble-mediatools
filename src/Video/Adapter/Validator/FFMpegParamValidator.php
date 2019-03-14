@@ -19,10 +19,10 @@ use Soluble\MediaTools\Video\VideoConvertParamsInterface;
  * Here's a starter class to add some common validation, use it as a base, will need
  * refactor when more rules are added.
  */
-class FFMpegParamValidator
+final class FFMpegParamValidator
 {
     /** @var VideoConvertParamsInterface */
-    protected $params;
+    private $params;
 
     public function __construct(VideoConvertParamsInterface $conversionParams)
     {

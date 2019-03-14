@@ -17,7 +17,7 @@ use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
-class VideoConvertParams implements VideoConvertParamsInterface
+final class VideoConvertParams implements VideoConvertParamsInterface
 {
     use BitrateAssertionsTrait;
 

@@ -15,7 +15,7 @@ use Soluble\MediaTools\Video\Filter\EmptyVideoFilter;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\YadifVideoFilter;
 
-class InterlaceDetectGuess
+final class InterlaceDetectGuess
 {
     /**
      * Default interlacing detection threshold
@@ -30,16 +30,16 @@ class InterlaceDetectGuess
     public const MODE_UNDETERMINED   = 'UNDETERMINED';
 
     /** @var float */
-    protected $detection_threshold;
+    private $detection_threshold;
 
     /** @var int */
-    protected $total_frames;
+    private $total_frames;
 
     /** @var array<string, int> */
-    protected $detected_frames;
+    private $detected_frames;
 
     /** @var array<string, float> */
-    protected $percent_frames;
+    private $percent_frames;
 
     /**
      * @param float $detection_threshold in percent: i.e 0.8, 0.6...

@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Info;
 use Psr\Log\LoggerInterface;
 use Soluble\MediaTools\Video\Info\Util\MetadataTypeSafeReader;
 
-class SubtitleStream implements SubtitleStreamInterface
+final class SubtitleStream implements SubtitleStreamInterface
 {
     /** @var array<string, mixed> */
     private $streamMetadata;

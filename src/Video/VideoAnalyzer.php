@@ -23,7 +23,7 @@ use Soluble\MediaTools\Video\Exception\MissingInputFileException;
 use Soluble\MediaTools\Video\Exception\ProcessFailedException;
 use Soluble\MediaTools\Video\Exception\RuntimeReaderException;
 
-class VideoAnalyzer implements VideoAnalyzerInterface
+final class VideoAnalyzer implements VideoAnalyzerInterface
 {
     /** @var FFMpegConfigInterface */
     private $ffmpegConfig;

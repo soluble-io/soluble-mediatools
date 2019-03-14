@@ -14,17 +14,17 @@ namespace Soluble\MediaTools\Video\Config;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Process\ProcessParams;
 
-class FFProbeConfig implements FFProbeConfigInterface
+final class FFProbeConfig implements FFProbeConfigInterface
 {
     public const DEFAULT_TIMEOUT      = null;
     public const DEFAULT_IDLE_TIMEOUT = null;
     public const DEFAULT_ENV          = [];
 
     /** @var string */
-    protected $binary;
+    private $binary;
 
     /** @var ProcessParamsInterface */
-    protected $processParams;
+    private $processParams;
 
     /**
      * @param string                    $ffprobeBinary FFProbeBinary, if null: 'ffprobe' on linux, 'ffmprobe.exe' on windows

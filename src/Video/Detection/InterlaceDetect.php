@@ -28,14 +28,14 @@ use Soluble\MediaTools\Video\Filter\IdetVideoFilter;
 use Soluble\MediaTools\Video\VideoConvertParams;
 use Symfony\Component\Process\Exception as SPException;
 
-class InterlaceDetect
+final class InterlaceDetect
 {
     use PathAssertionsTrait;
 
     public const DEFAULT_INTERLACE_MAX_FRAMES = 1000;
 
     /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    private $ffmpegConfig;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {

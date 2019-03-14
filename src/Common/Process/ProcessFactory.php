@@ -13,13 +13,13 @@ namespace Soluble\MediaTools\Common\Process;
 
 use Symfony\Component\Process\Process;
 
-class ProcessFactory
+final class ProcessFactory
 {
     /** @var array */
-    protected $command;
+    private $command;
 
     /** @var null|ProcessParamsInterface */
-    protected $processParams;
+    private $processParams;
 
     /**
      * @param array                       $command

@@ -13,6 +13,6 @@ namespace Soluble\MediaTools\Video\Process;
 
 use Soluble\MediaTools\Common\Process\ProcessParams as CommonProcessParams;
 
-class ProcessParams extends CommonProcessParams
+final class ProcessParams extends CommonProcessParams
 {
 }

@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Adapter\ConverterAdapterInterface;
 use Soluble\MediaTools\Video\Adapter\FFMpegAdapter;
 use Soluble\MediaTools\Video\Process\ProcessParams;
 
-class FFMpegConfig implements FFMpegConfigInterface
+final class FFMpegConfig implements FFMpegConfigInterface
 {
     public const DEFAULT_THREADS      = null;
     public const DEFAULT_TIMEOUT      = null;
@@ -24,16 +24,16 @@ class FFMpegConfig implements FFMpegConfigInterface
     public const DEFAULT_ENV          = [];
 
     /** @var string */
-    protected $binary;
+    private $binary;
 
     /** @var int|null */
-    protected $threads;
+    private $threads;
 
     /** @var FFMpegAdapter|null */
-    protected $ffmpegAdapter;
+    private $ffmpegAdapter;
 
     /** @var ProcessParams */
-    protected $processParams;
+    private $processParams;
 
     /**
      * @param string|null               $ffmpegBinary if null will return 'ffmpeg' on linux, 'ffmpeg.exe' on windows

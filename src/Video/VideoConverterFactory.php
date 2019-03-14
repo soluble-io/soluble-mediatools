@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Logger\LoggerInterface;
 
-class VideoConverterFactory
+final class VideoConverterFactory
 {
     public function __invoke(ContainerInterface $container): VideoConverterInterface
     {

@@ -21,10 +21,10 @@ use Soluble\MediaTools\Video\Exception\ParamValidationException;
 use Soluble\MediaTools\Video\Exception\UnexpectedValueException;
 use Soluble\MediaTools\Video\VideoConvertParamsInterface;
 
-class FFMpegAdapter implements ConverterAdapterInterface
+final class FFMpegAdapter implements ConverterAdapterInterface
 {
     /** @var FFMpegConfigInterface */
-    protected $ffmpegConfig;
+    private $ffmpegConfig;
 
     public function __construct(FFMpegConfigInterface $ffmpegConfig)
     {

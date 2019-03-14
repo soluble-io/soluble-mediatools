@@ -18,13 +18,13 @@ class ProcessParams implements ProcessParamsInterface
     public const DEFAULT_ENV          = [];
 
     /** @var float|null */
-    protected $timeout;
+    private $timeout;
 
     /** @var float|null */
-    protected $idleTimeout;
+    private $idleTimeout;
 
     /** @var array<string, string|int> */
-    protected $env;
+    private $env;
 
     /**
      * @param float|null                $timeout     max allowed time (in seconds) for symfony process

@@ -25,7 +25,7 @@ use Soluble\MediaTools\Video\Info\SubtitleStreamCollectionInterface;
 use Soluble\MediaTools\Video\Info\VideoStreamCollection;
 use Soluble\MediaTools\Video\Info\VideoStreamCollectionInterface;
 
-class VideoInfo implements VideoInfoInterface
+final class VideoInfo implements VideoInfoInterface
 {
     /** @var array<string, mixed> */
     private $metadata;

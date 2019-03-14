@@ -14,21 +14,21 @@ namespace Soluble\MediaTools\Video\Filter;
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 use Soluble\MediaTools\Video\Filter\Type\VideoDeinterlacerInterface;
 
-class YadifVideoFilter implements FFMpegVideoFilterInterface, VideoDeinterlacerInterface
+final class YadifVideoFilter implements FFMpegVideoFilterInterface, VideoDeinterlacerInterface
 {
     public const DEFAULT_MODE   = 0;
     public const DEFAULT_PARITY = -1;
     public const DEFAULT_DEINT  = 0;
 
     /** @var array<string, int> */
-    protected $defaultOptions = [
+    private $defaultOptions = [
         'mode'   => self::DEFAULT_MODE,
         'parity' => self::DEFAULT_PARITY,
         'deint'  => self::DEFAULT_DEINT,
     ];
 
     /** @var array<string, int> */
-    protected $options = [];
+    private $options = [];
 
     /**
      * @param int $mode   The interlacing mode to adopt (0, send_frame Output one frame for each frame)

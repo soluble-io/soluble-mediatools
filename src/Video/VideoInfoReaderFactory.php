@@ -16,7 +16,7 @@ use Soluble\MediaTools\Video\Cache\CacheInterface;
 use Soluble\MediaTools\Video\Config\FFProbeConfigInterface;
 use Soluble\MediaTools\Video\Logger\LoggerInterface;
 
-class VideoInfoReaderFactory
+final class VideoInfoReaderFactory
 {
     public function __invoke(ContainerInterface $container): VideoInfoReaderInterface
     {

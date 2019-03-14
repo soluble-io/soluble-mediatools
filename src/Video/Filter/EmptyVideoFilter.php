@@ -13,7 +13,7 @@ namespace Soluble\MediaTools\Video\Filter;
 
 use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 
-class EmptyVideoFilter implements FFMpegVideoFilterInterface
+final class EmptyVideoFilter implements FFMpegVideoFilterInterface
 {
     public function getFFmpegCLIValue(): string
     {

@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
 use Soluble\MediaTools\Video\Logger\LoggerInterface;
 
-class VideoThumbGeneratorFactory
+final class VideoThumbGeneratorFactory
 {
     public function __invoke(ContainerInterface $container): VideoThumbGeneratorInterface
     {

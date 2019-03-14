@@ -14,7 +14,7 @@ namespace Soluble\MediaTools\Common\Config;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Common\Exception\InvalidConfigException;
 
-class ContainerConfigLocator
+final class ContainerConfigLocator
 {
     public const DEFAULT_ENTRY_NAME = 'config';
 

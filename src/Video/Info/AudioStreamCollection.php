@@ -7,7 +7,7 @@ namespace Soluble\MediaTools\Video\Info;
 use Soluble\MediaTools\Video\Exception\InvalidStreamMetadataException;
 use Soluble\MediaTools\Video\Exception\NoStreamException;
 
-class AudioStreamCollection implements AudioStreamCollectionInterface
+final class AudioStreamCollection implements AudioStreamCollectionInterface
 {
     /** @var array<int, array> */
     private $streamsMetadata;
