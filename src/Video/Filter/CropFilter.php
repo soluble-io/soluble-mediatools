@@ -16,22 +16,22 @@ use Soluble\MediaTools\Video\Filter\Type\FFMpegVideoFilterInterface;
 final class CropFilter implements FFMpegVideoFilterInterface
 {
     /** @var int|string|null */
-    protected $height;
+    private $height;
 
     /** @var int|string|null */
-    protected $width;
+    private $width;
 
     /** @var int|string|null */
-    protected $x;
+    private $x;
 
     /** @var int|string|null */
-    protected $y;
+    private $y;
 
     /** @var bool */
-    protected $keepAspect;
+    private $keepAspect;
 
     /** @var bool */
-    protected $exact;
+    private $exact;
 
     /**
      * Crop filter.
