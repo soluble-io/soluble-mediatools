@@ -13,10 +13,6 @@ namespace Soluble\MediaTools\Common\Math;
 
 final class NumberConversion
 {
-    private function __construct()
-    {
-    }
-
     public static function truncateFloat(float $number, int $decimals): float
     {
         $power = 10 ** $decimals;
