@@ -139,6 +139,13 @@ class VideoInfoTest extends TestCase
         $vi->getVideoStreams();
     }
 
+    public function testGetSubtitleStreamsThrowsException(): void
+    {
+        self::expectException(InvalidStreamMetadataException::class);
+        $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
+        $vi->getSubtitleStreams();
+    }
+
     public function testGetMetadata(): void
     {
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
