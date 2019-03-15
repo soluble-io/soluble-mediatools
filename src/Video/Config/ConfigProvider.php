@@ -96,9 +96,27 @@ class ConfigProvider
     }
 
     /**
+     * @throws \RuntimeException
+     *
      * @return array<string, array<string,mixed>>
      */
     public static function getDefaultConfiguration(): array
+    {
+        $baseDir = static::getBaseDir();
+        $config  = implode(DIRECTORY_SEPARATOR, [$baseDir, 'config', 'soluble-mediatools.config.php']);
+        if (!is_file($config) || !is_readable($config)) {
+            throw new \RuntimeException(sprintf('Missing project default configuration: %s', $config));
+        }
+
+        return require $config;
+    }
+
+    /**
+     * Get soluble-mediatools base directory.
+     *
+     * @throws \RuntimeException
+     */
+    public static function getBaseDir(): string
     {
         $baseDir = dirname(__DIR__, 3);
         if (!is_dir($baseDir)) {
@@ -107,11 +125,7 @@ class ConfigProvider
                 $baseDir
             ));
         }
-        $config = implode(DIRECTORY_SEPARATOR, [$baseDir, 'config', 'soluble-mediatools.config.php']);
-        if (!is_file($config) || !is_readable($config)) {
-            throw new \RuntimeException(sprintf('Missing project default configuration: %s', $config));
-        }
 
-        return require $config;
+        return $baseDir;
     }
 }

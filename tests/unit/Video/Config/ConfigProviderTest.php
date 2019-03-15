@@ -36,4 +36,18 @@ class ConfigProviderTest extends TestCase
         self::assertArrayHasKey('ffmpeg.binary', $defaultConfig['soluble-mediatools']);
         self::assertArrayHasKey('ffprobe.binary', $defaultConfig['soluble-mediatools']);
     }
+
+    public function testDefaultConfigurationThrowsRuntimeException(): void
+    {
+        self::expectException(\RuntimeException::class);
+
+        $cls = new class() extends ConfigProvider {
+            public static function getBaseDir(): string
+            {
+                return '/unexistent directory';
+            }
+        };
+
+        $cls::getDefaultConfiguration();
+    }
 }
