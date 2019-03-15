@@ -35,11 +35,6 @@ All is here: **[https://soluble-io.github.io/soluble-mediatools/](https://solubl
 
 - PHP 7.1+
 - FFmpeg/FFProbe 3.4+, 4.0+.
-
-## Roadmap
-
-It's an attempt to make a swiss-army knife for medias managment in PHP, 
-need to implement more services: image optimization, subtitle conversions... polish the API... 
  
 ## Features
 
