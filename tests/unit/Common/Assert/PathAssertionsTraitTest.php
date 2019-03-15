@@ -52,6 +52,21 @@ class PathAssertionsTraitTest extends TestCase
         $cls->testProtected('/unexistent/path/file.txt');
     }
 
+    public function testDirectoryMustThrowException(): void
+    {
+        self::expectException(FileNotFoundException::class);
+
+        $cls = new class() {
+            use PathAssertionsTrait;
+
+            public function testProtected(string $file): void
+            {
+                $this->ensureFileExists($file);
+            }
+        };
+        $cls->testProtected(__DIR__);
+    }
+
     public function testReadableFileMustWork(): void
     {
         $cls = new class() {

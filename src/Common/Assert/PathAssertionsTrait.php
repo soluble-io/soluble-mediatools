@@ -28,6 +28,14 @@ trait PathAssertionsTrait
         if (!file_exists($file)) {
             throw new FileNotFoundException(sprintf('File "%s" does not exists', $file));
         }
+        if (!is_file($file)) {
+            throw new FileNotFoundException(sprintf(
+                'File "%s" is not a regular file (%s)',
+                $file,
+                is_dir($file) ? 'directory' : 'unknow type'
+            ));
+        }
+
         if ($ensureFileNotEmpty && filesize($file) === 0) {
             throw new FileEmptyException(sprintf('File "%s" is empty', $file));
         }

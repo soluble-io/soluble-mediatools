@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.0.1 (2019-??-??)
 
+### Improved
+
+- Fail earlier is input file is a directory for all services (not a regular file)
+
 ### Added
 
 - `ConfigProvider::getBaseDir()` to allow base class extend.
