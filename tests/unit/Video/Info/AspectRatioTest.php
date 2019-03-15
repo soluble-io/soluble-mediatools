@@ -77,4 +77,10 @@ class AspectRatioTest extends TestCase
         self::expectException(InvalidArgumentException::class);
         AspectRatio::createFromString('16.2/AA', '/');
     }
+
+    public function testCreateFromStringThrowsInvalidArgumentException4(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+        AspectRatio::createFromString('-16:9', '/');
+    }
 }

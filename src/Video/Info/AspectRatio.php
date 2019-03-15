@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Video\Info;
 
+use Soluble\MediaTools\Common\Math\NumberConversion;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
 
 final class AspectRatio
@@ -90,16 +91,6 @@ final class AspectRatio
             return $n;
         }
 
-        return (string) $this->truncateFloat($number, $maxDecimals);
-    }
-
-    private function truncateFloat(float $number, int $decimals): float
-    {
-        $power = 10 ** $decimals;
-        if ($number > 0) {
-            return floor($number * $power) / $power;
-        }
-
-        return ceil($number * $power) / $power;
+        return (string) NumberConversion::truncateFloat($number, $maxDecimals);
     }
 }
