@@ -84,29 +84,39 @@ use Soluble\MediaTools\Video\VideoInfo;
 
 $infoReader = new VideoInfoReader(new FFProbeConfig('/path/to/ffprobe'));
 
+// Step 1: Read a media file
+
 try {
-    $videoInfo = $infoReader->getInfo('/path/video.mp4');
+    $info = $infoReader->getInfo('/path/video.mp4');
 } catch (InfoReaderExceptionInterface $e) {
-    // see below for exceptions
+    // not a valid video (see exception)
 }
 
-$duration = $videoInfo->getDuration(); // total duration
-$format   = $videoInfo->getFormatName(); // container format: mkv, mp4
+$duration = $info->getDuration(); // total duration
+$format   = $info->getFormatName(); // container format: mkv, mp4
 
-try {
-    // VideoStreams is iterable
-    $video   = $videoInfo->getVideoStreams()->getFirst();
-    $codec   = $video->getCodecName(); // i.e: vp9
-    $fps     = $video->getFps($decimals=0); // i.e: 24
-    $width   = $video->getWidth(); // i.e: 1080
+
+// Step 2: Media streams info (video, subtitle, audio, data).
+
+// Example with first video stream (streams are iterable)
+
+try {    
+    $video   = $info->getVideoStreams()->getFirst();
 } catch (\Soluble\MediaTools\Video\Exception\NoStreamException $e) {
-    // No video stream
+    // No video stream, 
 }
+    
+$codec   = $video->getCodecName(); // i.e: vp9
+$fps     = $video->getFps($decimals=0); // i.e: 24
+$width   = $video->getWidth(); // i.e: 1080
+$ratio   = $video->getAspectRatio();
 
-// alternate example with subtitles (without catch block)
-if ($videoInfo->countStreams(VideoInfo::STREAM_TYPE_SUBTITLE) > 0) {
-    $first  = $videoInfo->getSubtitleStreams()->getFirst();
-    $first->getCodecName(); // webvtt
+
+// Alternate example  
+
+if ($info->countStreams(VideoInfo::STREAM_TYPE_SUBTITLE) > 0) {
+    $sub  = $info->getSubtitleStreams()->getFirst();
+    $sub->getCodecName(); // webvtt
 }
 
 ``` 
