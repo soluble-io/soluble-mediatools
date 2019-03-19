@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
-- Cache key generation includes __METHOD__ in `VideoInfoReader`.
+- Cache key generation includes `__METHOD__` in `VideoInfoReader`.
 
 ## 2.0.2 (2019-03-19)
 
