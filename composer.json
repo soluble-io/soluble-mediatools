@@ -1,15 +1,20 @@
 {
     "name": "soluble/mediatools",
-    "description": "FFMpeg video / audio / subs conversion, thumbnail, query and more !",
+    "description": "FFMpeg video/audio/subs conversions, thumbnails, audio extraction, query...",
     "license": "MIT",
     "keywords": [
         "video",
-        "transcode",
+        "multimedia",
+        "video processing",
+        "video transcoding",
+        "transcoding",
         "ffmpeg",
         "ffprobe",
         "thumbnail",
+        "thumbnailing",
         "conversion",
         "audio",
+        "audio extraction",
         "subtitle",
         "webtt",
         "extraction"
