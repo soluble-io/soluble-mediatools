@@ -169,6 +169,13 @@ final class VideoInfoReader implements VideoInfoReaderInterface
 
     private function getCacheKey(Process $process, string $file): string
     {
-        return sha1(sprintf('%s | %s | %s | %s', $process->getCommandLine(), $file, (string) filesize($file), (string) filemtime($file)));
+        return sha1(sprintf(
+            '%s | %s | %s | %s | %s',
+            __METHOD__,
+            $process->getCommandLine(),
+            $file,
+            (string) filesize($file),
+            (string) filemtime($file)
+        ));
     }
 }
