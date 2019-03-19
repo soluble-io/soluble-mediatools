@@ -32,6 +32,16 @@
     </filter>
 
 
+    <!--
+    <listeners>
+        <listener class="Roave\NoLeaks\PHPUnit\CollectTestExecutionMemoryFootprints"/>
+    </listeners>
+
+    <extensions>
+        <extension class="Roave\NoLeaks\PHPUnit\CollectTestExecutionMemoryFootprints"/>
+    </extensions>
+    -->
+
     <logging>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
