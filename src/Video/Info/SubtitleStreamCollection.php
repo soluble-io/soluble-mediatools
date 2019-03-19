@@ -26,6 +26,9 @@ final class SubtitleStreamCollection implements SubtitleStreamCollectionInterfac
         $this->loadStreams();
     }
 
+    /**
+     * @throws NoStreamException
+     */
     public function getFirst(): SubtitleStreamInterface
     {
         if ($this->count() === 0) {

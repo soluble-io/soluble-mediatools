@@ -34,6 +34,9 @@ final class VideoStreamCollection implements VideoStreamCollectionInterface
         $this->loadStreams();
     }
 
+    /**
+     * @throws NoStreamException
+     */
     public function getFirst(): VideoStreamInterface
     {
         if ($this->count() === 0) {

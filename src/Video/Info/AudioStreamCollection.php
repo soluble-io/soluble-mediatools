@@ -26,6 +26,9 @@ final class AudioStreamCollection implements AudioStreamCollectionInterface
         $this->loadStreams();
     }
 
+    /**
+     * @throws NoStreamException
+     */
     public function getFirst(): AudioStreamInterface
     {
         if ($this->count() === 0) {
