@@ -1,6 +1,6 @@
 {
     "name": "soluble/mediatools",
-    "description": "FFMpeg video conversion, thumbnail, query and more !",
+    "description": "FFMpeg video / audio / subs conversion, thumbnail, query and more !",
     "license": "MIT",
     "keywords": [
         "video",
@@ -8,7 +8,11 @@
         "ffmpeg",
         "ffprobe",
         "thumbnail",
-        "conversion"
+        "conversion",
+        "audio",
+        "subtitle",
+        "webtt",
+        "extraction"
     ],
     "homepage": "https://github.com/soluble-io/soluble-mediatools",
     "type": "library",
