@@ -500,11 +500,9 @@ requires specific processing, <a href="./video-conversion-service/#notes">judge 
 To help starting, the documentation includes a lot of examples and snippets you
 can easily try and tune later. Check also <a href="./#alternatives">alternatives</a> wrappers
 for ffmpeg, they are good and sometimes offer more magic if you're looking for it. </p>
-<p>It likes <a href="https://www.php-fig.org/psr/">PSR</a> (psr-log, psr-container), tastes php 7.1 in strict mode, tries to fail as early as possible 
+<p>It likes <a href="https://www.php-fig.org/psr/">PSR</a> (psr-log, psr-container, psr-simplecache), tastes php 7.1 in strict mode, tries to fail as early as possible 
 with clear exception messages and ensure that substitution is possible when you need to customize 
-<em>(SOLID friendly)</em>.
-Last but not least, all services accepts a <code>LoggerInterface</code> one more reason to
-prefer it from a simple command-line.</p>
+<em>(SOLID friendly)</em>.</p>
 <p>Under the hood, it relies on the battle-tested <a href="https://symfony.com/doc/current/components/process.html">symfony/process</a>, its only dependency.      </p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>A PHP version &gt;= 7.1 and depending on required services: ffmpeg and/or ffprobe.</p>

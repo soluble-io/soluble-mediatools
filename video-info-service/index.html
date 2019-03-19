@@ -296,6 +296,47 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-general-info" title="Getting general info" class="md-nav__link">
+    Getting general info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-video-stream" title="Get video stream." class="md-nav__link">
+    Get video stream.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-audio-streams" title="Get audio streams" class="md-nav__link">
+    Get audio streams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-subtitle-info" title="Get subtitle info" class="md-nav__link">
+    Get subtitle info
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exceptions" title="Exceptions" class="md-nav__link">
     Exceptions
   </a>
@@ -306,6 +347,26 @@
   <a href="#metadata" title="Metadata" class="md-nav__link">
     Metadata
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metadata-retrieval" title="Metadata retrieval" class="md-nav__link">
+    Metadata retrieval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-example" title="Metadata example" class="md-nav__link">
+    Metadata example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -443,6 +504,47 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-general-info" title="Getting general info" class="md-nav__link">
+    Getting general info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-video-stream" title="Get video stream." class="md-nav__link">
+    Get video stream.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-audio-streams" title="Get audio streams" class="md-nav__link">
+    Get audio streams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-subtitle-info" title="Get subtitle info" class="md-nav__link">
+    Get subtitle info
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exceptions" title="Exceptions" class="md-nav__link">
     Exceptions
   </a>
@@ -453,6 +555,26 @@
   <a href="#metadata" title="Metadata" class="md-nav__link">
     Metadata
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metadata-retrieval" title="Metadata retrieval" class="md-nav__link">
+    Metadata retrieval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-example" title="Metadata example" class="md-nav__link">
+    Metadata example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -484,123 +606,21 @@
                   <h1>✔ VideoInfoReader</h1>
                 
                 <p>The <mark>VideoInfoReader service</mark> acts as a wrapper over <strong>ffprobe</strong> and return information about a video file.</p>
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<p>You'll need to have ffprobe <a href="../install-ffmpeg/">installed</a> on your system.</p>
+<h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php">VideoInfoReader</a> service 
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php"><code>FFProbeConfig</code></a> 
+object as first parameter. If needed you can configure the location of the ffprobe binary and the various timeouts. </p>
+<p>The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>.</p>
+<p>The third one, any psr-16 (simplecache) compatible <mark>cache</mark>.   </p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoInterface</span><span class="p">;</span>
 
-<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffprobe&#39;</span><span class="p">));</span>
-
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$videoInfo</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see below for exceptions</span>
-<span class="p">}</span>
-
-<span class="c1">// Total duration</span>
-<span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-
-<span class="nv">$filesize</span>     <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFileSize</span><span class="p">();</span>
-
-<span class="c1">// ffprobe format: i.e &#39;mov,mp4,m4a,3gp,3g2,mj2&#39;</span>
-<span class="nv">$format</span>       <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getFormatName</span><span class="p">();</span>
-
-
-<span class="c1">// Get video streams (generally one, i.e mkv containers can have multiple)</span>
-
-<span class="nv">$videoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$video</span> <span class="o">=</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span> 
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// i.e: 24</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$roundedDecimals</span><span class="o">=</span><span class="k">null</span><span class="p">);</span> 
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
-
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getPixFmt</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDisplayAspectRatio</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getSampleAspectRatio</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedWidth</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedHeight</span><span class="p">();</span>
-    <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getRFrameRate</span><span class="p">();</span>
-
-    <span class="nv">$aspectRatio</span> <span class="o">=</span> <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getAspectRatio</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$aspectRatio</span> <span class="o">!==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">();</span> <span class="c1">// &#39;16:9&#39;</span>
-        <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getX</span><span class="p">();</span> <span class="c1">// float</span>
-        <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getY</span><span class="p">();</span> <span class="c1">// float</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="c1">// For audio streams</span>
-
-<span class="nv">$audioStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getAudioStreams</span><span class="p">();</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$audio</span> <span class="o">=</span> <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// aac</span>
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
-
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
-    <span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
-<span class="p">}</span>
-
-
-
-<span class="c1">// For subtitle streams</span>
-
-<span class="nv">$subtitleStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getSubtitleStreams</span><span class="p">();</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$subtitleStreams</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$subtitle</span> <span class="o">=</span> <span class="nv">$subtitleStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
-    <span class="nv">$subtitle</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// webvtt</span>
-<span class="p">}</span>
-
-
-
-
-<span class="c1">// Count all streams present (audio/video/data)</span>
-<span class="nv">$nbStreams</span>      <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">();</span>
-<span class="nv">$nbVideoStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_VIDEO</span><span class="p">);</span>
-<span class="nv">$nbAudioStreams</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_AUDIO</span><span class="p">);</span>
-<span class="nv">$nbSubStreams</span>   <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_SUBTITLE</span><span class="p">);</span>
-
-<span class="c1">// Advanced, return what ffprobe returned</span>
-<span class="nv">$metadata</span>      <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getMetadata</span><span class="p">();</span>
-<span class="nv">$audioMetadata</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_VIDEO</span><span class="p">);</span>
-<span class="nv">$videoMetadata</span> <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_AUDIO</span><span class="p">);</span>
-<span class="nv">$subsMetadata</span>  <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_SUBTITLE</span><span class="p">);</span>
-<span class="nv">$dataMetadata</span>  <span class="o">=</span> <span class="nv">$videoInfo</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">VideoInfoInterface</span><span class="o">::</span><span class="na">STREAM_TYPE_DATA</span><span class="p">);</span>
-</pre></div>
-
-<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
-<p>You'll need to have ffprobe <a href="../install-ffmpeg/">installed</a> on your system.</p>
-<h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php">VideoInfoReader</a> 
-requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php"><code>FFProbeConfig</code></a> 
-object as first parameter. 
-This is where you set the location of the ffprobe binary, the number of threads you allow for conversions
-and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFProbeConfig</span><span class="p">,</span> <span class="nx">FFProbeConfigInterface</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
-
-<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span>    
-    <span class="c1">// @param FFProbeConfigInterface </span>
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span>
+    <span class="c1">// @param FFMpegConfigInterface </span>
     <span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)</span>
         <span class="nv">$binary</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
@@ -608,12 +628,21 @@ and the various timeouts if needed. The second parameter can be used to inject a
         <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
         <span class="c1">// (?float)  - max idle time in seconds for ffprobe process</span>
         <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
-        <span class="c1">// (array)   - additional environment variables</span>
+        <span class="c1">// (array)   - additional environment variables if needed</span>
         <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>                           
     <span class="p">),</span>
-    <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
-    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>   
+    <span class="c1">// @param \Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
+    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+    <span class="c1">// @param \Psr\SimpleCache\CacheInterface</span>
+    <span class="nv">$cache</span> <span class="o">=</span> <span class="k">null</span>   
 <span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Possibly wrong media, see below for exceptions</span>
+    <span class="c1">// details</span>
+<span class="p">}</span>
 </pre></div>
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
@@ -621,6 +650,186 @@ Depending on available framework integrations, you may have a look to the <a hre
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php"><code>FFProbeConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p>
 </details>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<h4 id="getting-general-info">Getting general info<a class="headerlink" href="#getting-general-info" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Info\StreamTypeInterface</span><span class="p">;</span>
+
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">());</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Possibly wrong media, see below for exceptions</span>
+    <span class="c1">// details</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Total duration</span>
+<span class="nv">$duration</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+<span class="nv">$filesize</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getFileSize</span><span class="p">();</span>
+
+<span class="c1">// i.e &#39;mov,mp4,m4a,3gp,3g2,mj2&#39;</span>
+<span class="nv">$format</span>   <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getFormatName</span><span class="p">();</span>
+
+<span class="c1">// Streams (will be detailled below)</span>
+
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getAudioStreams</span><span class="p">();</span>
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getSubtitleStreams</span><span class="p">();</span>
+</pre></div>
+
+<h4 id="get-video-stream">Get video stream.<a class="headerlink" href="#get-video-stream" title="Permanent link">&para;</a></h4>
+<p>Get video streams information. (generally one, i.e mkv containers can have multiple)</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\NoStreamException</span><span class="p">;</span>
+
+
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">());</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Possibly wrong media, see below for exceptions</span>
+    <span class="c1">// details</span>
+<span class="p">}</span>
+
+<span class="nv">$videoStreams</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getVideoStreams</span><span class="p">();</span>
+
+<span class="c1">// Option 1: The iterable way</span>
+
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$videoStreams</span> <span class="k">as</span> <span class="nv">$vStream</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// Option 2: Take the first</span>
+
+<span class="k">try</span> <span class="p">{</span>    
+    <span class="nv">$video</span> <span class="o">=</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NoStreamException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// No video stream present</span>
+<span class="p">}</span>
+
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// i.e: 24</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$roundedDecimals</span><span class="o">=</span><span class="k">null</span><span class="p">);</span> 
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
+
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getPixFmt</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getDisplayAspectRatio</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getSampleAspectRatio</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedWidth</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodedHeight</span><span class="p">();</span>
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getRFrameRate</span><span class="p">();</span>
+
+<span class="nv">$aspectRatio</span> <span class="o">=</span> <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getAspectRatio</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$aspectRatio</span> <span class="o">!==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getString</span><span class="p">();</span> <span class="c1">// &#39;16:9&#39;</span>
+    <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getX</span><span class="p">();</span> <span class="c1">// float</span>
+    <span class="nv">$aspectRatio</span><span class="o">-&gt;</span><span class="na">getY</span><span class="p">();</span> <span class="c1">// float</span>
+<span class="p">}</span>
+</pre></div>
+
+<h4 id="get-audio-streams">Get audio streams<a class="headerlink" href="#get-audio-streams" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\NoStreamException</span><span class="p">;</span>
+
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">());</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Possibly wrong media, see below for exceptions</span>
+    <span class="c1">// details</span>
+<span class="p">}</span>
+
+<span class="nv">$audioStreams</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getAudioStreams</span><span class="p">();</span>
+
+<span class="c1">// Option 1: The iterable way</span>
+
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$audioStreams</span> <span class="k">as</span> <span class="nv">$aStream</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// Option 2: take the first one</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$audio</span> <span class="o">=</span> <span class="nv">$audioStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NoStreamException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Nothing marked as audio</span>
+<span class="p">}</span>
+
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// aac</span>
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getDuration</span><span class="p">();</span>
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getDurationTs</span><span class="p">();</span>
+
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getTimeBase</span><span class="p">();</span>
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getBitRate</span><span class="p">();</span>
+<span class="nv">$audio</span><span class="o">-&gt;</span><span class="na">getTags</span><span class="p">();</span>
+</pre></div>
+
+<h4 id="get-subtitle-info">Get subtitle info<a class="headerlink" href="#get-subtitle-info" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\NoStreamException</span><span class="p">;</span>
+
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">());</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Possibly wrong media, see below for exceptions</span>
+    <span class="c1">// details</span>
+<span class="p">}</span>
+
+
+<span class="c1">// For subtitle streams</span>
+
+<span class="nv">$subtitleStreams</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getSubtitleStreams</span><span class="p">();</span>
+
+<span class="c1">// Option 1: The iterable way</span>
+
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$subtitleStreams</span> <span class="k">as</span> <span class="nv">$sStream</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Option 2: taking the first one</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$subtitle</span> <span class="o">=</span> <span class="nv">$subtitleStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NoStreamException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// No subtitle streams</span>
+<span class="p">}</span>
+
+<span class="nv">$subtitle</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// webvtt</span>
+</pre></div>
+
 <h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
 <p>All info exceptions implements <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Exception/InfoReaderExceptionInterface.php"><code>InfoReaderExceptionInterface</code></a> interface.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
@@ -680,6 +889,44 @@ wondering what it is, have a look to an example with ffprobe 4.0.</p>
 <blockquote>
 <p><strong>Warning</strong>, direct use of ffprobe metadata if not ensured by semver, bc break can potentially happen.</p>
 </blockquote>
+<h4 id="metadata-retrieval">Metadata retrieval<a class="headerlink" href="#metadata-retrieval" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Info\StreamTypeInterface</span><span class="p">;</span>
+
+<span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">());</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="nv">$infoReader</span><span class="o">-&gt;</span><span class="na">getInfo</span><span class="p">(</span><span class="s1">&#39;/path/video.mp4&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">InfoReaderExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Possibly wrong media, see below for exceptions</span>
+    <span class="c1">// details</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Metadata as returned by ffprobe</span>
+
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getMetadata</span><span class="p">();</span>
+
+<span class="c1">// By stream</span>
+
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">VIDEO</span><span class="p">);</span>
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">AUDIO</span><span class="p">);</span>
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">SUBTITLE</span><span class="p">);</span>
+<span class="nv">$info</span><span class="o">-&gt;</span><span class="na">getStreamsMetadataByType</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">DATA</span><span class="p">);</span>
+
+<span class="nv">$nbStreams</span>      <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">();</span>
+
+<span class="nv">$nbVideoStreams</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">VIDEO</span><span class="p">);</span>
+<span class="nv">$nbAudioStreams</span> <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">AUDIO</span><span class="p">);</span>
+<span class="nv">$nbSubStreams</span>   <span class="o">=</span> <span class="nv">$info</span><span class="o">-&gt;</span><span class="na">countStreams</span><span class="p">(</span><span class="nx">StreamTypeInterface</span><span class="o">::</span><span class="na">SUBTITLE</span><span class="p">);</span>
+</pre></div>
+
+<h4 id="metadata-example">Metadata example<a class="headerlink" href="#metadata-example" title="Permanent link">&para;</a></h4>
+<p>As returned by ffprobe</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">return</span> <span class="p">[</span>
