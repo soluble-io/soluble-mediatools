@@ -34,7 +34,7 @@
         "psr/container": "^1.0",
         "psr/log": "^1.0",
         "psr/simple-cache": "^1.0",
-        "symfony/polyfill-mbstring": "^1.9",
+        "symfony/polyfill-mbstring": "^1.11",
         "symfony/process": "^3.3 || ^4.0"
     },
     "require-dev" : {
@@ -93,6 +93,7 @@
         "cs-lint-fix": "vendor/bin/phpcbf; vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l 7 -c phpstan.neon src tests",
         "psalm": "vendor/bin/psalm --show-info=false",
+        "no-leaks": "vendor/bin/roave-no-leaks",
         "doc:install": "pip install -r requirements.txt --upgrade",
         "doc:build": "mkdocs build",
         "doc:serve": "mkdocs serve --dev-addr localhost:8094",

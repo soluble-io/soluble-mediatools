@@ -24,23 +24,11 @@
         <const name="FFPROBE_BINARY_PATH" value="ffprobe" />
     </php>
 
-
     <filter>
         <whitelist>
             <directory>./src</directory>
         </whitelist>
     </filter>
-
-
-    <!--
-    <listeners>
-        <listener class="Roave\NoLeaks\PHPUnit\CollectTestExecutionMemoryFootprints"/>
-    </listeners>
-
-    <extensions>
-        <extension class="Roave\NoLeaks\PHPUnit\CollectTestExecutionMemoryFootprints"/>
-    </extensions>
-    -->
 
     <logging>
         <log type="coverage-clover" target="build/logs/clover.xml"/>

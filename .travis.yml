@@ -31,10 +31,11 @@ install:
 jobs:
   allow_failures:
     - php: nightly
+    - stage: No-leaks
 
   include:
-    - stage: Tests and Coverage (PHP 7.2)
-      php: 7.2
+    - stage: Tests and Coverage (PHP 7.3)
+      php: 7.3
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
@@ -42,14 +43,14 @@ jobs:
         - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
         - bash <(curl -s https://codecov.io/bash)
     - stage: PHPStan, Psalm and Code style
-      php: 7.2
+      php: 7.3
       env: XDEBUG=false INSTALL_FFMPEG=no REMOVE_QA=no
       script:
         - composer phpstan
         - composer psalm
         - composer cs-check
-    - stage: Test PHP7.3
-      php: 7.3
+    - stage: Test PHP7.2
+      php: 7.2
       env: INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
@@ -76,10 +77,17 @@ jobs:
         - pip install -r ./requirements.txt
         - mkdocs build
     - stage: Mutation (unit tests only)
-      php: 7.2
+      php: 7.3
       env: XDEBUG=yes
       script:
         - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=50 --min-covered-msi=70 --threads=4
+    - stage: No-leaks
+      php: 7.3
+      env: XDEBUG=yes INSTALL_FFMPEG=yes
+      before_script:
+        - composer require roave/no-leaks --dev
+      script:
+        - ./vendor/bin/roave-no-leaks
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
       env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=yes
