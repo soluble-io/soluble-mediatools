@@ -84,9 +84,8 @@ jobs:
     - stage: No-leaks
       php: 7.3
       env: XDEBUG=yes INSTALL_FFMPEG=yes
-      before_script:
-        - composer require roave/no-leaks --dev
       script:
+        - composer require --dev roave/no-leaks
         - ./vendor/bin/roave-no-leaks
     - stage: Test PHP Nightly (unit tests only)
       php: nightly
