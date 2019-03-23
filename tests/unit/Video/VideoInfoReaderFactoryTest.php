@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Video;
 
-use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Log\NullLogger;
@@ -23,12 +22,6 @@ use Soluble\MediaTools\Video\VideoInfoReaderFactory;
 
 class VideoInfoReaderFactoryTest extends TestCase
 {
-    use ServicesProviderTrait;
-
-    public function setUp(): void
-    {
-    }
-
     public function testWithTestLogger(): void
     {
         $logger = new NullLogger();
