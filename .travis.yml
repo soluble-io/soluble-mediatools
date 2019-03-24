@@ -14,7 +14,7 @@ before_install:
     fi
   - |
     if [ "x$XDEBUG" != "xyes" ]; then
-      mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || true
+      phpenv config-rm xdebug.ini || true
     fi
   - |
     if [ "x$INSTALL_FFMPEG" == "xyes" ]; then
@@ -34,7 +34,7 @@ jobs:
     - stage: No-leaks
 
   include:
-    - stage: Tests and Coverage (PHP 7.3)
+    - stage: Tests
       php: 7.3
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=yes
       script:
@@ -42,6 +42,33 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
         - bash <(curl -s https://codecov.io/bash)
+
+    - stage: Tests
+      php: 7.2
+      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+        -
+    - stage: Tests
+      php: 7.1
+      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+        -
+    - stage: Tests
+      php: 7.1
+      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=yes
+      script:
+        - composer remove phpunit/phpunit
+        - composer require --dev phpunit/phpunit
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+
+    - stage: Tests
+      php: nightly
+      env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=yes
+      script:
+        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
+
     - stage: PHPStan, Psalm and Code style
       php: 7.3
       env: XDEBUG=false INSTALL_FFMPEG=no REMOVE_QA=no
@@ -49,23 +76,7 @@ jobs:
         - composer phpstan
         - composer psalm
         - composer cs-check
-    - stage: Test PHP7.2
-      php: 7.2
-      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
-      script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
-    - stage: Test PHP7.1
-      php: 7.1
-      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
-      script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
-    - stage: Test PHP7.1 With lowest deps
-      php: 7.1
-      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=yes
-      script:
-        - composer remove phpunit/phpunit
-        - composer require --dev phpunit/phpunit
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+
     - stage: Make doc
       install: skip
       language: python
@@ -76,20 +87,18 @@ jobs:
         - pip install --upgrade pip
         - pip install -r ./requirements.txt
         - mkdocs build
+        -
     - stage: Mutation (unit tests only)
       php: 7.3
       env: XDEBUG=yes
       script:
         - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=50 --min-covered-msi=70 --threads=4
+
     - stage: No-leaks
       php: 7.3
       env: XDEBUG=yes INSTALL_FFMPEG=yes
       script:
         - composer require --dev roave/no-leaks
         - ./vendor/bin/roave-no-leaks
-    - stage: Test PHP Nightly (unit tests only)
-      php: nightly
-      env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=yes
-      script:
-        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
+        -
 
