@@ -28,6 +28,10 @@ install:
     else
       travis_retry composer -n update --prefer-dist --no-interaction $COMPOSER_ARGS;
     fi
+
+script:
+  - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+
 jobs:
   allow_failures:
     - php: nightly
@@ -46,15 +50,11 @@ jobs:
     - stage: Tests
       php: 7.2
       env: INSTALL_FFMPEG=yes REMOVE_QA=yes
-      script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
-        -
+
     - stage: Tests
       php: 7.1
       env: INSTALL_FFMPEG=yes REMOVE_QA=yes
-      script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
-        -
+
     - stage: Tests
       php: 7.1
       env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=yes
@@ -100,5 +100,4 @@ jobs:
       script:
         - composer require --dev roave/no-leaks
         - ./vendor/bin/roave-no-leaks
-        -
 
