@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Bugs
 
+- Fixed exception message for VideoInfo when file does not exists.
 - Minor: `ProcessException` supports unknown exit error texts.
 
 ## 2.0.3 (2019-03-28)

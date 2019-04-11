@@ -58,7 +58,7 @@ final class VideoInfo implements VideoInfoInterface
         if (!file_exists($fileName)) {
             throw new IOException(sprintf(
                 'File %s does not exists',
-                $this->file
+                $fileName
             ));
         }
         $this->metadata = $metadata;
