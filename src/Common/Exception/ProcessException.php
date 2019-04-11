@@ -39,7 +39,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
             $message = sprintf(
                 '%s, exit %s: %s (%s)',
                 $process->getExitCodeText() ?? 'Empty exit code text from process',
-                $process->getExitCode(),
+                $process->getExitCode() ?? '9999',
                 $process->getCommandLine(),
                 $errOutput !== '' ? $errOutput : $previousException->getMessage()
             );
