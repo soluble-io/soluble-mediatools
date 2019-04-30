@@ -95,7 +95,6 @@ try {
 $duration = $info->getDuration(); // total duration
 $format   = $info->getFormatName(); // container format: mkv, mp4
 
-
 // Step 2: Media streams info (video, subtitle, audio, data).
 
 // Example with first video stream (streams are iterable)
@@ -110,7 +109,6 @@ $codec   = $video->getCodecName(); // i.e: vp9
 $fps     = $video->getFps($decimals=0); // i.e: 24
 $width   = $video->getWidth(); // i.e: 1080
 $ratio   = $video->getAspectRatio();
-
 
 // Alternate example  
 
@@ -160,7 +158,6 @@ use Soluble\MediaTools\Video\VideoAnalyzer;
 
 $analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
 
-    
 try {    
     $interlaceGuess = $analyzer->detectInterlacement(
         '/path/input.mov',
