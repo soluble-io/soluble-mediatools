@@ -8,7 +8,7 @@ repo_name: 'soluble-mediatools'
 repo_url: 'https://github.com/soluble-io/soluble-mediatools'
 
 # Copyright
-copyright: 'Copyright &copy; 2018 Sébastien Vanvelthem'
+copyright: 'Copyright &copy; 2018-2019 Sébastien Vanvelthem'
 
 strict: true
 
