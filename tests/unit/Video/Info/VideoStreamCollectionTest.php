@@ -50,9 +50,7 @@ class VideoStreamCollectionTest extends TestCase
         self::assertInstanceOf(VideoStream::class, $coll->getFirst());
 
         foreach ($coll as $idx => $videoStream) {
-            /*
-             * @var VideoStream $videoStream
-             */
+            // @var VideoStream $videoStream
             self::assertEquals($coll->getIterator()[$idx], $videoStream);
             self::assertEquals('video', $videoStream->getCodecType());
         }

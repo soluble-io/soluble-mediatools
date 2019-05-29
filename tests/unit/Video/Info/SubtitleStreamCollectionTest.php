@@ -50,9 +50,7 @@ class SubtitleStreamCollectionTest extends TestCase
         self::assertInstanceOf(SubtitleStream::class, $coll->getFirst());
 
         foreach ($coll as $idx => $stream) {
-            /*
-             * @var SubtitleStream $stream
-             */
+            // @var SubtitleStream $stream
             self::assertEquals($coll->getIterator()[$idx], $stream);
             self::assertEquals('subtitle', $stream->getCodecType());
         }

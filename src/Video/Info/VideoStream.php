@@ -82,6 +82,7 @@ final class VideoStream implements VideoStreamInterface
         if ($dispAr === null) {
             return null;
         }
+
         try {
             $dispAr = str_replace('/', AspectRatio::DEFAULT_PROPORTION_SEPARATOR, $dispAr);
 

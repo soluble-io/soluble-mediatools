@@ -50,9 +50,7 @@ class AudioStreamCollectionTest extends TestCase
         self::assertInstanceOf(AudioStream::class, $coll->getFirst());
 
         foreach ($coll as $idx => $audioStream) {
-            /*
-             * @var AudioStream $audioStream
-             */
+            // @var AudioStream $audioStream
             self::assertEquals($coll->getIterator()[$idx], $audioStream);
             self::assertEquals('audio', $audioStream->getCodecType());
         }

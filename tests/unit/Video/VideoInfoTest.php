@@ -62,6 +62,7 @@ class VideoInfoTest extends TestCase
         if (!is_string($tmpFile)) {
             throw new \RuntimeException('VideoInfoTest: Cannot create temp file');
         }
+
         try {
             $vi = new VideoInfo($tmpFile, $this->getExampleFFProbeData());
         } catch (\Throwable $e) {

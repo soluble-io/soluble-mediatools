@@ -62,6 +62,7 @@ final class VideoStreamCollection implements VideoStreamCollectionInterface
     private function loadStreams(): void
     {
         $this->streams = [];
+
         try {
             foreach ($this->streamsMetadata as $idx => $metadata) {
                 if (!is_array($metadata)) {

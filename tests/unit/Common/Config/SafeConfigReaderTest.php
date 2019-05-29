@@ -156,6 +156,7 @@ class SafeConfigReaderTest extends TestCase
 
         // And gives exception for
         self::assertTrue($scr->keyExists('arrayKey'));
+
         try {
             $scr->getArray('arrayKey');
             self::fail('Default cannot be taken if the config key exists and is null');
@@ -163,6 +164,7 @@ class SafeConfigReaderTest extends TestCase
         }
 
         self::assertTrue($scr->keyExists('boolKey'));
+
         try {
             $scr->getBool('boolKey');
             self::fail('Default cannot be taken if the config key exists and is null');
@@ -170,6 +172,7 @@ class SafeConfigReaderTest extends TestCase
         }
 
         self::assertTrue($scr->keyExists('intKey'));
+
         try {
             $scr->getInt('intKey');
             self::fail('Default cannot be taken if the config key exists and is null');
@@ -177,6 +180,7 @@ class SafeConfigReaderTest extends TestCase
         }
 
         self::assertTrue($scr->keyExists('floatKey'));
+
         try {
             $scr->getFloat('floatKey');
             self::fail('Default cannot be taken if the config key exists and is null');
@@ -184,6 +188,7 @@ class SafeConfigReaderTest extends TestCase
         }
 
         self::assertTrue($scr->keyExists('floatInt'));
+
         try {
             $scr->getFloat('floatInt', null, false);
             self::fail('Default cannot be taken if the config key exists and is null');
@@ -191,6 +196,7 @@ class SafeConfigReaderTest extends TestCase
         }
 
         self::assertTrue($scr->keyExists('stringKey'));
+
         try {
             $scr->getNullableString('stringKey');
             self::fail('Default cannot be taken if the config key exists and is null');

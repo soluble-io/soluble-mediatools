@@ -9,8 +9,8 @@ EOF;
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
-        // enable when you want to add header
-        //'header_comment' => array('header' => $header, 'comment_type' => 'PHPDoc'),
+        // re-enable if you want to update headers
+        //'header_comment' => ['header' => $header, 'comment_type' => 'PHPDoc'] ,
         '@PSR2' => true,
         '@PHP71Migration' => true,
         'psr4' => true,
@@ -29,31 +29,24 @@ return PhpCsFixer\Config::create()
         'non_printable_character' => true,
         'ordered_imports' => true,
 
-        'align_multiline_comment' => true,
-
         /**
          * Extended code rules
          */
         'binary_operator_spaces' => [
-            // 'align_single_space', 'align_single_space_minimal', 'single_space', null): default fix strategy; defaults to 'single_space'
-            'default' =>  'single_space',
-            'operators' =>
-                [
-                    '=>' => 'align_single_space',
-                    '=' => 'align_single_space_minimal'
-                ]
+            'align_double_arrow' => true,
+            'align_equals' => true,
         ],
-
         'blank_line_after_opening_tag' => true,
-        'blank_line_before_return' => true,
+        'blank_line_before_statement' => [ 'statements' => ['continue', 'declare', 'return', 'try'] ], // removed 'throw' and 'break' from defaults
         'cast_spaces' => true,
         'class_definition' => ['singleLine' => true],
         'concat_space' => ['spacing' => 'one'], // Different from symfony (none)
         'declare_equal_normalize' => true,
+        'error_suppression' => true,
         'function_typehint_space' => true,
-        'hash_to_slash_comment' => true,
         'heredoc_to_nowdoc' => true,
         'include' => true,
+        'increment_style' => true,
         'lowercase_cast' => true,
         'mb_str_functions' => true,
         'method_separation' => true,
@@ -65,13 +58,16 @@ return PhpCsFixer\Config::create()
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
         'no_empty_statement' => true,
-        'no_extra_consecutive_blank_lines' => [
-            'curly_brace_block',
-            'extra',
-            'parenthesis_brace_block',
-            'square_brace_block',
-            'throw',
-            'use',
+        'no_extra_blank_lines' => [ 'tokens' =>
+            [
+                'curly_brace_block',
+                'extra',
+                'parenthesis_brace_block',
+                'square_brace_block',
+                //'throw',
+                //'break',
+                'use',
+            ]
         ],
         'no_leading_import_slash' => true,
         'no_leading_namespace_whitespace' => true,
@@ -106,12 +102,12 @@ return PhpCsFixer\Config::create()
         'phpdoc_trim' => true,
         'phpdoc_types' => true,
         'phpdoc_var_without_name' => false,
-        'pre_increment' => true,
         'return_type_declaration' => true,
         'self_accessor' => true,
         'short_scalar_cast' => true,
         'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => true,
+        'single_line_comment_style' => true,
         'single_quote' => true,
         'space_after_semicolon' => true,
         'standardize_not_equals' => true,
@@ -126,7 +122,6 @@ return PhpCsFixer\Config::create()
         'php_unit_construct' => true,
         'php_unit_dedicate_assert' => true,
         'php_unit_fqcn_annotation' => true,
-        'silenced_deprecation_error' => true,
         'declare_strict_types' => true,
 
     ])
@@ -136,4 +131,3 @@ return PhpCsFixer\Config::create()
             ->in(['src', 'tests'])
     )
 ;
-

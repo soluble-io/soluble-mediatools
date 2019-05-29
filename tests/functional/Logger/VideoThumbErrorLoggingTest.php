@@ -64,6 +64,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     {
         $outputFile = "{$this->outputDir}/tmp.jpg";
         $videoThumb = new VideoThumbGenerator($this->ffmpegConfig, $this->logger);
+
         try {
             $videoThumb->makeThumbnail(
                 $this->videoFile,
@@ -86,6 +87,7 @@ class VideoThumbErrorLoggingTest extends TestCase
     {
         $outputFile = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
         $videoThumb = new VideoThumbGenerator($this->ffmpegConfig, $this->logger);
+
         try {
             $videoThumb->makeThumbnail(
                 '/path_does_no_exists/path',

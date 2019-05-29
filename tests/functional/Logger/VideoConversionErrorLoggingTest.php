@@ -63,6 +63,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     {
         $outputFile   = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
         $videoConvert = new VideoConverter($this->getFFMpegConfig(), $this->logger);
+
         try {
             $videoConvert->convert(
                 $this->videoFile,
@@ -85,6 +86,7 @@ class VideoConversionErrorLoggingTest extends TestCase
     {
         $outputFile   = "{$this->outputDir}/testConversionLoggingError.tmp.mp4";
         $videoConvert = new VideoConverter($this->getFFMpegConfig(), $this->logger);
+
         try {
             $videoConvert->convert(
                 '/path_does_no_exists/path',
