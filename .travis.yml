@@ -92,7 +92,7 @@ jobs:
       php: 7.3
       env: XDEBUG=yes
       script:
-        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=50 --min-covered-msi=70 --threads=4
+        - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=60 --min-covered-msi=70 --threads=4
 
     - stage: No-leaks
       php: 7.3
