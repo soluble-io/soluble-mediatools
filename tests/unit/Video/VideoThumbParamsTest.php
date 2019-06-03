@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\SeekTime;
 use Soluble\MediaTools\Video\VideoThumbParams;
@@ -21,6 +22,25 @@ class VideoThumbParamsTest extends TestCase
 {
     public function setUp(): void
     {
+    }
+
+
+    public function testConstructWithParams(): void
+    {
+        $params  = new VideoThumbParams([
+            VideoThumbParamsInterface::PARAM_QUALITY_SCALE => 2
+        ]);
+
+        self::assertSame(2, $params->getParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE));
+    }
+
+    public function testConstructWithParamsThrowsInvalidParamException(): void
+    {
+        $this->expectException(InvalidParamException::class);
+
+        new VideoThumbParams([
+            'not_exists' => 'mp3'
+        ]);
     }
 
     public function testMustBeImmutable(): void

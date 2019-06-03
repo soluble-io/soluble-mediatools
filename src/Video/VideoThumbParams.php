@@ -13,6 +13,7 @@ namespace Soluble\MediaTools\Video;
 
 use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
@@ -24,7 +25,7 @@ final class VideoThumbParams implements VideoThumbParamsInterface
     /**
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params
      *
-     * @throws InvalidArgumentException in case of unsupported option
+     * @throws InvalidParamException in case of unsupported param
      */
     public function __construct(array $params = [])
     {
@@ -191,13 +192,13 @@ final class VideoThumbParams implements VideoThumbParamsInterface
      *
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params
      *
-     * @throws InvalidArgumentException in case of unsupported option
+     * @throws InvalidParamException in case of unsupported param
      */
     private function ensureSupportedParams(array $params): void
     {
         foreach ($params as $paramName => $paramValue) {
             if (!$this->isParamValid($paramName)) {
-                throw new InvalidArgumentException(
+                throw new InvalidParamException(
                     sprintf('Unsupported param "%s" given.', $paramName)
                 );
             }
