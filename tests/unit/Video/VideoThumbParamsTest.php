@@ -27,7 +27,7 @@ class VideoThumbParamsTest extends TestCase
     public function testConstructWithParams(): void
     {
         $params  = new VideoThumbParams([
-            VideoThumbParamsInterface::PARAM_QUALITY_SCALE => 2
+            VideoThumbParamsInterface::PARAM_QUALITY_SCALE => 2,
         ]);
 
         self::assertSame(2, $params->getParam(VideoThumbParamsInterface::PARAM_QUALITY_SCALE));
@@ -38,7 +38,7 @@ class VideoThumbParamsTest extends TestCase
         $this->expectException(InvalidParamException::class);
 
         new VideoThumbParams([
-            'not_exists' => 'mp3'
+            'not_exists' => 'mp3',
         ]);
     }
 

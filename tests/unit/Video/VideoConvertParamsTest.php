@@ -29,7 +29,7 @@ class VideoConvertParamsTest extends TestCase
     public function testConstructWithParams(): void
     {
         $params  = new VideoConvertParams([
-            VideoConvertParamsInterface::PARAM_AUDIO_CODEC => 'mp3'
+            VideoConvertParamsInterface::PARAM_AUDIO_CODEC => 'mp3',
         ]);
 
         self::assertSame('mp3', $params->getParam(VideoConvertParamsInterface::PARAM_AUDIO_CODEC));
@@ -40,7 +40,7 @@ class VideoConvertParamsTest extends TestCase
         $this->expectException(InvalidParamException::class);
 
         new VideoConvertParams([
-            'not_exists' => 'mp3'
+            'not_exists' => 'mp3',
         ]);
     }
 
