@@ -39,7 +39,7 @@ class PathAssertionsTraitTest extends TestCase
 
     public function testInvalidFileMustThrowException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
 
         $cls = new class() {
             use PathAssertionsTrait;
@@ -54,7 +54,7 @@ class PathAssertionsTraitTest extends TestCase
 
     public function testDirectoryMustThrowException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
 
         $cls = new class() {
             use PathAssertionsTrait;
@@ -99,7 +99,7 @@ class PathAssertionsTraitTest extends TestCase
 
     public function testReadableExceptionsWithNonEmpty(): void
     {
-        self::expectException(FileEmptyException::class);
+        $this->expectException(FileEmptyException::class);
         $cls = new class() {
             use PathAssertionsTrait;
 
@@ -114,7 +114,7 @@ class PathAssertionsTraitTest extends TestCase
 
     public function testEnsureFileReadableMustThrowFileNotFoundException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
         $cls = new class() {
             use PathAssertionsTrait;
 
@@ -128,7 +128,7 @@ class PathAssertionsTraitTest extends TestCase
 
     public function testEnsureFileReadableMustThrowFileNotReadableException(): void
     {
-        self::expectException(FileNotReadableException::class);
+        $this->expectException(FileNotReadableException::class);
         $file = tempnam(sys_get_temp_dir(), 'mediatools-unit-test');
         if ($file === false) {
             self::markTestSkipped('Cannot create a require temp file');

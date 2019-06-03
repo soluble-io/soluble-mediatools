@@ -58,13 +58,13 @@ class AudioStreamCollectionTest extends TestCase
 
     public function testAudioStreamsWithDataThrowsException(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         new AudioStreamCollection([0 => 'cool']);
     }
 
     public function testAudioStreamsWithDataThrowsNoStreamException(): void
     {
-        self::expectException(NoStreamException::class);
+        $this->expectException(NoStreamException::class);
         (new AudioStreamCollection([]))->getFirst();
     }
 

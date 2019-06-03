@@ -95,7 +95,7 @@ class VideoConverterTest extends TestCase
 
     public function testGetSymfonyProcessMustThrowExceptionOnWrongOutput(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $convertParams = (new VideoConvertParams());
 
         (new VideoConverter(

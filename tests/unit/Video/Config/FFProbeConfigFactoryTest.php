@@ -99,7 +99,7 @@ class FFProbeConfigFactoryTest extends TestCase
 
     public function testMustThrowInvalidConfigExceptionWhenInvalidType(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
 
         $container = $this->createZendServiceManager([
             'soluble-mediatools' => [
@@ -112,14 +112,14 @@ class FFProbeConfigFactoryTest extends TestCase
 
     public function testMustThrowInvalidConfigExceptionWhenNoConfig(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
         $container = $this->createZendServiceManager([]);
         (new FFProbeConfigFactory())($container);
     }
 
     public function testMustThrowInvalidConfigExceptionWhenNoEntry(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
         $container = $this->createZendServiceManager([]);
         (new FFProbeConfigFactory('noentry'))($container);
     }

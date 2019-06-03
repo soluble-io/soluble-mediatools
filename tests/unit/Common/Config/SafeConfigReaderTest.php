@@ -77,7 +77,7 @@ class SafeConfigReaderTest extends TestCase
         $scr->ensureKeyExists('test');
         self::assertTrue(true);
 
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
         $scr->ensureKeyExists('cool');
     }
 

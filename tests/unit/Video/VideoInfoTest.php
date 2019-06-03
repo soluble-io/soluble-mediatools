@@ -43,7 +43,7 @@ class VideoInfoTest extends TestCase
 
     public function testConstructThrowsIOException(): void
     {
-        self::expectException(IOException::class);
+        $this->expectException(IOException::class);
         new VideoInfo('/unexistent_file/path/file', $this->getExampleFFProbeData());
     }
 
@@ -57,7 +57,7 @@ class VideoInfoTest extends TestCase
 
     public function testFileSizeThrowsIOException(): void
     {
-        self::expectException(IOException::class);
+        $this->expectException(IOException::class);
         $tmpFile = tempnam(sys_get_temp_dir(), 'testFileSizeThrowsIOException.tmp');
         if (!is_string($tmpFile)) {
             throw new \RuntimeException('VideoInfoTest: Cannot create temp file');
@@ -128,21 +128,21 @@ class VideoInfoTest extends TestCase
 
     public function testGetAudioStreamsThrowsException(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
         $vi->getAudioStreams();
     }
 
     public function testGetVideoStreamsThrowsException(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
         $vi->getVideoStreams();
     }
 
     public function testGetSubtitleStreamsThrowsException(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => 'cool']]);
         $vi->getSubtitleStreams();
     }
@@ -175,34 +175,34 @@ class VideoInfoTest extends TestCase
 
     public function testGetStreamMetadataByTypeThrowsInvalidArgumentException(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $vi = new VideoInfo($this->getTestFile(), $this->getExampleFFProbeData());
         $vi->getStreamsMetadataByType('unsupported');
     }
 
     public function testGetStreamMetadataByTypeThrowsInvalidStreamMetadataException1(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['streams' => [0 => []]]);
         $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_VIDEO);
     }
 
     public function testGetStreamMetadataByTypeThrowsInvalidStreamMetadataException2(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         $vi = new VideoInfo($this->getTestFile(), ['invalid' => []]);
         $vi->getStreamsMetadataByType(VideoInfo::STREAM_TYPE_VIDEO);
     }
 
     public function testCreateFromFFProbeJsonThrowsJsonExceptionWhenEmpty(): void
     {
-        self::expectException(JsonParseException::class);
+        $this->expectException(JsonParseException::class);
         VideoInfo::createFromFFProbeJson($this->getTestFile(), '');
     }
 
     public function testCreateFromFFProbeJsonThrowsJsonExceptionWhenInvalid(): void
     {
-        self::expectException(JsonParseException::class);
+        $this->expectException(JsonParseException::class);
         VideoInfo::createFromFFProbeJson($this->getTestFile(), '{test: aa}');
     }
 

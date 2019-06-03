@@ -62,7 +62,7 @@ class VideoThumbGeneratorTest extends TestCase
 
     public function testMissingFFMpegBinary(): void
     {
-        self::expectException(MissingFFMpegBinaryException::class);
+        $this->expectException(MissingFFMpegBinaryException::class);
         $thumb = $this->getConfiguredContainer(false, './path/ffmpeg', './path/ffprobe')
             ->get(VideoThumbGenerator::class);
 
@@ -131,7 +131,7 @@ class VideoThumbGeneratorTest extends TestCase
 
     public function testThumbAtEndDurationMustThrowNoOutputGeneratedException(): void
     {
-        self::expectException(NoOutputGeneratedException::class);
+        $this->expectException(NoOutputGeneratedException::class);
 
         $outputFile = $this->outputDir . '/testThumbAtVideoDuration.jpg';
         if (file_exists($outputFile)) {
@@ -151,19 +151,19 @@ class VideoThumbGeneratorTest extends TestCase
 
     public function testMakeThumbnailThrowsMissingTimeException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
         $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new VideoThumbParams());
     }
 
     public function testMakeThumbnailThrowsFileNotFoundException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
         $this->thumbService->makeThumbnail('/path/path/does_not_exist.mp4', '', new VideoThumbParams());
     }
 
     public function testMakeThumbnailMustThrowExceptionOnTimeout(): void
     {
-        self::expectException(ProcessTimedOutException::class);
+        $this->expectException(ProcessTimedOutException::class);
 
         $outputFile = "{$this->outputDir}/throwExceptionOnTimeout.jpg";
 

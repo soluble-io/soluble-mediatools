@@ -54,7 +54,7 @@ class BinaryAssertionsTraitTest extends TestCase
 
     public function testMissingBinaryException(): void
     {
-        self::expectException(MissingBinaryException::class);
+        $this->expectException(MissingBinaryException::class);
 
         $cls = new class() {
             use BinaryAssertionsTrait;

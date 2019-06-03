@@ -39,7 +39,7 @@ class ConfigProviderTest extends TestCase
 
     public function testDefaultConfigurationThrowsRuntimeException(): void
     {
-        self::expectException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
 
         $cls = new class() extends ConfigProvider {
             public static function getBaseDir(): string

@@ -67,7 +67,7 @@ class VideoConverterTest extends TestCase
 
     public function testMissingFFMpegBinary(): void
     {
-        self::expectException(MissingFFMpegBinaryException::class);
+        $this->expectException(MissingFFMpegBinaryException::class);
         $convert = $this->getConfiguredContainer(false, './path/ffmpeg', './path/ffprobe')
             ->get(VideoConverterInterface::class);
 
@@ -285,8 +285,8 @@ class VideoConverterTest extends TestCase
 
     public function testConvertWithWrongPassWillError(): void
     {
-        self::expectException(ProcessFailedException::class);
-        self::expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
+        $this->expectException(ProcessFailedException::class);
+        $this->expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
 
         $outputFile = "{$this->outputDir}/testConvertWithWrongPassWillError.webm";
 
@@ -316,8 +316,8 @@ class VideoConverterTest extends TestCase
     {
         $outputFile = "{$this->outputDir}/testConvertWithInvalidPassLogFileWillError.webm";
 
-        self::expectException(ProcessFailedException::class);
-        self::expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
+        $this->expectException(ProcessFailedException::class);
+        $this->expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
 
         $logFile = $this->outputDir . '/testConvertWithInvalidLogFile-ffmpeg-passlog';
         if (file_exists($logFile)) {
@@ -369,13 +369,13 @@ class VideoConverterTest extends TestCase
 
     public function testConvertMustThrowFileNotFoundException(): void
     {
-        self::expectException(MissingInputFileException::class);
+        $this->expectException(MissingInputFileException::class);
         $this->videoConvert->convert('/no_exists/test.mov', '/tmp/test.mp4', new VideoConvertParams());
     }
 
     public function testConvertInvalidCodecMustThrowProcessException(): void
     {
-        self::expectException(ProcessExceptionInterface::class);
+        $this->expectException(ProcessExceptionInterface::class);
 
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
@@ -386,7 +386,7 @@ class VideoConverterTest extends TestCase
 
     public function testConvertInvalidFileMustThrowProcessException(): void
     {
-        self::expectException(ProcessExceptionInterface::class);
+        $this->expectException(ProcessExceptionInterface::class);
 
         $outputFile = "{$this->outputDir}/testBasicUsageThrowsProcessConversionException.tmp.mp4";
 
@@ -397,7 +397,7 @@ class VideoConverterTest extends TestCase
 
     public function testConvertMustThrowExceptionOnDefaultTimeout(): void
     {
-        self::expectException(ProcessTimedOutException::class);
+        $this->expectException(ProcessTimedOutException::class);
 
         $outputFile = "{$this->outputDir}/throwExceptionOnGlobalTimeout.tmp.mp4";
 
@@ -419,7 +419,7 @@ class VideoConverterTest extends TestCase
 
     public function testConvertMustThrowExceptionOnTimeout(): void
     {
-        self::expectException(ProcessTimedOutException::class);
+        $this->expectException(ProcessTimedOutException::class);
 
         $outputFile = "{$this->outputDir}/throwExceptionOnTimeout.tmp.mp4";
 
@@ -437,7 +437,7 @@ class VideoConverterTest extends TestCase
 
     public function testConvertMustThrowExceptionOnIdleTimeout(): void
     {
-        self::expectException(ProcessTimedOutException::class);
+        $this->expectException(ProcessTimedOutException::class);
 
         $outputFile = "{$this->outputDir}/throwExceptionOnTimeout.tmp.mp4";
 

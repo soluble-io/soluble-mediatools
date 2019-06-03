@@ -143,7 +143,7 @@ class VideoInfoReaderTest extends TestCase
 
     public function testMissingFFProbeBinary(): void
     {
-        self::expectException(MissingFFProbeBinaryException::class);
+        $this->expectException(MissingFFProbeBinaryException::class);
         $infoService = $this->getConfiguredContainer(false, './path/ffmpeg', './path/ffprobe')
             ->get(VideoInfoReaderInterface::class);
         $infoService->getInfo($this->videoFile);
@@ -151,19 +151,19 @@ class VideoInfoReaderTest extends TestCase
 
     public function testGetMediaInfoThrowsProcessFailedException(): void
     {
-        self::expectException(ProcessFailedException::class);
+        $this->expectException(ProcessFailedException::class);
         $this->infoService->getInfo("{$this->baseDir}/data/not_a_video_file.mov");
     }
 
     public function testGetMediaInfoThrowsMissingInputFileException(): void
     {
-        self::expectException(MissingInputFileException::class);
+        $this->expectException(MissingInputFileException::class);
         $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 
     public function testGetMediaInfoThrowsFileNotFoundException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
         $this->infoService->getInfo('/path/path/does_not_exist.mp4');
     }
 }

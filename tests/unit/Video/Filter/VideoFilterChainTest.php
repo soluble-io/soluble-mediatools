@@ -74,7 +74,7 @@ class VideoFilterChainTest extends TestCase
 
     public function testFFMpegCliArgumentMustThrowUnsupportedParamValueException(): void
     {
-        self::expectException(UnsupportedParamValueException::class);
+        $this->expectException(UnsupportedParamValueException::class);
 
         $filter1 = new class() implements FFMpegVideoFilterInterface {
             public function getFFmpegCLIValue(): string
@@ -126,7 +126,7 @@ class VideoFilterChainTest extends TestCase
 
     public function testAddFiltersThrowsInvalidArgumentExceptionWithScalar(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $filters = [
             new EmptyVideoFilter(),
             'cool',
@@ -137,7 +137,7 @@ class VideoFilterChainTest extends TestCase
 
     public function testAddFiltersThrowsInvalidArgumentExceptionWithObject(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $filters = [
             new EmptyVideoFilter(),
             new \stdClass(),

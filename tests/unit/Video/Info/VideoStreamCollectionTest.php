@@ -58,13 +58,13 @@ class VideoStreamCollectionTest extends TestCase
 
     public function testVideoStreamsWithDataThrowsException(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         new VideoStreamCollection([0 => 'cool']);
     }
 
     public function testVideoStreamsWithDataThrowsNoStreamException(): void
     {
-        self::expectException(NoStreamException::class);
+        $this->expectException(NoStreamException::class);
         (new VideoStreamCollection([]))->getFirst();
     }
 

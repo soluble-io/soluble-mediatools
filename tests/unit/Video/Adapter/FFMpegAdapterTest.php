@@ -160,7 +160,7 @@ class FFMpegAdapterTest extends TestCase
 
     public function testWithNonFFMpegVideoFilterMustThrowException(): void
     {
-        self::expectException(UnsupportedParamValueException::class);
+        $this->expectException(UnsupportedParamValueException::class);
         $filter1 = new class() implements VideoFilterInterface {
         };
 
@@ -188,7 +188,7 @@ class FFMpegAdapterTest extends TestCase
 
     public function testGetCliCommandWrongOutputFileThrowsInvalidArgumentException(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $params = (new VideoConvertParams())
             ->withCrf(32)

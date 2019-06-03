@@ -27,7 +27,7 @@ class PlatformNullFileTest extends TestCase
 
     public function testInvalidPlatformThrowsException(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         new PlatformNullFile('BEOS');
     }
 }

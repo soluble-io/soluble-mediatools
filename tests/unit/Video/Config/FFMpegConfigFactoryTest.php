@@ -103,7 +103,7 @@ class FFMpegConfigFactoryTest extends TestCase
 
     public function testMustThrowInvalidConfigExceptionWhenInvalidType(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
 
         $container = $this->createZendServiceManager([
             'soluble-mediatools' => [
@@ -116,7 +116,7 @@ class FFMpegConfigFactoryTest extends TestCase
 
     public function testMustThrowInvalidConfigExceptionWhenNoConfig(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
         $container = $this->createZendServiceManager([]);
 
         (new FFMpegConfigFactory())($container);
@@ -124,7 +124,7 @@ class FFMpegConfigFactoryTest extends TestCase
 
     public function testMustThrowInvalidConfigExceptionWhenNoEntry(): void
     {
-        self::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
         $container = $this->createZendServiceManager([]);
 
         (new FFMpegConfigFactory('cool'))($container);

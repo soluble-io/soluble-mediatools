@@ -62,25 +62,25 @@ class AspectRatioTest extends TestCase
 
     public function testCreateFromStringThrowsInvalidArgumentException1(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         AspectRatio::createFromString('16:9', '/');
     }
 
     public function testCreateFromStringThrowsInvalidArgumentException2(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         AspectRatio::createFromString('16:9:3', ':');
     }
 
     public function testCreateFromStringThrowsInvalidArgumentException3(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         AspectRatio::createFromString('16.2/AA', '/');
     }
 
     public function testCreateFromStringThrowsInvalidArgumentException4(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         AspectRatio::createFromString('-16:9', '/');
     }
 }

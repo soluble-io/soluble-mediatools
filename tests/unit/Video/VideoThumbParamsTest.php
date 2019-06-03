@@ -116,7 +116,7 @@ class VideoThumbParamsTest extends TestCase
 
     public function testGetParamThrowsUnsetParamException(): void
     {
-        self::expectException(UnsetParamException::class);
+        $this->expectException(UnsetParamException::class);
 
         $params = (new VideoThumbParams())->withTime(10);
 

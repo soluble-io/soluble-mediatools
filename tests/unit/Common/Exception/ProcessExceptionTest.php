@@ -28,7 +28,7 @@ class ProcessExceptionTest extends TestCase
         self::assertSame($process, $e->getProcess());
         self::assertSame($se, $e->getSymfonyProcessRuntimeException());
 
-        self::expectException(LogicException::class);
+        $this->expectException(LogicException::class);
 
         $e->getErrorOutput();
     }

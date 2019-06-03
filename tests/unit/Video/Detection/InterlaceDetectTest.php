@@ -47,13 +47,13 @@ class InterlaceDetectTest extends TestCase
 
     public function testGuessInterlacingThrowsMissingInputFileException(): void
     {
-        self::expectException(MissingInputFileException::class);
+        $this->expectException(MissingInputFileException::class);
         $this->interlaceDetect->guessInterlacing('./unexistent_file.mp4', 200);
     }
 
     public function testGuessInterlacingThrowsProcessFailedException(): void
     {
-        self::expectException(ProcessFailedException::class);
+        $this->expectException(ProcessFailedException::class);
         $this->interlaceDetect->guessInterlacing($this->getTestFile(), 200);
     }
 

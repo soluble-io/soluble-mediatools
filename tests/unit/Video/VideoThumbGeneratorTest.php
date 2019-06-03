@@ -34,7 +34,7 @@ class VideoThumbGeneratorTest extends TestCase
 
     public function testGetSymfonyProcessWithoutTimeOrFrameThrowsException(): void
     {
-        self::expectException(MissingTimeException::class);
+        $this->expectException(MissingTimeException::class);
 
         $this->thumbGenerator->getSymfonyProcess(
             __FILE__,

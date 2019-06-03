@@ -58,7 +58,7 @@ class ScaleFilterTest extends TestCase
 
     public function testInvalidAspectRatioThrowsException(): void
     {
-        self::expectException(ParamValidationException::class);
+        $this->expectException(ParamValidationException::class);
 
         (new ScaleFilter(
             1024,

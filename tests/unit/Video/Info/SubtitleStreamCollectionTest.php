@@ -58,13 +58,13 @@ class SubtitleStreamCollectionTest extends TestCase
 
     public function testSubtitleStreamsWithDataThrowsException(): void
     {
-        self::expectException(InvalidStreamMetadataException::class);
+        $this->expectException(InvalidStreamMetadataException::class);
         new SubtitleStreamCollection([0 => 'cool']);
     }
 
     public function testSubtitleStreamsWithDataThrowsNoStreamException(): void
     {
-        self::expectException(NoStreamException::class);
+        $this->expectException(NoStreamException::class);
         (new SubtitleStreamCollection([]))->getFirst();
     }
 

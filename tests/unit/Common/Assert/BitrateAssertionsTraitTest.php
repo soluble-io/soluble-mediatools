@@ -19,7 +19,7 @@ class BitrateAssertionsTraitTest extends TestCase
 {
     public function testInvalidBitrateMustThrowException(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $cls = new class() {
             use BitrateAssertionsTrait;

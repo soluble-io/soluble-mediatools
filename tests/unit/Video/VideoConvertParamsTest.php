@@ -222,7 +222,7 @@ class VideoConvertParamsTest extends TestCase
 
     public function testGetParamThrowsUnsetParamException(): void
     {
-        self::expectException(UnsetParamException::class);
+        $this->expectException(UnsetParamException::class);
 
         $params = (new VideoConvertParams())->withTileColumns(10);
 

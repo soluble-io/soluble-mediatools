@@ -66,7 +66,7 @@ class VideoAnalyzerTest extends TestCase
 
     public function testDetectInterlacementThrowsFileNotFoundException(): void
     {
-        self::expectException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
         $this->detectionService->detectInterlacement('/path/path/does_not_exist.mp4');
     }
 }
