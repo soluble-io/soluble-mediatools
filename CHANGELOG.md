@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Bugs
 
+- `VideoThumbParams` throws `InvalidParamException` instead of InvalidArgumentException
 - `VideoConvertParams` throws `InvalidParamException` instead of InvalidArgumentException 
 
 ## 2.0.4 (2019-04-11)
