@@ -13,6 +13,7 @@ namespace MediaToolsTest\Video;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 use Soluble\MediaTools\Video\SeekTime;
@@ -23,6 +24,24 @@ class VideoConvertParamsTest extends TestCase
 {
     public function setUp(): void
     {
+    }
+
+    public function testConstructWithParams(): void
+    {
+        $params  = new VideoConvertParams([
+            VideoConvertParamsInterface::PARAM_AUDIO_CODEC => 'mp3'
+        ]);
+
+        self::assertSame('mp3', $params->getParam(VideoConvertParamsInterface::PARAM_AUDIO_CODEC));
+    }
+
+    public function testConstructWithParamsThrowsInvalidParamException(): void
+    {
+        $this->expectException(InvalidParamException::class);
+
+        new VideoConvertParams([
+            'not_exists' => 'mp3'
+        ]);
     }
 
     public function testMustBeImmutable(): void
@@ -215,12 +234,6 @@ class VideoConvertParamsTest extends TestCase
         $params  = (new VideoConvertParams())->withTileColumns(10);
         $default = $params->getParam(VideoConvertParams::PARAM_AUDIO_BITRATE, '2M');
         self::assertEquals('2M', $default);
-    }
-
-    public function testUnsupportedParamThrowsInvalidArgumentException(): void
-    {
-        self::expectException(InvalidArgumentException::class);
-        new VideoConvertParams(['UnsupportedOption' => 'cool']);
     }
 
     public function testInvalidBitRateThrowsInvalidArgumentException(): void

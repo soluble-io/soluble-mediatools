@@ -14,6 +14,7 @@ namespace Soluble\MediaTools\Video;
 use Soluble\MediaTools\Common\Assert\BitrateAssertionsTrait;
 use Soluble\MediaTools\Video\Adapter\FFMpegCLIValueInterface;
 use Soluble\MediaTools\Video\Exception\InvalidArgumentException;
+use Soluble\MediaTools\Video\Exception\InvalidParamException;
 use Soluble\MediaTools\Video\Exception\UnsetParamException;
 use Soluble\MediaTools\Video\Filter\Type\VideoFilterInterface;
 
@@ -27,7 +28,7 @@ final class VideoConvertParams implements VideoConvertParamsInterface
     /**
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params
      *
-     * @throws InvalidArgumentException in case of unsupported option
+     * @throws InvalidParamException in case of unsupported option
      */
     public function __construct(array $params = [])
     {
@@ -433,13 +434,13 @@ final class VideoConvertParams implements VideoConvertParamsInterface
      *
      * @param array<string, bool|string|int|VideoFilterInterface|FFMpegCLIValueInterface> $params
      *
-     * @throws InvalidArgumentException in case of unsupported option
+     * @throws InvalidParamException in case of unsupported option
      */
     private function ensureSupportedParams(array $params): void
     {
         foreach ($params as $paramName => $paramValue) {
             if (!$this->isParamValid($paramName)) {
-                throw new InvalidArgumentException(
+                throw new InvalidParamException(
                     sprintf('Unsupported built-in param "%s" given.', $paramName)
                 );
             }
