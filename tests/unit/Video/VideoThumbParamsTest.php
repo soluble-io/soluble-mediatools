@@ -24,7 +24,6 @@ class VideoThumbParamsTest extends TestCase
     {
     }
 
-
     public function testConstructWithParams(): void
     {
         $params  = new VideoThumbParams([
