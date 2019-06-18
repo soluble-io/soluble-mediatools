@@ -43,7 +43,7 @@
         "fig/http-message-util": "^1.1.2",
         "friendsofphp/php-cs-fixer": "^2.14",
         "infection/infection": "^0.13",
-        "jangregor/phpstan-prophecy": "^0.3",
+        "jangregor/phpstan-prophecy": "^0.4.1",
         "mikey179/vfsstream": "^1.6",
         "monolog/monolog": "^1.23",
         "phpspec/prophecy": "^1.8",
