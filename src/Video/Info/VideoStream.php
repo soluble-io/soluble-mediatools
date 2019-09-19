@@ -225,7 +225,7 @@ final class VideoStream implements VideoStreamInterface
 
     private function getFpsFromDuration(): ?float
     {
-        if (($this->getNbFrames() ?? 0) > 0 && ($this->getDuration() ?? 0) > 0) {
+        if (($this->getNbFrames() ?? 0) > 0 && ($this->getDuration()) > 0) {
             return (float) $this->getNbFrames() / $this->getDuration();
         }
 
