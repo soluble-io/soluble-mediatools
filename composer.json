@@ -16,7 +16,7 @@
         "audio",
         "audio extraction",
         "subtitle",
-        "webtt",
+        "webvtt",
         "extraction"
     ],
     "homepage": "https://github.com/soluble-io/soluble-mediatools",
@@ -45,7 +45,7 @@
         "infection/infection": "^0.13",
         "jangregor/phpstan-prophecy": "^0.4.1",
         "mikey179/vfsstream": "^1.6",
-        "monolog/monolog": "^1.23",
+        "monolog/monolog": "^1.23 | ^2.0",
         "phpspec/prophecy": "^1.8",
         "phpstan/phpstan": "^0.11.4",
         "phpstan/phpstan-phpunit": "^0.11",
@@ -55,7 +55,7 @@
         "slevomat/coding-standard": "^5.0",
         "squizlabs/php_codesniffer": "^3.4",
         "symfony/cache": "^4.3",
-        "vimeo/psalm": "^3.4",
+        "vimeo/psalm": "^3.5",
         "zendframework/zend-servicemanager": "^3.3"
     },
     "config": {
