@@ -16,6 +16,8 @@ use Symfony\Component\Process\Process;
 
 class ProcessException extends RuntimeException implements ProcessExceptionInterface
 {
+    public const DEFAULT_EXCEPTION_CODE = 1;
+
     /** @var Process */
     private $process;
 
@@ -30,7 +32,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
         ) {
             $code = $previousException->getProcess()->getExitCode();
         } else {
-            $code = 1;
+            $code = self::DEFAULT_EXCEPTION_CODE;
         }
 
         if ($message === null) {
@@ -47,7 +49,7 @@ class ProcessException extends RuntimeException implements ProcessExceptionInter
 
         parent::__construct(
             $message,
-            $code ?? 1,
+            is_int($code) ? $code : self::DEFAULT_EXCEPTION_CODE,
             $previousException
         );
 
