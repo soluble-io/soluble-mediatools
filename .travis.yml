@@ -48,6 +48,10 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
 
     - stage: Tests
+      php: 7.4snapshot
+      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
+
+    - stage: Tests
       php: 7.2
       env: INSTALL_FFMPEG=yes REMOVE_QA=yes
 
