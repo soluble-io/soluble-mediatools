@@ -36,7 +36,7 @@ jobs:
   allow_failures:
     - php:
        - nightly
-       - php7.4snapshot
+       - 7.4snapshot
     - stage: No-leaks
 
   include:
