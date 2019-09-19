@@ -34,7 +34,9 @@ script:
 
 jobs:
   allow_failures:
-    - php: nightly
+    - php:
+       - nightly
+       - php7.4snapshot
     - stage: No-leaks
 
   include:
