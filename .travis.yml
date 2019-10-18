@@ -41,7 +41,7 @@ jobs:
   include:
     - stage: Tests
       php: 7.3
-      env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=yes
+      env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
@@ -50,19 +50,19 @@ jobs:
 
     - stage: Tests
       php: 7.4snapshot
-      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
+      env: INSTALL_FFMPEG=yes REMOVE_QA=no
 
     - stage: Tests
       php: 7.2
-      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
+      env: INSTALL_FFMPEG=yes REMOVE_QA=no
 
     - stage: Tests
       php: 7.1
-      env: INSTALL_FFMPEG=yes REMOVE_QA=yes
+      env: INSTALL_FFMPEG=yes REMOVE_QA=no
 
     - stage: Tests
       php: 7.1
-      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=yes
+      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=no
       script:
         - composer remove phpunit/phpunit
         - composer require --dev phpunit/phpunit
@@ -70,7 +70,7 @@ jobs:
 
     - stage: Tests
       php: nightly
-      env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=yes
+      env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=no
       script:
         - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
 
