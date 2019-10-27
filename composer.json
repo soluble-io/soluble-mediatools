@@ -47,7 +47,7 @@
         "mikey179/vfsstream": "^1.6",
         "monolog/monolog": "^1.23 | ^2.0",
         "phpspec/prophecy": "^1.9",
-        "phpstan/phpstan": "^0.11.4",
+        "phpstan/phpstan": "^0.11.19",
         "phpstan/phpstan-phpunit": "^0.11",
         "phpstan/phpstan-strict-rules": "^0.11",
         "phpunit/phpunit": "^7.4 || ^8.0",
@@ -55,7 +55,7 @@
         "slevomat/coding-standard": "^5.0",
         "squizlabs/php_codesniffer": "^3.4",
         "symfony/cache": "^4.3",
-        "vimeo/psalm": "^3.6",
+        "vimeo/psalm": "^3.6.2",
         "zendframework/zend-servicemanager": "^3.3"
     },
     "config": {

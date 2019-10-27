@@ -3,13 +3,13 @@ includes:
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 parameters:
 	fileExtensions:
 		- php
 		- dist
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-
 		# for covariance allowed failures
 		-
 			message: '#Return type(.*)RuntimeException(.*)of method(.*)should be covariant#'
@@ -34,6 +34,12 @@ parameters:
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertTrue\(\) with false will always evaluate to false.#'
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertFalse\(\) with true#'
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertInstanceOf(.*)will always evaluate to true#'
+
+		# For allowing skipped tests
+
+		-
+			message: '#Unreachable statement - code above always terminates#'
+			path: tests/unit/Common/Assert/BinaryAssertionsTraitTest.php
 
 		# For allowing tests to attempt to break things
 
