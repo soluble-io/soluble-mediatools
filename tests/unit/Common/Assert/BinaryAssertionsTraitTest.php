@@ -21,7 +21,6 @@ class BinaryAssertionsTraitTest extends TestCase
     {
         if (!file_exists('/bin/ls')) {
             self::markTestSkipped('This test can only be run on linux/unix platforms');
-
             return;
         }
 
