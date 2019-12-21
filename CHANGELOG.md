@@ -2,14 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## 2.1.0 (2019-12-21)
+
+### Added
+
+- Support for symfony/process ^5.0
+
+### Dev
+
+- [ci] added PHP 7.4 to travis
+- [minor] phpdoc, phpstan ^0.12 generics annotations
+
 
 ## 2.0.6 (2019-09-19)
 
 ### Bugs
 
-- [minor] Psalm, default error code for ProcessException enforced to 1. 
+- [minor] Psalm, default error code for ProcessException enforced to 1.
 - [minor] Psalm, VideoStream unnecessary test for null duration.
 
 
@@ -18,7 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Bugs
 
 - `VideoThumbParams` throws `InvalidParamException` instead of InvalidArgumentException
-- `VideoConvertParams` throws `InvalidParamException` instead of InvalidArgumentException 
+- `VideoConvertParams` throws `InvalidParamException` instead of InvalidArgumentException
 
 ## 2.0.4 (2019-04-11)
 
@@ -37,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
-- Stream collections now properly document 'NoStreamException'.  
+- Stream collections now properly document 'NoStreamException'.
 - Improved documentation for VideoInfoReader.
 
 ## 2.0.1 (2019-03-15)
@@ -57,7 +69,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Missing `final` keywords for classes that are not supposed to be extended
   to enforce possible bc issues later. Upgrade to 2.0 is fine if you're not extending
   base classes.
- 
+
 
 ## 1.0.1 (2019-03-13)
 
@@ -95,8 +107,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- `VideoInfoReader` now accepts a *psr-16 / simple-cache* implementation in the constructor 
-- `VideoInfoReader::getInfo($file, CacheInterface $cache=null)` to allow using a specific *psr-16* cache implementaton. 
+- `VideoInfoReader` now accepts a *psr-16 / simple-cache* implementation in the constructor
+- `VideoInfoReader::getInfo($file, CacheInterface $cache=null)` to allow using a specific *psr-16* cache implementaton.
 - Specific `InvalidFFProbeJsonException` in `VideoInfoReader::getInfo()` to improve debug.
 - `VideoStream::getFps(?int $decimals=null)` to get the stream framerate.
 
@@ -210,25 +222,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.8.4 (2018-12-17)
 
-### Bugfix 
+### Bugfix
 
 - [Major] Recently introduced for `symfony/process 4.2` broke older versions.
 
 ### Improvement
 
 - Now relies on arguments escaping offered by `symfony/process`.
-- Tested on PHP 7.3 final !  
+- Tested on PHP 7.3 final !
 
 ### Improved
 
-- Q&A: travis now tests with lowest supported deps !  
+- Q&A: travis now tests with lowest supported deps !
 
 
 ## 0.8.3 (2018-12-03)
 
-### Updated 
+### Updated
 
-- Support for `symfony/process 4.2`. 
+- Support for `symfony/process 4.2`.
 
 ## 0.8.2 (2018-10-25)
 
@@ -236,13 +248,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - `VideoThumbGenerator::makeThumbnail()` now checks that output file exists and eventually throws `NoOutputGeneratedException`. [17](https://github.com/soluble-io/soluble-mediatools/issues/17)
 - `VideoThumbParams::withFrame()` allows to make a thumbnail of a specific frame.
-- `SelectFilter` added for frame selections. 
-- `VideoFilterChain::count()` method added, implements `Countable`  
+- `SelectFilter` added for frame selections.
+- `VideoFilterChain::count()` method added, implements `Countable`
 
 ### Fixed
 
 - `VideoThumbgenerator` did not honour default number of threads (minor)
-- `VideoFilterChain` prevent recursive chaining (merge chains) 
+- `VideoFilterChain` prevent recursive chaining (merge chains)
 
 ## 0.8.1 (2018-10-25)
 
@@ -275,9 +287,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.7.7 (2018-08-19)
 
-### Added 
+### Added
 
-- Added `ScaleFilter` for scaling videos. 
+- Added `ScaleFilter` for scaling videos.
 
 ### Improved
 
@@ -289,20 +301,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.7.6 (2018-08-16)
 
-### Added 
+### Added
 
 - `VideoConvertParams::withAutoAltRef()` and `withLagInFrames()` to optimize vp9.
 
 ## 0.7.5 (2018-08-16)
 
-### Added 
+### Added
 
 - `UnescapedFileInterface` to allow setting outputfile without escaping.
 - `PlatformNullFile()` can be set as `$outputFile` in `VideoConvert`.
 
 ## 0.7.4 (2018-08-16)
 
-### Added 
+### Added
 
 - `VideoConvertParams::withPass(int $passNumber)` to indicate ffmpeg pass number
 
@@ -312,7 +324,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.7.3 (2018-08-15)
 
-### Added 
+### Added
 
 - `VideoConvertParams::withConvertParams(VideoConvertParamsInterface $extraParams)` convenience method to add/merge new params.
 
@@ -324,9 +336,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- `VideoConvertParams::setPassLogFile(string $file)` to permit multipass encoding. 
+- `VideoConvertParams::setPassLogFile(string $file)` to permit multipass encoding.
 - `VideoInfo::getFileSize()` to get the filesize in bytes.
-- `Common\Exception\IOException` and `IOExceptionInterface` for generic file/io exception 
+- `Common\Exception\IOException` and `IOExceptionInterface` for generic file/io exception
 
 ### Changed
 
@@ -347,7 +359,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Better error reporting when video file is not readable.
 
-### Fixed 
+### Fixed
 
 - `ext-json` added as requirement in composer.json
 
@@ -357,7 +369,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### CHANGED
 
-#### Conversion 
+#### Conversion
 
 > Search and replace `ConversionService` to `VideoConverter`.
 > Search and replace `ConversionParams` to `VideoConvertParams`.
@@ -375,8 +387,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [BC-BREAK] Renamed `InfoService` to `VideoInfoReader`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
 - [BC-BREAK] Renamed `InfoServiceInterface` to `VideoInfoReaderInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
 - [BC-BREAK] Renamed `InfoServiceFactory` to `VideoInfoReaderFactory`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
-- [BC-BREAK] Renamed `Info` to `VideoInfo`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
-- [BC-BREAK] Renamed `InfoInterface` to `VideoInfoInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2) 
+- [BC-BREAK] Renamed `Info` to `VideoInfo`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
+- [BC-BREAK] Renamed `InfoInterface` to `VideoInfoInterface`, [#2](https://github.com/soluble-io/soluble-mediatools/issues/2)
 
 #### Thumbnail
 
@@ -386,7 +398,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [BC-BREAK] Renamed `ThumbParams` to `VideoThumbParams`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
 - [BC-BREAK] Renamed `ThumbServiceInterface` to `VideoThumbGeneratorInterface`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
 - [BC-BREAK] Renamed `ThumbServiceFactory` to `VideoThumbGeneratorFactory`, [#3](https://github.com/soluble-io/soluble-mediatools/issues/3)
- 
+
 #### Detection / Analyzer
 
 > Search and replace `DetectionService` to `VideoAnalyzer`.
@@ -398,17 +410,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Requirement of `symfony/polyfill-mbstring` to allow install on system without mbstring extension. 
+- Requirement of `symfony/polyfill-mbstring` to allow install on system without mbstring extension.
 
 ## 0.6.3 (2018-08-08)
 
 ### Added
 
-- Missing requirement of 'ext-mbstring' in composer.json. 
+- Missing requirement of 'ext-mbstring' in composer.json.
 
 ### Fixed
 
-- Minor null file (`PlatformNullFile`) test when not autodetected. 
+- Minor null file (`PlatformNullFile`) test when not autodetected.
 
 ## 0.6.2 (2018-08-07)
 
@@ -431,9 +443,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - New method for video conversion params `ConvertParams::withoutParam(string $paramName)`.
-- New method for video thumbnail params `ThumbParams::withoutParam(string $paramName)`. 
+- New method for video thumbnail params `ThumbParams::withoutParam(string $paramName)`.
 
-### Changed 
+### Changed
 
 - Internal `AdapterInterface` becomes `ConverterAdapterInterface`.
 - Internal `FFMpegConverterAdapter` becomes `FFMpegAdapter`.
@@ -455,7 +467,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Support for psr/log in video conversion, thumbnail and info services.  
+- Support for psr/log in video conversion, thumbnail and info services.
 - Added `VideoFilterChain::__construct(array $filters = [])`
 - Added `VideoFilterChain::addFilters(array $filters = [])`
 
@@ -463,14 +475,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Separation of concern for `ProcessParamInterface`
 
-## 0.5.0 (2018-07-10) 
+## 0.5.0 (2018-07-10)
 
 ### Changed
 
 - [BC-Break] Moved `[Conversion|Thumb|Detection|Info]Service` one level up in `Video\[Conversion|Thumb|Detection|Info]Service`.
   As well `VideoConversionParams` becomes `Video\ConversionParams`. Search/replace should be sufficient.
   *(This change makes possible a future split of this repo (audio-video-subtitles...) without
-  sacrificing BC)*.   
+  sacrificing BC)*.
 - [BC-Break] `ProcessTimeOutException` renamed to `ProcessTimedOutException` for coherence.
 - [BC-Break] Moved `Config\*` to `Video\Config\*`, update FFMpegConfig, FFProbeConfig, ConfigProvider locations.
 
@@ -490,7 +502,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Q&A Testing timed-out behaviour (functional tests working)
 
 
-## 0.4.0 (2018-07-09)  
+## 0.4.0 (2018-07-09)
 
 ### Changed
 
@@ -502,7 +514,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- `ConversionParamsInterface::withBuiltInParam()` to set a built-in (supported) param. 
+- `ConversionParamsInterface::withBuiltInParam()` to set a built-in (supported) param.
 - `ConversionParamsInterface::withNoOverwrite()` to ensure a file is never overwritten
 
 ### Improved
@@ -513,7 +525,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Improved customization of config factories `FFProbeConfigFactory` and `FFMpegConfigFactory`
 - Improved error reporting using config factories.
 - Factories for `FFProbeConfigFactory` and `FFMpegConfigFactory` uses interfaces.
- 
+
 ### Fixed
 
 - Added missing interface methods in `AdapterInterface`
@@ -521,9 +533,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
-- `AbstractProcess` family internal classes, no use exclusively `symfony/process` 
+- `AbstractProcess` family internal classes, no use exclusively `symfony/process`
 
-## 0.3.0 (2018-07-08)  
+## 0.3.0 (2018-07-08)
 
 ### Changed
 
@@ -536,7 +548,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support for `withOverwrite`.
 
 
-## 0.2.0 (2018-07-06) 
+## 0.2.0 (2018-07-06)
 
 ### Changed
 
@@ -548,6 +560,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Configuration: Idle and regular timeouts for conversions.
 - Q&A: Travis tests, unit and functional/integration tests (a start).
 
-### Removed 
+### Removed
 
 - Interlacing detection in `VideoConvert` service
