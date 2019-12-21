@@ -35,7 +35,6 @@ script:
 jobs:
   allow_failures:
     - php: nightly
-    - php: 7.4snapshot
     - stage: No-leaks
 
   include:
@@ -49,7 +48,7 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
 
     - stage: Tests
-      php: 7.4snapshot
+      php: 7.4
       env: INSTALL_FFMPEG=yes REMOVE_QA=no
 
     - stage: Tests
