@@ -25,6 +25,11 @@
                 <file name="src/Video/VideoThumbGenerator.php" />
             </errorLevel>
         </PossiblyNullArgument>
+        <TypeDoesNotContainType>
+            <errorLevel type="info">
+                <file name="src/Video/Info/VideoStream.php" />
+            </errorLevel>
+        </TypeDoesNotContainType>
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
 
