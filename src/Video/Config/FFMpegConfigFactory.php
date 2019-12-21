@@ -42,7 +42,7 @@ final class FFMpegConfigFactory
     {
         $config = (new ContainerConfigLocator($container, $this->entryName))->getConfig($this->configKey);
 
-        $scr = new SafeConfigReader($config, $this->configKey ?: '');
+        $scr = new SafeConfigReader($config, $this->configKey ?? '');
 
         return new FFMpegConfig(
             $scr->getNullableString('ffmpeg.binary', null),

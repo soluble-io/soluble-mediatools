@@ -42,7 +42,7 @@ final class FFProbeConfigFactory
     {
         $config = (new ContainerConfigLocator($container, $this->entryName))->getConfig($this->configKey);
 
-        $scr = new SafeConfigReader($config, $this->configKey ?: '');
+        $scr = new SafeConfigReader($config, $this->configKey ?? '');
 
         return new FFProbeConfig(
             $scr->getNullableString('ffprobe.binary', null),

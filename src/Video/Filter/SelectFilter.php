@@ -35,7 +35,7 @@ final class SelectFilter implements FFMpegVideoFilterInterface
     {
         return sprintf(
             'select=%s',
-            str_replace('"', '\"', $this->expression ?: '')
+            str_replace('"', '\"', $this->expression ?? '')
         );
     }
 }
