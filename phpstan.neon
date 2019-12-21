@@ -8,6 +8,8 @@ parameters:
 	fileExtensions:
 		- php
 		- dist
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
 		# for covariance allowed failures
