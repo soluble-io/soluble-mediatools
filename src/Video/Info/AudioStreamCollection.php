@@ -43,6 +43,9 @@ final class AudioStreamCollection implements AudioStreamCollectionInterface
         return count($this->streamsMetadata);
     }
 
+    /**
+     * @return \ArrayIterator<int, AudioStreamInterface>
+     */
     public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->streams);

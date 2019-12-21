@@ -43,6 +43,9 @@ final class SubtitleStreamCollection implements SubtitleStreamCollectionInterfac
         return count($this->streamsMetadata);
     }
 
+    /**
+     * @return \ArrayIterator<int, SubtitleStreamInterface>
+     */
     public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->streams);

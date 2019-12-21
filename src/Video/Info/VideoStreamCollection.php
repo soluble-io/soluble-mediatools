@@ -51,6 +51,9 @@ final class VideoStreamCollection implements VideoStreamCollectionInterface
         return count($this->streamsMetadata);
     }
 
+    /**
+     * @return \ArrayIterator<int, VideoStreamInterface>
+     */
     public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->streams);
