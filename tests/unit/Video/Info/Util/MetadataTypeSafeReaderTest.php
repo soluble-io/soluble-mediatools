@@ -38,8 +38,8 @@ class MetadataTypeSafeReaderTest extends TestCase
             'floatNull1' => -45.2,
             'floatNull2' => null,
 
-            'float3'     => '0.0000000',
-            'float4'     => '12.12345',
+            'float3' => '0.0000000',
+            'float4' => '12.12345',
         ];
 
         $tsReader = new MetadataTypeSafeReader($data);
@@ -81,12 +81,12 @@ class MetadataTypeSafeReaderTest extends TestCase
             'stringNull1' => 'test',
             'stringNull2' => null,
 
-            'float1'        => 1,
-            'float2'        => 1.12344556,
-            'float3'        => '1.234.12',
-            'floatNull1'    => -45.2,
-            'floatNull2'    => null,
-            'array'         => [],
+            'float1'     => 1,
+            'float2'     => 1.12344556,
+            'float3'     => '1.234.12',
+            'floatNull1' => -45.2,
+            'floatNull2' => null,
+            'array'      => [],
         ];
 
         $tsReader = new MetadataTypeSafeReader($data);

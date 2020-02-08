@@ -28,7 +28,7 @@ class VideoConvertParamsTest extends TestCase
 
     public function testConstructWithParams(): void
     {
-        $params  = new VideoConvertParams([
+        $params = new VideoConvertParams([
             VideoConvertParamsInterface::PARAM_AUDIO_CODEC => 'mp3',
         ]);
 

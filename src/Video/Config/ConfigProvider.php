@@ -90,8 +90,8 @@ class ConfigProvider
             VideoThumbGeneratorInterface::class => VideoThumbGeneratorFactory::class,
 
             // Infrastructure
-            LoggerInterface::class       => NullLoggerFactory::class,
-            CacheInterface::class        => NullCacheFactory::class,
+            LoggerInterface::class => NullLoggerFactory::class,
+            CacheInterface::class  => NullCacheFactory::class,
         ];
     }
 
