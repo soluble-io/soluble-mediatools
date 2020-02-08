@@ -103,5 +103,5 @@ jobs:
       env: XDEBUG=yes INSTALL_FFMPEG=yes
       script:
         - composer require --dev roave/no-leaks
-        - ./vendor/bin/roave-no-leaks
+        - ./vendor/bin/roave-no-leaks -c .travis/phpunit.xml
 

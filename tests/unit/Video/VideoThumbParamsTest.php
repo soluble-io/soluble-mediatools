@@ -26,7 +26,7 @@ class VideoThumbParamsTest extends TestCase
 
     public function testConstructWithParams(): void
     {
-        $params  = new VideoThumbParams([
+        $params = new VideoThumbParams([
             VideoThumbParamsInterface::PARAM_QUALITY_SCALE => 2,
         ]);
 

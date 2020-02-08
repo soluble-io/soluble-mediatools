@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Util;
 
+use Laminas\ServiceManager\ServiceManager;
 use Psr\Container\ContainerInterface;
 use Soluble\MediaTools\Video\Config\ConfigProvider;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
@@ -19,7 +20,6 @@ use Soluble\MediaTools\Video\VideoAnalyzerInterface;
 use Soluble\MediaTools\Video\VideoConverterInterface;
 use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 use Soluble\MediaTools\Video\VideoThumbGeneratorInterface;
-use Zend\ServiceManager\ServiceManager;
 
 trait ServicesProviderTrait
 {
@@ -108,8 +108,8 @@ trait ServicesProviderTrait
 
         $config = [
             'soluble-mediatools' => [
-                'ffmpeg.binary'          => $ffmpegBinary,
-                'ffprobe.binary'         => $ffprobeBinary,
+                'ffmpeg.binary'  => $ffmpegBinary,
+                'ffprobe.binary' => $ffprobeBinary,
             ],
         ];
 
