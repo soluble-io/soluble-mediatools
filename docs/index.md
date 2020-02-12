@@ -106,7 +106,7 @@ A PHP version >= 7.1 and depending on required services: ffmpeg and/or ffprobe.
 
 - [x] **VideoAnalyzer** ([doc here](./video-detection-service.md))
       - [x] Interlacing detection
-        ```php hl_lines="4 6 7 8 9 10"
+        ```php hl_lines="4 6 7 8 9 11"
         <?php // a quick taste        
         $analyzer = new VideoAnalyzer(new FFMpegConfig('/path/to/ffmpeg'));
         
