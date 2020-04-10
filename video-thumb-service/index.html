@@ -1,16 +1,14 @@
 
 
 
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
-        <meta name="description" content="soluble-mediatools documentation">
+        <meta name="description" content="soluble-mediatools ffmpeg wrapper documentation">
       
       
         <link rel="canonical" href="https://soluble-io.github.io/soluble-mediatools/video-thumb-service/">
@@ -18,27 +16,8 @@
       
         <meta name="author" content="Sébastien Vanvelthem">
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.0.2">
     
     
       
@@ -46,32 +25,31 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.07c9fbf5.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecd4686e.min.css">
       
       
         
         
-        <meta name="theme-color" content="">
+        <meta name="theme-color" content="#e91e63">
       
     
-    
-      <script src="../assets/javascripts/modernizr.74668098.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Roboto+Mono&display=fallback">
-        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
-    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
-      <link rel="stylesheet" href="../assets/css/extra.css">
+      <link rel="stylesheet" href="../_assets/css/mermaid.css">
     
-      <link rel="stylesheet" href="../assets/css/monokai.css">
+      <link rel="stylesheet" href="../_assets/css/monokai.css">
+    
+      <link rel="stylesheet" href="../_assets/css/style.css">
     
     
       
@@ -79,71 +57,72 @@
     
   </head>
   
-    
-    
-    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="orange">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="purple">
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#requirements" tabindex="1" class="md-skip">
-        Skip to content
-      </a>
-    
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#requirements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
     
       <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://soluble-io.github.io/soluble-mediatools" title="Mediatools" class="md-header-nav__button md-logo">
-          
-            <i class="md-icon">play_circle_outline</i>
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
-              Mediatools
-            </span>
-            <span class="md-header-nav__topic">
-              
-                ✔ VideoThumbGenerator
-              
-            </span>
-          
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://soluble-io.github.io/soluble-mediatools" title="Mediatools" class="md-header-nav__button md-logo" aria-label="Mediatools">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Mediatools
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              ✔ VideoThumbGenerator
+            
+          </span>
         </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Type to start searching
           </div>
@@ -153,71 +132,56 @@
     </div>
   </div>
 </div>
+    
+    
+      <div class="md-header-nav__source">
         
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/soluble-io/soluble-mediatools/" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/soluble-io/soluble-mediatools/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
   <div class="md-source__repository">
     soluble-mediatools
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
+      </div>
+    
   </nav>
 </header>
     
-    <div class="md-container">
+    <div class="md-container" data-md-component="container">
       
         
       
       
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://soluble-io.github.io/soluble-mediatools" title="Mediatools" class="md-nav__button md-logo">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://soluble-io.github.io/soluble-mediatools" title="Mediatools" class="md-nav__button md-logo" aria-label="Mediatools">
       
-        <i class="md-icon">play_circle_outline</i>
-      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
     </a>
     Mediatools
   </label>
   
     <div class="md-nav__source">
       
-
-
-  
-
-<a href="https://github.com/soluble-io/soluble-mediatools/" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/soluble-io/soluble-mediatools/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
   <div class="md-source__repository">
     soluble-mediatools
   </div>
@@ -271,11 +235,14 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         ✔ VideoThumbGenerator
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
       </label>
     
     <a href="./" title="✔ VideoThumbGenerator" class="md-nav__link md-nav__link--active">
@@ -283,11 +250,16 @@
     </a>
     
       
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -309,7 +281,7 @@
     Usage
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -350,7 +322,7 @@
     Recipes
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Recipes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -364,16 +336,6 @@
     </nav>
   
 </li>
-      
-      
-        <li class="md-nav__item">
-          <a href="#__source" class="md-nav__link md-nav__link--active">
-            Source
-          </a>
-        </li>
-      
-      
-      
       
     </ul>
   
@@ -453,11 +415,16 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -479,7 +446,7 @@
     Usage
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -520,7 +487,7 @@
     Recipes
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Recipes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -535,16 +502,6 @@
   
 </li>
       
-      
-        <li class="md-nav__item">
-          <a href="#__source" class="md-nav__link md-nav__link--active">
-            Source
-          </a>
-        </li>
-      
-      
-      
-      
     </ul>
   
 </nav>
@@ -557,7 +514,24 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-thumb-service.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/soluble-io/soluble-mediatools/edit/master/docs/video-thumb-service.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                  </a>
+                
+                
+                  
+                    
+
+
+  
+
+
+<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php" title="Video/VideoThumbGenerator.php" class="md-content__button md-icon">
+  Source
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+</a>
+                  
                 
                 
                   <h1>✔ VideoThumbGenerator</h1>
@@ -567,7 +541,7 @@ deal with video thumbnail creation. </p>
 <p>It exposes an immutable api for thumbnail generation parameters and attempt to make 
 debugging easier with clean exceptions. You can also inject any psr-3 compatible 
 logger if you don't want to log issues by yourself.</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\ConverterExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">};</span>
@@ -586,7 +560,7 @@ logger if you don't want to log issues by yourself.</p>
 </span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg <a href="../install-ffmpeg/">installed</a> on your system.</p>
@@ -596,7 +570,7 @@ requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/maste
 object as first parameter. 
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
 and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoThumbGenerator</span><span class="p">;</span>
 
@@ -617,7 +591,7 @@ and the various timeouts if needed. The second parameter can be used to inject a
     <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
     <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>   
 <span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 <details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
 Depending on available framework integrations, you may have a look to the 
@@ -629,7 +603,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <h4 id="thumbnailing">Thumbnailing<a class="headerlink" href="#thumbnailing" title="Permanent link">&para;</a></h4>
 <p>Typically you'll use the <code>VideoThumbGenerator::makeThumbnail()</code> method in which you specify the input/output files
 as well as the thumbnail params. </p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
@@ -645,7 +619,7 @@ as well as the thumbnail params. </p>
     <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span>
     <span class="nv">$params</span> 
 <span class="p">);</span>    
-</pre></div>
+</code></pre></div>
 
 <blockquote>
 <p><strong>Warning</strong>, if the time is out of range, an <code>NoOutputGeneratedException</code> will be thrown.</p>
@@ -654,7 +628,7 @@ as well as the thumbnail params. </p>
 service initialization.</em> </p>
 <details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>Video\VideoThumbGenerator::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
 to get more control on the conversion process. 
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="nv">$process</span> <span class="o">=</span> <span class="nv">$thumbService</span><span class="o">-&gt;</span><span class="na">getSymfonyProcess</span><span class="p">(</span>
     <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;/path/outputFile.jpg&#39;</span><span class="p">,</span> 
@@ -671,13 +645,13 @@ to get more control on the conversion process.
         <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Read from stderr: &quot;</span><span class="o">.</span><span class="nv">$data</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>        
-</pre></div>
+</code></pre></div>
 Have a look to the <a href="https://symfony.com/doc/current/components/process.html">symfony/process documentation</a> for more recipes. </p>
 </details>
 <h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
 <p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbParams.php"><code>Video\VideoThumbParams</code></a> 
 exposes an immutable api that attempt to mimic ffmpeg params.  </p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoThumbParams</span><span class="p">;</span>
 
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">())</span>
@@ -685,14 +659,14 @@ exposes an immutable api that attempt to mimic ffmpeg params.  </p>
     <span class="o">-&gt;</span><span class="na">withTime</span><span class="p">(</span><span class="mf">12.23</span><span class="p">);</span>
     <span class="c1">// alternatively</span>
     <span class="c1">//-&gt;withSeekTime(SeekTime::createFromHMS(&#39;0:00:12.23&#39;));</span>
-</pre></div>
+</code></pre></div>
 
 <details class="question"><summary>Immutable api, what does it change for me ? (vs fluent)</summary><p>VideoThumbParams exposes an <mark>immutable</mark> style api <em>(<code>-&gt;withXXX()</code>, like PSR-7 for example)</em>.
 It means that the original object is never touched, the <code>withXXX()</code> methods will return a newly 
 created object. </p>
 <p>Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both expose 
 chainable methods... your primary reflexes might cause pain: </p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoThumbParams</span><span class="p">());</span>
 
 <span class="nv">$newParams</span> <span class="o">=</span> <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">withSeekTime</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">1.1212</span><span class="p">));</span>
@@ -702,7 +676,7 @@ chainable methods... your primary reflexes might cause pain: </p>
 
 <span class="hll"><span class="c1">// $newParams contains SeekTime (correct)</span>
 </span><span class="nv">$generator</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output.jpg&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
-</pre></div>
+</code></pre></div>
 
 </details>
 <p>Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information. </p>
@@ -828,7 +802,7 @@ chainable methods... your primary reflexes might cause pain: </p>
 </table>
 <h4 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h4>
 <p>Video filters can be set to the VideoThumbParams through the <code>-&gt;withVideoFilter(VideoFilterInterface $videoFilter)</code> method:</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Filter</span><span class="p">;</span>
 
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
@@ -842,13 +816,13 @@ chainable methods... your primary reflexes might cause pain: </p>
             <span class="k">new</span> <span class="nx">Filter\NlmeansVideoFilter</span><span class="p">()</span>
         <span class="p">])</span>
     <span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 <p>See the <strong><a href="../video-filters/">complete video filters doc here</a></strong> </p>
 <h4 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h4>
 <p>You can safely catch exceptions with the generic <code>Soluble\MediaTools\VideoException\ConverterExceptionInterface</code>,
 alternatively you can also :</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
@@ -913,7 +887,7 @@ alternatively you can also :</p>
     <span class="c1">// - VE\RuntimeException</span>
     <span class="c1">// - VE\InvalidParamException (should not happen)</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 <h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
 <h4 id="make-a-thumbnail-of-the-last-frame">Make a thumbnail of the last frame<a class="headerlink" href="#make-a-thumbnail-of-the-last-frame" title="Permanent link">&para;</a></h4>
@@ -921,7 +895,7 @@ alternatively you can also :</p>
 <p>To get the last frame, use the <a href="../video-info-service/"><code>VideoInfoReader</code></a> to get
 the total number of frames. </p>
 </blockquote>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">VideoThumbGenerator</span><span class="p">,</span> <span class="nx">VideoThumbParams</span><span class="p">};</span>
@@ -950,19 +924,8 @@ the total number of frames. </p>
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// See chapter about exception !!!    </span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
                 
-                  
-                    <h2 id="__source">Source</h2>
-                    
-                    
-                      
-                    
-                    
-                    
-                    <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoThumbGenerator.php" title="Video/VideoThumbGenerator.php" class="md-source-file">
-                      Video/VideoThumbGenerator.php
-                    </a>
                   
                 
               
@@ -980,34 +943,34 @@ the total number of frames. </p>
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../video-conversion-service/" title="✔ VideoConverter" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+          <a href="../video-conversion-service/" title="✔ VideoConverter" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 ✔ VideoConverter
-              </span>
+              </div>
             </div>
           </a>
         
         
-          <a href="../video-detection-service/" title="✔ VideoAnalyzer" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+          <a href="../video-detection-service/" title="✔ VideoAnalyzer" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 ✔ VideoAnalyzer
-              </span>
+              </div>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
             </div>
           </a>
         
@@ -1019,20 +982,22 @@ the total number of frames. </p>
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018-2019 Sébastien Vanvelthem
+            Copyright &copy; 2018-2020 Sébastien Vanvelthem
           </div>
         
-        powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
-        and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
-          Material for MkDocs</a>
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/soluble-io/soluble-mediatools" class="md-footer-social__link fa fa-github"></a>
+      
+      
+      <a href="https://github.com/soluble-io/soluble-mediatools" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
     
   </div>
 
@@ -1042,9 +1007,20 @@ the total number of frames. </p>
       
     </div>
     
-      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.result.other": "# matching documents", "clipboard.copy": "Copy to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.lang": "en", "search.result.placeholder": "Type to start searching", "search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "clipboard.copied": "Copied to clipboard", "search.result.none": "No matching documents"}</script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["instant"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../_assets/js/mermaid-8.4.8.min.js"></script>
       
     
   </body>
