@@ -89,9 +89,9 @@ jobs:
       script:
         - pip install requests[security]
         - pip install --upgrade pip
-        - pip install -r ./requirements.txt
+        - pip install -r ./docs/_config/requirements.txt
         - mkdocs build
-        -
+
     - stage: Mutation (unit tests only)
       php: 7.3
       env: XDEBUG=yes
