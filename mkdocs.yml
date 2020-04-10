@@ -1,19 +1,21 @@
 site_name: 'Mediatools'
-site_description: 'soluble-mediatools documentation'
 site_author: 'Sébastien Vanvelthem'
 site_url: https://soluble-io.github.io/soluble-mediatools
+site_description: >-
+  soluble-mediatools ffmpeg wrapper documentation
 
 # Repository
 repo_name: 'soluble-mediatools'
 repo_url: 'https://github.com/soluble-io/soluble-mediatools'
 
 # Copyright
-copyright: 'Copyright &copy; 2018-2019 Sébastien Vanvelthem'
+copyright: 'Copyright &copy; 2018-2020 Sébastien Vanvelthem'
 
 strict: true
 
 docs_dir: docs
 site_dir: build/docs
+edit_uri: https://github.com/soluble-io/soluble-mediatools/edit/master/docs/
 
 nav:
     - Home: index.md
@@ -26,38 +28,52 @@ nav:
     - Integration: integration.md
     - License: 'about/license.md'
 
+# Documentation and theme
 theme:
-  name: 'material'
-  language: 'en'
+  name: material
+
+  # 404 page
+  #static_templates:
+  #  - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  language: en
+  features:
+    #- tabs
+    - instant
   palette:
-    primary: 'white'
-    accent: 'orange'
+    primary: pink
+    accent: purple
   font:
-    text: 'Lato'
-    code: 'Roboto Mono'
-  logo:
-    icon: 'play_circle_outline'
-  feature:
-    tabs: false
+    text: Lato
+    #code: Fira Code
+
+# Plugins
+plugins:
+  - search
+
 
 # Customization
 extra:
   social:
-    - type: 'github'
+    - icon: fontawesome/brands/github-alt
       link: 'https://github.com/soluble-io/soluble-mediatools'
 
+extra_javascript:
+  - _assets/js/mermaid-8.4.8.min.js
 extra_css:
-  - 'assets/css/extra.css'
-  - 'assets/css/monokai.css'
-
-#google_analytics:
-  #- ''
-  #- 'auto'
+  - _assets/css/mermaid.css
+  - _assets/css/monokai.css
+  - _assets/css/style.css
 
 
 # Extensions
 markdown_extensions:
   - markdown.extensions.admonition
+  - markdown.extensions.attr_list
   - markdown.extensions.codehilite:
       guess_lang: false
   - markdown.extensions.def_list
@@ -66,17 +82,34 @@ markdown_extensions:
   - markdown.extensions.toc:
       permalink: true
   - pymdownx.arithmatex
-  - pymdownx.betterem
-#      smart_enable: all
+  - pymdownx.betterem:
+      smart_enable: all
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
+        # - pymdownx.highlight:
+      #     linenums_style: pymdownx-inline
   - pymdownx.inlinehilite
-  - pymdownx.magiclink
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - pymdownx.tasklist
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.tilde
+
+

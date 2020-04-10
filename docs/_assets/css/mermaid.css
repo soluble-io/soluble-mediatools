@@ -1,0 +1,29 @@
+:root {
+  --mermaid-font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial;
+}
+
+text.actor {
+  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial;
+}
+
+.actor-line {
+  stroke:grey;
+}
+
+.messageText {
+  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial;
+  font-size:14px;
+}
+
+.labelText {
+  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial
+}
+
+.loopText {
+  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial
+}
+
+text.noteText {
+  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial
+  font-size:14px;
+}
