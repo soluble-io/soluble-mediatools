@@ -1,0 +1,40 @@
+name: publish-doc
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+     - "docs/**"
+     - "mkdocs.yml"
+     - ".github/workflows/**"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.5
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.5"
+
+      - name: Install dependencies
+        run: |
+          pip3 install -r docs/_config/requirements.txt
+
+      - name: Build the doc
+        run: |
+          mkdocs build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/docs
+          allow_empty_commit: true
