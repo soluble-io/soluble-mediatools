@@ -32,15 +32,15 @@
       
         
         
-        <meta name="theme-color" content="#e91e63">
+        <meta name="theme-color" content="">
       
     
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
-        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -60,7 +60,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="purple">
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="indigo">
   
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -646,10 +646,10 @@
                 
                   <h1>✔ VideoConverter</h1>
                 
-                <p>The <mark>VideoConverter service</mark> acts as a wrapper over ffmpeg and
-helps with video conversions, clipping, filters, scaling... </p>
-<p>It exposes an immutable api for conversion parameters and attempt to make 
-debugging easier with clean exceptions. You can also inject any psr-3 compatible 
+                <p>The VideoConverter service acts as a wrapper over ffmpeg and
+helps with video conversions, clipping, filters, scaling...</p>
+<p>It exposes an immutable api for conversion parameters and attempt to make
+debugging easier with clean exceptions. You can also inject any psr-3 compatible
 logger if you don't want to log issues by yourself.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
@@ -659,53 +659,53 @@ logger if you don't want to log issues by yourself.</p>
 <span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 <span class="hll"><span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
-</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>    
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
 </span><span class="hll">    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
-</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>                  
+</span><span class="hll">    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
 </span>
-<span class="k">try</span> <span class="p">{</span>    
+<span class="k">try</span> <span class="p">{</span>
 <span class="hll">    <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-</span><span class="hll">        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-</span><span class="hll">        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+</span><span class="hll">        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span>
+</span><span class="hll">        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span>
 </span><span class="hll">        <span class="nv">$params</span>
-</span><span class="hll">    <span class="p">);</span>    
+</span><span class="hll">    <span class="p">);</span>
 </span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// See chapter about exception !!!    </span>
+    <span class="c1">// See chapter about exception !!!</span>
 <span class="p">}</span>
 </code></pre></div>
 
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg <a href="../install-ffmpeg/">installed</a> on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverter.php">VideoConverter</a> 
-requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> 
-object as first parameter. 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverter.php">VideoConverter</a>
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a>
+object as first parameter.
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
-and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
+and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoConverter</span><span class="p">;</span>
 
-<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span>    
-    <span class="c1">// @param FFMpegConfigInterface </span>
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoConverter</span><span class="p">(</span>
+    <span class="c1">// @param FFMpegConfigInterface</span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)</span>
         <span class="nv">$binary</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?int)    - ffmpeg default threads (null: single-thread)</span>
         <span class="nv">$threads</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?float)  - max time in seconds for ffmpeg process (null: disable)</span>
-        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?float)  - max idle time in seconds for ffmpeg process</span>
-        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (array)   - additional environment variables</span>
-        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>                           
+        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="p">),</span>
-    <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
-    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>   
+    <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.</span>
+    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>
 <span class="p">);</span>
 </code></pre></div>
 
-<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
+<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container.
 Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConverterFactory.php"><code>VideoConverterFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p>
@@ -713,25 +713,25 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <h4 id="conversion">Conversion<a class="headerlink" href="#conversion" title="Permanent link">&para;</a></h4>
 <p>Typically you'll use the <code>VideoConverter::convert()</code> method in which you specify the input/output files
-as well as the conversion params. </p>
+as well as the conversion params.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span>
      <span class="c1">// Output file will be automatically &#39;shell&#39; escaped,</span>
-    <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span>
     <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
-<span class="p">);</span>           
+<span class="p">);</span>
 </code></pre></div>
 
-<p><em>The <code>convert()</code> method will automatically set the process timeouts, logger... as specified during 
-service initialization.</em> </p>
-<details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code> 
-to get more control on the conversion process. 
+<p><em>The <code>convert()</code> method will automatically set the process timeouts, logger... as specified during
+service initialization.</em></p>
+<details class="question"><summary>What if I need more control over the process ? (advanced usage)</summary><p>You can use the <code>VideoConverter::getSymfonyProcess(string $inputFile, string $outputFile, VideoConvertParamsInterface $convertParams, ?ProcessParamsInterface $processParams = null): Process</code>
+to get more control on the conversion process.
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="nv">$process</span> <span class="o">=</span> <span class="nv">$conversionService</span><span class="o">-&gt;</span><span class="na">getSymfonyProcess</span><span class="p">(</span>
-    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-     <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
-      <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>              
+    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span>
+      <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
 <span class="p">);</span>
 
 <span class="nv">$process</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">();</span>
@@ -742,30 +742,30 @@ to get more control on the conversion process.
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// $process::ERR === $type</span>
         <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Read from stderr: &quot;</span><span class="o">.</span><span class="nv">$data</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>        
+<span class="p">}</span>
 </code></pre></div>
-Have a look to the <a href="https://symfony.com/doc/current/components/process.html">symfony/process documentation</a> for more recipes. </p>
+Have a look to the <a href="https://symfony.com/doc/current/components/process.html">symfony/process documentation</a> for more recipes.</p>
 </details>
 <h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParams.php"><code>Video\VideoConvertParams</code></a> 
-exposes an immutable api that attempt to mimic ffmpeg params.  </p>
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParams.php"><code>Video\VideoConvertParams</code></a>
+exposes an immutable api that attempt to mimic ffmpeg params.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoConvertParams</span><span class="p">;</span>
 
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>  
-    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>         
+    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withPreset</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;aac&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">);</span>            
+    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">);</span>
 </code></pre></div>
 
 <details class="question"><summary>Immutable api, what does it change for me ? (vs fluent)</summary><p>VideoConvertParams exposes an <mark>immutable</mark> style api <em>(<code>-&gt;withXXX()</code>, like PSR-7 for example)</em>.
-It means that the original object is never touched, the <code>withXXX()</code> methods will return a newly 
-created object. </p>
-<p>Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both expose 
-chainable methods... your primary reflexes might cause pain: </p>
+It means that the original object is never touched, the <code>withXXX()</code> methods will return a newly
+created object.</p>
+<p>Please be aware of it especially if you're used to <sub><mark>fluent</mark></sub> interfaces as both expose
+chainable methods... your primary reflexes might cause pain:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">());</span>
 
@@ -775,11 +775,11 @@ chainable methods... your primary reflexes might cause pain: </p>
 </span><span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 
 <span class="hll"><span class="c1">// $newParams have been initialized with video codec (correct)</span>
-</span><span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>     
+</span><span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nv">$newParams</span><span class="p">);</span>
 </code></pre></div>
 
 </details>
-<p>Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information. </p>
+<p>Here's a list of categorized built-in methods you can use. See the ffmpeg doc for more information.</p>
 <ul>
 <li>Video options:</li>
 </ul>
@@ -958,7 +958,7 @@ chainable methods... your primary reflexes might cause pain: </p>
 </tbody>
 </table>
 <ul>
-<li>Filter related: </li>
+<li>Filter related:</li>
 </ul>
 <table>
 <thead>
@@ -1088,8 +1088,8 @@ chainable methods... your primary reflexes might cause pain: </p>
 </tbody>
 </table>
 <blockquote>
-<p>To get the latest list of built-ins, see the 
-<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php">VideoConvertParamsInterface</a> and 
+<p>To get the latest list of built-ins, see the
+<a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoConvertParamsInterface.php">VideoConvertParamsInterface</a> and
 <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Adapter/FFMpegAdapter.php">FFMpegAdapter</a> sources.</p>
 </blockquote>
 <h4 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h4>
@@ -1108,7 +1108,7 @@ chainable methods... your primary reflexes might cause pain: </p>
     <span class="p">);</span>
 </code></pre></div>
 
-<p>See the <strong><a href="../video-filters/">complete video filters doc here</a></strong> </p>
+<p>See the <strong><a href="../video-filters/">complete video filters doc here</a></strong></p>
 <h4 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h4>
 <p>All conversion exceptions implements <code>Soluble\MediaTools\VideoException\ConverterExceptionInterface</code>,  interface.,
 alternatively you can also :</p>
@@ -1117,7 +1117,7 @@ alternatively you can also :</p>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception</span> <span class="k">as</span> <span class="nx">VE</span><span class="p">;</span>
 
 <span class="sd">/** @var VideoConverter $converter */</span>
-<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;xxx&#39;</span><span class="p">);</span>     
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;xxx&#39;</span><span class="p">);</span>
 <span class="k">try</span> <span class="p">{</span>
 
     <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span><span class="s1">&#39;i.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;o.mp4&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
@@ -1128,7 +1128,7 @@ alternatively you can also :</p>
 
     <span class="c1">// &#39;i.mov does not exists</span>
 
-    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>    
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
 
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span>
 
@@ -1136,13 +1136,13 @@ alternatively you can also :</p>
     <span class="c1">// failure &#39;ffmpeg exit code != 0) and implements</span>
     <span class="c1">//</span>
     <span class="c1">// - `VE\ConversionProcessExceptionInterface`</span>
-    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    </span>
+    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)</span>
     <span class="c1">//</span>
     <span class="c1">// you can catch all them at once or separately:</span>
 
-      <span class="nx">VE\ProcessFailedException</span>       
+      <span class="nx">VE\ProcessFailedException</span>
     <span class="o">|</span> <span class="nx">VE\ProcessSignaledException</span>
-    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span> 
+    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
 
     <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
@@ -1165,27 +1165,27 @@ alternatively you can also :</p>
 
 <h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
 <h4 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h4>
-<p>Achieving a good level of compression while preserving quality is not that easy.  </p>
-<p>Compression techniques will depend on the codec (h264, av1, vp9), the purpose (archive, streaming, vod...) 
+<p>Achieving a good level of compression while preserving quality is not that easy.</p>
+<p>Compression techniques will depend on the codec (h264, av1, vp9), the purpose (archive, streaming, vod...)
 and the size <em>(and fps)</em> of the original content. The mediatools <code>VideoConverter</code> is agnostic
-and does not offer any help, you'll need to set up your own set of parameters.   </p>
+and does not offer any help, you'll need to set up your own set of parameters.</p>
 <p>There's a lot of ffmpeg recipes on internet that you can easily port, some interesting sources:</p>
 <ul>
 <li>FFMpeg <a href="https://trac.ffmpeg.org/wiki/Encode/VP9">VP9 encoding</a></li>
 <li>FFMpeg <a href="https://trac.ffmpeg.org/wiki/Encode/H.264">H.264 encoding</a></li>
-<li>Google <a href="https://developers.google.com/media/vp9/settings/vod/">VOD VP9 setting</a> </li>
+<li>Google <a href="https://developers.google.com/media/vp9/settings/vod/">VOD VP9 setting</a></li>
 </ul>
 <details class="tip" open="open"><summary>Variable or Constant Bitrate ?  Or both ?</summary><blockquote>
-<p><em>tl;dr</em>: VBR and CBR can be set together to ensure max quality within a target bitrate (streamability++).    </p>
+<p><em>tl;dr</em>: VBR and CBR can be set together to ensure max quality within a target bitrate (streamability++).</p>
 </blockquote>
 <p><strong>Variable Bitrate</strong></p>
-<p>Variable bitrate (VBR) ensure that you’d achieve the lowest possible file size at the highest possible 
-quality under the given constraints.  </p>
+<p>Variable bitrate (VBR) ensure that you’d achieve the lowest possible file size at the highest possible
+quality under the given constraints.</p>
 <p>Use the <code>VideoConvertParams::withBitrate()</code>, <code>withMaxBitrate()</code> and <code>withMinBitrate()</code> methods
-to set what you want to achieve. But be warned bitrates must not be set blindly, to be effective 
-they must be choosen in respect to video dimensions and fps. See <a href="https://developers.google.com/media/vp9/settings/vod/">VOD VP9 setting</a>. </p>
+to set what you want to achieve. But be warned bitrates must not be set blindly, to be effective
+they must be choosen in respect to video dimensions and fps. See <a href="https://developers.google.com/media/vp9/settings/vod/">VOD VP9 setting</a>.</p>
 <p><strong>Constant Bitrate</strong></p>
-<p>The <code>VideoConvertParams::withCrf()</code> will set the Constant Rate Factor (CRF) setting 
+<p>The <code>VideoConvertParams::withCrf()</code> will set the Constant Rate Factor (CRF) setting
 for the x264, x265 and vp9 encoders.</p>
 <ul>
 <li>
@@ -1200,21 +1200,21 @@ for the x264, x265 and vp9 encoders.</p>
 </li>
 </ul>
 <blockquote>
-<p><em>Please also be sure to understand what rate control modes are 
-(you can see <a href="https://slhck.info/video/2017/03/01/rate-control.html">here</a> 
-and <a href="https://slhck.info/video/2017/02/24/crf-guide.html">here</a> and how to choose the one you need.</em>  </p>
+<p><em>Please also be sure to understand what rate control modes are
+(you can see <a href="https://slhck.info/video/2017/03/01/rate-control.html">here</a>
+and <a href="https://slhck.info/video/2017/02/24/crf-guide.html">here</a> and how to choose the one you need.</em></p>
 </blockquote>
 </details>
 <h4 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h4>
 <p>Conversions are heavy dudes, things that can help:</p>
 <ul>
 <li>Increasing the FfmpegConfig threads parameter can help for some tasks.</li>
-<li>Order of parameters can help. i.e: if you need to clip, makes it before applying filters. </li>
+<li>Order of parameters can help. i.e: if you need to clip, makes it before applying filters.</li>
 </ul>
 <h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
 <h4 id="transcode-to-mp4x264aac">Transcode to <code>mp4/x264/aac</code><a class="headerlink" href="#transcode-to-mp4x264aac" title="Permanent link">&para;</a></h4>
 <blockquote>
-<p>See the <a href="https://trac.ffmpeg.org/wiki/Encode/H.264">official H264</a> doc. </p>
+<p>See the <a href="https://trac.ffmpeg.org/wiki/Encode/H.264">official H264</a> doc.</p>
 </blockquote>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">Exception</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">};</span>
@@ -1223,30 +1223,30 @@ and <a href="https://slhck.info/video/2017/02/24/crf-guide.html">here</a> and ho
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libx264&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;aac&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">)</span>            
-    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>      <span class="c1">// Add streamable options (movflags &amp; faststart) </span>
-    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>               <span class="c1">// Level of compression: better size / less visual quality  </span>
-    <span class="o">-&gt;</span><span class="na">withPreset</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">);</span>       <span class="c1">// Optional: see presets           </span>
+    <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;128k&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withStreamable</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>      <span class="c1">// Add streamable options (movflags &amp; faststart)</span>
+    <span class="o">-&gt;</span><span class="na">withCrf</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>               <span class="c1">// Level of compression: better size / less visual quality</span>
+    <span class="o">-&gt;</span><span class="na">withPreset</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">);</span>       <span class="c1">// Optional: see presets</span>
 
 <span class="k">try</span> <span class="p">{</span>
 
     <span class="sd">/** @var VideoConverterInterface $converter */</span>
 
     <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span>
         <span class="nv">$params</span>
     <span class="p">);</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// See chapters about exception !!! </span>
+    <span class="c1">// See chapters about exception !!!</span>
 
 <span class="p">}</span>
 </code></pre></div>
 
 <h4 id="transcode-to-webmvp9opus">Transcode to <code>webm/vp9/opus</code><a class="headerlink" href="#transcode-to-webmvp9opus" title="Permanent link">&para;</a></h4>
 <blockquote>
-<p>See the official <a href="https://trac.ffmpeg.org/wiki/Encode/VP9">ffmpeg VP9 docs</a> 
+<p>See the official <a href="https://trac.ffmpeg.org/wiki/Encode/VP9">ffmpeg VP9 docs</a>
 and have a look at the <a href="https://developers.google.com/media/vp9/settings/vod/#ffmpeg_command_lines">google vp9 VOD</a> guidelines</p>
 </blockquote>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
@@ -1275,7 +1275,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <span class="o">-&gt;</span><span class="na">withFrameParallel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withSpeed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1">// Optional: Use videoprobe to be sure of color conversions if any needed</span>
-    <span class="c1">// -&gt;withPixFmt(&#39;yuv420p&#39;) </span>
+    <span class="c1">// -&gt;withPixFmt(&#39;yuv420p&#39;)</span>
     <span class="o">-&gt;</span><span class="na">withOutputFormat</span><span class="p">(</span><span class="s1">&#39;webm&#39;</span><span class="p">);</span>
 
 
@@ -1284,14 +1284,14 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     <span class="sd">/** @var VideoConverterInterface $converter */</span>
 
     <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span>
         <span class="nv">$params</span>
     <span class="p">);</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see chapter about exceptions        </span>
-<span class="p">}</span> 
+    <span class="c1">// see chapter about exceptions</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h4 id="video-scaling">Video scaling<a class="headerlink" href="#video-scaling" title="Permanent link">&para;</a></h4>
@@ -1311,41 +1311,41 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
                     <span class="s1">&#39;ih*0.5&#39;</span><span class="p">,</span>
                     <span class="c1">// $aspect_ratio_mode (increase or decrease)</span>
                     <span class="nx">ScaleFilter</span><span class="o">::</span><span class="na">OPTION_ASPECT_RATIO_INCREASE</span>
-                <span class="p">)</span> 
+                <span class="p">)</span>
           <span class="p">);</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="sd">/** @var \Soluble\MediaTools\Video\VideoConverterInterface $videoConverter */</span>
     <span class="nv">$videoConverter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="s1">&#39;/path/inputFile.mp4&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/inputFile.mp4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span>
         <span class="nv">$params</span>
     <span class="p">);</span>
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see chapter about exceptions        </span>
+    <span class="c1">// see chapter about exceptions</span>
 <span class="p">}</span>
 </code></pre></div>
 
 <h4 id="video-clipping">Video clipping<a class="headerlink" href="#video-clipping" title="Permanent link">&para;</a></h4>
 <blockquote>
-<p>See the official <a href="https://trac.ffmpeg.org/wiki/Seeking">ffmpeg docs</a> </p>
+<p>See the official <a href="https://trac.ffmpeg.org/wiki/Seeking">ffmpeg docs</a></p>
 </blockquote>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\</span><span class="p">{</span><span class="nx">Exception</span><span class="p">,</span> <span class="nx">VideoConvertParams</span><span class="p">,</span> <span class="nx">SeekTime</span><span class="p">};</span>
 
 <span class="nv">$params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
           <span class="o">-&gt;</span><span class="na">withSeekStart</span><span class="p">(</span><span class="k">new</span> <span class="nx">SeekTime</span><span class="p">(</span><span class="mf">10.242</span><span class="p">))</span> <span class="c1">// 10 sec, 242 milli</span>
-          <span class="o">-&gt;</span><span class="na">withSeekEnd</span><span class="p">(</span><span class="nx">SeekTime</span><span class="o">::</span><span class="na">createFromHMS</span><span class="p">(</span><span class="s1">&#39;12:52.015&#39;</span><span class="p">));</span> <span class="c1">// 12 mins, 52 secs...                </span>
+          <span class="o">-&gt;</span><span class="na">withSeekEnd</span><span class="p">(</span><span class="nx">SeekTime</span><span class="o">::</span><span class="na">createFromHMS</span><span class="p">(</span><span class="s1">&#39;12:52.015&#39;</span><span class="p">));</span> <span class="c1">// 12 mins, 52 secs...</span>
 
 <span class="k">try</span> <span class="p">{</span>
     <span class="sd">/** @var \Soluble\MediaTools\Video\VideoConverterInterface $videoConverter */</span>
     <span class="nv">$videoConverter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-        <span class="s1">&#39;/path/inputFile.mp4&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;/path/inputFile.mp4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;/path/outputFile.mp4&#39;</span><span class="p">,</span>
         <span class="nv">$params</span>
     <span class="p">);</span>
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception\ConverterExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// see chapter about exceptions        </span>
+    <span class="c1">// see chapter about exceptions</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1358,17 +1358,17 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 
 <span class="nv">$logFile</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">&#39;ffmpeg-passlog&#39;</span><span class="p">);</span>
 
-<span class="nv">$pass1Params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>    
+<span class="nv">$pass1Params</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">VideoConvertParams</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="na">withVideoCodec</span><span class="p">(</span><span class="s1">&#39;libvpx-vp9&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withVideoBitrate</span><span class="p">(</span><span class="s1">&#39;1M&#39;</span><span class="p">)</span> 
-    <span class="o">-&gt;</span><span class="na">withVideoMaxBitrate</span><span class="p">(</span><span class="s1">&#39;1500k&#39;</span><span class="p">)</span> 
+    <span class="o">-&gt;</span><span class="na">withVideoBitrate</span><span class="p">(</span><span class="s1">&#39;1M&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withVideoMaxBitrate</span><span class="p">(</span><span class="s1">&#39;1500k&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withVideoMinBitrate</span><span class="p">(</span><span class="s1">&#39;750k&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withKeyframeSpacing</span><span class="p">(</span><span class="mi">240</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withTileColumns</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">withFrameParallel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    
+    <span class="o">-&gt;</span><span class="na">withFrameParallel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1">// Set the pass number</span>
     <span class="o">-&gt;</span><span class="na">withPass</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1">// Set the ffmpeg logfile </span>
+    <span class="c1">// Set the ffmpeg logfile</span>
     <span class="o">-&gt;</span><span class="na">withPassLogFile</span><span class="p">(</span><span class="nv">$logFile</span><span class="p">)</span>
     <span class="c1">// Speed in first pass can be faster</span>
     <span class="o">-&gt;</span><span class="na">withSpeed</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -1383,15 +1383,15 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">videoConvert</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
         <span class="s1">&#39;/tmp/input.mov&#39;</span><span class="p">,</span>
         <span class="c1">// In first pass we don&#39;t need to output the conversion result</span>
-        <span class="c1">// let&#39;s put in /dev/null. </span>
+        <span class="c1">// let&#39;s put in /dev/null.</span>
         <span class="k">new</span> <span class="nx">PlatformNullFile</span><span class="p">(),</span>
         <span class="nv">$pass1Params</span>
 <span class="p">);</span>
 
 <span class="c1">// Let&#39;s init pass 2 params from pass 1</span>
-<span class="nv">$pass2Params</span> <span class="o">=</span> <span class="nv">$pass1Params</span>    
-    <span class="c1">// reinit audio    </span>
-    <span class="o">-&gt;</span><span class="na">withoutParam</span><span class="p">(</span><span class="nx">VideoConvertParamsInterface</span><span class="o">::</span><span class="na">PARAM_NOAUDIO</span><span class="p">)</span>    
+<span class="nv">$pass2Params</span> <span class="o">=</span> <span class="nv">$pass1Params</span>
+    <span class="c1">// reinit audio</span>
+    <span class="o">-&gt;</span><span class="na">withoutParam</span><span class="p">(</span><span class="nx">VideoConvertParamsInterface</span><span class="o">::</span><span class="na">PARAM_NOAUDIO</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withAudioCodec</span><span class="p">(</span><span class="s1">&#39;libopus&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">withAudioBitrate</span><span class="p">(</span><span class="s1">&#39;256k&#39;</span><span class="p">)</span>
     <span class="c1">// Reset the pass number</span>
@@ -1489,7 +1489,7 @@ and have a look at the <a href="https://developers.google.com/media/vp9/settings
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.result.other": "# matching documents", "clipboard.copy": "Copy to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.lang": "en", "search.result.placeholder": "Type to start searching", "search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "clipboard.copied": "Copied to clipboard", "search.result.none": "No matching documents"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.other": "# matching documents", "search.result.one": "1 matching document", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

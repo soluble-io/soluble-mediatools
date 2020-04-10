@@ -32,15 +32,15 @@
       
         
         
-        <meta name="theme-color" content="#e91e63">
+        <meta name="theme-color" content="">
       
     
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
-        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -60,7 +60,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="purple">
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="indigo">
   
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -508,9 +508,9 @@
                 
                   <h1>✔ VideoAnalyzer</h1>
                 
-                <p>The <mark>VideoAnalyzer service</mark> acts as a wrapper over ffmpeg and will analyze a video stream. 
+                <p>The VideoAnalyzer service acts as a wrapper over ffmpeg and will analyze a video stream.
 It does not query video metadata (like ffprobe or the <code>Video\VideoInfoReader</code>) but really
-reads the video to infer some characteristics (currently only interlace detection is implemented...). </p>
+reads the video to infer some characteristics (currently only interlace detection is implemented...).</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFMpegConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\AnalyzerExceptionInterface</span><span class="p">;</span>
@@ -519,7 +519,7 @@ reads the video to infer some characteristics (currently only interlace detectio
 <span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
 
-<span class="k">try</span> <span class="p">{</span>    
+<span class="k">try</span> <span class="p">{</span>
     <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
         <span class="s1">&#39;/path/input.mov&#39;</span><span class="p">,</span>
         <span class="c1">// Optional:</span>
@@ -528,12 +528,12 @@ reads the video to infer some characteristics (currently only interlace detectio
     <span class="p">);</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">AnalyzerExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// See chapter about exception !!!    </span>
+    <span class="c1">// See chapter about exception !!!</span>
 <span class="p">}</span>
 
 <span class="nv">$interlaced</span> <span class="o">=</span> <span class="nv">$interlaceGuess</span><span class="o">-&gt;</span><span class="na">isInterlaced</span><span class="p">(</span>
-    <span class="c1">// Optional: </span>
-    <span class="c1">//  $threshold, default 0.25 (if &gt;=25% interlaced frames, then true) </span>
+    <span class="c1">// Optional:</span>
+    <span class="c1">//  $threshold, default 0.25 (if &gt;=25% interlaced frames, then true)</span>
     <span class="mf">0.25</span>
 <span class="p">);</span>
 </code></pre></div>
@@ -541,34 +541,34 @@ reads the video to infer some characteristics (currently only interlace detectio
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffmpeg <a href="../install-ffmpeg/">installed</a> on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php">VideoAnalyzer</a> 
-requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter. 
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzer.php">VideoAnalyzer</a>
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfig.php"><code>FFMpegConfig</code></a> object as first parameter.
 This is where you set the location of the ffmpeg binary, the number of threads you allow for conversions
-and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>. </p>
+and the various timeouts if needed. The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\</span><span class="p">{</span><span class="nx">FFMpegConfig</span><span class="p">,</span> <span class="nx">FFMpegConfigInterface</span><span class="p">};</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoAnalyzer</span><span class="p">;</span>
 
-<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span>    
-    <span class="c1">// @param FFMpegConfigInterface </span>
+<span class="nv">$converter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span>
+    <span class="c1">// @param FFMpegConfigInterface</span>
     <span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffmpeg binary (default: ffmpeg/ffmpeg.exe)</span>
         <span class="nv">$binary</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?int)    - ffmpeg default threads (null: single-thread)</span>
         <span class="nv">$threads</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?float)  - max time in seconds for ffmpeg process (null: disable)</span>
-        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?float)  - max idle time in seconds for ffmpeg process</span>
-        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (array)   - additional environment variables</span>
-        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>                           
+        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="p">),</span>
-    <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
-    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>   
+    <span class="c1">// @param ?\Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.</span>
+    <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span>
 <span class="p">);</span>
 </code></pre></div>
 
-<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
+<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container.
 Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoAnalyzerFactory.php"><code>Video\VideoAnalyzerFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFMpegConfigFactory.php"><code>FFMpegConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p>
@@ -582,22 +582,22 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 
 <span class="nv">$analyzer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoAnalyzer</span><span class="p">(</span><span class="k">new</span> <span class="nx">FFMpegConfig</span><span class="p">(</span><span class="s1">&#39;/path/to/ffmpeg&#39;</span><span class="p">));</span>
 
-<span class="k">try</span> <span class="p">{</span>    
+<span class="k">try</span> <span class="p">{</span>
     <span class="nv">$interlaceGuess</span> <span class="o">=</span> <span class="nv">$analyzer</span><span class="o">-&gt;</span><span class="na">detectInterlacement</span><span class="p">(</span>
         <span class="s1">&#39;/path/input.mov&#39;</span><span class="p">,</span>
         <span class="c1">// Optional:</span>
         <span class="c1">//   $maxFramesToAnalyze, default: 1000</span>
-        <span class="c1">//   (at 25fps -&gt; 40 seconds) </span>
+        <span class="c1">//   (at 25fps -&gt; 40 seconds)</span>
         <span class="nv">$maxFramesToAnalyze</span> <span class="o">=</span> <span class="mi">1000</span>
     <span class="p">);</span>
 
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">AnalyzerExceptionInterface</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// See chapter about exception !!!    </span>
+    <span class="c1">// See chapter about exception !!!</span>
 <span class="p">}</span>
 
 <span class="nv">$interlaced</span> <span class="o">=</span> <span class="nv">$interlaceGuess</span><span class="o">-&gt;</span><span class="na">isInterlaced</span><span class="p">(</span>
-    <span class="c1">// Optional: </span>
-    <span class="c1">//  $threshold, default 0.25 (if &gt;=25% interlaced frames, then true) </span>
+    <span class="c1">// Optional:</span>
+    <span class="c1">//  $threshold, default 0.25 (if &gt;=25% interlaced frames, then true)</span>
     <span class="mf">0.25</span>
 <span class="p">);</span>
 </code></pre></div>
@@ -628,13 +628,13 @@ alternatively you can also :</p>
     <span class="c1">// failure &#39;ffmpeg exit code != 0) and implements</span>
     <span class="c1">//</span>
     <span class="c1">// - `VE\ConversionProcessExceptionInterface`</span>
-    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    </span>
+    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)</span>
     <span class="c1">//</span>
     <span class="c1">// in case you want to catch them all-in-once</span>
 
-      <span class="nx">VE\ProcessFailedException</span>       
+      <span class="nx">VE\ProcessFailedException</span>
     <span class="o">|</span> <span class="nx">VE\ProcessSignaledException</span>
-    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span> 
+    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
 
     <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
@@ -668,7 +668,7 @@ alternatively you can also :</p>
             <span class="s1">&#39;/path/input_video.mov&#39;</span><span class="p">,</span>
             <span class="c1">// $max_frames_to_analyze:</span>
             <span class="c1">//  - Less is faster... but let&#39;s assume some older</span>
-            <span class="c1">//    videos starts with black screen... 1500 at </span>
+            <span class="c1">//    videos starts with black screen... 1500 at</span>
             <span class="c1">//    25fps = 60 seconds</span>
             <span class="mi">1500</span>
 <span class="p">);</span>
@@ -685,15 +685,15 @@ alternatively you can also :</p>
         <span class="k">new</span> <span class="nx">VideoFilterChain</span><span class="p">([</span>
             <span class="c1">// This will deinterlace</span>
             <span class="k">new</span> <span class="nx">YadifVideoFilter</span><span class="p">(),</span>
-            <span class="c1">// This will slightly denoise </span>
+            <span class="c1">// This will slightly denoise</span>
             <span class="k">new</span> <span class="nx">Hqdn3DVideoFilter</span><span class="p">()</span>
         <span class="p">])</span>
     <span class="p">);</span>
 <span class="p">}</span>
 
 <span class="nv">$converter</span><span class="o">-&gt;</span><span class="na">convert</span><span class="p">(</span>
-    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span> 
-    <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;/path/inputFile.mov&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/path/outputFile.webm&#39;</span><span class="p">,</span>
     <span class="nv">$convertParams</span>
 <span class="p">);</span>
 </code></pre></div>
@@ -780,7 +780,7 @@ alternatively you can also :</p>
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.result.other": "# matching documents", "clipboard.copy": "Copy to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.lang": "en", "search.result.placeholder": "Type to start searching", "search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "clipboard.copied": "Copied to clipboard", "search.result.none": "No matching documents"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.other": "# matching documents", "search.result.one": "1 matching document", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({

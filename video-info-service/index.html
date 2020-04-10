@@ -32,15 +32,15 @@
       
         
         
-        <meta name="theme-color" content="#e91e63">
+        <meta name="theme-color" content="">
       
     
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
-        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -60,7 +60,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="purple">
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="indigo">
   
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -564,36 +564,36 @@
                 
                   <h1>✔ VideoInfoReader</h1>
                 
-                <p>The <mark>VideoInfoReader service</mark> acts as a wrapper over <strong>ffprobe</strong> and return information about a video file.</p>
+                <p>The VideoInfoReader service acts as a wrapper over <strong>ffprobe</strong> and return information about a video file.</p>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>You'll need to have ffprobe <a href="../install-ffmpeg/">installed</a> on your system.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php">VideoInfoReader</a> service 
-requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php"><code>FFProbeConfig</code></a> 
-object as first parameter. If needed you can configure the location of the ffprobe binary and the various timeouts. </p>
+<p>The <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php">VideoInfoReader</a> service
+requires an <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php"><code>FFProbeConfig</code></a>
+object as first parameter. If needed you can configure the location of the ffprobe binary and the various timeouts.</p>
 <p>The second parameter can be used to inject any psr-3 compatible <mark>logger</mark>.</p>
-<p>The third one, any psr-16 (simplecache) compatible <mark>cache</mark>.   </p>
+<p>The third one, any psr-16 (simplecache) compatible <mark>cache</mark>.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Config\FFProbeConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\MediaTools\Video\VideoInfoReader</span><span class="p">;</span>
 
 <span class="nv">$infoReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoInfoReader</span><span class="p">(</span>
-    <span class="c1">// @param FFMpegConfigInterface </span>
+    <span class="c1">// @param FFMpegConfigInterface</span>
     <span class="k">new</span> <span class="nx">FFProbeConfig</span><span class="p">(</span>
         <span class="c1">// (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)</span>
         <span class="nv">$binary</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?float)  - max time in seconds for ffprobe process (null: disable)</span>
-        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="nv">$timeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (?float)  - max idle time in seconds for ffprobe process</span>
-        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> 
+        <span class="nv">$idleTimeout</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
         <span class="c1">// (array)   - additional environment variables if needed</span>
-        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>                           
+        <span class="nv">$env</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="p">),</span>
-    <span class="c1">// @param \Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     </span>
+    <span class="c1">// @param \Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.</span>
     <span class="nv">$logger</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
     <span class="c1">// @param \Psr\SimpleCache\CacheInterface</span>
-    <span class="nv">$cache</span> <span class="o">=</span> <span class="k">null</span>   
+    <span class="nv">$cache</span> <span class="o">=</span> <span class="k">null</span>
 <span class="p">);</span>
 
 <span class="k">try</span> <span class="p">{</span>
@@ -604,7 +604,7 @@ object as first parameter. If needed you can configure the location of the ffpro
 <span class="p">}</span>
 </code></pre></div>
 
-<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container. 
+<details class="tip"><summary>Tip: initialize in a container (psr-11)</summary><p>It's a good idea to register services in a container.
 Depending on available framework integrations, you may have a look to the <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReaderFactory.php"><code>Video\VideoInfoReaderFactory</code></a>
 and/or <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php"><code>FFProbeConfigFactory</code></a> to get an example based on a psr-11 compatible container.
 See also the provided default <a href="https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php">configuration</a> file.</p>
@@ -671,7 +671,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 
 <span class="c1">// Option 2: Take the first</span>
 
-<span class="k">try</span> <span class="p">{</span>    
+<span class="k">try</span> <span class="p">{</span>
     <span class="nv">$video</span> <span class="o">=</span> <span class="nv">$videoStreams</span><span class="o">-&gt;</span><span class="na">getFirst</span><span class="p">();</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NoStreamException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// No video stream present</span>
@@ -680,7 +680,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecName</span><span class="p">();</span> <span class="c1">// vp9</span>
 <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// i.e: 24</span>
 <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getCodecTagString</span><span class="p">();</span>
-<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$roundedDecimals</span><span class="o">=</span><span class="k">null</span><span class="p">);</span> 
+<span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getFps</span><span class="p">(</span><span class="nv">$roundedDecimals</span><span class="o">=</span><span class="k">null</span><span class="p">);</span>
 <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getNbFrames</span><span class="p">();</span>
 <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getHeight</span><span class="p">();</span>
 <span class="nv">$video</span><span class="o">-&gt;</span><span class="na">getWidth</span><span class="p">();</span>
@@ -807,7 +807,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 
     <span class="c1">// &#39;video.mov does not exists</span>
 
-    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>    
+    <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
 
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span>
 
@@ -815,13 +815,13 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
     <span class="c1">// failure &#39;ffmpeg exit code != 0) and implements</span>
     <span class="c1">//</span>
     <span class="c1">// - `VE\ConversionProcessExceptionInterface`</span>
-    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    </span>
+    <span class="c1">//        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)</span>
     <span class="c1">//</span>
     <span class="c1">// you can catch all them at once or separately:</span>
 
-      <span class="nx">VE\ProcessFailedException</span>       
+      <span class="nx">VE\ProcessFailedException</span>
     <span class="o">|</span> <span class="nx">VE\ProcessSignaledException</span>
-    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span> 
+    <span class="o">|</span> <span class="nx">VE\ProcessTimedOutException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
 
     <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
@@ -843,7 +843,7 @@ See also the provided default <a href="https://github.com/soluble-io/soluble-med
 </code></pre></div>
 
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
-<p>The <code>VideoInfo::getMetadata()</code> returns the ffprobe result, if you're 
+<p>The <code>VideoInfo::getMetadata()</code> returns the ffprobe result, if you're
 wondering what it is, have a look to an example with ffprobe 4.0.</p>
 <blockquote>
 <p><strong>Warning</strong>, direct use of ffprobe metadata if not ensured by semver, bc break can potentially happen.</p>
@@ -1096,7 +1096,7 @@ wondering what it is, have a look to an example with ffprobe 4.0.</p>
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.result.other": "# matching documents", "clipboard.copy": "Copy to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.lang": "en", "search.result.placeholder": "Type to start searching", "search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "clipboard.copied": "Copied to clipboard", "search.result.none": "No matching documents"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.other": "# matching documents", "search.result.one": "1 matching document", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({
