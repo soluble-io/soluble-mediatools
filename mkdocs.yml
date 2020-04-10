@@ -45,11 +45,11 @@ theme:
     #- tabs
     - instant
   palette:
-    primary: pink
-    accent: purple
+    primary: white
+    accent: indigo
   font:
-    text: Lato
-    #code: Fira Code
+    text: IBM Plex Sans
+    code: Roboto Mono
 
 # Plugins
 plugins:

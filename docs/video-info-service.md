@@ -1,24 +1,24 @@
 path: blob/master/src
 source: Video/VideoInfoReader.php
 
-The ==VideoInfoReader service== acts as a wrapper over **ffprobe** and return information about a video file.
+The VideoInfoReader service acts as a wrapper over **ffprobe** and return information about a video file.
 
 
 ### Requirements
 
 You'll need to have ffprobe [installed](./install-ffmpeg.md) on your system.
-  
+
 ### Initialization
 
-The [VideoInfoReader](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php) service 
-requires an [`FFProbeConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php) 
-object as first parameter. If needed you can configure the location of the ffprobe binary and the various timeouts. 
+The [VideoInfoReader](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReader.php) service
+requires an [`FFProbeConfig`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfig.php)
+object as first parameter. If needed you can configure the location of the ffprobe binary and the various timeouts.
 
 The second parameter can be used to inject any psr-3 compatible ==logger==.
 
-The third one, any psr-16 (simplecache) compatible ==cache==.   
-  
-  
+The third one, any psr-16 (simplecache) compatible ==cache==.
+
+
 ```php
 <?php
 use Soluble\MediaTools\Video\Config\FFProbeConfig;
@@ -26,21 +26,21 @@ use Soluble\MediaTools\Video\Exception\InfoReaderExceptionInterface;
 use Soluble\MediaTools\Video\VideoInfoReader;
 
 $infoReader = new VideoInfoReader(
-    // @param FFMpegConfigInterface 
+    // @param FFMpegConfigInterface
     new FFProbeConfig(
         // (?string) - path to ffprobe binary (default: ffprobe/ffprobe.exe)
         $binary = null,
         // (?float)  - max time in seconds for ffprobe process (null: disable)
-        $timeout = null, 
+        $timeout = null,
         // (?float)  - max idle time in seconds for ffprobe process
-        $idleTimeout = null, 
+        $idleTimeout = null,
         // (array)   - additional environment variables if needed
-        $env = []                           
+        $env = []
     ),
-    // @param \Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.     
+    // @param \Psr\Log\LoggerInterface - Default to `\Psr\Log\NullLogger`.
     $logger = null,
     // @param \Psr\SimpleCache\CacheInterface
-    $cache = null   
+    $cache = null
 );
 
 try {
@@ -52,8 +52,8 @@ try {
 
 ```
 
-??? tip "Tip: initialize in a container (psr-11)" 
-    It's a good idea to register services in a container. 
+??? tip "Tip: initialize in a container (psr-11)"
+    It's a good idea to register services in a container.
     Depending on available framework integrations, you may have a look to the [`Video\VideoInfoReaderFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/VideoInfoReaderFactory.php)
     and/or [`FFProbeConfigFactory`](https://github.com/soluble-io/soluble-mediatools/blob/master/src/Video/Config/FFProbeConfigFactory.php) to get an example based on a psr-11 compatible container.
     See also the provided default [configuration](https://github.com/soluble-io/soluble-mediatools/blob/master/config/soluble-mediatools.config.php) file.
@@ -61,7 +61,7 @@ try {
 
 ### Usage
 
-#### Getting general info 
+#### Getting general info
 
 ```php
 <?php
@@ -79,7 +79,7 @@ try {
     // Possibly wrong media, see below for exceptions
     // details
 }
- 
+
 
 // Total duration
 $duration = $info->getDuration();
@@ -117,7 +117,7 @@ try {
     // Possibly wrong media, see below for exceptions
     // details
 }
- 
+
 $videoStreams = $info->getVideoStreams();
 
 // Option 1: The iterable way
@@ -128,16 +128,16 @@ foreach($videoStreams as $vStream) {
 
 // Option 2: Take the first
 
-try {    
+try {
     $video = $videoStreams->getFirst();
 } catch (NoStreamException $e) {
     // No video stream present
 }
-    
+
 $video->getCodecName(); // vp9
 $video->getFps($decimals=0); // i.e: 24
 $video->getCodecTagString();
-$video->getFps($roundedDecimals=null); 
+$video->getFps($roundedDecimals=null);
 $video->getNbFrames();
 $video->getHeight();
 $video->getWidth();
@@ -182,7 +182,7 @@ try {
     // Possibly wrong media, see below for exceptions
     // details
 }
- 
+
 $audioStreams = $info->getAudioStreams();
 
 // Option 1: The iterable way
@@ -266,57 +266,57 @@ use Soluble\MediaTools\Video\Exception as VE;
 
 /** @var VideoInfoReader $vis */
 try {
-    
+
     $info = $vis->getInfo('/path/video.mov');
-    
-    
+
+
 // All exception below implements VE\InfoReaderExceptionInterface
-        
+
 } catch(VE\MissingInputFileException $e) {
-    
+
     // 'video.mov does not exists
-    
-    echo $e->getMessage();    
-    
+
+    echo $e->getMessage();
+
 } catch (
-    
+
     // The following 3 exceptions are linked to process
     // failure 'ffmpeg exit code != 0) and implements
     //
     // - `VE\ConversionProcessExceptionInterface`
-    //        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)    
+    //        (* which extends Mediatools\Common\Exception\ProcessExceptionInterface)
     //
     // you can catch all them at once or separately:
-    
-      VE\ProcessFailedException       
+
+      VE\ProcessFailedException
     | VE\ProcessSignaledException
-    | VE\ProcessTimedOutException $e) 
+    | VE\ProcessTimedOutException $e)
 {
-    
+
     echo $e->getMessage();
-    
+
     // Because they implement ProcessExceptionInterface
     // we can get a reference to the executed (symfony) process:
-    
+
     $process = $e->getProcess();
     echo $process->getExitCode();
     echo $process->getErrorOutput();
-    
+
 } catch(VE\ConverterExceptionInterface $e) {
-    
+
     // Other exceptions can be
     //
     // - VE\RuntimeException
     // - VE\InvalidParamException (should not happen)
 }
-       
-``` 
 
- 
+```
+
+
 
 ### Metadata
 
-The `VideoInfo::getMetadata()` returns the ffprobe result, if you're 
+The `VideoInfo::getMetadata()` returns the ffprobe result, if you're
 wondering what it is, have a look to an example with ffprobe 4.0.
 
 > **Warning**, direct use of ffprobe metadata if not ensured by semver, bc break can potentially happen.
