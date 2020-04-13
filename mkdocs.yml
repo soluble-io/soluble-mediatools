@@ -63,7 +63,7 @@ extra:
       link: 'https://github.com/soluble-io/soluble-mediatools'
 
 extra_javascript:
-  - _assets/js/mermaid-8.4.8.min.js
+  - _assets/js/mermaid-8.5.0.min.js
 extra_css:
   - _assets/css/mermaid.css
   - _assets/css/monokai.css
