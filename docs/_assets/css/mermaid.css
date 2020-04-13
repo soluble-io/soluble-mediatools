@@ -1,29 +1,29 @@
 :root {
-  --mermaid-font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial;
+    --mermaid-font-family: 'IBM Plex Sans', Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 text.actor {
-  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial;
+    font-family: 'IBM Plex Sans', Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 .actor-line {
-  stroke:grey;
+    stroke: grey;
 }
 
 .messageText {
-  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial;
-  font-size:14px;
+    font-family: 'IBM Plex Sans', Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 
 .labelText {
-  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial
+    font-family: 'IBM Plex Sans', Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 .loopText {
-  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial
+    font-family: 'IBM Plex Sans', Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 text.noteText {
-  font-family: 'IBM Plex Sans', 'Roboto', 'trebuchet ms', verdana, arial
-  font-size:14px;
+    font-family: 'IBM Plex Sans', Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
