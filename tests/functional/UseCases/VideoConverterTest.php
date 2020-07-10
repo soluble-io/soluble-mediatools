@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\UseCases;
 
+use MediaToolsTest\Util\PhpUnitPolyfillTrait;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Common\Exception\ProcessExceptionInterface;
@@ -35,6 +36,8 @@ use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 
 class VideoConverterTest extends TestCase
 {
+    use PhpUnitPolyfillTrait;
+
     use ServicesProviderTrait;
 
     /** @var VideoConverterInterface */
@@ -106,7 +109,7 @@ class VideoConverterTest extends TestCase
             ->withCrf(20);
 
         self::assertFileExists($this->videoFile);
-        self::assertFileDoesNotExist($outputFile);
+        self::assertFileDoesNotExistPolyfilled($outputFile);
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
@@ -192,7 +195,7 @@ class VideoConverterTest extends TestCase
             ->withOutputFormat('webm');
 
         self::assertFileExists($this->videoFile);
-        self::assertFileDoesNotExist($outputFile);
+        self::assertFileDoesNotExistPolyfilled($outputFile);
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
@@ -286,7 +289,7 @@ class VideoConverterTest extends TestCase
     public function testConvertWithWrongPassWillError(): void
     {
         $this->expectException(ProcessFailedException::class);
-        $this->expectExceptionMessageMatches('/Error reading log file(.*)for pass-2 encoding/');
+        $this->expectExceptionMessageMatchesPolyfilled('/Error reading log file(.*)for pass-2 encoding/');
 
         $outputFile = "{$this->outputDir}/testConvertWithWrongPassWillError.webm";
 
@@ -317,7 +320,7 @@ class VideoConverterTest extends TestCase
         $outputFile = "{$this->outputDir}/testConvertWithInvalidPassLogFileWillError.webm";
 
         $this->expectException(ProcessFailedException::class);
-        $this->expectExceptionMessageMatches('/Error reading log file(.*)for pass-2 encoding/');
+        $this->expectExceptionMessageMatchesPolyfilled('/Error reading log file(.*)for pass-2 encoding/');
 
         $logFile = $this->outputDir . '/testConvertWithInvalidLogFile-ffmpeg-passlog';
         if (file_exists($logFile)) {

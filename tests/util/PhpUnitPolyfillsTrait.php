@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MediaToolsTest\Util;
 
 /**
- * Basic polyfills for phpunit 7.4/8 and 9
+ * Basic polyfills for phpunit 7.4/8 and 9.
  */
-trait PhpUnitPolyfillTrait
+trait PhpUnitPolyfillsTrait
 {
     public function expectExceptionMessageMatchesPolyfilled(string $regexp): void
     {
@@ -14,10 +16,9 @@ trait PhpUnitPolyfillTrait
         } else {
             $this->expectExceptionMessageRegExp($regexp);
         }
-
     }
 
-    static public function assertMatchesRegularExpressionPolyfilled(string $regexp, string $string): void
+    public static function assertMatchesRegularExpressionPolyfilled(string $regexp, string $string): void
     {
         if (is_callable(['parent', 'assertMacthesRegularExpression'])) {
             parent::assertMatchesRegularExpression($regexp, $string);
@@ -26,8 +27,7 @@ trait PhpUnitPolyfillTrait
         }
     }
 
-
-    static public function assertFileDoesNotExistPolyfilled(string $file): void
+    public static function assertFileDoesNotExistPolyfilled(string $file): void
     {
         if (is_callable(['parent', 'assertFileDoesNotExists'])) {
             parent::assertFileDoesNotExists($file);
