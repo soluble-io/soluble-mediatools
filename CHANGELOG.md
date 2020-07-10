@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.1 (2020-07-10)
+
+### Fixed
+
+- [Minor] phpdoc covariance issue in NullCache
+- [Minor] process-exception possible covariance issue when extending
+
+### Dev
+
+- [Q&A] Updated phpstan/psalm and few dev deps
+
 ## 2.1.0 (2019-12-21)
 
 ### Added
