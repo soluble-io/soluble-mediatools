@@ -8,6 +8,8 @@ parameters:
 	fileExtensions:
 		- php
 		- dist
+	excludes_analyse:
+		- tests/util/PhpUnitPolyfillTrait.php
 	checkMissingIterableValueType: false
 	checkGenericClassInNonGenericObjectType: false
 	reportUnmatchedIgnoredErrors: true
