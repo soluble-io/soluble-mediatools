@@ -75,7 +75,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             $logMsgs = $this->loggerTestHandler->getRecords() ?? [];
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::ERROR, mb_strtolower($logMsgs[0]['level_name']));
-            self::assertRegExp(
+            self::assertMatchesRegularExpression(
                 '/^VideoConverter(.*)ProcessFailedException(.*)/',
                 $logMsgs[0]['message']
             );
@@ -98,7 +98,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             $logMsgs = $this->loggerTestHandler->getRecords() ?? [];
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::WARNING, mb_strtolower($logMsgs[0]['level_name']));
-            self::assertRegExp(
+            self::assertMatchesRegularExpression(
                 '/^VideoConverter(.*)MissingInputFile(.*)/',
                 $logMsgs[0]['message']
             );

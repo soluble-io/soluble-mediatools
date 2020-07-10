@@ -67,7 +67,7 @@ class ImageFilterTest extends TestCase
             ->withVideoQualityScale(2);
 
         self::assertFileExists($this->imgFile);
-        self::assertFileNotExists($outputFile);
+        self::assertFileDoesNotExist($outputFile);
 
         try {
             $this->videoConvert->convert($this->imgFile, $outputFile, $convertParams);
