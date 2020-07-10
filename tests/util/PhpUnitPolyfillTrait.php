@@ -7,7 +7,7 @@ namespace MediaToolsTest\Util;
 /**
  * Basic polyfills for phpunit 7.4/8 and 9.
  */
-trait PhpUnitPolyfillsTrait
+trait PhpUnitPolyfillTrait
 {
     public function expectExceptionMessageMatchesPolyfilled(string $regexp): void
     {
