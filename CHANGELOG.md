@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Dev
 
 - [Q&A] Updated phpstan/psalm and few dev deps, in [#21](https://github.com/soluble-io/soluble-mediatools/pull/21)
-
+- [Q&A] Allow phpunit v9 and remove deprecations, in [#22](https://github.com/soluble-io/soluble-mediatools/pull/22)
 ## 2.1.0 (2019-12-21)
 
 ### Added
