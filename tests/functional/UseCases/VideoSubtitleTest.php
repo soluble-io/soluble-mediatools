@@ -64,7 +64,7 @@ class VideoSubtitleTest extends TestCase
             ->withOverwrite();
 
         self::assertFileExists($this->subFile);
-        self::assertFileNotExists($outputFile);
+        self::assertFileDoesNotExist($outputFile);
 
         try {
             $this->videoConvert->convert($this->subFile, $outputFile, $convertParams);

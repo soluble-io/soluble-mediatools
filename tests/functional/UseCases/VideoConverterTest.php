@@ -106,7 +106,7 @@ class VideoConverterTest extends TestCase
             ->withCrf(20);
 
         self::assertFileExists($this->videoFile);
-        self::assertFileNotExists($outputFile);
+        self::assertFileDoesNotExist($outputFile);
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
@@ -192,7 +192,7 @@ class VideoConverterTest extends TestCase
             ->withOutputFormat('webm');
 
         self::assertFileExists($this->videoFile);
-        self::assertFileNotExists($outputFile);
+        self::assertFileDoesNotExist($outputFile);
 
         try {
             $this->videoConvert->convert($this->videoFile, $outputFile, $convertParams);
@@ -286,7 +286,7 @@ class VideoConverterTest extends TestCase
     public function testConvertWithWrongPassWillError(): void
     {
         $this->expectException(ProcessFailedException::class);
-        $this->expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
+        $this->expectExceptionMessageMatches('/Error reading log file(.*)for pass-2 encoding/');
 
         $outputFile = "{$this->outputDir}/testConvertWithWrongPassWillError.webm";
 
@@ -317,7 +317,7 @@ class VideoConverterTest extends TestCase
         $outputFile = "{$this->outputDir}/testConvertWithInvalidPassLogFileWillError.webm";
 
         $this->expectException(ProcessFailedException::class);
-        $this->expectExceptionMessageRegExp('/Error reading log file(.*)for pass-2 encoding/');
+        $this->expectExceptionMessageMatches('/Error reading log file(.*)for pass-2 encoding/');
 
         $logFile = $this->outputDir . '/testConvertWithInvalidLogFile-ffmpeg-passlog';
         if (file_exists($logFile)) {
