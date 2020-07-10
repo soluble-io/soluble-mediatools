@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- [Minor] phpdoc covariance issue in NullCache
-- [Minor] process-exception possible covariance issue when extending
+- [Minor] phpdoc covariance issue in NullCache, in [#21](https://github.com/soluble-io/soluble-mediatools/pull/21)
+- [Minor] process-exception possible covariance issue when extending, in [#21](https://github.com/soluble-io/soluble-mediatools/pull/21)
 
 ### Dev
 
-- [Q&A] Updated phpstan/psalm and few dev deps
+- [Q&A] Updated phpstan/psalm and few dev deps, in [#21](https://github.com/soluble-io/soluble-mediatools/pull/21)
 
 ## 2.1.0 (2019-12-21)
 
