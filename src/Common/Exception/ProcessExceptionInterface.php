@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Soluble\MediaTools\Common\Exception;
 
-use Symfony\Component\Process\Exception as SymfonyProcessException;
+use Symfony\Component\Process\Exception as SPException;
 use Symfony\Component\Process\Process;
 
 interface ProcessExceptionInterface extends ExceptionInterface
@@ -19,7 +19,7 @@ interface ProcessExceptionInterface extends ExceptionInterface
     public function getProcess(): Process;
 
     /**
-     * @return SymfonyProcessException\ProcessFailedException|SymfonyProcessException\ProcessSignaledException|SymfonyProcessException\ProcessTimedOutException
+     * @return SPException\RuntimeException|SPException\ProcessFailedException|SPException\ProcessSignaledException|SPException\ProcessTimedOutException
      */
-    public function getSymfonyProcessRuntimeException(): SymfonyProcessException\RuntimeException;
+    public function getSymfonyProcessRuntimeException(): SPException\RuntimeException;
 }

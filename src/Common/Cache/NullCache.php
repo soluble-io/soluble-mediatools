@@ -35,7 +35,7 @@ final class NullCache implements CacheInterface
     /**
      * {@inheritdoc}
      *
-     * @return mixed
+     * @return iterable
      */
     public function getMultiple($keys, $default = null)
     {
