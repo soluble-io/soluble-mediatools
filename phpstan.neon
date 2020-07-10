@@ -12,10 +12,6 @@ parameters:
 	checkGenericClassInNonGenericObjectType: false
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-		# for covariance allowed failures
-		-
-			message: '#Return type(.*)RuntimeException(.*)of method(.*)should be covariant#'
-			path: src/Common/Exception/ProcessException.php
 		-
 			message: '#Instanceof between(.*)VideoFilterInterface and (.*)VideoFilterInterface will(.*)evaluate to true.#'
 			path: src/Video/Filter/VideoFilterChain.php
