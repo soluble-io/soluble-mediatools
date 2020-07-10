@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\UseCases;
 
+use MediaToolsTest\Util\PhpUnitPolyfillTrait;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use PHPUnit\Framework\TestCase;
 use Soluble\MediaTools\Video\Exception\ConverterExceptionInterface;
@@ -21,6 +22,8 @@ use Soluble\MediaTools\Video\VideoInfoReaderInterface;
 
 class VideoSubtitleTest extends TestCase
 {
+    use PhpUnitPolyfillTrait;
+
     use ServicesProviderTrait;
 
     /** @var VideoConverterInterface */
@@ -64,7 +67,7 @@ class VideoSubtitleTest extends TestCase
             ->withOverwrite();
 
         self::assertFileExists($this->subFile);
-        self::assertFileDoesNotExist($outputFile);
+        self::assertFileDoesNotExistPolyfilled($outputFile);
 
         try {
             $this->videoConvert->convert($this->subFile, $outputFile, $convertParams);

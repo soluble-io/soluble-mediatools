@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\Logger;
 
+use MediaToolsTest\Util\PhpUnitPolyfillTrait;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -23,6 +24,8 @@ use Soluble\MediaTools\Video\VideoConvertParams;
 class VideoConversionErrorLoggingTest extends TestCase
 {
     use ServicesProviderTrait;
+
+    use PhpUnitPolyfillTrait;
 
     /** @var Logger */
     protected $logger;
@@ -75,7 +78,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             $logMsgs = $this->loggerTestHandler->getRecords() ?? [];
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::ERROR, mb_strtolower($logMsgs[0]['level_name']));
-            self::assertMatchesRegularExpression(
+            self::assertMatchesRegularExpressionPolyfilled(
                 '/^VideoConverter(.*)ProcessFailedException(.*)/',
                 $logMsgs[0]['message']
             );
@@ -98,7 +101,7 @@ class VideoConversionErrorLoggingTest extends TestCase
             $logMsgs = $this->loggerTestHandler->getRecords() ?? [];
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::WARNING, mb_strtolower($logMsgs[0]['level_name']));
-            self::assertMatchesRegularExpression(
+            self::assertMatchesRegularExpressionPolyfilled(
                 '/^VideoConverter(.*)MissingInputFile(.*)/',
                 $logMsgs[0]['message']
             );

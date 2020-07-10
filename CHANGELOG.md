@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.1.1 (2020-07-10)
+## 2.1.1 (2020-07-??)
 
 ### Fixed
 
@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [Q&A] Updated phpstan/psalm and few dev deps, in [#21](https://github.com/soluble-io/soluble-mediatools/pull/21)
 - [Q&A] Allow phpunit v9 and remove deprecations, in [#22](https://github.com/soluble-io/soluble-mediatools/pull/22)
+- [Q&A] Create mini polyfill for phpunit 7/8/9, in [#23](https://github.com/soluble-io/soluble-mediatools/pull/23)
 
 ## 2.1.0 (2019-12-21)
 

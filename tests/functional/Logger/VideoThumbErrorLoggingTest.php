@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace MediaToolsTest\Functional\Logger;
 
+use MediaToolsTest\Util\PhpUnitPolyfillTrait;
 use MediaToolsTest\Util\ServicesProviderTrait;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -24,6 +25,8 @@ use Soluble\MediaTools\Video\VideoThumbParams;
 class VideoThumbErrorLoggingTest extends TestCase
 {
     use ServicesProviderTrait;
+
+    use PhpUnitPolyfillTrait;
 
     /** @var Logger */
     protected $logger;
@@ -76,7 +79,7 @@ class VideoThumbErrorLoggingTest extends TestCase
             $logMsgs = $this->loggerTestHandler->getRecords() ?? [];
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::ERROR, mb_strtolower($logMsgs[0]['level_name']));
-            self::assertMatchesRegularExpression(
+            self::assertMatchesRegularExpressionPolyfilled(
                 '/^VideoThumbGenerator(.*)ProcessFailedException(.*)/',
                 $logMsgs[0]['message']
             );
@@ -99,7 +102,7 @@ class VideoThumbErrorLoggingTest extends TestCase
             $logMsgs = $this->loggerTestHandler->getRecords() ?? [];
             self::assertCount(1, $logMsgs);
             self::assertEquals(LogLevel::WARNING, mb_strtolower($logMsgs[0]['level_name']));
-            self::assertMatchesRegularExpression(
+            self::assertMatchesRegularExpressionPolyfilled(
                 '/^VideoThumbGenerator(.*)MissingInputFile(.*)/',
                 $logMsgs[0]['message']
             );
