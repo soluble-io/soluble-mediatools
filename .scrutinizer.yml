@@ -8,7 +8,7 @@ build:
                 postgresql: false
                 redis: false
                 rabbitmq: false
-                php: 7.1
+                php: 7.3
             tests:
                 override: ['php-scrutinizer-run']
 
@@ -22,7 +22,7 @@ filter:
         # but treated as a dependency
 
 tools:
-    external_code_coverage: 
+    external_code_coverage:
         timeout: 180
 
 checks:
