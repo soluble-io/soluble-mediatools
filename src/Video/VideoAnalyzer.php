@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Soluble\MediaTools\Video;
 
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Psr\Log\NullLogger;
 use Soluble\MediaTools\Common\Process\ProcessParamsInterface;
 use Soluble\MediaTools\Video\Config\FFMpegConfigInterface;
@@ -50,6 +51,20 @@ final class VideoAnalyzer implements VideoAnalyzerInterface
     {
         $interlaceDetect = new InterlaceDetect($this->ffmpegConfig);
 
-        return $interlaceDetect->guessInterlacing($file, $maxFramesToAnalyze, $processParams);
+        try {
+            return $interlaceDetect->guessInterlacing($file, $maxFramesToAnalyze, $processParams);
+        } catch (\Throwable $e) {
+            $exceptionNs = explode('\\', get_class($e));
+            $this->logger->log(
+                ($e instanceof MissingInputFileException) ? LogLevel::WARNING : LogLevel::ERROR,
+                sprintf(
+                    'VideoAnalyzer %s: \'%s\'. (%s)',
+                    $exceptionNs[count($exceptionNs) - 1],
+                    $file,
+                    $e->getMessage()
+                )
+            );
+            throw $e;
+        }
     }
 }

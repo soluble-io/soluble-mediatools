@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="../tests/bootstrap.php"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
          colors="true"
          verbose="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutCoversAnnotation="true"
-         beStrictAboutResourceUsageDuringSmallTests="true" >
+         beStrictAboutResourceUsageDuringSmallTests="true">
 
     <testsuites>
         <testsuite name="unit">
-            <directory>../tests/unit</directory>
+            <directory>./tests/unit</directory>
         </testsuite>
         <testsuite name="functional">
-            <directory>../tests/functional</directory>
+            <directory>./tests/functional</directory>
         </testsuite>
     </testsuites>
 
+    <php>
+        <const name="FFMPEG_BINARY_PATH" value="ffmpeg" />
+        <const name="FFPROBE_BINARY_PATH" value="ffprobe" />
+    </php>
+
     <filter>
         <whitelist>
-            <directory>../src</directory>
+            <directory>./src</directory>
         </whitelist>
     </filter>
 
-    <php>
-        <const name="FFMPEG_BINARY_PATH" value="./.travis/ffmpeg-release-amd64-static/ffmpeg" />
-        <const name="FFPROBE_BINARY_PATH" value="./.travis/ffmpeg-release-amd64-static/ffprobe" />
-    </php>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
 
 </phpunit>

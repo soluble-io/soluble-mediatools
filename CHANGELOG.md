@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.2 (2020-09-04)
+
+### Added
+
+- [Minor] PHP 8 named parameters support, in [#24](https://github.com/soluble-io/soluble-mediatools/pull/24)
+
+### Fixed
+
+- [Minor] Missing logger in VideoAnalyzer, in [#24](https://github.com/soluble-io/soluble-mediatools/pull/24)
+
 ## 2.1.1 (2020-07-10)
 
 ### Fixed

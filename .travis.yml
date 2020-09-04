@@ -1,3 +1,4 @@
+dist: bionic
 language: php
 
 cache:
@@ -29,8 +30,7 @@ install:
       travis_retry composer -n update --prefer-dist --no-interaction $COMPOSER_ARGS;
     fi
 
-script:
-  - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
+
 
 jobs:
   allow_failures:
@@ -42,7 +42,7 @@ jobs:
       php: 7.3
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
-        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml --coverage-clover=coverage.xml
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml --coverage-clover=coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
         - bash <(curl -s https://codecov.io/bash)
@@ -50,14 +50,20 @@ jobs:
     - stage: Tests
       php: 7.4
       env: INSTALL_FFMPEG=yes REMOVE_QA=no
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml
 
     - stage: Tests
       php: 7.2
       env: INSTALL_FFMPEG=yes REMOVE_QA=no
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml
 
     - stage: Tests
       php: 7.1
       env: INSTALL_FFMPEG=yes REMOVE_QA=no
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
 
     - stage: Tests
       php: 7.1
@@ -71,7 +77,7 @@ jobs:
       php: nightly
       env: COMPOSER_ARGS=--ignore-platform-reqs REMOVE_QA=no
       script:
-        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.xml
+        - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.9.3.xml
 
     - stage: PHPStan, Psalm and Code style
       php: 7.3
