@@ -20,11 +20,13 @@
     </testsuites>
 
 
+    <!--
     <filter>
         <whitelist>
             <directory>../src</directory>
         </whitelist>
     </filter>
+    -->
 
     <php>
         <const name="FFMPEG_BINARY_PATH" value="./.travis/ffmpeg-release-amd64-static/ffmpeg" />
