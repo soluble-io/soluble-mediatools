@@ -249,7 +249,7 @@ final class FFMpegAdapter implements ConverterAdapterInterface
         $exploded = [];
         foreach ($args as $key => $value) {
             $elems      = explode(' ', $value);
-            $exploded[] = (string) array_shift($elems);
+            $exploded[] = array_shift($elems);
             if (count($elems) <= 0) {
                 continue;
             }
