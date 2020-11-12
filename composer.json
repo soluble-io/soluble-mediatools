@@ -38,7 +38,8 @@
         "symfony/process": "^3.3 || ^4.0 || ^5.0"
     },
     "require-dev" : {
-        "captainhook/plugin-composer": "^4.0",
+        "captainhook/captainhook": "5.4.3",
+        "captainhook/plugin-composer": "5.2.2",
         "consistence/coding-standard": "^3.10.1",
         "fig/http-message-util": "^1.1.4",
         "friendsofphp/php-cs-fixer": "^v2.16.7",
