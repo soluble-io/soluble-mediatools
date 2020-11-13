@@ -11,7 +11,7 @@ cache:
 before_install:
   - |
     if [ "x$REMOVE_HOOKS" = "xyes" ]; then
-      composer remove  --dev --no-interaction captainhook/captainhook captainhook/plugin-composer $COMPOSER_ARGS;
+      composer remove captainhook/captainhook captainhook/plugin-composer --dev --no-interaction $COMPOSER_ARGS;
     fi
   - |
     if [ "x$REMOVE_QA" = "xyes" ]; then
@@ -33,8 +33,6 @@ install:
     else
       travis_retry composer -n update --prefer-dist --no-interaction $COMPOSER_ARGS;
     fi
-
-
 
 jobs:
   allow_failures:
