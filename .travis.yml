@@ -10,12 +10,12 @@ cache:
 
 before_install:
   - |
-    if [ "x$REMOVE_HOOKS" = "xyes" ]; then
-      composer remove captainhook/captainhook captainhook/plugin-composer --dev --no-interaction $COMPOSER_ARGS;
+    if [ "x$REMOVE_QA" = "xyes" ]; then
+      composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules jangregor/phpstan-prophecy --dev --no-update --no-interaction $COMPOSER_ARGS;
     fi
   - |
-    if [ "x$REMOVE_QA" = "xyes" ]; then
-      composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules jangregor/phpstan-prophecy --dev --no-interaction $COMPOSER_ARGS;
+    if [ "x$REMOVE_HOOKS" = "xyes" ]; then
+      composer remove captainhook/captainhook captainhook/plugin-composer --dev --no-update --no-interaction $COMPOSER_ARGS;
     fi
   - |
     if [ "x$XDEBUG" != "xyes" ]; then
