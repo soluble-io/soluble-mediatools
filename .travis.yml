@@ -74,8 +74,6 @@ jobs:
       php: 7.1
       env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=no REMOVE_HOOKS=yes
       script:
-        - composer remove captainhook/captainhook
-        - composer remove captainhook/plugin-composer
         - composer remove phpunit/phpunit
         - composer require --dev phpunit/phpunit
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
