@@ -10,6 +10,10 @@ cache:
 
 before_install:
   - |
+    if [ "x$REMOVE_HOOKS" = "xyes" ]; then
+      composer remove  --dev --no-interaction captainhook/captainhook captainhook/plugin-composer $COMPOSER_ARGS;
+    fi
+  - |
     if [ "x$REMOVE_QA" = "xyes" ]; then
       composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules jangregor/phpstan-prophecy --dev --no-interaction $COMPOSER_ARGS;
     fi
@@ -61,16 +65,14 @@ jobs:
 
     - stage: Tests
       php: 7.1
-      env: INSTALL_FFMPEG=yes REMOVE_QA=no
+      env: INSTALL_FFMPEG=yes REMOVE_QA=no REMOVE_HOOKS=yes
       script:
-        - composer remove captainhook/captainhook
-        - composer remove captainhook/plugin-composer
         - composer require --dev phpunit/phpunit
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
 
     - stage: Tests
       php: 7.1
-      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=no
+      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=no REMOVE_HOOKS=yes
       script:
         - composer remove captainhook/captainhook
         - composer remove captainhook/plugin-composer
