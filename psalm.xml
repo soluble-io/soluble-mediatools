@@ -15,7 +15,6 @@
     <issueHandlers>
         <MoreSpecificImplementedParamType errorLevel="info" />
         <LessSpecificImplementedReturnType errorLevel="info" />
-
         <!-- exclusions specific for soluble-mediatool (false positive!) -->
         <LessSpecificReturnType errorLevel="info" />
         <RedundantConditionGivenDocblockType errorLevel="info" />
@@ -28,6 +27,7 @@
         <TypeDoesNotContainType>
             <errorLevel type="info">
                 <file name="src/Video/Info/VideoStream.php" />
+                <file name="src/Video/SeekTime.php" />
             </errorLevel>
         </TypeDoesNotContainType>
 

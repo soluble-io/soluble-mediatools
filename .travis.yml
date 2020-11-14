@@ -11,7 +11,11 @@ cache:
 before_install:
   - |
     if [ "x$REMOVE_QA" = "xyes" ]; then
-      composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules jangregor/phpstan-prophecy --dev --no-interaction $COMPOSER_ARGS;
+      composer remove vimeo/psalm infection/infection friendsofphp/php-cs-fixer phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules jangregor/phpstan-prophecy --dev --no-update --no-interaction $COMPOSER_ARGS;
+    fi
+  - |
+    if [ "x$REMOVE_HOOKS" = "xyes" ]; then
+      composer remove captainhook/captainhook captainhook/plugin-composer --dev --no-update --no-interaction $COMPOSER_ARGS;
     fi
   - |
     if [ "x$XDEBUG" != "xyes" ]; then
@@ -30,8 +34,6 @@ install:
       travis_retry composer -n update --prefer-dist --no-interaction $COMPOSER_ARGS;
     fi
 
-
-
 jobs:
   allow_failures:
     - php: nightly
@@ -39,7 +41,7 @@ jobs:
 
   include:
     - stage: Tests
-      php: 7.3
+      php: 7.4
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml --coverage-clover=coverage.xml
@@ -48,7 +50,7 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
 
     - stage: Tests
-      php: 7.4
+      php: 7.3
       env: INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
         - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml
@@ -61,15 +63,16 @@ jobs:
 
     - stage: Tests
       php: 7.1
-      env: INSTALL_FFMPEG=yes REMOVE_QA=no
+      env: INSTALL_FFMPEG=yes REMOVE_QA=no REMOVE_HOOKS=yes
       script:
+        - composer require --dev phpunit/phpunit
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
 
     - stage: Tests
       php: 7.1
-      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=no
+      env: INSTALL_FFMPEG=yes DEPS=lowest REMOVE_QA=no REMOVE_HOOKS=yes
       script:
-        - composer remove phpunit/phpunit
+        - composer remove --dev --no-interaction phpunit/phpunit
         - composer require --dev phpunit/phpunit
         - ./vendor/bin/phpunit -v -c .travis/phpunit.xml
 
@@ -80,7 +83,7 @@ jobs:
         - ./vendor/bin/phpunit --testsuite unit -v -c .travis/phpunit.9.3.xml
 
     - stage: PHPStan, Psalm and Code style
-      php: 7.3
+      php: 7.4
       env: XDEBUG=false INSTALL_FFMPEG=no REMOVE_QA=no
       script:
         - composer phpstan
@@ -99,13 +102,13 @@ jobs:
         - mkdocs build
 
     - stage: Mutation (unit tests only)
-      php: 7.3
+      php: 7.4
       env: XDEBUG=yes
       script:
         - ./vendor/bin/infection --configuration=./infection.json --test-framework=phpunit --test-framework-options='--testsuite=unit' --min-msi=60 --min-covered-msi=70 --threads=4
 
     - stage: No-leaks
-      php: 7.3
+      php: 7.4
       env: XDEBUG=yes INSTALL_FFMPEG=yes
       script:
         - composer require --dev roave/no-leaks

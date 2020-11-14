@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.0 (2020-11-12)
+
+### Added
+
+- Allow PHP 8 in composer.json, in [#25](https://github.com/soluble-io/soluble-mediatools/pull/25)
+
+### Fixed
+
+- [Minor] Composer 2 support, fix captainhook for development, in [#25](https://github.com/soluble-io/soluble-mediatools/pull/25)
+
+
 ## 2.1.2 (2020-09-04)
 
 ### Added
