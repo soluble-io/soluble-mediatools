@@ -41,6 +41,15 @@ jobs:
 
   include:
     - stage: Tests
+      php: 8.0
+      env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml --coverage-clover=coverage.xml
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+        - bash <(curl -s https://codecov.io/bash)
+
+    - stage: Tests
       php: 7.4
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
