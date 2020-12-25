@@ -41,6 +41,12 @@ jobs:
 
   include:
     - stage: Tests
+      php: "8.0"
+      env: COMPOSER_ARGS=--ignore-platform-reqs XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
+      script:
+        - ./vendor/bin/phpunit -v -c .travis/phpunit.9.3.xml --coverage-clover=coverage.xml
+
+    - stage: Tests
       php: 7.4
       env: XDEBUG=yes INSTALL_FFMPEG=yes REMOVE_QA=no
       script:
